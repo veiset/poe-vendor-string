@@ -36,9 +36,9 @@ export interface PoeStringSettings {
     }
 }
 
-export function generateStr(settings: PoeStringSettings): string {
+export function generate3LinkStr(settings: PoeStringSettings): string {
     const colors = settings.colors;
-    const {rrr, ggg, bbb, rrg, rrb, ggr, ggb, bbr, bbg, rgb, rrA, ggA, bbA, rr, gg, bb} = colors;
+    const {rrr, ggg, bbb, rrg, rrb, ggr, ggb, bbr, bbg, rgb, rrA, ggA, bbA} = colors;
 
     let result = "";
     if (settings.anyThreeLink) result = addExpression(result, "-[rgb]-");
@@ -57,11 +57,17 @@ export function generateStr(settings: PoeStringSettings): string {
     if (bbg) result = addExpression(result, twoAndOne("b", "g"));
     if (bbr) result = addExpression(result, twoAndOne("b", "r"));
 
+    if (rgb) result = addExpression(result, "r-g-b|r-b-g|b-r-g|b-g-r|g-r-b|g-b-r");
+    return result;
+}
+
+export function generate2Link(settings: PoeStringSettings) {
+    const {rr, gg, bb} = settings.colors;
+    let result = "";
     if (rr) result = addExpression(result, "r-r");
     if (gg) result = addExpression(result, "g-g");
     if (bb) result = addExpression(result, "b-b");
 
-    if (rgb) result = addExpression(result, "r-g-b|r-b-g|b-r-g|b-g-r|g-r-b|g-b-r");
     return result;
 }
 

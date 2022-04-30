@@ -6,7 +6,7 @@ import socketBlue from './img/blue-socket.png';
 import socketAny from './img/any-socket.png';
 import socketLink from './img/link.png';
 
-import {addExpression, gemStr, generateStr, movementStr, PoeStringSettings, simplify} from "./OutputString";
+import {addExpression, gemStr, generate2Link, generate3LinkStr, movementStr, PoeStringSettings, simplify} from "./OutputString";
 
 const maxLenght = 50;
 
@@ -71,10 +71,11 @@ const App = () => {
         }
     };
 
-    const result = addExpression(addExpression(
-        simplify(generateStr(settings)),
-        movementStr(settings)
-    ), gemStr(settings));
+    let result = "";
+    result = addExpression(result, simplify(generate3LinkStr(settings)));
+    result = addExpression(result, generate2Link(settings));
+    result = addExpression(result, movementStr(settings));
+    result = addExpression(result, gemStr(settings));
 
     return (
         <div className="wrapper">
@@ -148,10 +149,10 @@ const App = () => {
                     <div className="calc-info">
                         size: {result.length} <br/>
                         <br/>
-                        colors raw: {generateStr(settings)} <br/>
-                        colors min: {simplify(generateStr(settings))} <br/>
-                        raw c size: {generateStr(settings).length} <br/>
-                        min c size: {simplify(generateStr(settings)).length}<br/>
+                        colors raw: {generate3LinkStr(settings)} <br/>
+                        colors min: {simplify(generate3LinkStr(settings))} <br/>
+                        raw c size: {generate3LinkStr(settings).length} <br/>
+                        min c size: {simplify(generate3LinkStr(settings)).length}<br/>
                         <br/>
                         Feature requests & bugs: vz#6904 (discord)
                     </div>
