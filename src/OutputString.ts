@@ -167,7 +167,7 @@ export function movementStr(settings: PoeStringSettings): string {
 
 export function gemStr(settings: PoeStringSettings): string  {
     const {lightning, chaos, cold, fire, phys, any} = settings.plusGems;
-    if (any) return "ell Sk"
+    if (any) return "skill"
     let result = "";
     if (fire) result = addExpression(result, "Flam");
     if (cold) result = addExpression(result, "Sing");
