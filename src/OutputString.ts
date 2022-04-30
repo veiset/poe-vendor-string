@@ -160,7 +160,7 @@ export function addExpression(str: string, textToAdd: string | undefined): strin
 export function movementStr(settings: PoeStringSettings): string {
     const {ten, fifteen} = settings.movement;
     let result = "";
-    if (ten) result = addExpression(result, "nn");
+    if (ten) result = addExpression(result, "nne");
     if (fifteen) result = addExpression(result, "rint");
     return result;
 }
