@@ -151,7 +151,9 @@ const App = () => {
                         colors raw: {generateStr(settings)} <br/>
                         colors min: {simplify(generateStr(settings))} <br/>
                         raw c size: {generateStr(settings).length} <br/>
-                        min c size: {simplify(generateStr(settings)).length}
+                        min c size: {simplify(generateStr(settings)).length}<br/>
+                        <br/>
+                        Feature requests & bugs: vz#6904 (discord)
                     </div>
 
                 </div>
