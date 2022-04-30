@@ -169,10 +169,10 @@ export function gemStr(settings: PoeStringSettings): string  {
     const {lightning, chaos, cold, fire, phys, any} = settings.plusGems;
     if (any) return "ell Sk"
     let result = "";
-    if (fire) result = addExpression(result, "me Sha");
-    if (cold) result = addExpression(result, "st Si");
-    if (lightning) result = addExpression(result, "nder");
-    if (chaos) result = addExpression(result, "Lor");
+    if (fire) result = addExpression(result, "Flam");
+    if (cold) result = addExpression(result, "Sing");
+    if (lightning) result = addExpression(result, "hund");
+    if (chaos) result = addExpression(result, "Lord");
     if (phys) result = addExpression(result, "itho");
     return result;
 }
