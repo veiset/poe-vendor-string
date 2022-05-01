@@ -50,6 +50,19 @@ export interface PoeStringSettings {
     }
 }
 
+export function generateResultString(settings: PoeStringSettings): string {
+    let result = ""
+    result = addExpression(result, generate4LinkStr(settings));
+    result = addExpression(result, simplify(generate3LinkStr(settings)));
+    result = addExpression(result, generate2Link(settings));
+    result = addExpression(result, movementStr(settings));
+    result = addExpression(result, gemStr(settings));
+    result = addExpression(result, generateWeaponDamage(settings));
+    result = simplifyRBG(result);
+    return result;
+
+}
+
 export function generate3LinkStr(settings: PoeStringSettings): string {
     const colors = settings.colors;
     const {rrr, ggg, bbb, rrg, rrb, ggr, ggb, bbr, bbg, rgb, rrA, ggA, bbA, raa, baa, gaa} = colors;
@@ -115,6 +128,10 @@ export function simplify(search: string): string {
     let result = search;
     if (result.includes("|-[rgb]-|") || result.startsWith("-[rgb]-|")) return "-[rgb]-"
 
+    result = removeCCCWhenCCA(result, "r", "g", "b");
+    result = removeCCCWhenCCA(result, "g", "b", "r");
+    result = removeCCCWhenCCA(result, "b", "r", "g");
+
     result = simplifyCCACCB(result, "r", "g", "b");
     result = simplifyCCACCB(result, "g", "r", "b");
     result = simplifyCCACCB(result, "b", "r", "g");
@@ -122,10 +139,6 @@ export function simplify(search: string): string {
     result = simplifyTwoAndTwo(result, "g", "r");
     result = simplifyTwoAndTwo(result, "r", "b");
     result = simplifyTwoAndTwo(result, "b", "g");
-
-    result = removeCCCWhenCCA(result, "r", "g", "b");
-    result = removeCCCWhenCCA(result, "g", "b", "g");
-    result = removeCCCWhenCCA(result, "b", "r", "g");
 
     result = simplifyThreeAndTwoAndAny(result, "r", "g", "b");
     result = simplifyThreeAndTwoAndAny(result, "g", "r", "b");
@@ -168,6 +181,13 @@ function simplifyCCCWhenCCB(result: string, c: string, c2: string): string {
 
     return r;
 }
+
+// r-r-|-r-r|r-.-r|g-g-|-g-g|g-.-g -> ([rg]-){2}r|([rg]-){2}g
+// r-r-|-r-r|r-.-r|g-g-|-g-g|g-.-g|b-b-|-b-b|b-.-b -> ([rgb]-){2}r|([rgb]-){2}g|([rgb]-){2}b
+export function simplifyCCACCA() {
+
+}
+
 
 // r-r-g|r-g-r|g-r-r|g-g-r|g-r-g|g-g-r -> g-[gr]-r|r-[gr]-g
 function simplifyTwoAndTwo(result: string, c: string, c2: string): string {
@@ -235,7 +255,7 @@ export function generateWeaponDamage(settings: PoeStringSettings): string {
     const {phys, elemental, spellDamage} = settings.damage;
     let result = "";
     if (phys) result = addExpression(result, "Glint|Heav");
-    if (elemental) result = addExpression(result, "Heat|Fros|Humm");
+    if (elemental) result = addExpression(result, "Heat|roste|Humm");
     if (spellDamage) result = addExpression(result, "Appre");
 
     return result;

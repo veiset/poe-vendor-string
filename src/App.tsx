@@ -7,13 +7,9 @@ import socketAny from './img/any-socket.png';
 import socketLink from './img/link.png';
 
 import {
-    addExpression,
-    gemStr,
-    generate2Link,
-    generate3LinkStr, generate4LinkStr,
-    generateWeaponDamage,
-    movementStr,
     PoeStringSettings,
+    generate3LinkStr,
+    generateResultString,
     simplify,
     simplifyRBG
 } from "./OutputString";
@@ -100,14 +96,7 @@ const App = () => {
         }
     };
 
-    let result = "";
-    result = addExpression(result, generate4LinkStr(settings));
-    result = addExpression(result, simplify(generate3LinkStr(settings)));
-    result = addExpression(result, generate2Link(settings));
-    result = addExpression(result, movementStr(settings));
-    result = addExpression(result, gemStr(settings));
-    result = addExpression(result, generateWeaponDamage(settings));
-    result = simplifyRBG(result);
+    let result = generateResultString(settings);
 
     return (
         <div className="wrapper">
