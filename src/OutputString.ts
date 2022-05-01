@@ -1,5 +1,6 @@
 export interface PoeStringSettings {
     anyThreeLink: boolean
+    anyFourLink: boolean
     movement: {
         ten: boolean
         fifteen: boolean
@@ -21,6 +22,10 @@ export interface PoeStringSettings {
         bbr: boolean
 
         rgb: boolean
+
+        raa: boolean
+        gaa: boolean
+        baa: boolean
 
         rr: boolean
         gg: boolean
@@ -47,7 +52,7 @@ export interface PoeStringSettings {
 
 export function generate3LinkStr(settings: PoeStringSettings): string {
     const colors = settings.colors;
-    const {rrr, ggg, bbb, rrg, rrb, ggr, ggb, bbr, bbg, rgb, rrA, ggA, bbA} = colors;
+    const {rrr, ggg, bbb, rrg, rrb, ggr, ggb, bbr, bbg, rgb, rrA, ggA, bbA, raa, baa, gaa} = colors;
 
     let result = "";
     if (settings.anyThreeLink) result = addExpression(result, "-[rgb]-");
@@ -67,7 +72,18 @@ export function generate3LinkStr(settings: PoeStringSettings): string {
     if (bbr) result = addExpression(result, twoAndOne("b", "r"));
 
     if (rgb) result = addExpression(result, "r-g-b|r-b-g|b-r-g|b-g-r|g-r-b|g-b-r");
+    if (raa) result = addExpression(result, oneAndAnyAny("r"));
+    if (gaa) result = addExpression(result, oneAndAnyAny("g"));
+    if (baa) result = addExpression(result, oneAndAnyAny("b"));
     return result;
+}
+
+export function generate4LinkStr(settings: PoeStringSettings): string {
+    return settings.anyFourLink ? ".-[rgb]-.-." : "";
+}
+
+function oneAndAnyAny(c: string): string {
+    return `.-.-${c}|.-${c}-.|${c}-.-.`;
 }
 
 export function generate2Link(settings: PoeStringSettings) {
@@ -88,11 +104,11 @@ export function simplifyRBG(result: string): string {
 }
 
 function twoAndOne(b: string, s2: string): string {
-    return `${b}-${b}-${s2}|${b}-${s2}-${b}|${s2}-${b}-${b}`
+    return `${b}-${b}-${s2}|${b}-${s2}-${b}|${s2}-${b}-${b}`;
 }
 
 function twoAndAny(b: string) {
-    return `${b}-${b}-|-${b}-${b}|${b}-[rgb]-${b}`
+    return `${b}-${b}-|-${b}-${b}|${b}-[rgb]-${b}`;
 }
 
 export function simplify(search: string): string {

@@ -10,7 +10,7 @@ import {
     addExpression,
     gemStr,
     generate2Link,
-    generate3LinkStr,
+    generate3LinkStr, generate4LinkStr,
     generateWeaponDamage,
     movementStr,
     PoeStringSettings,
@@ -39,6 +39,10 @@ const App = () => {
 
     const [rgb, setRgb] = React.useState(false);
 
+    const [raa, setRaa] = React.useState(false);
+    const [gaa, setGaa] = React.useState(false);
+    const [baa, setBaa] = React.useState(false);
+
     const [rr, setRr] = React.useState(false);
     const [gg, setGg] = React.useState(false);
     const [bb, setBb] = React.useState(false);
@@ -48,6 +52,7 @@ const App = () => {
     const [bg, setBg] = React.useState(false);
 
     const [anyThreeLink, setAnyThreeLink] = React.useState(false);
+    const [anyFourLink, setAnyFourLink] = React.useState(false);
     const [movement10, setMovement10] = React.useState(false);
     const [movement15, setMovement15] = React.useState(false);
 
@@ -68,6 +73,7 @@ const App = () => {
 
     let settings: PoeStringSettings = {
         anyThreeLink,
+        anyFourLink,
         movement: {
             ten: movement10,
             fifteen: movement15,
@@ -76,7 +82,7 @@ const App = () => {
             rrr, ggg, bbb,
             rrA, ggA, bbA,
             ggr, ggb, rrg, rrb, bbg, bbr,
-            rgb,
+            rgb, raa, gaa, baa,
             rr, gg, bb, rb, gr, bg,
         },
         plusGems: {
@@ -95,6 +101,7 @@ const App = () => {
     };
 
     let result = "";
+    result = addExpression(result, generate4LinkStr(settings));
     result = addExpression(result, simplify(generate3LinkStr(settings)));
     result = addExpression(result, generate2Link(settings));
     result = addExpression(result, movementStr(settings));
@@ -126,7 +133,6 @@ const App = () => {
                 <div className="break"/>
                 <div className="item">
                     <div className="column-header">Link colors (3L)</div>
-                    <SocketCheckbox label="Any 3 link" value={anyThreeLink} onChange={setAnyThreeLink} link="*-*-*"/>
                     <SocketCheckbox label="r-r-*" value={rrA} onChange={setRrA}/>
                     <SocketCheckbox label="g-g-*" value={ggA} onChange={setGgA}/>
                     <SocketCheckbox label="b-b-*" value={bbA} onChange={setBbA}/>
@@ -144,11 +150,18 @@ const App = () => {
                     <SocketCheckbox label="b-b-g" value={bbg} onChange={setBbg}/>
 
                     <SocketCheckbox className="small-padding" label="r-g-b" value={rgb} onChange={setRgb}/>
+                    <SocketCheckbox label="r-*-*" value={raa} onChange={setRaa}/>
+                    <SocketCheckbox label="g-*-*" value={gaa} onChange={setGaa}/>
+                    <SocketCheckbox label="b-*-*" value={baa} onChange={setBaa}/>
                 </div>
                 <div className="item">
                     <div className="column-header"> Movement speed </div>
                     <Checkbox label="Movement speed (10%)" value={movement10} onChange={setMovement10}/>
                     <Checkbox label="Movement speed (15%)" value={movement15} onChange={setMovement15}/>
+
+                    <div className="column-header"> Any links</div>
+                    <SocketCheckbox label="Any 4 link" value={anyFourLink} onChange={setAnyFourLink} link="*-*-*-*"/>
+                    <SocketCheckbox label="Any 3 link" value={anyThreeLink} onChange={setAnyThreeLink} link="*-*-*"/>
 
                     <div className="column-header small-padding"> Link colors (2L) </div>
                     <SocketCheckbox label="r-r" value={rr} onChange={setRr}/>

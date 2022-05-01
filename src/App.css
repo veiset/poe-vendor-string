@@ -43,7 +43,7 @@ input {
 .container {
   display: flex;
   gap: 10px 20px;
-  row-gap: 20px;
+  row-gap: 10px;
   column-gap: 20px;
   flex-direction: row;
   width: 100%;
@@ -123,6 +123,7 @@ input {
 }
 
 .column-header {
+  padding-top: 15px;
   padding-left: 10px;
   padding-bottom: 10px;
   font-size: 24px;
