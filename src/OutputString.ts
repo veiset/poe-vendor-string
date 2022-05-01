@@ -79,7 +79,7 @@ export function generate3LinkStr(settings: PoeStringSettings): string {
 }
 
 export function generate4LinkStr(settings: PoeStringSettings): string {
-    return settings.anyFourLink ? ".-[rgb]-.-." : "";
+    return settings.anyFourLink ? "-[rgb]-.-" : "";
 }
 
 function oneAndAnyAny(c: string): string {
