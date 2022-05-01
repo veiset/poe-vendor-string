@@ -83,6 +83,10 @@ export function generate2Link(settings: PoeStringSettings) {
     return result;
 }
 
+export function simplifyRBG(result: string): string {
+    return result.replaceAll(/([rgb])-(\[rgb])-([rgb])/g, "$1-.-$3");
+}
+
 function twoAndOne(b: string, s2: string): string {
     return `${b}-${b}-${s2}|${b}-${s2}-${b}|${s2}-${b}-${b}`
 }

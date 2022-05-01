@@ -6,7 +6,17 @@ import socketBlue from './img/blue-socket.png';
 import socketAny from './img/any-socket.png';
 import socketLink from './img/link.png';
 
-import {addExpression, gemStr, generate2Link, generate3LinkStr, generateWeaponDamage, movementStr, PoeStringSettings, simplify} from "./OutputString";
+import {
+    addExpression,
+    gemStr,
+    generate2Link,
+    generate3LinkStr,
+    generateWeaponDamage,
+    movementStr,
+    PoeStringSettings,
+    simplify,
+    simplifyRBG
+} from "./OutputString";
 
 const maxLenght = 50;
 
@@ -90,6 +100,7 @@ const App = () => {
     result = addExpression(result, movementStr(settings));
     result = addExpression(result, gemStr(settings));
     result = addExpression(result, generateWeaponDamage(settings));
+    result = simplifyRBG(result);
 
     return (
         <div className="wrapper">
@@ -172,9 +183,9 @@ const App = () => {
                         size: {result.length} <br/>
                         <br/>
                         colors raw: {generate3LinkStr(settings)} <br/>
-                        colors min: {simplify(generate3LinkStr(settings))} <br/>
+                        colors min: {simplifyRBG(simplify(generate3LinkStr(settings)))} <br/>
                         raw c size: {generate3LinkStr(settings).length} <br/>
-                        min c size: {simplify(generate3LinkStr(settings)).length}<br/>
+                        min c size: {simplifyRBG(simplify(generate3LinkStr(settings))).length}<br/>
                         <br/>
                         Feature requests & bugs: vz#6904 (discord)
                     </div>
