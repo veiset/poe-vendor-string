@@ -88,6 +88,10 @@ export function simplify(search: string): string {
     let result = search;
     if (result.includes("|-[rgb]-|") || result.startsWith("-[rgb]-|")) return "-[rgb]-"
 
+    result = simplifyCCACCB(result, "r", "g", "b");
+    result = simplifyCCACCB(result, "g", "r", "b");
+    result = simplifyCCACCB(result, "b", "r", "g");
+
     result = simplifyTwoAndTwo(result, "g", "r");
     result = simplifyTwoAndTwo(result, "r", "b");
     result = simplifyTwoAndTwo(result, "b", "g");
@@ -110,6 +114,18 @@ export function simplify(search: string): string {
 
     let unique = Array.from(new Set(result.split("|")));
     return unique.join("|");
+}
+
+// r-r-g|r-g-r|g-r-r|r-r-b|r-b-r|b-r-r -> r-r-[gb]|r-[gb]-r|[gb]-r-r
+function simplifyCCACCB(result: string, c: string, c2: string, c3: string): string {
+    let r = result;
+    const search1 = `${c}-${c}-${c2}|${c}-${c2}-${c}|${c2}-${c}-${c}`;
+    const search2 = `${c}-${c}-${c3}|${c}-${c3}-${c}|${c3}-${c}-${c}`;
+    if (result.includes(search1) && result.includes(search2)) {
+        r = r.split("|").filter(v => !v.match(`${search1}|${search2}`)).join("|")
+        r = addExpression(r, `${c}-${c}-[${c2}${c3}]|${c}-[${c2}${c3}]-${c}|[${c2}${c3}]-${c}-${c}`);
+    }
+    return r;
 }
 
 // g-g-g|g-g-r|g-r-g|r-g-g -> g-g-r|g-[rg]-g|r-g-g
