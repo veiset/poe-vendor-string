@@ -25,6 +25,10 @@ export interface PoeStringSettings {
         rr: boolean
         gg: boolean
         bb: boolean
+
+        rb: boolean
+        gr: boolean
+        bg: boolean
     }
     plusGems: {
         lightning: boolean
@@ -67,11 +71,14 @@ export function generate3LinkStr(settings: PoeStringSettings): string {
 }
 
 export function generate2Link(settings: PoeStringSettings) {
-    const {rr, gg, bb} = settings.colors;
+    const {rr, gg, bb, rb, gr, bg} = settings.colors;
     let result = "";
     if (rr) result = addExpression(result, "r-r");
     if (gg) result = addExpression(result, "g-g");
     if (bb) result = addExpression(result, "b-b");
+    if (rb) result = addExpression(result, "r-b|b-r");
+    if (gr) result = addExpression(result, "g-r|r-g");
+    if (bg) result = addExpression(result, "b-g|g-b");
 
     return result;
 }

@@ -33,6 +33,9 @@ const App = () => {
     const [gg, setGg] = React.useState(false);
     const [bb, setBb] = React.useState(false);
 
+    const [rb, setRb] = React.useState(false);
+    const [gr, setGr] = React.useState(false);
+    const [bg, setBg] = React.useState(false);
 
     const [anyThreeLink, setAnyThreeLink] = React.useState(false);
     const [movement10, setMovement10] = React.useState(false);
@@ -64,7 +67,7 @@ const App = () => {
             rrA, ggA, bbA,
             ggr, ggb, rrg, rrb, bbg, bbr,
             rgb,
-            rr, gg, bb
+            rr, gg, bb, rb, gr, bg,
         },
         plusGems: {
             lightning,
@@ -140,6 +143,10 @@ const App = () => {
                     <SocketCheckbox label="r-r" value={rr} onChange={setRr}/>
                     <SocketCheckbox label="g-g" value={gg} onChange={setGg}/>
                     <SocketCheckbox label="b-b" value={bb} onChange={setBb}/>
+
+                    <SocketCheckbox className="small-padding" label="r-b" value={rb} onChange={setRb}/>
+                    <SocketCheckbox label="g-r" value={gr} onChange={setGr}/>
+                    <SocketCheckbox label="b-g" value={bg} onChange={setBg}/>
 
                 </div>
                 <div className="item">
