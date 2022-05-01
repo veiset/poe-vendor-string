@@ -6,7 +6,7 @@ import socketBlue from './img/blue-socket.png';
 import socketAny from './img/any-socket.png';
 import socketLink from './img/link.png';
 
-import {addExpression, gemStr, generate2Link, generate3LinkStr, movementStr, PoeStringSettings, simplify} from "./OutputString";
+import {addExpression, gemStr, generate2Link, generate3LinkStr, generateWeaponDamage, movementStr, PoeStringSettings, simplify} from "./OutputString";
 
 const maxLenght = 50;
 
@@ -48,6 +48,11 @@ const App = () => {
     const [copied, setCopied] = React.useState<string | undefined>(undefined);
 
 
+    const [dmgPhys, setDmgPhys] = React.useState(false);
+    const [dmgElemental, setDmgElemental] = React.useState(false);
+    const [dmgSpell, setDmgSpell] = React.useState(false);
+
+
     let settings: PoeStringSettings = {
         anyThreeLink,
         movement: {
@@ -68,6 +73,11 @@ const App = () => {
             phys,
             chaos,
             any: anyGem,
+        },
+        damage: {
+            phys: dmgPhys,
+            elemental: dmgElemental,
+            spellDamage: dmgSpell,
         }
     };
 
@@ -76,6 +86,7 @@ const App = () => {
     result = addExpression(result, generate2Link(settings));
     result = addExpression(result, movementStr(settings));
     result = addExpression(result, gemStr(settings));
+    result = addExpression(result, generateWeaponDamage(settings));
 
     return (
         <div className="wrapper">
@@ -141,6 +152,10 @@ const App = () => {
                     <Checkbox label="+1 cold wand" value={cold} onChange={setCold}/>
                     <Checkbox label="+1 phys wand" value={phys} onChange={setPhys}/>
                     <Checkbox label="+1 chaos wand" value={chaos} onChange={setChaos}/>
+
+                    <Checkbox className="small-padding" label="Physical damage" value={dmgPhys} onChange={setDmgPhys}/>
+                    <Checkbox label="Flat Elemental damage" value={dmgElemental} onChange={setDmgElemental}/>
+                    <Checkbox label="Increased Spell damage" value={dmgSpell} onChange={setDmgSpell}/>
                 </div>
 
                 <div className="break"/>
@@ -168,6 +183,7 @@ interface CheckboxProps {
     label: string
     value: boolean
     onChange: Dispatch<SetStateAction<boolean>>
+    className?: string
 }
 
 interface LinkCheckboxProps {
@@ -180,7 +196,7 @@ interface LinkCheckboxProps {
 
 const Checkbox = (props: CheckboxProps) => {
     return (
-        <div>
+        <div className={props.className}>
             <label className="checkbox">
                 <input className="checkbox-input" type="checkbox" checked={props.value} onChange={e => props.onChange(e.target.checked)}/>
                 <span>{props.label}</span>

@@ -34,6 +34,11 @@ export interface PoeStringSettings {
         chaos: boolean
         any: boolean
     }
+    damage: {
+        phys: boolean
+        elemental: boolean
+        spellDamage: boolean
+    }
 }
 
 export function generate3LinkStr(settings: PoeStringSettings): string {
@@ -180,5 +185,15 @@ export function gemStr(settings: PoeStringSettings): string  {
     if (lightning) result = addExpression(result, "hund");
     if (chaos) result = addExpression(result, "Lord");
     if (phys) result = addExpression(result, "itho");
+    return result;
+}
+
+export function generateWeaponDamage(settings: PoeStringSettings): string {
+    const {phys, elemental, spellDamage} = settings.damage;
+    let result = "";
+    if (phys) result = addExpression(result, "Glint|Heav");
+    if (elemental) result = addExpression(result, "Heat|Fros|Humm");
+    if (spellDamage) result = addExpression(result, "Appre");
+
     return result;
 }
