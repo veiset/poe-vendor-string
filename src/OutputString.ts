@@ -1,4 +1,7 @@
+import {CONJUNCTION} from './constants';
+
 export interface PoeStringSettings {
+    activeMode: string
     anyThreeLink: boolean
     anyFourLink: boolean
     movement: {
@@ -52,12 +55,12 @@ export interface PoeStringSettings {
 
 export function generateResultString(settings: PoeStringSettings): string {
     let result = ""
-    result = addExpression(result, generate4LinkStr(settings));
-    result = addExpression(result, simplify(generate3LinkStr(settings)));
-    result = addExpression(result, generate2Link(settings));
-    result = addExpression(result, movementStr(settings));
-    result = addExpression(result, gemStr(settings));
-    result = addExpression(result, generateWeaponDamage(settings));
+    result = addExpression(result, generate4LinkStr(settings), settings.activeMode);
+    result = addExpression(result, simplify(generate3LinkStr(settings)), settings.activeMode);
+    result = addExpression(result, generate2Link(settings), settings.activeMode);
+    result = addExpression(result, movementStr(settings), settings.activeMode);
+    result = addExpression(result, gemStr(settings), settings.activeMode);
+    result = addExpression(result, generateWeaponDamage(settings), settings.activeMode);
     result = simplifyRBG(result);
     return result;
 
@@ -102,12 +105,12 @@ function oneAndAnyAny(c: string): string {
 export function generate2Link(settings: PoeStringSettings) {
     const {rr, gg, bb, rb, gr, bg} = settings.colors;
     let result = "";
-    if (rr) result = addExpression(result, "r-r");
-    if (gg) result = addExpression(result, "g-g");
-    if (bb) result = addExpression(result, "b-b");
-    if (rb) result = addExpression(result, "r-b|b-r");
-    if (gr) result = addExpression(result, "g-r|r-g");
-    if (bg) result = addExpression(result, "b-g|g-b");
+    if (rr) result = addExpression(result, "r-r", settings.activeMode);
+    if (gg) result = addExpression(result, "g-g", settings.activeMode);
+    if (bb) result = addExpression(result, "b-b", settings.activeMode);
+    if (rb) result = addExpression(result, "r-b|b-r", settings.activeMode);
+    if (gr) result = addExpression(result, "g-r|r-g", settings.activeMode);
+    if (bg) result = addExpression(result, "b-g|g-b", settings.activeMode);
 
     return result;
 }
@@ -224,11 +227,14 @@ function simplifyThreeAndTwoAndAny(result: string, c: string, c2: string, c3: st
     return r;
 }
 
-export function addExpression(str: string, textToAdd: string | undefined): string {
+export function addExpression(str: string, textToAdd: string | undefined, conj?: string | undefined): string {
     if (textToAdd === undefined || textToAdd.length === 0) {
         return str;
     }
-    return str?.length === 0 ? textToAdd : `${str}|${textToAdd}`;
+    if (conj === undefined || conj.length === 0) {
+        conj = CONJUNCTION.OR;
+    }
+    return str?.length === 0 ? textToAdd : `${str}${conj}${textToAdd}`;
 }
 
 export function movementStr(settings: PoeStringSettings): string {

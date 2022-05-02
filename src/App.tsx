@@ -13,10 +13,13 @@ import {
     simplify,
     simplifyRBG
 } from "./OutputString";
+import {CONJUNCTION} from "./constants";
 
 const maxLenght = 50;
 
 const App = () => {
+
+    const [activeMode, setMode] = React.useState(CONJUNCTION.OR);
 
     const [rrr, setRrr] = React.useState(false);
     const [ggg, setGgg] = React.useState(false);
@@ -68,6 +71,7 @@ const App = () => {
 
 
     let settings: PoeStringSettings = {
+        activeMode,
         anyThreeLink,
         anyFourLink,
         movement: {
@@ -93,7 +97,7 @@ const App = () => {
             phys: dmgPhys,
             elemental: dmgElemental,
             spellDamage: dmgSpell,
-        }
+        },
     };
 
     let result = generateResultString(settings);
@@ -119,9 +123,12 @@ const App = () => {
                         </div>
                     </div>
                 </div>
+                <div className="radio-modes">
+                    <RadioButtons value={activeMode} onChange={setMode}/>
+                </div>
                 <div className="break"/>
                 <div className="item">
-                    <div className="column-header">Link colors (3L)</div>
+                    <div className="column-header top">Link colors (3L)</div>
                     <SocketCheckbox label="r-r-*" value={rrA} onChange={setRrA}/>
                     <SocketCheckbox label="g-g-*" value={ggA} onChange={setGgA}/>
                     <SocketCheckbox label="b-b-*" value={bbA} onChange={setBbA}/>
@@ -144,7 +151,7 @@ const App = () => {
                     <SocketCheckbox label="b-*-*" value={baa} onChange={setBaa}/>
                 </div>
                 <div className="item">
-                    <div className="column-header"> Movement speed </div>
+                    <div className="column-header top"> Movement speed </div>
                     <Checkbox label="Movement speed (10%)" value={movement10} onChange={setMovement10}/>
                     <Checkbox label="Movement speed (15%)" value={movement15} onChange={setMovement15}/>
 
@@ -163,7 +170,7 @@ const App = () => {
 
                 </div>
                 <div className="item">
-                    <div className="column-header">
+                    <div className="column-header top">
                         Misc
                     </div>
                     <Checkbox label="+1 wand (any)" value={anyGem} onChange={setAnyGem}/>
@@ -212,6 +219,29 @@ interface LinkCheckboxProps {
     value: boolean
     onChange: Dispatch<SetStateAction<boolean>>
     className?: string
+}
+
+interface RadioButtonProps {
+    className?: string
+    value: string
+    onChange: Dispatch<SetStateAction<string>>
+}
+
+const RadioButtons = (props: RadioButtonProps) => {
+    return (
+        <div className={props.className}>
+            <legend>Select Combination Mode</legend>
+            <label>
+                <input type="radio" id="or" value="or" checked={props.value === CONJUNCTION.OR} onChange={e => props.onChange(CONJUNCTION.OR)}/>
+                <span className="label">Or</span>
+            </label>
+            <label>
+                <input type="radio" id="and" value="and" checked={props.value === CONJUNCTION.AND} onChange={e => props.onChange(CONJUNCTION.AND)}/>
+                <span className="label">And</span>
+            </label>
+            <label className="mode-subtext">Note: *And* mode does not work on 3L or within Misc groups</label>
+        </div>
+    );
 }
 
 const Checkbox = (props: CheckboxProps) => {

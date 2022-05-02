@@ -1,4 +1,5 @@
 import {generateResultString, PoeStringSettings} from "./OutputString";
+import {CONJUNCTION} from "./constants";
 
 const testData = [
     // damage mods (melee)
@@ -38,6 +39,7 @@ const testData = [
 
 function getDefaultSettings(): PoeStringSettings {
     return {
+        activeMode: CONJUNCTION.OR,
         anyThreeLink: false,
         anyFourLink: false,
         movement: {ten: false, fifteen: false,},

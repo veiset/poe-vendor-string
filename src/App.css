@@ -122,6 +122,21 @@ input {
   padding-top: 10px;
 }
 
+.radio-modes {
+  padding-top: 10px;
+  font-weight: bold;
+}
+
+label:hover {
+  cursor:pointer;
+}
+
+.mode-subtext {
+  padding-left: 40rem;
+  font-size: 12px;
+  pointer-events: none;
+}
+
 .column-header {
   padding-top: 15px;
   padding-left: 10px;
@@ -129,6 +144,11 @@ input {
   font-size: 24px;
   font-weight: bold;
 }
+
+.column-header.top {
+  padding-top: 0;
+}
+
 .link-text {
   padding-left: 10px;
   font-size: 14px;
