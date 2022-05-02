@@ -243,8 +243,8 @@ export function gemStr(settings: PoeStringSettings): string  {
     if (any || (lightning && chaos && cold && fire && phys)) return "skill"
     let result = "";
     if (fire) result = addExpression(result, "Flam");
-    if (cold) result = addExpression(result, "Sing");
-    if (lightning) result = addExpression(result, "hund");
+    if (cold) result = addExpression(result, "singe");
+    if (lightning) result = addExpression(result, "derha");
     if (chaos) result = addExpression(result, "Lord");
     if (phys) result = addExpression(result, "itho");
     return result;

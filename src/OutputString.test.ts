@@ -1,6 +1,8 @@
 import {generateResultString, PoeStringSettings} from "./OutputString";
+import {generatedItemsLevel15} from "./generated/GeneratedItemsLevel15";
+import {generatedItemsLevel40} from "./generated/GeneratedItemsLevel40";
 
-const testData = [
+const baseTest = [
     // damage mods (melee)
     "R G B    Humming Rusted Hatchet of Absorption        Adds 1 to 5 Lightning Damage +1 Mana gained on Kill",
     "R G B    Heated Rusted Hatchet                       Adds 1 to 3 Fire Damage",
@@ -36,6 +38,8 @@ const testData = [
 
 ].map(v => v.toLowerCase());
 
+const testData = baseTest.concat(generatedItemsLevel15).concat(generatedItemsLevel40);
+
 function getDefaultSettings(): PoeStringSettings {
     return {
         anyThreeLink: false,
@@ -69,7 +73,8 @@ function strWithSettings(settings: any): string {
 
 function expectN(n: number, setting: any) {
     const query = strWithSettings(setting);
-    expect(testData.filter(v => v.match(RegExp(query))).length).toEqual(n);
+    const strings = testData.filter(v => v.match(RegExp(query)));
+    expect(strings.length).toEqual(n);
 }
 
 it("Three links should match four links", () => {
