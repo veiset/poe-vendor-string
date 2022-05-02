@@ -167,15 +167,15 @@ label:hover {
 }
 
 a:link {
-  color: #88d753;
+  color: #a8dffc;
 }
 
 a:visited {
-  color: green;
+  color: #a8dffc;
 }
 
 a:hover {
-  color: #ddff9c;
+  color: #56c8fc;
 }
 
 a:active {
