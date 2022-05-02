@@ -14,9 +14,11 @@ import {
     simplifyRBG
 } from "./OutputString";
 
-const maxLenght = 50;
+const maxLength = 50;
 
 const App = () => {
+
+     const [autoCopy, setAC] = React.useState(false);
 
     const [rrr, setRrr] = React.useState(false);
     const [ggg, setGgg] = React.useState(false);
@@ -97,18 +99,21 @@ const App = () => {
     };
 
     let result = generateResultString(settings);
-
+    if (autoCopy && result.length < maxLength) {
+        navigator.clipboard.writeText(result);
+    }
     return (
         <div className="wrapper">
             <div className="container">
                 <div className="item-wide info-header">Path of Exile - Vendor search tool</div>
                 <div className="item-wide">
                     <div className="result-box">
-                        <div className={result.length > maxLenght ? "result" : result === copied ? "result copied-good" : "result"}>
+                        <div className={result.length > maxLength ? "result" : result === copied || autoCopy ? "result copied-good" : "result"}>
                             {result}
-                            {result.length > maxLenght && <div className="error">Error: more than 50 characters, cannot be used in the PoE client</div>}
-                            {result.length <= maxLenght && result.length > 0 && <div className="size-info">length: {result.length}</div>}
+                            {result.length > maxLength && <div className="error">Error: more than 50 characters, cannot be used in the PoE client</div>}
+                            {result.length <= maxLength && result.length > 0 && <div className="size-info">length: {result.length}</div>}
                         </div>
+                        <AutoCopyCheckbox value={autoCopy} onChange={setAC}/>
                         <div className="copy">
                             <button className="copy-button" onClick={() => {
                                 setCopied(result);
@@ -212,6 +217,20 @@ interface LinkCheckboxProps {
     value: boolean
     onChange: Dispatch<SetStateAction<boolean>>
     className?: string
+}
+
+interface AutoCopyCheckboxProps {
+    value: boolean
+    onChange: Dispatch<SetStateAction<boolean>>
+}
+
+const AutoCopyCheckbox = (props: AutoCopyCheckboxProps) => {
+    return (
+        <label className="auto-copy">
+            <input type="checkbox" className="checkbox-autocopy" checked={props.value} onChange={e => props.onChange(e.target.checked)}/>
+            <span className="auto-copy-text">Auto-copy</span>
+        </label>
+    )
 }
 
 const Checkbox = (props: CheckboxProps) => {

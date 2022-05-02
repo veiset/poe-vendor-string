@@ -68,16 +68,14 @@ input {
   background-color: black;
   width: 100%;
   float: left;
-  padding: 40px;
+  padding: 20px 0 40px 40px;
 }
 .result {
-  padding-top: 10px;
   font-family: monospace;
   font-size: 28px;
   width: 70%;
-  height: 30px;
+  height: 0;
   color: white;
-  white-space:nowrap;
 }
 
 .calc-info {
@@ -86,8 +84,31 @@ input {
 }
 
 .copy {
-  height: 50px;
+  height: 60px;
   float: right;
+  position: relative;
+}
+.auto-copy {
+  float: right;
+  margin-top: auto;
+  position: relative;
+  height:40px;
+  width: 100px;
+  top: 60px;
+  right: 100px;
+}
+.checkbox-autocopy {
+  float: right;
+  margin-top: 8px;
+  margin-left: 0;
+  height: 20px;
+  width: 20px;
+}
+.auto-copy-text {
+  font-size: 14px;
+}
+auto-copy-text:hover {
+  cursor:pointer;
 }
 .copy-button {
   background-color: #2e8012;
@@ -106,6 +127,11 @@ input {
 .copied-good {
   color: #44c117;
 }
+
+label:hover {
+  cursor:pointer;
+}
+
 .error {
   color: #e22434;
   padding-top: 10px;
