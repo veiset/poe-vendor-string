@@ -14,7 +14,7 @@ import {
     simplifyRBG
 } from "./OutputString";
 
-const maxLenght = 50;
+const maxLength = 50;
 
 const App = () => {
 
@@ -99,7 +99,7 @@ const App = () => {
     };
 
     let result = generateResultString(settings);
-    if (autoCopy) {
+    if (autoCopy && result.length < maxLength) {
         navigator.clipboard.writeText(result);
     }
     return (
@@ -108,10 +108,10 @@ const App = () => {
                 <div className="item-wide info-header">Path of Exile - Vendor search tool</div>
                 <div className="item-wide">
                     <div className="result-box">
-                        <div className={result.length > maxLenght ? "result" : result === copied || autoCopy ? "result copied-good" : "result"}>
+                        <div className={result.length > maxLength ? "result" : result === copied || autoCopy ? "result copied-good" : "result"}>
                             {result}
-                            {result.length > maxLenght && <div className="error">Error: more than 50 characters, cannot be used in the PoE client</div>}
-                            {result.length <= maxLenght && result.length > 0 && <div className="size-info">length: {result.length}</div>}
+                            {result.length > maxLength && <div className="error">Error: more than 50 characters, cannot be used in the PoE client</div>}
+                            {result.length <= maxLength && result.length > 0 && <div className="size-info">length: {result.length}</div>}
                         </div>
                         <AutoCopyCheckbox value={autoCopy} onChange={setAC}/>
                         <div className="copy">

@@ -68,16 +68,14 @@ input {
   background-color: black;
   width: 100%;
   float: left;
-  padding: 40px;
+  padding: 20px 0 40px 40px;
 }
 .result {
-  padding-top: 10px;
   font-family: monospace;
   font-size: 28px;
   width: 70%;
-  height: 30px;
+  height: 0;
   color: white;
-  white-space:nowrap;
 }
 
 .calc-info {
@@ -86,8 +84,9 @@ input {
 }
 
 .copy {
-  height: 80px;
+  height: 60px;
   float: right;
+  position: relative;
 }
 .auto-copy {
   float: right;
