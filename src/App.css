@@ -165,3 +165,19 @@ label:hover {
   font-size: 36px;
   color: white;
 }
+
+a:link {
+  color: #88d753;
+}
+
+a:visited {
+  color: green;
+}
+
+a:hover {
+  color: #ddff9c;
+}
+
+a:active {
+  color: #ffffff;
+}

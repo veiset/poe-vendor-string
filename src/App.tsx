@@ -196,7 +196,8 @@ const App = () => {
                         raw c size: {generate3LinkStr(settings).length} <br/>
                         min c size: {simplifyRBG(simplify(generate3LinkStr(settings))).length}<br/>
                         <br/>
-                        Feature requests & bugs: vz#6904 (discord)
+                        Feature requests & bugs: vz#6904 (discord)<br/>
+                        <a href="https://github.com/veiset/poe-vendor-string">github/veiset/poe-vendor-string</a>
                     </div>
 
                 </div>
