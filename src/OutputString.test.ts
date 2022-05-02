@@ -75,7 +75,7 @@ function strWithSettings(settings: any): string {
 
 function expectN(n: number, setting: any) {
     const query = strWithSettings(setting);
-    const strings = testData.filter(v => v.match(RegExp(query)));
+    const strings = testData.filter(v => v.toLowerCase().match(RegExp(query)));
     expect(strings.length).toEqual(n);
 }
 
@@ -145,6 +145,7 @@ it("match movement speed", () => {
 it("damage", () => {
     expectN(6, {damage: { elemental: true }});
     expectN(2, {damage: { phys: true }});
+    expectN(1, {damage: { spellDamage: true }});
 });
 
 it("match skill gems", () => {
