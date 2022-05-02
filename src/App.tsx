@@ -226,10 +226,10 @@ interface AutoCopyCheckboxProps {
 
 const AutoCopyCheckbox = (props: AutoCopyCheckboxProps) => {
     return (
-        <div className="auto-copy">
+        <label className="auto-copy">
             <input type="checkbox" className="checkbox-autocopy" checked={props.value} onChange={e => props.onChange(e.target.checked)}/>
-            <label className="auto-copy-text">Auto-copy</label>
-        </div>
+            <span className="auto-copy-text">Auto-copy</span>
+        </label>
     )
 }
 
