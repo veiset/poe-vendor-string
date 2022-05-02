@@ -85,13 +85,31 @@ input {
   font-size: 14px;
 }
 
-/*input[type=checkbox] {*/
-/*  transform: scale(1.5);*/
-/*}*/
-
 .copy {
   height: 80px;
   float: right;
+}
+.auto-copy {
+  float: right;
+  margin-top: auto;
+  position: relative;
+  height:40px;
+  width: 100px;
+  top: 60px;
+  right: 100px;
+}
+.checkbox-autocopy {
+  float: right;
+  margin-top: 10px;
+  margin-left: 0;
+  height: 20px;
+  width: 20px;
+}
+.auto-copy-text {
+  font-size: 14px;
+}
+auto-copy-text:hover {
+  cursor:pointer;
 }
 .auto-copy {
   float: right;
