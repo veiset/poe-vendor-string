@@ -24,6 +24,7 @@ const testData = [
     "R G B    Hale Fishscale Gauntlets of Absorption      +3 to maximum Life  +1 Mana gained on Kill",
     "R G B    Reinforced Iron Hat of the Cloud            Armour: 12   ArmourBasePercentile: 0 Crafted: true Quality: 20 Sockets: LevelReq: 2 Implicits: 0 16% increased Armour +8% to Lightning Resistance",
     "R G B    Squire's Crude Bow of Ire                   15% increased Physical Damage +10% to Global Critical Strike Multiplier +16 to Accuracy Rating",
+    "R G G    Catalysing Driftwood Wand of Skill          7% increased Attack Speed  17% increased Elemental Damage with Attack Skills",
     // 2 Link colours
     "R-R", "G-G", "B-B",
     "R-G", "G-R", "B-R", "R-B", "G-B", "B-G",
@@ -64,7 +65,8 @@ function getDefaultSettings(): PoeStringSettings {
 function strWithSettings(settings: any): string {
     const s: PoeStringSettings = {...getDefaultSettings(), ...settings};
     // lower casing as PoE client is case insensitive
-    return generateResultString(s).toLowerCase();
+    // remove " as these are used for grouping together and not in the search
+    return generateResultString(s).toLowerCase().replaceAll("\"", "");
 }
 
 function expectN(n: number, setting: any) {

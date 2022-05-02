@@ -240,10 +240,10 @@ export function movementStr(settings: PoeStringSettings): string {
 
 export function gemStr(settings: PoeStringSettings): string  {
     const {lightning, chaos, cold, fire, phys, any} = settings.plusGems;
-    if (any || (lightning && chaos && cold && fire && phys)) return "skill"
+    if (any || (lightning && chaos && cold && fire && phys)) return "\"ll g\"";
     let result = "";
     if (fire) result = addExpression(result, "Flam");
-    if (cold) result = addExpression(result, "Sing");
+    if (cold) result = addExpression(result, "Singe");
     if (lightning) result = addExpression(result, "hund");
     if (chaos) result = addExpression(result, "Lord");
     if (phys) result = addExpression(result, "itho");
