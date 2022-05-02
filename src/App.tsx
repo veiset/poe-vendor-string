@@ -18,7 +18,7 @@ const maxLength = 50;
 
 const App = () => {
 
-     const [autoCopy, setAC] = React.useState(false);
+     const [autoCopy, setAutoCopy] = React.useState(false);
 
     const [rrr, setRrr] = React.useState(false);
     const [ggg, setGgg] = React.useState(false);
@@ -106,14 +106,15 @@ const App = () => {
         <div className="wrapper">
             <div className="container">
                 <div className="item-wide info-header">Path of Exile - Vendor search tool</div>
-                <div className="item-wide">
-                    <div className="result-box">
+                <div className="item-wide result-box">
+                    <div className="result-string">
                         <div className={result.length > maxLength ? "result" : result === copied || autoCopy ? "result copied-good" : "result"}>
                             {result}
                             {result.length > maxLength && <div className="error">Error: more than 50 characters, cannot be used in the PoE client</div>}
                             {result.length <= maxLength && result.length > 0 && <div className="size-info">length: {result.length}</div>}
                         </div>
-                        <AutoCopyCheckbox value={autoCopy} onChange={setAC}/>
+                    </div>
+                    <div className="copy-box">
                         <div className="copy">
                             <button className="copy-button" onClick={() => {
                                 setCopied(result);
@@ -122,6 +123,7 @@ const App = () => {
                                 Copy
                             </button>
                         </div>
+                        <AutoCopyCheckbox value={autoCopy} onChange={setAutoCopy}/>
                     </div>
                 </div>
                 <div className="break"/>
