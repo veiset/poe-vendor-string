@@ -189,15 +189,14 @@ export function simplifyCCACCA() {
 }
 
 
-// r-r-g|r-g-r|g-r-r|g-g-r|g-r-g|g-g-r -> g-[gr]-r|r-[gr]-g
+// r-r-g|r-g-r|g-r-r|g-g-r|g-r-g|g-g-r -> g-[gr]-r|r-[gr]-g|g-r-g|r-g-r
 function simplifyTwoAndTwo(result: string, c: string, c2: string): string {
     let r = result;
     const search1 = `${c}-${c}-${c2}|${c}-${c2}-${c}|${c2}-${c}-${c}`;
     const search2 = `${c2}-${c2}-${c}|${c2}-${c}-${c2}|${c}-${c2}-${c2}`;
     if (result.includes(search1) && result.includes(search2)) {
-        console.log("includes ofc")
         r = r.split("|").filter(v => !v.match(`${search1}|${search2}`)).join("|")
-        r = addExpression(r, `${c}-[${c}${c2}]-${c2}|${c2}-[${c}${c2}]-${c}`);
+        r = addExpression(r, `${c}-[${c}${c2}]-${c2}|${c2}-[${c}${c2}]-${c}|${c}-${c2}-${c}|${c2}-${c}-${c2}`);
     }
     return r;
 }

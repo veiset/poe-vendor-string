@@ -96,6 +96,9 @@ it("3L colours", () => {
     expectN(6, {colors: {ggr: true, ggb: true}});
     expectN(6, {colors: {rrg: true, rrb: true}});
 
+    expectN(6, {colors: {bbr: true, rrb: true}});
+    expectN(6, {colors: {ggb: true, ggr: true}});
+
     expectN(9, {colors: {rrg: true, rrb: true, bbr: true}});
 
     expectN(9, {colors: {rrg: true, rrb: true, bbr: true}});
