@@ -24,7 +24,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Players cannot Regenerate Life, Mana or Energy Shield": {
    value: "Players cannot Regenerate Life, Mana or Energy Shield",
    scary: 2,
-   matchSafe: "eg",
+   matchSafe: "ege",
    matchUnsafe: "eg",
    conflictingMaps: [],
  },
@@ -59,7 +59,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters are Hexproof": {
    value: "Monsters are Hexproof",
    scary: 200,
-   matchSafe: "\"e h\"",
+   matchSafe: "\"re h\"",
    matchUnsafe: "hex",
    conflictingMaps: [],
  },
@@ -353,7 +353,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters gain an Endurance Charge on Hit": {
    value: "Monsters gain an Endurance Charge on Hit",
    scary: 410,
-   matchSafe: "\"an \"",
+   matchSafe: "\"n e\"",
    matchUnsafe: "\"an \"",
    conflictingMaps: [],
  },
@@ -381,7 +381,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters Maim on Hit with Attacks": {
    value: "Monsters Maim on Hit with Attacks",
    scary: 414,
-   matchSafe: "mai",
+   matchSafe: "aim",
    matchUnsafe: "mai",
    conflictingMaps: [],
  },
@@ -486,16 +486,16 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Area is inhabited by Ghosts": {
    value: "Area is inhabited by Ghosts",
    scary: 1000,
-   matchSafe: "gho",
+   matchSafe: "hos",
    matchUnsafe: "gho",
    conflictingMaps: [],
  },
  "Area is inhabited by Goatmen": {
    value: "Area is inhabited by Goatmen",
    scary: 1000,
-   matchSafe: "oa",
+   matchSafe: "goa",
    matchUnsafe: "go",
-   conflictingMaps: [],
+   conflictingMaps: ["Phantasmagoria Map"],
  },
  "Area is inhabited by Humanoids": {
    value: "Area is inhabited by Humanoids",
