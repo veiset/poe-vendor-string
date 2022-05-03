@@ -1,6 +1,6 @@
 import {generateResultString, PoeStringSettings} from "./OutputString";
-import {generatedItemsLevel15} from "./generated/GeneratedItemsLevel15";
-import {generatedItemsLevel40} from "./generated/GeneratedItemsLevel40";
+import {generatedItemsLevel15} from "../generated/GeneratedItemsLevel15";
+import {generatedItemsLevel40} from "../generated/GeneratedItemsLevel40";
 
 const baseTest = [
     // damage mods (melee)

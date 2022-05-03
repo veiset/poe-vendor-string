@@ -1,0 +1,56 @@
+.result-box {
+    background-color: black;
+    width: 100%;
+    display: flex;
+    padding: 20px 0 20px 40px;
+}
+.result-string {
+    white-space: nowrap;
+    text-wrap: none;
+    width: 70%;
+}
+.copy-box {
+    width: 12%;
+    margin-left: auto;
+}
+.result {
+    font-family: monospace;
+    font-size: 28px;
+    height: 40px;
+    color: white;
+}
+.copy {
+    position: relative;
+}
+.auto-copy {
+    margin-top: auto;
+    position: relative;
+}
+.checkbox-autocopy {
+    margin-left: 0;
+    height: 20px;
+    width: 20px;
+}
+.auto-copy-text {
+    font-size: 14px;
+    position: relative;
+    bottom: 4px;
+}
+auto-copy-text:hover {
+    cursor:pointer;
+}
+
+.copied-good {
+    color: #44c117;
+}
+.error {
+    color: #e22434;
+    padding-top: 10px;
+    font-size: 18px;
+}
+.warning {
+    color: #e28d24;
+    padding-top: 10px;
+    font-size: 18px;
+}
+
