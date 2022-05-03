@@ -30,6 +30,9 @@ input[type="checkbox"] {
   background-color: #e22434;
   border: 0px;
 }
+input[type="search"] {
+  background-color: #ffffff;
+}
 
 input {
   padding: 100px;
