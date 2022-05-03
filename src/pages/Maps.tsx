@@ -55,7 +55,7 @@ const Maps = () => {
     return (
         <div className="wrapper">
             <div className="container-maps">
-                <div className="item-wide info-header">Path of Exile - Map Search Tool</div>
+                <div className="item-wide info-header">Path of Exile - BETA still in dev - Map Search Tool</div>
                 <ResultBox result={result} warning={warning}/>
                 <div className="break"/>
                 <div className="item-wide">
