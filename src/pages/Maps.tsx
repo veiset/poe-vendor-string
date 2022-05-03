@@ -10,7 +10,7 @@ const Maps = () => {
     const mods = Array.from(Object.keys(mapModifiers));
     const [selectedBadMods, setSelectedBadMods] = React.useState<string[]>([]);
     const [selectedGoodMods, setSelectedGoodMods] = React.useState<string[]>([]);
-    const [modGrouping, setModGrouping] = React.useState("all");
+    const [modGrouping, setModGrouping] = React.useState("any");
     const [quantity, setQuantity] = React.useState("");
     const [optimizeQuant, setOptimizeQuant] = React.useState(true);
     const [strictMatching, setStrictMatching] = React.useState(true);
@@ -22,7 +22,7 @@ const Maps = () => {
         setResult(generateMapModStr({
             badMods: selectedBadMods,
             goodMods: selectedGoodMods,
-            allGoodMods: modGrouping === "any",
+            allGoodMods: modGrouping === "all",
             quantity,
             strictMatching,
             optimizeQuant,
