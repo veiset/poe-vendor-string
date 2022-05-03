@@ -68,6 +68,15 @@ input {
   width: 380px;
 }
 
+.item-half-size {
+  width: 48%;
+  font-family: monospace;
+  font-size: 14px;
+}
+.mod-list {
+  padding: 15px;
+}
+
 .item-wide {
   width: 100%;
 }
@@ -140,4 +149,21 @@ a:hover {
 
 a:active {
   color: #ffffff;
+}
+
+.modifier-search-box {
+  padding: 8px;
+  margin: 10px;
+  font-size: 16px;
+  font-family: monospace;
+}
+.modifier-quantity-box {
+  padding: 8px;
+  margin: 10px;
+  font-size: 16px;
+  width: 60px;
+  font-family: monospace;
+}
+.selected-mod {
+  color: #fd9653;
 }

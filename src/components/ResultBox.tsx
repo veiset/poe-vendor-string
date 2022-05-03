@@ -1,7 +1,7 @@
 import React, {Dispatch, SetStateAction, useEffect} from "react";
 import "./ResultBox.css";
 
-interface ResultBoxProps {
+export interface ResultBoxProps {
     result: string
     warning?: string
     error?: string

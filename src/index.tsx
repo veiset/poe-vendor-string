@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import Vendor from './pages/Vendor';
-import {HashRouter, Link, Route, Routes} from "react-router-dom";
+import {HashRouter, Route, Routes} from "react-router-dom";
 import Maps from "./pages/Maps";
 
 const root = ReactDOM.createRoot(
