@@ -45,7 +45,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "-X% maximum Player Resistances": {
    value: "-X% maximum Player Resistances",
    scary: 101,
-   matchSafe: "ces",
+   matchSafe: "\"r r\"",
    matchUnsafe: "ces",
    conflictingMaps: [],
  },
@@ -59,7 +59,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters are Hexproof": {
    value: "Monsters are Hexproof",
    scary: 200,
-   matchSafe: "\"re h\"",
+   matchSafe: "\"e he\"",
    matchUnsafe: "hex",
    conflictingMaps: [],
  },
@@ -185,7 +185,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters have X% increased Area of Effect": {
    value: "Monsters have X% increased Area of Effect",
    scary: 219,
-   matchSafe: "\"ed a\"",
+   matchSafe: "\"ed ar\"",
    matchUnsafe: "\"ed a\"",
    conflictingMaps: [],
  },
@@ -262,7 +262,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Players have -X% to amount of Suppressed Spell Damage Prevented": {
    value: "Players have -X% to amount of Suppressed Spell Damage Prevented",
    scary: 310,
-   matchSafe: "ev",
+   matchSafe: "amo",
    matchUnsafe: "ev",
    conflictingMaps: [],
  },
@@ -290,7 +290,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Players gain X% reduced Flask Charges": {
    value: "Players gain X% reduced Flask Charges",
    scary: 401,
-   matchSafe: "las",
+   matchSafe: "ask",
    matchUnsafe: "fla",
    conflictingMaps: [],
  },
@@ -402,7 +402,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Area has patches of Burning Ground": {
    value: "Area has patches of Burning Ground",
    scary: 417,
-   matchSafe: "\"g g\"",
+   matchSafe: "\"f bu\"",
    matchUnsafe: "rn",
    conflictingMaps: ["Acid Caverns Map"],
  },
@@ -416,7 +416,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Area has patches of desecrated ground": {
    value: "Area has patches of desecrated ground",
    scary: 419,
-   matchSafe: "esecrate",
+   matchSafe: "\"s of d\"",
    matchUnsafe: "des",
    conflictingMaps: [],
  },
@@ -479,7 +479,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Area is inhabited by ranged monsters": {
    value: "Area is inhabited by ranged monsters",
    scary: 499,
-   matchSafe: "ang",
+   matchSafe: "rang",
    matchUnsafe: "ang",
    conflictingMaps: [],
  },
