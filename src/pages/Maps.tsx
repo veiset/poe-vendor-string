@@ -95,7 +95,7 @@ const Maps = () => {
 }
 
 function badMapColor(m: MapMod): string {
-    if (m.scary > 500) {
+    if (m.scary > 480) {
         return "#ffffff";
     } else {
         return getGradientColor("#FC9090", "#ffffff",(m.scary)/800);
