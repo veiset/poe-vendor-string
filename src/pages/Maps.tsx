@@ -22,7 +22,7 @@ const Maps = () => {
         setResult(generateMapModStr({
             badMods: selectedBadMods,
             goodMods: selectedGoodMods,
-            allGoodMods: modGrouping === "all",
+            allGoodMods: modGrouping === "any",
             quantity,
             strictMatching,
             optimizeQuant,
@@ -73,13 +73,13 @@ const Maps = () => {
                 <div className="item-half-size box-small-padding">
                     <div className="column-header">I want these mods</div>
                     <div className="radio-button-modgroup">
-                            <input type="radio" id="mods-all" name="mods" value="all" checked={modGrouping === "all"}
+                        <input type="radio" id="mods-any" name="mods" value="any" checked={modGrouping === "any"}
+                               onChange={v => setModGrouping(v.target.value)}/>
+                        <label htmlFor="mods-any">I want <b>any</b> of the modifiers</label>
+                        {" " }/
+                        <input type="radio" id="mods-all" name="mods" value="all" checked={modGrouping === "all"}
                                    onChange={v => setModGrouping(v.target.value)}/>
                             <label htmlFor="mods-all">I want <b>all</b> of the modifiers</label>
-                        {" " }/
-                            <input type="radio" id="mods-any" name="mods" value="any" checked={modGrouping === "any"}
-                                   onChange={v => setModGrouping(v.target.value)}/>
-                            <label htmlFor="mods-any">I want <b>any</b> of the modifiers</label>
                     </div>
                 </div>
                 <div className="break"/>
