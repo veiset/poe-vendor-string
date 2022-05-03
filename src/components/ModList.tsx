@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction} from "react";
+import React, {Dispatch, SetStateAction, useEffect} from "react";
 import {MapMod} from "../generated/GeneratedMapMods";
 
 export interface ModListProps {
@@ -6,11 +6,18 @@ export interface ModListProps {
     mods: MapMod[]
     selected: string[]
     setSelected: Dispatch<SetStateAction<string[]>>
+    colorFun?: (mapMod: MapMod) => string
 }
 
 const ModList = (props: ModListProps) => {
-    const {id, mods, selected, setSelected} = props;
+    const {id, mods, selected, setSelected, colorFun} = props;
     const [search, setSearch] = React.useState("");
+
+    useEffect(() => { }, [selected]);
+
+    const mapMods = mods.filter(v => {
+        return !search || search.toLowerCase().trim().split(" ").every(q => v.value.toLowerCase().includes(q));
+    });
 
     return (
         <>
@@ -25,11 +32,15 @@ const ModList = (props: ModListProps) => {
                     onChange={(v) => setSearch(v.target.value)}/>
             </div>
             <div className="mod-list">
-                {mods.filter(v => !search || v.value.toLowerCase().includes(search.toLowerCase())).map((v) => {
+                {mapMods.map((v) => {
                     const isSelected = selected.includes(v.value);
+                    const colorValue = !isSelected && colorFun
+                        ? colorFun(v)
+                        : "#ffffff";
+                    const style = !isSelected ? {color: colorValue} : undefined
                     return (
-                        <div key={v.value}
-                             className={isSelected ? "selected-mod" : ""}
+                        <div key={v.value} style={style}
+                             className={isSelected ? "selectable-item selected-mod" : "selectable-item"}
                              onClick={() => {
                                  isSelected
                                      ? setSelected(selected.filter(m => m !== v.value))

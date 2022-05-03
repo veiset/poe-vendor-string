@@ -1,9 +1,10 @@
 import React, {useEffect} from "react";
 import ResultBox from "../components/ResultBox";
-import {mapModifiers} from "../generated/GeneratedMapMods";
+import {MapMod, mapModifiers} from "../generated/GeneratedMapMods";
 import {generateMapModStr} from "../utils/MapOutput";
 import ModList from "../components/ModList";
 import {Checkbox} from "./Vendor";
+import {getGradientColor} from "../utils/ColorGradient";
 
 const Maps = () => {
     const mods = Array.from(Object.keys(mapModifiers));
@@ -83,14 +84,30 @@ const Maps = () => {
                 </div>
                 <div className="break"/>
                 <div className="item-half-size">
-                    <ModList id="bad-mods" mods={badMods} selected={selectedBadMods} setSelected={setSelectedBadMods}/>
+                    <ModList id="bad-mods" colorFun={badMapColor} mods={badMods} selected={selectedBadMods} setSelected={setSelectedBadMods}/>
                 </div>
                 <div className="item-half-size">
-                    <ModList id="good-mods" mods={goodMods} selected={selectedGoodMods} setSelected={setSelectedGoodMods}/>
+                    <ModList id="good-mods" colorFun={goodMapColor} mods={goodMods} selected={selectedGoodMods} setSelected={setSelectedGoodMods}/>
                 </div>
             </div>
         </div>
     );
+}
+
+function badMapColor(m: MapMod): string {
+    if (m.scary > 500) {
+        return "#ffffff";
+    } else {
+        return getGradientColor("#FC9090", "#ffffff",(m.scary)/800);
+    }
+}
+
+function goodMapColor(m: MapMod): string {
+    if (m.scary < 500) {
+        return "#ffffff";
+    } else {
+        return getGradientColor("#ffffff", "#8afdb7",(m.scary-100)/1000);
+    }
 }
 
 export default Maps;

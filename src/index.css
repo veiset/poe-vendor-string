@@ -181,7 +181,13 @@ a:active {
   font-family: monospace;
 }
 .selected-mod {
-  color: #fd9653;
+  color: #000000;
+  background-color: #c0ecfa;
+  font-weight: bold;
+  text-underline: white;
+}
+.selectable-item {
+  padding: 5px;
 }
 
 .box-small-padding {

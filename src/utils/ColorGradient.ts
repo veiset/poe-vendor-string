@@ -5,11 +5,11 @@ export function getGradientColor(start_color: string, end_color: string, percent
     end_color = end_color.replace(/^\s*#|\s*$/g, '');
 
     // convert 3 char codes --> 6, e.g. `E0F` --> `EE00FF`
-    if(start_color.length == 3){
+    if(start_color.length === 3){
         start_color = start_color.replace(/(.)/g, '$1$1');
     }
 
-    if(end_color.length == 3){
+    if(end_color.length === 3){
         end_color = end_color.replace(/(.)/g, '$1$1');
     }
 
@@ -32,9 +32,9 @@ export function getGradientColor(start_color: string, end_color: string, percent
     let ndiff_blue = ( (diff_blue * percent) + start_blue ).toString(16).split('.')[0];
 
     // ensure 2 digits by color
-    if( ndiff_red.length == 1 ) ndiff_red = '0' + diff_red
-    if( ndiff_green.length == 1 ) ndiff_green = '0' + diff_green
-    if( ndiff_blue.length == 1 ) ndiff_blue = '0' + diff_blue
+    if( ndiff_red.length === 1 ) ndiff_red = '0' + diff_red
+    if( ndiff_green.length === 1 ) ndiff_green = '0' + diff_green
+    if( ndiff_blue.length === 1 ) ndiff_blue = '0' + diff_blue
 
     return '#' + ndiff_red + ndiff_green + ndiff_blue;
 }
