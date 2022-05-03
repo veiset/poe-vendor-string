@@ -5,6 +5,8 @@ export interface ModSettings {
     goodMods: string[]
     allGoodMods: boolean
     quantity: string
+    strictMatching: boolean
+    optimizeQuant: boolean
 }
 
 export function generateMapModStr(settings: ModSettings): string {
@@ -16,20 +18,20 @@ export function generateMapModStr(settings: ModSettings): string {
 }
 
 function generateBadMods(settings: ModSettings): string {
-    const {badMods} = settings;
+    const {badMods, strictMatching} = settings;
     if (badMods.length === 0) {
         return "";
     }
 
     const modStr = badMods.map((m) => {
-        const regex = mapModifiers[m].matchSafe;
+        const regex = strictMatching ? mapModifiers[m].matchSafe : mapModifiers[m].matchUnsafe;
         return regex.replaceAll("\"", "");
     }).join("|");
     return `"!${modStr}"`;
 }
 
 function generateGoodMods(settings: ModSettings): string {
-    const {goodMods, allGoodMods} = settings;
+    const {goodMods, allGoodMods, strictMatching} = settings;
 
     if (goodMods.length === 0) {
         return "";
@@ -37,23 +39,25 @@ function generateGoodMods(settings: ModSettings): string {
 
     if (allGoodMods) {
         return goodMods.map((m) => {
-            return mapModifiers[m].matchSafe;
+            return strictMatching ? mapModifiers[m].matchSafe : mapModifiers[m].matchUnsafe;
         }).join(" ");
     } else {
         const modStr = goodMods.map((m) => {
-            return mapModifiers[m].matchSafe;
+            return strictMatching ? mapModifiers[m].matchSafe : mapModifiers[m].matchUnsafe;
         }).join("|").replaceAll("\"", "")
         return `"${modStr}"`
     }
 }
 
 function generateQuantity(settings: ModSettings): string {
-    const {quantity} = settings;
+    const {quantity , optimizeQuant} = settings;
     const numbers = quantity.match(/\d/g);
     if (numbers === null) {
         return "";
     }
-    const quant = Number(numbers.join(""));
+    const quant = optimizeQuant
+        ? Math.floor((Number(numbers.join("")) / 10)) * 10
+        : Number(numbers.join(""));
     if (isNaN(quant) || quant === 0) {
         return "";
     }

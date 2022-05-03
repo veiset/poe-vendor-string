@@ -64,6 +64,17 @@ input {
   flex-wrap: wrap;
 }
 
+.container-maps {
+  display: flex;
+  gap: 10px 20px;
+  row-gap: 10px;
+  column-gap: 20px;
+  flex-direction: row;
+  width: 100%;
+  max-width: 1400px;
+  flex-wrap: wrap;
+}
+
 .item {
   width: 380px;
 }
@@ -74,6 +85,7 @@ input {
   font-size: 14px;
 }
 .mod-list {
+  cursor: pointer;
   padding: 15px;
 }
 
@@ -153,9 +165,13 @@ a:active {
 
 .modifier-search-box {
   padding: 8px;
+  width: 430px;
   margin: 10px;
   font-size: 16px;
   font-family: monospace;
+}
+.modifier-search-label {
+  padding-left: 10px;
 }
 .modifier-quantity-box {
   padding: 8px;
@@ -166,4 +182,8 @@ a:active {
 }
 .selected-mod {
   color: #fd9653;
+}
+
+.box-small-padding {
+  margin-bottom: 0px;
 }

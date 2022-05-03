@@ -30,7 +30,7 @@ const ResultBox = (props: ResultBoxProps) => {
                     {result.length > maxLength && <div className="error">Error: more than 50 characters, cannot be used in the PoE client</div>}
                     {!error && result.length <= maxLength && result.length > 0 && <div className="size-info">length: {result.length}</div>}
                     {error && <div className="error">Error: {error}</div>}
-                    {warning && <div className="warning">Warning: {warning}</div>}
+                    {warning && <div className="warning">{warning}</div>}
                 </div>
             </div>
             <div className="copy-box">

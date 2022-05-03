@@ -188,7 +188,7 @@ interface LinkCheckboxProps {
     className?: string
 }
 
-const Checkbox = (props: CheckboxProps) => {
+export const Checkbox = (props: CheckboxProps) => {
     return (
         <div className={props.className}>
             <label className="checkbox">
