@@ -5,6 +5,7 @@ import {generateMapModStr} from "../utils/MapOutput";
 import ModList from "../components/ModList";
 import {Checkbox} from "./Vendor";
 import {getGradientColor} from "../utils/ColorGradient";
+import Header from "../components/Header";
 
 const Maps = () => {
     const mods = Array.from(Object.keys(mapModifiers));
@@ -13,7 +14,7 @@ const Maps = () => {
     const [modGrouping, setModGrouping] = React.useState("any");
     const [quantity, setQuantity] = React.useState("");
     const [optimizeQuant, setOptimizeQuant] = React.useState(true);
-    const [strictMatching, setStrictMatching] = React.useState(true);
+    const [strictMatching] = React.useState(true);
     const [warning, setWarning] = React.useState<string | undefined>();
 
     let [result, setResult] = React.useState("");
@@ -55,17 +56,25 @@ const Maps = () => {
     return (
         <div className="wrapper">
             <div className="container-maps">
-                <div className="item-wide info-header">Path of Exile - BETA still in dev - Map Search Tool</div>
+                <Header text={"Map Modifiers"} />
                 <ResultBox result={result} warning={warning}/>
                 <div className="break"/>
-                <div className="item-wide">
-                    <div>
+                <div className="item-half-size">
                         <label className="modifier-search-label" htmlFor="quantity">Quantity of at least: </label>
                         <input type="search" className="modifier-quantity-box" id="quantity" name="search-mod" value={quantity}
                                onChange={v => setQuantity(v.target.value)}/>
-                    </div>
+                </div>
+                <div className="reset-container">
+                    <button className="reset-button" onClick={() => {
+                        setSelectedGoodMods([]);
+                        setSelectedBadMods([]);
+                        setQuantity("");
+                    }}>
+                        Reset
+                    </button>
+                </div>
+                <div className="item-wide">
                     <Checkbox label="Optimize quantity value (round down to nearest 10, saves a lot of query space)" value={optimizeQuant} onChange={setOptimizeQuant} />
-                    <Checkbox label="Strict matching (will not match maps, but takes slightly more space)" value={strictMatching} onChange={setStrictMatching} />
                 </div>
                 <div className="item-half-size box-small-padding">
                     <div className="column-header">I don't want any of these mods</div>

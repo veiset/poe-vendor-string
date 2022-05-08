@@ -5,8 +5,9 @@ import socketBlue from '../img/blue-socket.png';
 import socketAny from '../img/any-socket.png';
 import socketLink from '../img/link.png';
 
-import {generate3LinkStr, generateResultString, PoeStringSettings, simplify, simplifyRBG} from "../utils/OutputString";
+import {generateResultString, PoeStringSettings} from "../utils/OutputString";
 import ResultBox from "../components/ResultBox";
+import Header from "../components/Header";
 
 const Vendor = () => {
 
@@ -90,7 +91,7 @@ const Vendor = () => {
     return (
         <div className="wrapper">
             <div className="container">
-                <div className="item-wide info-header">Path of Exile - Vendor search tool</div>
+                <Header text={"Vendor Search"} />
                 <ResultBox result={result} />
                 <div className="break"/>
                 <div className="item">
@@ -153,20 +154,6 @@ const Vendor = () => {
 
                 <div className="break"/>
 
-                <div className="item-wide">
-                    <div className="calc-info">
-                        size: {result.length} <br/>
-                        <br/>
-                        colors raw: {generate3LinkStr(settings)} <br/>
-                        colors min: {simplifyRBG(simplify(generate3LinkStr(settings)))} <br/>
-                        raw c size: {generate3LinkStr(settings).length} <br/>
-                        min c size: {simplifyRBG(simplify(generate3LinkStr(settings))).length}<br/>
-                        <br/>
-                        Feature requests & bugs: vz#6904 (discord)<br/>
-                        <a href="https://github.com/veiset/poe-vendor-string">github.com/veiset/poe-vendor-string</a>
-                    </div>
-
-                </div>
             </div>
         </div>
     )

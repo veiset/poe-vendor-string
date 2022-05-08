@@ -56,6 +56,12 @@ input {
   margin: auto;
 }
 
+.wrapper-link {
+  padding-top: 10px;
+  width: 1200px;
+  margin: auto;
+}
+
 .container {
   display: flex;
   gap: 10px 20px;
@@ -83,7 +89,13 @@ input {
 }
 
 .item-half-size {
-  width: 48%;
+  width: 47%;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.reset-container {
+  width: 49%;
   font-family: monospace;
   font-size: 14px;
 }
@@ -101,13 +113,29 @@ input {
   height: 0;
 }
 
-.calc-info {
+.about-info {
   font-family: monospace;
   font-size: 14px;
+  padding-bottom: 20px;
 }
 
 .copy-button {
   background-color: #2e8012;
+  font-family: monospace;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+.reset-button {
+  float: right;
+  background-color: #e2435b;
   font-family: monospace;
   border: none;
   color: white;
@@ -146,7 +174,7 @@ label:hover {
   font-family: monospace;
 }
 .info-header {
-  font-size: 36px;
+  font-size: 30px;
   color: white;
 }
 
@@ -174,13 +202,16 @@ a:active {
   font-family: monospace;
 }
 .modifier-search-label {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
+  font-size: 20px;
   padding-left: 10px;
+  width: 120px;
 }
 .modifier-quantity-box {
+  width: 90px;
   padding: 8px;
   margin: 10px;
   font-size: 16px;
-  width: 60px;
   font-family: monospace;
 }
 .selected-mod {
