@@ -1,24 +1,15 @@
 import React, {Dispatch, SetStateAction} from 'react';
-import './App.css';
-import socketRed from './img/red-socket.png';
-import socketGreen from './img/green-socket.png';
-import socketBlue from './img/blue-socket.png';
-import socketAny from './img/any-socket.png';
-import socketLink from './img/link.png';
+import socketRed from '../img/red-socket.png';
+import socketGreen from '../img/green-socket.png';
+import socketBlue from '../img/blue-socket.png';
+import socketAny from '../img/any-socket.png';
+import socketLink from '../img/link.png';
 
-import {
-    PoeStringSettings,
-    generate3LinkStr,
-    generateResultString,
-    simplify,
-    simplifyRBG
-} from "./OutputString";
+import {generateResultString, PoeStringSettings} from "../utils/OutputString";
+import ResultBox from "../components/ResultBox";
+import Header from "../components/Header";
 
-const maxLength = 50;
-
-const App = () => {
-
-     const [autoCopy, setAutoCopy] = React.useState(false);
+const Vendor = () => {
 
     const [rrr, setRrr] = React.useState(false);
     const [ggg, setGgg] = React.useState(false);
@@ -61,9 +52,6 @@ const App = () => {
     const [chaos, setChaos] = React.useState(false);
     const [anyGem, setAnyGem] = React.useState(false);
 
-    const [copied, setCopied] = React.useState<string | undefined>(undefined);
-
-
     const [dmgPhys, setDmgPhys] = React.useState(false);
     const [dmgElemental, setDmgElemental] = React.useState(false);
     const [dmgSpell, setDmgSpell] = React.useState(false);
@@ -99,33 +87,12 @@ const App = () => {
     };
 
     let result = generateResultString(settings);
-    if (autoCopy && result.length < maxLength) {
-        navigator.clipboard.writeText(result);
-    }
+
     return (
         <div className="wrapper">
             <div className="container">
-                <div className="item-wide info-header">Path of Exile - Vendor search tool</div>
-                <div className="item-wide result-box">
-                    <div className="result-string">
-                        <div className={result.length > maxLength ? "result" : result === copied || autoCopy ? "result copied-good" : "result"}>
-                            {result}
-                            {result.length > maxLength && <div className="error">Error: more than 50 characters, cannot be used in the PoE client</div>}
-                            {result.length <= maxLength && result.length > 0 && <div className="size-info">length: {result.length}</div>}
-                        </div>
-                    </div>
-                    <div className="copy-box">
-                        <div className="copy">
-                            <button className="copy-button" onClick={() => {
-                                setCopied(result);
-                                navigator.clipboard.writeText(result);
-                            }}>
-                                Copy
-                            </button>
-                        </div>
-                        <AutoCopyCheckbox value={autoCopy} onChange={setAutoCopy}/>
-                    </div>
-                </div>
+                <Header text={"Vendor Search"} />
+                <ResultBox result={result} />
                 <div className="break"/>
                 <div className="item">
                     <div className="column-header">Link colors (3L)</div>
@@ -187,20 +154,6 @@ const App = () => {
 
                 <div className="break"/>
 
-                <div className="item-wide">
-                    <div className="calc-info">
-                        size: {result.length} <br/>
-                        <br/>
-                        colors raw: {generate3LinkStr(settings)} <br/>
-                        colors min: {simplifyRBG(simplify(generate3LinkStr(settings)))} <br/>
-                        raw c size: {generate3LinkStr(settings).length} <br/>
-                        min c size: {simplifyRBG(simplify(generate3LinkStr(settings))).length}<br/>
-                        <br/>
-                        Feature requests & bugs: vz#6904 (discord)<br/>
-                        <a href="https://github.com/veiset/poe-vendor-string">github.com/veiset/poe-vendor-string</a>
-                    </div>
-
-                </div>
             </div>
         </div>
     )
@@ -222,21 +175,7 @@ interface LinkCheckboxProps {
     className?: string
 }
 
-interface AutoCopyCheckboxProps {
-    value: boolean
-    onChange: Dispatch<SetStateAction<boolean>>
-}
-
-const AutoCopyCheckbox = (props: AutoCopyCheckboxProps) => {
-    return (
-        <label className="auto-copy">
-            <input type="checkbox" className="checkbox-autocopy" checked={props.value} onChange={e => props.onChange(e.target.checked)}/>
-            <span className="auto-copy-text">Auto-copy</span>
-        </label>
-    )
-}
-
-const Checkbox = (props: CheckboxProps) => {
+export const Checkbox = (props: CheckboxProps) => {
     return (
         <div className={props.className}>
             <label className="checkbox">
@@ -280,4 +219,4 @@ function imgFromChar(c: string) {
     }
 }
 
-export default App;
+export default Vendor;

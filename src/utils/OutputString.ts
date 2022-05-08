@@ -59,6 +59,11 @@ export function generateResultString(settings: PoeStringSettings): string {
     result = addExpression(result, gemStr(settings));
     result = addExpression(result, generateWeaponDamage(settings));
     result = simplifyRBG(result);
+    // fix for all gems
+    if (result.match("\\|\"ll g\"")) {
+        result = result.replace("|\"ll g\"", "");
+        result = `"${result}|ll g"`;
+    }
     return result;
 
 }
