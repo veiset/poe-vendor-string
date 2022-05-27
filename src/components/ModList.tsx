@@ -47,7 +47,7 @@ const ModList = (props: ModListProps) => {
                                      : setSelected(selected.concat(v.value));
                              }}
                         >
-                            {v.value}
+                            {v.value.replaceAll("|", " ")}
                         </div>
                     );
                 })}

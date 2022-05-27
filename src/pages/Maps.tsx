@@ -14,8 +14,6 @@ const Maps = () => {
     const [modGrouping, setModGrouping] = React.useState("any");
     const [quantity, setQuantity] = React.useState("");
     const [optimizeQuant, setOptimizeQuant] = React.useState(true);
-    const [strictMatching] = React.useState(true);
-    const [warning, setWarning] = React.useState<string | undefined>();
 
     let [result, setResult] = React.useState("");
 
@@ -25,26 +23,9 @@ const Maps = () => {
             goodMods: selectedGoodMods,
             allGoodMods: modGrouping === "all",
             quantity,
-            strictMatching,
             optimizeQuant,
         }));
-    }, [result, selectedBadMods, selectedGoodMods, modGrouping, quantity, strictMatching, optimizeQuant]);
-
-    useEffect(() => {
-        if (!strictMatching) {
-            const badMaps = selectedBadMods.flatMap((m) => mapModifiers[m].conflictingMaps);
-            const goodMaps = selectedGoodMods.flatMap((m) => mapModifiers[m].conflictingMaps);
-            const allConflictingMaps = badMaps.concat(goodMaps);
-            if (allConflictingMaps.length >= 1) {
-                setWarning(`Will match following maps: ${allConflictingMaps.join(", ").replaceAll(" Map", "")}`)
-            } else {
-                setWarning(undefined);
-            }
-        } else {
-            setWarning(undefined);
-        }
-
-    }, [warning, strictMatching, selectedBadMods, selectedGoodMods])
+    }, [result, selectedBadMods, selectedGoodMods, modGrouping, quantity, optimizeQuant]);
 
     const badMods = mods
         .map((m) => ({...mapModifiers[m], value: m}))
@@ -57,7 +38,7 @@ const Maps = () => {
         <div className="wrapper">
             <div className="container-maps">
                 <Header text={"Map Modifiers"} />
-                <ResultBox result={result} warning={warning}/>
+                <ResultBox result={result} warning={undefined}/>
                 <div className="break"/>
                 <div className="item-half-size">
                         <label className="modifier-search-label" htmlFor="quantity">Quantity of at least: </label>

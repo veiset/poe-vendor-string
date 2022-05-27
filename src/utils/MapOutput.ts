@@ -5,7 +5,6 @@ export interface ModSettings {
     goodMods: string[]
     allGoodMods: boolean
     quantity: string
-    strictMatching: boolean
     optimizeQuant: boolean
 }
 
@@ -18,20 +17,20 @@ export function generateMapModStr(settings: ModSettings): string {
 }
 
 function generateBadMods(settings: ModSettings): string {
-    const {badMods, strictMatching} = settings;
+    const {badMods} = settings;
     if (badMods.length === 0) {
         return "";
     }
 
     const modStr = badMods.map((m) => {
-        const regex = strictMatching ? mapModifiers[m].matchSafe : mapModifiers[m].matchUnsafe;
+        const regex = mapModifiers[m].matchSafe;
         return regex.replaceAll("\"", "");
     }).join("|");
     return `"!${modStr}"`;
 }
 
 function generateGoodMods(settings: ModSettings): string {
-    const {goodMods, allGoodMods, strictMatching} = settings;
+    const {goodMods, allGoodMods} = settings;
 
     if (goodMods.length === 0) {
         return "";
@@ -39,11 +38,11 @@ function generateGoodMods(settings: ModSettings): string {
 
     if (allGoodMods) {
         return goodMods.map((m) => {
-            return strictMatching ? mapModifiers[m].matchSafe : mapModifiers[m].matchUnsafe;
+            return mapModifiers[m].matchSafe;
         }).join(" ");
     } else {
         const modStr = goodMods.map((m) => {
-            return strictMatching ? mapModifiers[m].matchSafe : mapModifiers[m].matchUnsafe;
+            return mapModifiers[m].matchSafe;
         }).join("|").replaceAll("\"", "")
         return `"${modStr}"`
     }

@@ -23,3 +23,10 @@ yarn-debug.log*
 yarn-error.log*
 
 .idea
+
+build/
+.gradle
+gradlew
+gradlew.bat
+gradle/
+!gradle-wrapper.jar
