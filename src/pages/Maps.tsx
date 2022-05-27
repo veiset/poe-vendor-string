@@ -1,30 +1,35 @@
 import React, {useEffect} from "react";
 import ResultBox from "../components/ResultBox";
 import {MapMod, mapModifiers} from "../generated/GeneratedMapMods";
-import {generateMapModStr} from "../utils/MapOutput";
+import {generateMapModStr, MapModSettings} from "../utils/MapOutput";
 import ModList from "../components/ModList";
 import {Checkbox} from "./Vendor";
 import {getGradientColor} from "../utils/ColorGradient";
 import Header from "../components/Header";
+import {hasKey} from "../utils/LocalStorage";
 
 const Maps = () => {
     const mods = Array.from(Object.keys(mapModifiers));
-    const [selectedBadMods, setSelectedBadMods] = React.useState<string[]>([]);
-    const [selectedGoodMods, setSelectedGoodMods] = React.useState<string[]>([]);
-    const [modGrouping, setModGrouping] = React.useState("any");
-    const [quantity, setQuantity] = React.useState("");
-    const [optimizeQuant, setOptimizeQuant] = React.useState(true);
+    const savedSettings = JSON.parse(localStorage.getItem("mapSearch") ?? "{}")
+    const [selectedBadMods, setSelectedBadMods] = React.useState<string[]>(hasKey(savedSettings, "badMods") ? savedSettings.badMods : []);
+    const [selectedGoodMods, setSelectedGoodMods] = React.useState<string[]>(hasKey(savedSettings, "goodMods") ? savedSettings.goodMods : []);
+    const [modGrouping, setModGrouping] = React.useState(hasKey(savedSettings, "allGoodMods") ? (savedSettings.allGoodMods ? "all" : "any") : "any");
+    const [quantity, setQuantity] = React.useState(hasKey(savedSettings, "quantity") ? savedSettings.quantity : "");
+    const [optimizeQuant, setOptimizeQuant] = React.useState(hasKey(savedSettings, "optimizeQuant") ? savedSettings.optimizeQuant : true);
 
     let [result, setResult] = React.useState("");
 
     useEffect(() => {
-        setResult(generateMapModStr({
+        let settings: MapModSettings = {
             badMods: selectedBadMods,
             goodMods: selectedGoodMods,
             allGoodMods: modGrouping === "all",
             quantity,
             optimizeQuant,
-        }));
+        };
+        let search = generateMapModStr(settings);
+        localStorage.setItem("mapSearch", JSON.stringify(settings));
+        setResult(search);
     }, [result, selectedBadMods, selectedGoodMods, modGrouping, quantity, optimizeQuant]);
 
     const badMods = mods
@@ -37,25 +42,21 @@ const Maps = () => {
     return (
         <div className="wrapper">
             <div className="container-maps">
-                <Header text={"Map Modifiers"} />
-                <ResultBox result={result} warning={undefined}/>
+                <Header text={"Map Modifiers"}/>
+                <ResultBox result={result} warning={undefined} reset={() => {
+                    setSelectedGoodMods([]);
+                    setSelectedBadMods([]);
+                    setQuantity("");
+                }}/>
                 <div className="break"/>
                 <div className="item-half-size">
-                        <label className="modifier-search-label" htmlFor="quantity">Quantity of at least: </label>
-                        <input type="search" className="modifier-quantity-box" id="quantity" name="search-mod" value={quantity}
-                               onChange={v => setQuantity(v.target.value)}/>
-                </div>
-                <div className="reset-container">
-                    <button className="reset-button" onClick={() => {
-                        setSelectedGoodMods([]);
-                        setSelectedBadMods([]);
-                        setQuantity("");
-                    }}>
-                        Reset
-                    </button>
+                    <label className="modifier-search-label" htmlFor="quantity">Quantity of at least: </label>
+                    <input type="search" className="modifier-quantity-box" id="quantity" name="search-mod" value={quantity}
+                           onChange={v => setQuantity(v.target.value)}/>
                 </div>
                 <div className="item-wide">
-                    <Checkbox label="Optimize quantity value (round down to nearest 10, saves a lot of query space)" value={optimizeQuant} onChange={setOptimizeQuant} />
+                    <Checkbox label="Optimize quantity value (round down to nearest 10, saves a lot of query space)" value={optimizeQuant}
+                              onChange={setOptimizeQuant}/>
                 </div>
                 <div className="item-half-size box-small-padding">
                     <div className="column-header">I don't want any of these mods</div>
@@ -66,10 +67,10 @@ const Maps = () => {
                         <input type="radio" id="mods-any" name="mods" value="any" checked={modGrouping === "any"}
                                onChange={v => setModGrouping(v.target.value)}/>
                         <label htmlFor="mods-any">I want <b>any</b> of the modifiers</label>
-                        {" " }/
+                        {" "}/
                         <input type="radio" id="mods-all" name="mods" value="all" checked={modGrouping === "all"}
-                                   onChange={v => setModGrouping(v.target.value)}/>
-                            <label htmlFor="mods-all">I want <b>all</b> of the modifiers</label>
+                               onChange={v => setModGrouping(v.target.value)}/>
+                        <label htmlFor="mods-all">I want <b>all</b> of the modifiers</label>
                     </div>
                 </div>
                 <div className="break"/>
@@ -88,7 +89,7 @@ function badMapColor(m: MapMod): string {
     if (m.scary > 480) {
         return "#ffffff";
     } else {
-        return getGradientColor("#FC9090", "#ffffff",(m.scary)/800);
+        return getGradientColor("#FC9090", "#ffffff", (m.scary) / 800);
     }
 }
 
@@ -96,7 +97,7 @@ function goodMapColor(m: MapMod): string {
     if (m.scary < 500) {
         return "#ffffff";
     } else {
-        return getGradientColor("#ffffff", "#8afdb7",(m.scary-100)/1000);
+        return getGradientColor("#ffffff", "#8afdb7", (m.scary - 100) / 1000);
     }
 }
 

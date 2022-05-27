@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction} from 'react';
+import React, {Dispatch, SetStateAction, useEffect} from 'react';
 import socketRed from '../img/red-socket.png';
 import socketGreen from '../img/green-socket.png';
 import socketBlue from '../img/blue-socket.png';
@@ -8,54 +8,78 @@ import socketLink from '../img/link.png';
 import {generateResultString, PoeStringSettings} from "../utils/OutputString";
 import ResultBox from "../components/ResultBox";
 import Header from "../components/Header";
+import {hasNKey} from "../utils/LocalStorage";
 
 const Vendor = () => {
 
-    const [rrr, setRrr] = React.useState(false);
-    const [ggg, setGgg] = React.useState(false);
-    const [bbb, setBbb] = React.useState(false);
+    const [result, setResult] = React.useState("")
+    const savedSettings = JSON.parse(localStorage.getItem("vendorSearch") ?? "{}");
+    console.log(savedSettings);
 
-    const [rrA, setRrA] = React.useState(false);
-    const [ggA, setGgA] = React.useState(false);
-    const [bbA, setBbA] = React.useState(false);
+    const [rrr, setRrr] = React.useState(hasNKey(savedSettings, "colors.rrr"));
+    const [ggg, setGgg] = React.useState(hasNKey(savedSettings, "colors.ggg"));
+    const [bbb, setBbb] = React.useState(hasNKey(savedSettings, "colors.bbb"));
 
-    const [rrg, setRrg] = React.useState(false);
-    const [rrb, setRrb] = React.useState(false);
-    const [ggr, setGgr] = React.useState(false);
-    const [ggb, setGgb] = React.useState(false);
-    const [bbr, setBbr] = React.useState(false);
-    const [bbg, setBbg] = React.useState(false);
+    const [rrA, setRrA] = React.useState(hasNKey(savedSettings, "colors.rrA"));
+    const [ggA, setGgA] = React.useState(hasNKey(savedSettings, "colors.ggA"));
+    const [bbA, setBbA] = React.useState(hasNKey(savedSettings, "colors.bbA"));
 
-    const [rgb, setRgb] = React.useState(false);
+    const [rrg, setRrg] = React.useState(hasNKey(savedSettings, "colors.rrg"));
+    const [rrb, setRrb] = React.useState(hasNKey(savedSettings, "colors.rrb"));
+    const [ggr, setGgr] = React.useState(hasNKey(savedSettings, "colors.ggr"));
+    const [ggb, setGgb] = React.useState(hasNKey(savedSettings, "colors.ggb"));
+    const [bbr, setBbr] = React.useState(hasNKey(savedSettings, "colors.bbr"));
+    const [bbg, setBbg] = React.useState(hasNKey(savedSettings, "colors.bbg"));
 
-    const [raa, setRaa] = React.useState(false);
-    const [gaa, setGaa] = React.useState(false);
-    const [baa, setBaa] = React.useState(false);
+    const [rgb, setRgb] = React.useState(hasNKey(savedSettings, "colors.rgb"));
 
-    const [rr, setRr] = React.useState(false);
-    const [gg, setGg] = React.useState(false);
-    const [bb, setBb] = React.useState(false);
+    const [raa, setRaa] = React.useState(hasNKey(savedSettings, "colors.raa"));
+    const [gaa, setGaa] = React.useState(hasNKey(savedSettings, "colors.gaa"));
+    const [baa, setBaa] = React.useState(hasNKey(savedSettings, "colors.baa"));
 
-    const [rb, setRb] = React.useState(false);
-    const [gr, setGr] = React.useState(false);
-    const [bg, setBg] = React.useState(false);
+    const [rr, setRr] = React.useState(hasNKey(savedSettings, "colors.rr"));
+    const [gg, setGg] = React.useState(hasNKey(savedSettings, "colors.gg"));
+    const [bb, setBb] = React.useState(hasNKey(savedSettings, "colors.bb"));
 
-    const [anyThreeLink, setAnyThreeLink] = React.useState(false);
-    const [anyFourLink, setAnyFourLink] = React.useState(false);
-    const [movement10, setMovement10] = React.useState(false);
-    const [movement15, setMovement15] = React.useState(false);
+    const [rb, setRb] = React.useState(hasNKey(savedSettings, "colors.rb"));
+    const [gr, setGr] = React.useState(hasNKey(savedSettings, "colors.gr"));
+    const [bg, setBg] = React.useState(hasNKey(savedSettings, "colors.bg"));
 
-    const [lightning, setLightning] = React.useState(false);
-    const [fire, setFire] = React.useState(false);
-    const [cold, setCold] = React.useState(false);
-    const [phys, setPhys] = React.useState(false);
-    const [chaos, setChaos] = React.useState(false);
-    const [anyGem, setAnyGem] = React.useState(false);
+    const [anyThreeLink, setAnyThreeLink] = React.useState(hasNKey(savedSettings, "anyThreeLink"));
+    const [anyFourLink, setAnyFourLink] = React.useState(hasNKey(savedSettings, "anyFourLink"));
+    const [movement10, setMovement10] = React.useState(hasNKey(savedSettings, "movement.ten"));
+    const [movement15, setMovement15] = React.useState(hasNKey(savedSettings, "movement.fifteen"));
 
-    const [dmgPhys, setDmgPhys] = React.useState(false);
-    const [dmgElemental, setDmgElemental] = React.useState(false);
-    const [dmgSpell, setDmgSpell] = React.useState(false);
+    const [lightning, setLightning] = React.useState(hasNKey(savedSettings, "plusGems.lightning"));
+    const [fire, setFire] = React.useState(hasNKey(savedSettings, "plusGems.fire"));
+    const [cold, setCold] = React.useState(hasNKey(savedSettings, "plusGems.cold"));
+    const [phys, setPhys] = React.useState(hasNKey(savedSettings, "plusGems.phys"));
+    const [chaos, setChaos] = React.useState(hasNKey(savedSettings, "plusGems.chaos"));
+    const [anyGem, setAnyGem] = React.useState(hasNKey(savedSettings, "plusGems.any"));
 
+    const [dmgPhys, setDmgPhys] = React.useState(hasNKey(savedSettings, "damage.phys"));
+    const [dmgElemental, setDmgElemental] = React.useState(hasNKey(savedSettings, "damage.elemental"));
+    const [dmgSpell, setDmgSpell] = React.useState(hasNKey(savedSettings, "damage.spellDamage"));
+
+
+    const listOfOptions = [
+        setRrr, setGgg, setBbb,
+        setRrA, setGgA, setBbA, setRrg, setRrb, setGgr, setGgb, setBbr, setBbg, setRgb, setRaa, setGaa, setBaa,
+        setRr, setGg, setBb, setRb, setGr, setBg,
+        setAnyThreeLink, setAnyFourLink,
+        setMovement10, setMovement15, setLightning,
+        setFire, setCold, setPhys, setChaos, setAnyGem,
+        setDmgPhys, setDmgElemental, setDmgSpell
+    ]
+    const listOfvalues = [
+        rrr, ggg, bbb,
+        rrA, ggA, bbA, rrg, rrb, ggr, ggb, bbr, bbg, rgb, raa, gaa, baa,
+        rr, gg, bb, rb, gr, bg,
+        anyThreeLink, anyFourLink,
+        movement10, movement15, lightning,
+        fire, cold, phys, chaos, anyGem,
+        dmgPhys, dmgElemental, dmgSpell
+    ]
 
     let settings: PoeStringSettings = {
         anyThreeLink,
@@ -86,13 +110,20 @@ const Vendor = () => {
         }
     };
 
-    let result = generateResultString(settings);
+    useEffect(() => {
+        localStorage.setItem("vendorSearch", JSON.stringify(settings));
+        setResult(generateResultString(settings));
+    }, listOfvalues)
 
     return (
         <div className="wrapper">
             <div className="container">
-                <Header text={"Vendor Search"} />
-                <ResultBox result={result} />
+                <Header text={"Vendor Search"}/>
+                <ResultBox result={result} reset={() => {
+                    listOfOptions.forEach(setting => {
+                        setting(false);
+                    })
+                }}/>
                 <div className="break"/>
                 <div className="item">
                     <div className="column-header">Link colors (3L)</div>
@@ -118,7 +149,7 @@ const Vendor = () => {
                     <SocketCheckbox label="b-*-*" value={baa} onChange={setBaa}/>
                 </div>
                 <div className="item">
-                    <div className="column-header"> Movement speed </div>
+                    <div className="column-header"> Movement speed</div>
                     <Checkbox label="Movement speed (10%)" value={movement10} onChange={setMovement10}/>
                     <Checkbox label="Movement speed (15%)" value={movement15} onChange={setMovement15}/>
 
@@ -126,7 +157,7 @@ const Vendor = () => {
                     <SocketCheckbox label="Any 4 link" value={anyFourLink} onChange={setAnyFourLink} link="*-*-*-*"/>
                     <SocketCheckbox label="Any 3 link" value={anyThreeLink} onChange={setAnyThreeLink} link="*-*-*"/>
 
-                    <div className="column-header small-padding"> Link colors (2L) </div>
+                    <div className="column-header small-padding"> Link colors (2L)</div>
                     <SocketCheckbox label="r-r" value={rr} onChange={setRr}/>
                     <SocketCheckbox label="g-g" value={gg} onChange={setGg}/>
                     <SocketCheckbox label="b-b" value={bb} onChange={setBb}/>

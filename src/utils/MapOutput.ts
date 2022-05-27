@@ -1,6 +1,6 @@
 import {mapModifiers} from "../generated/GeneratedMapMods";
 
-export interface ModSettings {
+export interface MapModSettings {
     badMods: string[]
     goodMods: string[]
     allGoodMods: boolean
@@ -8,7 +8,7 @@ export interface ModSettings {
     optimizeQuant: boolean
 }
 
-export function generateMapModStr(settings: ModSettings): string {
+export function generateMapModStr(settings: MapModSettings): string {
     const exclusions = generateBadMods(settings);
     const inclusions = generateGoodMods(settings);
     const quantity = generateQuantity(settings);
@@ -16,7 +16,7 @@ export function generateMapModStr(settings: ModSettings): string {
     return `${exclusions} ${inclusions} ${quantity}`.trim();
 }
 
-function generateBadMods(settings: ModSettings): string {
+function generateBadMods(settings: MapModSettings): string {
     const {badMods} = settings;
     if (badMods.length === 0) {
         return "";
@@ -29,7 +29,7 @@ function generateBadMods(settings: ModSettings): string {
     return `"!${modStr}"`;
 }
 
-function generateGoodMods(settings: ModSettings): string {
+function generateGoodMods(settings: MapModSettings): string {
     const {goodMods, allGoodMods} = settings;
 
     if (goodMods.length === 0) {
@@ -48,7 +48,7 @@ function generateGoodMods(settings: ModSettings): string {
     }
 }
 
-function generateQuantity(settings: ModSettings): string {
+function generateQuantity(settings: MapModSettings): string {
     const {quantity , optimizeQuant} = settings;
     const numbers = quantity.match(/\d/g);
     if (numbers === null) {

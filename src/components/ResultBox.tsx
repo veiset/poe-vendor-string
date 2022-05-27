@@ -5,12 +5,13 @@ export interface ResultBoxProps {
     result: string
     warning?: string
     error?: string
+    reset: () => any
 }
 
 const maxLength = 50;
 
 const ResultBox = (props: ResultBoxProps) => {
-    const {result, warning, error} = props;
+    const {result, warning, error, reset} = props;
 
     const [copied, setCopied] = React.useState<string | undefined>(undefined);
     const [autoCopy, setAutoCopy] = React.useState(false);
@@ -40,6 +41,11 @@ const ResultBox = (props: ResultBoxProps) => {
                         navigator.clipboard.writeText(result);
                     }}>
                         Copy
+                    </button>
+                    <button className="reset-button" onClick={() => {
+                        reset()
+                    }}>
+                        Reset
                     </button>
                 </div>
                 <AutoCopyCheckbox value={autoCopy} onChange={setAutoCopy}/>

@@ -134,15 +134,16 @@ input {
 }
 
 .reset-button {
-  float: right;
+  width: 90px;
   background-color: #e2435b;
   font-family: monospace;
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 15px 20px;
   text-decoration: none;
   font-size: 16px;
   margin: 4px 2px;
+  margin-left: 10px;
   cursor: pointer;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
