@@ -28,17 +28,17 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Players are Cursed with Temporal Chains": {
    value: "Players are Cursed with Temporal Chains",
    scary: 100,
-   matchSafe: "\"h t\"",
+   matchSafe: "\"h tem\"",
  },
  "-X% maximum Player Resistances": {
    value: "-X% maximum Player Resistances",
    scary: 101,
-   matchSafe: "\"m p\"",
+   matchSafe: "tances",
  },
  "Players have X% less Recovery Rate of Life and Energy Shield": {
    value: "Players have X% less Recovery Rate of Life and Energy Shield",
    scary: 102,
-   matchSafe: "\"ss r\"",
+   matchSafe: "\"s rec\"",
  },
  "Monsters are Hexproof": {
    value: "Monsters are Hexproof",
@@ -118,7 +118,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters Poison on Hit": {
    value: "Monsters Poison on Hit",
    scary: 216,
-   matchSafe: "\"s po\"",
+   matchSafe: "\"ison \"",
  },
  "Monsters' Action Speed cannot be modified to below base value|Monsters cannot be Taunted": {
    value: "Monsters' Action Speed cannot be modified to below base value|Monsters cannot be Taunted",
@@ -143,12 +143,12 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters gain X% of Maximum Life as Extra Maximum Energy Shield": {
    value: "Monsters gain X% of Maximum Life as Extra Maximum Energy Shield",
    scary: 301,
-   matchSafe: "\"m l\"",
+   matchSafe: "\"m li\"",
  },
  "Unique Boss has X% increased Life|Unique Boss has X% increased Area of Effect": {
    value: "Unique Boss has X% increased Life|Unique Boss has X% increased Area of Effect",
    scary: 302,
-   matchSafe: "\"ss h\"",
+   matchSafe: "\"as x\"",
  },
  "X% more Monster Life": {
    value: "X% more Monster Life",
@@ -168,7 +168,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "+X% Monster Chaos Resistance|+X% Monster Elemental Resistance": {
    value: "+X% Monster Chaos Resistance|+X% Monster Elemental Resistance",
    scary: 306,
-   matchSafe: "\"os r\"",
+   matchSafe: "\"r el\"",
  },
  "X% less effect of Curses on Monsters": {
    value: "X% less effect of Curses on Monsters",
@@ -193,7 +193,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters have X% chance to Avoid Elemental Ailments": {
    value: "Monsters have X% chance to Avoid Elemental Ailments",
    scary: 311,
-   matchSafe: "\"id e\"",
+   matchSafe: "\"d el\"",
  },
  "Monsters take X% reduced Extra Damage from Critical Strikes": {
    value: "Monsters take X% reduced Extra Damage from Critical Strikes",
@@ -228,7 +228,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Players are Cursed with Vulnerability": {
    value: "Players are Cursed with Vulnerability",
    scary: 405,
-   matchSafe: "\"h v\"",
+   matchSafe: "\"h vu\"",
  },
  "Players are Cursed with Elemental Weakness": {
    value: "Players are Cursed with Elemental Weakness",
@@ -253,22 +253,22 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters gain an Endurance Charge on Hit": {
    value: "Monsters gain an Endurance Charge on Hit",
    scary: 410,
-   matchSafe: "\"n e\"",
+   matchSafe: "\" an \"",
  },
  "Monsters gain a Frenzy Charge on Hit": {
    value: "Monsters gain a Frenzy Charge on Hit",
    scary: 411,
-   matchSafe: "\"a f\"",
+   matchSafe: "\" a f\"",
  },
  "Monsters gain a Power Charge on Hit": {
    value: "Monsters gain a Power Charge on Hit",
    scary: 412,
-   matchSafe: "\" a p\"",
+   matchSafe: "\" a po\"",
  },
  "Monsters Blind on Hit": {
    value: "Monsters Blind on Hit",
    scary: 413,
-   matchSafe: "\"d o\"",
+   matchSafe: "\"s bli\"",
  },
  "Monsters Maim on Hit with Attacks": {
    value: "Monsters Maim on Hit with Attacks",
@@ -363,7 +363,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Area is inhabited by Undead": {
    value: "Area is inhabited by Undead",
    scary: 499,
-   matchSafe: "\"y u\"",
+   matchSafe: "\"by un\"",
  },
  "Area has increased monster variety": {
    value: "Area has increased monster variety",
@@ -383,7 +383,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Rare Monsters each have a Nemesis Mod|X% more Rare Monsters": {
    value: "Rare Monsters each have a Nemesis Mod|X% more Rare Monsters",
    scary: 600,
-   matchSafe: "rar",
+   matchSafe: "neme",
  },
  "Area contains two Unique Bosses": {
    value: "Area contains two Unique Bosses",
@@ -393,7 +393,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Magic Monster Packs each have a Bloodline Mod|X% more Magic Monsters": {
    value: "Magic Monster Packs each have a Bloodline Mod|X% more Magic Monsters",
    scary: 600,
-   matchSafe: "agi",
+   matchSafe: "packs",
  },
  "Slaying Enemies close together has a X% chance to attract monsters from Beyond": {
    value: "Slaying Enemies close together has a X% chance to attract monsters from Beyond",
