@@ -123,7 +123,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters' Action Speed cannot be modified to below base value|Monsters cannot be Taunted": {
    value: "Monsters' Action Speed cannot be modified to below base value|Monsters cannot be Taunted",
    scary: 217,
-   matchSafe: "odi",
+   matchSafe: "bel",
  },
  "Monsters have X% chance to Impale with Attacks": {
    value: "Monsters have X% chance to Impale with Attacks",
