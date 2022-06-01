@@ -5,15 +5,33 @@ export interface MapModSettings {
     goodMods: string[]
     allGoodMods: boolean
     quantity: string
+    packsize: string
     optimizeQuant: boolean
+    optimizePacksize: boolean
 }
 
 export function generateMapModStr(settings: MapModSettings): string {
     const exclusions = generateBadMods(settings);
     const inclusions = generateGoodMods(settings);
-    const quantity = generateQuantity(settings);
+    const quantity = addPrefix("m q.*", generateNumberRegex(settings.quantity, settings.optimizeQuant));
+    const packsize = addPrefix("iz.*", generateNumberRegex(settings.packsize, settings.optimizePacksize));
 
-    return `${exclusions} ${inclusions} ${quantity}`.trim();
+    const result = `${exclusions} ${inclusions} ${quantity} ${packsize}`
+        .trim().replaceAll(/\s{2,}/g, ' ');
+    return optimize(result);
+}
+
+function addPrefix(prefix: string, string: string) {
+   if (string === "") {
+       return "";
+   }
+   return `"${prefix}${string}"`;
+}
+
+function optimize(string: string): string {
+    return string
+        .replaceAll("[8-9]", "[89]")
+        .replaceAll("[9-9]", "9");
 }
 
 function generateBadMods(settings: MapModSettings): string {
@@ -48,20 +66,19 @@ function generateGoodMods(settings: MapModSettings): string {
     }
 }
 
-function generateQuantity(settings: MapModSettings): string {
-    const {quantity , optimizeQuant} = settings;
-    const numbers = quantity.match(/\d/g);
+function generateNumberRegex(number: string, optimize: boolean): string {
+    const numbers = number.match(/\d/g);
     if (numbers === null) {
         return "";
     }
-    const quant = optimizeQuant
+    const quant = optimize
         ? Math.floor((Number(numbers.join("")) / 10)) * 10
         : Number(numbers.join(""));
     if (isNaN(quant) || quant === 0) {
         return "";
     }
     if (quant >= 200) {
-        return `"m q.*(2\\d{2})"`;
+        return `(2\\d{2})`;
     }
     if (quant > 100) {
         const str = quant.toString();
@@ -69,30 +86,30 @@ function generateQuantity(settings: MapModSettings): string {
         const d1 = str[1];
         const d2 = str[2];
         if (str[1] === "0" && str[2] === "0") {
-            return `"m q.*(${d0}\\d{2})"`;
+            return `(${d0}\\d{2})`;
         } else if (str[2] === "0") {
-            return `"m q.*(\\d[${d1}-9]\\d)"`;
+            return `(\\d[${d1}-9]\\d)`;
         } else if (str[1] === "0") {
-            return `"m q.*(\\d0[${d2}-9]\\d|\\d[1-9]\\d)"`;
+            return `(\\d0[${d2}-9]\\d|\\d[1-9]\\d)`;
         } else {
-            return `"m q.*(1[${d1}-9][${d2}-9]|1[${Number(d1) + 1}-9]\\d)"`;
+            return `(1[${d1}-9][${d2}-9]|1[${Number(d1) + 1}-9]\\d)`;
         }
     }
     if (quant === 100) {
-        return `"m q.*(\\d{3})"`;
+        return `(\\d{3})`;
     }
     if (quant > 9) {
         const str = quant.toString();
         const d0 = str[0];
         const d1 = str[1];
         if (str[1] === "0") {
-            return `"m q.*([${d0}-9]\\d|\\d{3})"`;
+            return `([${d0}-9]\\d|\\d{3})`;
         } else {
-            return `"m q.*(${d0}[${d1}-9]|[${Number(d0) + 1}-9]\\d|\\d{3})"`;
+            return `(${d0}[${d1}-9]|[${Number(d0) + 1}-9]\\d|\\d{3})`;
         }
     }
     if (quant <= 9) {
-        return `"m q.*([${quant}-9]|\\d\\d\\d?)"`;
+        return `([${quant}-9]|\\d\\d\\d?)`;
     }
-    return quantity;
+    return number;
 }

@@ -15,7 +15,9 @@ const Maps = () => {
     const [selectedGoodMods, setSelectedGoodMods] = React.useState<string[]>(hasKey(savedSettings, "goodMods") ? savedSettings.goodMods : []);
     const [modGrouping, setModGrouping] = React.useState(hasKey(savedSettings, "allGoodMods") ? (savedSettings.allGoodMods ? "all" : "any") : "any");
     const [quantity, setQuantity] = React.useState(hasKey(savedSettings, "quantity") ? savedSettings.quantity : "");
+    const [packsize, setPacksize] = React.useState(hasKey(savedSettings, "packsize") ? savedSettings.packsize : "");
     const [optimizeQuant, setOptimizeQuant] = React.useState(hasKey(savedSettings, "optimizeQuant") ? savedSettings.optimizeQuant : true);
+    const [optimizePacksize, setOptimizePacksize] = React.useState(hasKey(savedSettings, "optimizePacksize") ? savedSettings.optimizePacksize: true);
 
     let [result, setResult] = React.useState("");
 
@@ -25,12 +27,14 @@ const Maps = () => {
             goodMods: selectedGoodMods,
             allGoodMods: modGrouping === "all",
             quantity,
+            packsize,
             optimizeQuant,
+            optimizePacksize,
         };
         let search = generateMapModStr(settings);
         localStorage.setItem("mapSearch", JSON.stringify(settings));
         setResult(search);
-    }, [result, selectedBadMods, selectedGoodMods, modGrouping, quantity, optimizeQuant]);
+    }, [result, selectedBadMods, selectedGoodMods, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize]);
 
     const badMods = mods
         .map((m) => ({...mapModifiers[m], value: m}))
@@ -46,17 +50,23 @@ const Maps = () => {
                 <ResultBox result={result} warning={undefined} reset={() => {
                     setSelectedGoodMods([]);
                     setSelectedBadMods([]);
+                    setOptimizePacksize(true);
+                    setOptimizeQuant(true);
                     setQuantity("");
+                    setPacksize("");
                 }}/>
                 <div className="break"/>
-                <div className="item-half-size">
+                <div className="item-wide">
                     <label className="modifier-search-label" htmlFor="quantity">Quantity of at least: </label>
                     <input type="search" className="modifier-quantity-box" id="quantity" name="search-mod" value={quantity}
-                           onChange={v => setQuantity(v.target.value)}/>
-                </div>
-                <div className="item-wide">
-                    <Checkbox label="Optimize quantity value (round down to nearest 10, saves a lot of query space)" value={optimizeQuant}
+                               onChange={v => setQuantity(v.target.value)}/>
+                    <label className="modifier-search-label" htmlFor="quantity">Pack Size of at least: </label>
+                    <input type="search" className="modifier-quantity-box" id="quantity" name="search-mod" value={packsize}
+                           onChange={v => setPacksize(v.target.value)}/>
+                    <Checkbox label="Optimize Quantity value (round down to nearest 10, saves a lot of query space)" value={optimizeQuant}
                               onChange={setOptimizeQuant}/>
+                    <Checkbox label="Optimize Pack Size value" value={optimizePacksize}
+                              onChange={setOptimizePacksize}/>
                 </div>
                 <div className="item-half-size box-small-padding">
                     <div className="column-header">I don't want any of these mods</div>

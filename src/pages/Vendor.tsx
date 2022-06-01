@@ -165,7 +165,6 @@ const Vendor = () => {
                     <SocketCheckbox className="small-padding" label="r-b" value={rb} onChange={setRb}/>
                     <SocketCheckbox label="g-r" value={gr} onChange={setGr}/>
                     <SocketCheckbox label="b-g" value={bg} onChange={setBg}/>
-
                 </div>
                 <div className="item">
                     <div className="column-header">

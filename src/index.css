@@ -117,6 +117,7 @@ input {
   font-family: monospace;
   font-size: 14px;
   padding-bottom: 20px;
+  line-height: 20px;
 }
 
 .copy-button {
