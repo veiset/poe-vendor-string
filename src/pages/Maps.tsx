@@ -10,9 +10,16 @@ import {hasKey} from "../utils/LocalStorage";
 
 const Maps = () => {
     const mods = Array.from(Object.keys(mapModifiers));
+    const badMods = mods
+        .map((m) => ({...mapModifiers[m], value: m}))
+        .sort((a, b) => a.scary - b.scary);
+    const goodMods = mods
+        .map((m) => ({...mapModifiers[m], value: m}))
+        .sort((a, b) => b.scary - a.scary);
+
     const savedSettings = JSON.parse(localStorage.getItem("mapSearch") ?? "{}")
-    const [selectedBadMods, setSelectedBadMods] = React.useState<string[]>(hasKey(savedSettings, "badMods") ? savedSettings.badMods : []);
-    const [selectedGoodMods, setSelectedGoodMods] = React.useState<string[]>(hasKey(savedSettings, "goodMods") ? savedSettings.goodMods : []);
+    const [selectedBadMods, setSelectedBadMods] = React.useState<string[]>(hasKey(savedSettings, "badMods")? savedSettings.badMods.filter((v: string) => mods.includes(v))  : []);
+    const [selectedGoodMods, setSelectedGoodMods] = React.useState<string[]>(hasKey(savedSettings, "goodMods") ? savedSettings.goodMods.filter((v: string) => mods.includes(v)) : []);
     const [modGrouping, setModGrouping] = React.useState(hasKey(savedSettings, "allGoodMods") ? (savedSettings.allGoodMods ? "all" : "any") : "any");
     const [quantity, setQuantity] = React.useState(hasKey(savedSettings, "quantity") ? savedSettings.quantity : "");
     const [packsize, setPacksize] = React.useState(hasKey(savedSettings, "packsize") ? savedSettings.packsize : "");
@@ -36,12 +43,6 @@ const Maps = () => {
         setResult(search);
     }, [result, selectedBadMods, selectedGoodMods, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize]);
 
-    const badMods = mods
-        .map((m) => ({...mapModifiers[m], value: m}))
-        .sort((a, b) => a.scary - b.scary);
-    const goodMods = mods
-        .map((m) => ({...mapModifiers[m], value: m}))
-        .sort((a, b) => b.scary - a.scary);
 
     return (
         <div className="wrapper">

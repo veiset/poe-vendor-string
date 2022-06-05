@@ -100,8 +100,8 @@ export const mapModifiers: { [key: string]: MapMod } = {
    scary: 212,
    matchSafe: "lw",
  },
- "Monsters cannot be Stunned|X% more Monster Life": {
-   value: "Monsters cannot be Stunned|X% more Monster Life",
+ "Monsters cannot be Stunned": {
+   value: "Monsters cannot be Stunned",
    scary: 213,
    matchSafe: "stu",
  },
@@ -133,12 +133,12 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters have X% increased Area of Effect": {
    value: "Monsters have X% increased Area of Effect",
    scary: 219,
-   matchSafe: "\"e \d+% increased ar\"",
+   matchSafe: "\"e \\d+% increased ar\"",
  },
- "Areas have patches of Consecrated Ground": {
-   value: "Areas have patches of Consecrated Ground",
+ "Area has patches of Consecrated Ground": {
+   value: "Area has patches of Consecrated Ground",
    scary: 300,
-   matchSafe: "areas",
+   matchSafe: "nsecrate",
  },
  "Monsters gain X% of Maximum Life as Extra Maximum Energy Shield": {
    value: "Monsters gain X% of Maximum Life as Extra Maximum Energy Shield",
@@ -153,7 +153,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "X% more Monster Life": {
    value: "X% more Monster Life",
    scary: 303,
-   matchSafe: "\d+% more monster life",
+   matchSafe: "\"r li\"",
  },
  "Players cannot inflict Exposure": {
    value: "Players cannot inflict Exposure",
