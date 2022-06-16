@@ -63,7 +63,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters have X% increased Critical Strike Chance": {
    value: "Monsters have X% increased Critical Strike Chance",
    scary: 205,
-   matchSafe: "\"ike \"",
+   matchSafe: "\"ke c\"",
  },
  "Unique Boss deals X% increased Damage": {
    value: "Unique Boss deals X% increased Damage",
@@ -118,7 +118,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters Poison on Hit": {
    value: "Monsters Poison on Hit",
    scary: 216,
-   matchSafe: "\"ison \"",
+   matchSafe: "\"son o\"",
  },
  "Monsters' Action Speed cannot be modified to below base value|Monsters cannot be Taunted": {
    value: "Monsters' Action Speed cannot be modified to below base value|Monsters cannot be Taunted",
@@ -253,7 +253,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters gain an Endurance Charge on Hit": {
    value: "Monsters gain an Endurance Charge on Hit",
    scary: 410,
-   matchSafe: "\" an \"",
+   matchSafe: "\"n en\"",
  },
  "Monsters gain a Frenzy Charge on Hit": {
    value: "Monsters gain a Frenzy Charge on Hit",
