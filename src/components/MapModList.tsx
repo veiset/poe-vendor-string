@@ -1,5 +1,6 @@
 import React, {Dispatch, SetStateAction, useEffect} from "react";
 import {MapMod} from "../generated/GeneratedMapMods";
+import ModSearchBox from "./ModSearchBox";
 
 export interface ModListProps {
     id: string
@@ -9,7 +10,7 @@ export interface ModListProps {
     colorFun?: (mapMod: MapMod) => string
 }
 
-const ModList = (props: ModListProps) => {
+const MapModList = (props: ModListProps) => {
     const {id, mods, selected, setSelected, colorFun} = props;
     const [search, setSearch] = React.useState("");
 
@@ -21,16 +22,7 @@ const ModList = (props: ModListProps) => {
 
     return (
         <>
-            <div>
-                <input
-                    type="search"
-                    value={search}
-                    className="modifier-search-box"
-                    id={id}
-                    placeholder="Search for a modifier..."
-                    name="search-mod"
-                    onChange={(v) => setSearch(v.target.value)}/>
-            </div>
+            <ModSearchBox id={id} search={search} setSearch={setSearch} />
             <div className="mod-list">
                 {mapMods.map((v) => {
                     const isSelected = selected.includes(v.value);
@@ -57,4 +49,4 @@ const ModList = (props: ModListProps) => {
 
 }
 
-export default ModList;
+export default MapModList;

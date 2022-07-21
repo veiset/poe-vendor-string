@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import ResultBox from "../components/ResultBox";
 import {MapMod, mapModifiers} from "../generated/GeneratedMapMods";
 import {generateMapModStr, MapModSettings} from "../utils/MapOutput";
-import ModList from "../components/ModList";
+import MapModList from "../components/MapModList";
 import {Checkbox} from "./Vendor";
 import {getGradientColor} from "../utils/ColorGradient";
 import Header from "../components/Header";
@@ -86,10 +86,10 @@ const Maps = () => {
                 </div>
                 <div className="break"/>
                 <div className="item-half-size">
-                    <ModList id="bad-mods" colorFun={badMapColor} mods={badMods} selected={selectedBadMods} setSelected={setSelectedBadMods}/>
+                    <MapModList id="bad-mods" colorFun={badMapColor} mods={badMods} selected={selectedBadMods} setSelected={setSelectedBadMods}/>
                 </div>
                 <div className="item-half-size">
-                    <ModList id="good-mods" colorFun={goodMapColor} mods={goodMods} selected={selectedGoodMods} setSelected={setSelectedGoodMods}/>
+                    <MapModList id="good-mods" colorFun={goodMapColor} mods={goodMods} selected={selectedGoodMods} setSelected={setSelectedGoodMods}/>
                 </div>
             </div>
         </div>
