@@ -16,7 +16,11 @@ const FlaskModList = (props: FlaskModListProps) => {
     const [search, setSearch] = React.useState("");
 
     const flaskMods = mods.filter(v => {
-        return !search || search.toLowerCase().trim().split(" ").every(q => v.description.toLowerCase().includes(q));
+        return !search ||
+            search.toLowerCase().trim().split(" ").every(q => v.description.toLowerCase().includes(q)) ||
+            v.mods
+                .map((v) => v.name.toLowerCase().trim())
+                .some((v) => v.includes(search.toLowerCase().trim()));
     });
 
     const ilevelNumber = isNaN(Number(ilevel)) ? 85 : Number(ilevel);
