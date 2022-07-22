@@ -52,7 +52,7 @@ export function generateFlaskOutput(modGroups: FlaskModGroup[], settings: FlaskM
 
     if (prefixRegex.length > 0 && suffixRegex.length > 0) {
         if (matchBothPrefixAndSuffix) {
-            return `"${prefixRegex}".*"${suffixRegex}"`;
+            return `"${prefixRegex}" "${suffixRegex}"`;
         } else {
             return `"${prefixRegex}|${suffixRegex}"`;
         }
