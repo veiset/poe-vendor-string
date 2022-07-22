@@ -259,7 +259,7 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 12,
    description: "Gain # Charges when you are Hit by an Enemy",
-   regex: "\\d+ c",
+   regex: "u a",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 12,
