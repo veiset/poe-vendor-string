@@ -21,7 +21,7 @@ const FlaskModList = (props: FlaskModListProps) => {
             v.mods
                 .map((v) => v.name.toLowerCase().trim())
                 .some((v) => v.includes(search.toLowerCase().trim()));
-    });
+    }).sort((a, b) => a.tag.sort - b.tag.sort);
 
     const ilevelNumber = isNaN(Number(ilevel)) ? 85 : Number(ilevel);
 
@@ -40,7 +40,9 @@ const FlaskModList = (props: FlaskModListProps) => {
                     }
                     if (desc === null) return;
                     const isSelected = selected.some((r) => r === modGroup.description);
+                    const style = !isSelected ? {color: modGroup.tag.color} : undefined
                     return (<div
+                        style={style}
                         className={isSelected ? "selectable-item selected-mod" : "selectable-item"}
                         onClick={() => {
                             isSelected
