@@ -15,12 +15,20 @@ export function minItemLevel(modGroups: FlaskModGroup[], settings: FlaskModSetti
     const ilevelNumber = isNaN(Number(ilevel)) ? 85 : Number(ilevel);
     if (!onlyMaxSuffixTierMod && !onlyMaxPrefixTierMod) return undefined;
 
-    const itemLevels = prefix.concat(suffix).map((modStr) => {
+    const prefixIlevels = prefix.map((modStr) => {
         const mod = modGroups.find((modGroup) => modGroup.description === modStr);
         return mod ? findIlevel(mod, ilevelNumber) : undefined;
-    })
-        .filter((i) => { return i !== undefined}) as number[];
+    }).filter((i) => { return i !== undefined && onlyMaxPrefixTierMod}) as number[];
 
+    const suffixIlevels = suffix.map((modStr) => {
+        const mod = modGroups.find((modGroup) => modGroup.description === modStr);
+        return mod ? findIlevel(mod, ilevelNumber) : undefined;
+    }).filter((i) => { return i !== undefined && onlyMaxSuffixTierMod}) as number[];
+
+    if (prefixIlevels.length === 0 && !onlyMaxSuffixTierMod) return undefined;
+    if (suffixIlevels.length === 0 && !onlyMaxPrefixTierMod) return undefined;
+
+    const itemLevels = prefixIlevels.concat(suffixIlevels);
     if (itemLevels.length === 0) {
         return undefined;
     }
