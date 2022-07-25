@@ -44,8 +44,6 @@ const Flasks = () => {
                     setSelectedPrefix([]);
                     setSelectedSuffix([]);
                     setIlevel("85");
-                    setOnlyMaxPrefixTierMod(true);
-                    setOnlyMaxSuffixTierMod(true);
                 }}/>
                 <div className="break"/>
                 <div className="item-wide">
