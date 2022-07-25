@@ -8,6 +8,7 @@ const LinkMenu = () => {
                 <div className="item-wide">
                     <Link to="/vendor">Vendor</Link> {"| "}
                     <Link to="/maps">Map Modifiers</Link> {"| "}
+                    <Link to="/flasks">Flasks</Link> {"| "}
                     <a href="https://xanthics.github.io/poe_gen_gwennen/">Expedition (external link)</a>
                 </div>
             </div>
