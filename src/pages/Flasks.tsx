@@ -15,7 +15,7 @@ const Flasks = () => {
     const [ilevel, setIlevel] = React.useState<string>(hasKey(savedSettings, "ilevel") ? savedSettings.ilevel : "85");
     const [onlyMaxPrefixTierMod, setOnlyMaxPrefixTierMod] = React.useState(hasKey(savedSettings, "onlyMaxPrefixTierMod") ? savedSettings.onlyMaxPrefixTierMod : true);
     const [onlyMaxSuffixTierMod, setOnlyMaxSuffixTierMod] = React.useState(hasKey(savedSettings, "onlyMaxSuffixTierMod") ? savedSettings.onlyMaxSuffixTierMod : true);
-    const [matchBothPrefixAndSuffix, setMatchBothPrefixAndSuffix] = React.useState(hasKey(savedSettings, "matchBothPrefixAndSuffix") ? savedSettings.matchBothPrefixAndSuffix : true);
+    const [matchBothPrefixAndSuffix, setMatchBothPrefixAndSuffix] = React.useState(hasKey(savedSettings, "matchBothPrefixAndSuffix") ? savedSettings.matchBothPrefixAndSuffix : false);
 
     let [result, setResult] = React.useState("");
     let [minIlevel, setMinIlevel] = React.useState<string|undefined>(undefined);
