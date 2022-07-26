@@ -103,7 +103,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters cannot be Stunned": {
    value: "Monsters cannot be Stunned",
    scary: 213,
-   matchSafe: "stu",
+   matchSafe: "tun",
  },
  "X% increased Monster Movement Speed|X% increased Monster Attack Speed|X% increased Monster Cast Speed": {
    value: "X% increased Monster Movement Speed|X% increased Monster Attack Speed|X% increased Monster Cast Speed",
@@ -123,7 +123,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters' Action Speed cannot be modified to below base value|Monsters cannot be Taunted": {
    value: "Monsters' Action Speed cannot be modified to below base value|Monsters cannot be Taunted",
    scary: 217,
-   matchSafe: "bel",
+   matchSafe: "elo",
  },
  "Monsters have X% chance to Impale with Attacks": {
    value: "Monsters have X% chance to Impale with Attacks",
