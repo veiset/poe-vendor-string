@@ -62,7 +62,7 @@ function getDefaultSettings(): PoeStringSettings {
             chaos: false,
             any: false,
         },
-        damage: {phys: false, elemental: false, spellDamage: false,}
+        damage: {phys: false, elemental: false, spellFlat: false, spellDamage: false,}
     }
 }
 

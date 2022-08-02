@@ -46,6 +46,7 @@ export interface PoeStringSettings {
     damage: {
         phys: boolean
         elemental: boolean
+        spellFlat: boolean
         spellDamage: boolean
     }
 }
@@ -59,10 +60,10 @@ export function generateResultString(settings: PoeStringSettings): string {
     result = addExpression(result, gemStr(settings));
     result = addExpression(result, generateWeaponDamage(settings));
     result = simplifyRBG(result);
-    // fix for all gems
-    if (result.match("\\|\"ll g\"")) {
-        result = result.replace("|\"ll g\"", "");
-        result = `"${result}|ll g"`;
+    // fix for quoted regexes
+    if (result.match("\"")) {
+        result = result.replaceAll("\"", "");
+        result = `"${result}"`;
     }
     return result;
 
@@ -256,11 +257,12 @@ export function gemStr(settings: PoeStringSettings): string  {
 }
 
 export function generateWeaponDamage(settings: PoeStringSettings): string {
-    const {phys, elemental, spellDamage} = settings.damage;
+    const {phys, elemental, spellFlat, spellDamage} = settings.damage;
     let result = "";
     if (phys) result = addExpression(result, "Glint|Heav");
     if (elemental) result = addExpression(result, "Heat|roste|Humm");
     if (spellDamage) result = addExpression(result, "Appre");
+    if (spellFlat) result = addExpression(result, "\"e to Sp\"");
 
     return result;
 }

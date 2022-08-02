@@ -59,6 +59,7 @@ const Vendor = () => {
 
     const [dmgPhys, setDmgPhys] = React.useState(hasNKey(savedSettings, "damage.phys"));
     const [dmgElemental, setDmgElemental] = React.useState(hasNKey(savedSettings, "damage.elemental"));
+    const [dmgSpellFlat, setDmgSpellFlat] = React.useState(hasNKey(savedSettings, "damage.spellFlat"));
     const [dmgSpell, setDmgSpell] = React.useState(hasNKey(savedSettings, "damage.spellDamage"));
 
 
@@ -69,7 +70,7 @@ const Vendor = () => {
         setAnyThreeLink, setAnyFourLink,
         setMovement10, setMovement15, setLightning,
         setFire, setCold, setPhys, setChaos, setAnyGem,
-        setDmgPhys, setDmgElemental, setDmgSpell
+        setDmgPhys, setDmgElemental, setDmgSpellFlat, setDmgSpell
     ]
     const listOfvalues = [
         rrr, ggg, bbb,
@@ -78,7 +79,7 @@ const Vendor = () => {
         anyThreeLink, anyFourLink,
         movement10, movement15, lightning,
         fire, cold, phys, chaos, anyGem,
-        dmgPhys, dmgElemental, dmgSpell
+        dmgPhys, dmgElemental, dmgSpellFlat, dmgSpell
     ]
 
     let settings: PoeStringSettings = {
@@ -106,6 +107,7 @@ const Vendor = () => {
         damage: {
             phys: dmgPhys,
             elemental: dmgElemental,
+            spellFlat: dmgSpellFlat,
             spellDamage: dmgSpell,
         }
     };
@@ -179,6 +181,7 @@ const Vendor = () => {
 
                     <Checkbox className="small-padding" label="Physical damage" value={dmgPhys} onChange={setDmgPhys}/>
                     <Checkbox label="Flat Elemental damage" value={dmgElemental} onChange={setDmgElemental}/>
+                    <Checkbox label="Flat Spell damage" value={dmgSpellFlat} onChange={setDmgSpellFlat}/>
                     <Checkbox label="Increased Spell damage" value={dmgSpell} onChange={setDmgSpell}/>
                 </div>
 
