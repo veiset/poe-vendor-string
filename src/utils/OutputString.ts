@@ -134,6 +134,13 @@ export function simplify(search: string): string {
     let result = search;
     if (result.includes("|-[rgb]-|") || result.startsWith("-[rgb]-|")) return "-[rgb]-"
 
+    result = simplifyABABAB(result, "g", "r");
+    result = simplifyABABAB(result, "g", "b");
+    result = simplifyABABAB(result, "r", "g");
+    result = simplifyABABAB(result, "r", "b");
+    result = simplifyABABAB(result, "b", "r");
+    result = simplifyABABAB(result, "b", "g");
+
     result = removeCCCWhenCCA(result, "r", "g", "b");
     result = removeCCCWhenCCA(result, "g", "b", "r");
     result = removeCCCWhenCCA(result, "b", "r", "g");
@@ -160,6 +167,24 @@ export function simplify(search: string): string {
 
     let unique = Array.from(new Set(result.split("|")));
     return unique.join("|");
+}
+
+// r-r-r|g-g-g|r-r-g|r-g-r|g-r-r|g-g-r|g-r-g|r-g-g -> [rg]-[rg]-[rg]
+function simplifyABABAB(result: string, c: string, c2: string): string {
+    let r = result;
+    const search1 = `${c}-${c}-${c}|${c2}-${c2}-${c2}|${c}-${c}-${c2}|${c}-${c2}-${c}|${c2}-${c}-${c}|${c2}-${c2}-${c}|${c2}-${c}-${c2}|${c}-${c2}-${c2}`;
+    const searchTerms = search1.split("|");
+    console.log(`Input: ${result}`)
+    console.log(`Out:   ${search1}`);
+    if (searchTerms.every((v) => result.includes(v))) {
+        const shortened = `[${c}${c2}]-[${c}${c2}]-[${c}${c2}]`;
+        console.log(`Short: ${shortened}`);
+        r = r.split("|").filter(v => !searchTerms.some((t) => v === t)).join("|");
+        r = addExpression(r, shortened);
+    }
+    console.log(`Result: ${result}`);
+    return r;
+
 }
 
 // r-r-g|r-g-r|g-r-r|r-r-b|r-b-r|b-r-r -> r-r-[gb]|r-[gb]-r|[gb]-r-r
