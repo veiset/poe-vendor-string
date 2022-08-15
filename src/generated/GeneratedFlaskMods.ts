@@ -257,38 +257,6 @@ export const flaskPrefix: FlaskModGroup[] = [
    }]
  },
  {
-   minLevel: 12,
-   description: "Gain # Charges when you are Hit by an Enemy",
-   regex: "u a",
-   tag: { name: "default", sort: 0, color: "#fff" },
-   mods: [   {
-     level: 12,
-     name: "Delinquent's",
-     value: "Gain 3 Charges when you are Hit by an Enemy",
-     regex: "nq"
-   },   {
-     level: 29,
-     name: "Transgressor's",
-     value: "Gain 4 Charges when you are Hit by an Enemy",
-     regex: "sg"
-   },   {
-     level: 46,
-     name: "Sinner's",
-     value: "Gain 5 Charges when you are Hit by an Enemy",
-     regex: "inn"
-   },   {
-     level: 63,
-     name: "Masochist's",
-     value: "Gain 6 Charges when you are Hit by an Enemy",
-     regex: "mas"
-   },   {
-     level: 80,
-     name: "Flagellant's",
-     value: "Gain 7 Charges when you are Hit by an Enemy",
-     regex: "lag"
-   }]
- },
- {
    minLevel: 20,
    description: "#% increased Duration",
    regex: "inv|anal|xa|cli|xp",
@@ -554,6 +522,28 @@ export const flaskPrefix: FlaskModGroup[] = [
      name: "Rationed",
      value: "(61-66)% increased Charge Recovery 25% reduced effect",
      regex: "atione"
+   }]
+ },
+ {
+   minLevel: 29,
+   description: "Gain # Charges when you are Hit by an Enemy",
+   regex: "u a",
+   tag: { name: "default", sort: 0, color: "#fff" },
+   mods: [   {
+     level: 29,
+     name: "Transgressor's",
+     value: "Gain 1 Charges when you are Hit by an Enemy",
+     regex: "sg"
+   },   {
+     level: 63,
+     name: "Masochist's",
+     value: "Gain 2 Charges when you are Hit by an Enemy",
+     regex: "mas"
+   },   {
+     level: 80,
+     name: "Flagellant's",
+     value: "Gain 3 Charges when you are Hit by an Enemy",
+     regex: "lag"
    }]
  },
 ];
@@ -1131,7 +1121,7 @@ export const flaskSuffix: FlaskModGroup[] = [
  {
    minLevel: 6,
    description: "#% chance to Avoid being Ignited during Flask Effect",
-   regex: "g i",
+   regex: "g ig",
    tag: { name: "avoidailment", sort: 60, color: "#c2ffe3" },
    mods: [   {
      level: 6,
@@ -1410,7 +1400,7 @@ export const flaskSuffix: FlaskModGroup[] = [
      level: 78,
      name: "of Quenching",
      value: "Grants Immunity to Ignite for (15-17) seconds if used while Ignited Removes all Burning when used",
-     regex: "nch"
+     regex: "uen"
    }]
  },
  {
