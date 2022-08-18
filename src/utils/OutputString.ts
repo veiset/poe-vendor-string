@@ -34,6 +34,13 @@ export interface PoeStringSettings {
         rb: boolean
         gr: boolean
         bg: boolean
+
+        specLink: boolean
+        specLinkColors: {
+            r: number,
+            g: number,
+            b: number
+        }
     }
     plusGems: {
         lightning: boolean
@@ -54,6 +61,7 @@ export interface PoeStringSettings {
 export function generateResultString(settings: PoeStringSettings): string {
     let result = ""
     result = addExpression(result, generate4LinkStr(settings));
+    result = addExpression(result, generateSpecLinkStr(settings));
     result = addExpression(result, simplify(generate3LinkStr(settings)));
     result = addExpression(result, generate2Link(settings));
     result = addExpression(result, movementStr(settings));
@@ -98,6 +106,26 @@ export function generate3LinkStr(settings: PoeStringSettings): string {
 }
 
 export function generate4LinkStr(settings: PoeStringSettings): string {
+    if(!settings.colors.specLink)
+        return "";
+    const {r, g, b} = settings.colors.specLinkColors;
+    if(r === 0 && g === 0 && b === 0)
+        return "";
+    const lastColor = (b === 0 && g === 0) ? "r" : (b === 0 ? "g" : "b");
+    let result = "ts:.+";
+    if(r > 0){
+        result += lastColor==="r" ? `(\\S*r){${r}}` : `(?=(\\S*r){${r}})`
+    }
+    if(g > 0){
+        result += lastColor==="g" ? `(\\S*g){${g}}` : `(?=(\\S*g){${g}})`
+    }
+    if(b > 0){
+        result += `(\\S*b){${b}}`
+    }
+    return result;
+}
+
+export function generateSpecLinkStr(settings: PoeStringSettings): string {
     return settings.anyFourLink ? "-[rgb]-.-" : "";
 }
 

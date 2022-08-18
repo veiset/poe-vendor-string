@@ -26,10 +26,31 @@ body {
   padding-top: 20px;
 }
 
+.numberinput-input {
+  background-color: #e22434;
+  height: 33px;
+  width: 33px;
+  margin: 3px 10px;
+}
+
 input[type="checkbox"] {
   background-color: #e22434;
   border: 0px;
 }
+input[type="number"] {
+  background-color: #ffffff;
+  border: 0px;
+  padding: 0px;
+  font-size: 20px;
+  text-align: center;
+  -moz-appearance:textfield; /* Firefox */
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    display: none;
+    margin: 0;
+}
+
 input[type="search"] {
   background-color: #ffffff;
 }
