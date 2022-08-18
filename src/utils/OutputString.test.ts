@@ -47,6 +47,7 @@ function getDefaultSettings(): PoeStringSettings {
         anyFourLink: false,
         anyFiveLink: false,
         anySixLink: false,
+        anySixSocket: false,
         movement: {ten: false, fifteen: false,},
         colors: {
             rrr: false, ggg: false, bbb: false,

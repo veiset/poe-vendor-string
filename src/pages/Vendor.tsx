@@ -54,6 +54,7 @@ const Vendor = () => {
     const [anyFourLink, setAnyFourLink] = React.useState(hasNKey(savedSettings, "anyFourLink"));
     const [anyFiveLink, setAnyFiveLink] = React.useState(hasNKey(savedSettings, "anyFiveLink"));
     const [anySixLink, setAnySixLink] = React.useState(hasNKey(savedSettings, "anySixLink"));
+    const [anySixSocket, setAnySixSocket] = React.useState(hasNKey(savedSettings, "anySixSocket"));
     const [movement10, setMovement10] = React.useState(hasNKey(savedSettings, "movement.ten"));
     const [movement15, setMovement15] = React.useState(hasNKey(savedSettings, "movement.fifteen"));
 
@@ -75,7 +76,7 @@ const Vendor = () => {
         setRrA, setGgA, setBbA, setRrg, setRrb, setGgr, setGgb, setBbr, setBbg, setRgb, setRaa, setGaa, setBaa,
         setRr, setGg, setBb, setRb, setGr, setBg,
         setSpecLink,
-        setAnyThreeLink, setAnyFourLink, setAnyFiveLink, setAnySixLink,
+        setAnyThreeLink, setAnyFourLink, setAnyFiveLink, setAnySixLink, setAnySixSocket,
         setMovement10, setMovement15, setLightning,
         setFire, setCold, setPhys, setChaos, setAnyGem,
         setDmgPhys, setDmgElemental, setDmgSpellFlat, setDmgSpell
@@ -90,7 +91,7 @@ const Vendor = () => {
         rrA, ggA, bbA, rrg, rrb, ggr, ggb, bbr, bbg, rgb, raa, gaa, baa,
         rr, gg, bb, rb, gr, bg,
         specLink, specLinkColorsR, specLinkColorsG, specLinkColorsB,
-        anyThreeLink, anyFourLink, anyFiveLink, anySixLink,
+        anyThreeLink, anyFourLink, anyFiveLink, anySixLink, anySixSocket,
         movement10, movement15, lightning,
         fire, cold, phys, chaos, anyGem,
         dmgPhys, dmgElemental, dmgSpellFlat, dmgSpell
@@ -101,6 +102,7 @@ const Vendor = () => {
         anyFourLink,
         anyFiveLink,
         anySixLink,
+        anySixSocket,
         movement: {
             ten: movement10,
             fifteen: movement15,
@@ -191,6 +193,7 @@ const Vendor = () => {
                     <SocketCheckbox label="Any 4 link" value={anyFourLink} onChange={setAnyFourLink} link="*-*-*-*"/>
                     <SocketCheckbox label="Any 5 link" value={anyFiveLink} onChange={setAnyFiveLink} link="*-*-*-*-*"/>
                     <SocketCheckbox label="Any 6 link" value={anySixLink} onChange={setAnySixLink} link=""/>
+                    <SocketCheckbox label="Any 6 socket" value={anySixSocket} onChange={setAnySixSocket} link=""/>
 
                     <div className="column-header small-padding"> Other Links</div>
                     <Checkbox label="Enable (Takes a lot of space)" value={specLink} onChange={setSpecLink}/>

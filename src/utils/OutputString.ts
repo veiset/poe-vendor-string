@@ -3,6 +3,7 @@ export interface PoeStringSettings {
     anyFourLink: boolean
     anyFiveLink: boolean
     anySixLink: boolean
+    anySixSocket: boolean
     movement: {
         ten: boolean
         fifteen: boolean
@@ -62,6 +63,7 @@ export interface PoeStringSettings {
 
 export function generateResultString(settings: PoeStringSettings): string {
     let result = ""
+    result = addExpression(result, generate6Socket(settings));
     result = addExpression(result, generate4LinkStr(settings));
     result = addExpression(result, generate5LinkStr(settings));
     result = addExpression(result, generate6LinkStr(settings));
@@ -79,6 +81,10 @@ export function generateResultString(settings: PoeStringSettings): string {
     }
     return result;
 
+}
+
+export function generate6Socket(settings: PoeStringSettings): string {
+    return settings.anySixSocket ? "([rgbw].){5}[rgbw]" : "";
 }
 
 export function generate3LinkStr(settings: PoeStringSettings): string {
