@@ -1,6 +1,8 @@
 export interface PoeStringSettings {
     anyThreeLink: boolean
     anyFourLink: boolean
+    anyFiveLink: boolean
+    anySixLink: boolean
     movement: {
         ten: boolean
         fifteen: boolean
@@ -61,6 +63,8 @@ export interface PoeStringSettings {
 export function generateResultString(settings: PoeStringSettings): string {
     let result = ""
     result = addExpression(result, generate4LinkStr(settings));
+    result = addExpression(result, generate5LinkStr(settings));
+    result = addExpression(result, generate6LinkStr(settings));
     result = addExpression(result, generateSpecLinkStr(settings));
     result = addExpression(result, simplify(generate3LinkStr(settings)));
     result = addExpression(result, generate2Link(settings));
@@ -82,7 +86,7 @@ export function generate3LinkStr(settings: PoeStringSettings): string {
     const {rrr, ggg, bbb, rrg, rrb, ggr, ggb, bbr, bbg, rgb, rrA, ggA, bbA, raa, baa, gaa} = colors;
 
     let result = "";
-    if (settings.anyThreeLink) result = addExpression(result, "-[rgb]-");
+    if (settings.anyThreeLink) {result = addExpression(result, "-\\w-"); return result};
     if (rrr) result = addExpression(result, "r-r-r");
     if (ggg) result = addExpression(result, "g-g-g");
     if (bbb) result = addExpression(result, "b-b-b");
@@ -106,7 +110,15 @@ export function generate3LinkStr(settings: PoeStringSettings): string {
 }
 
 export function generate4LinkStr(settings: PoeStringSettings): string {
-    return settings.anyFourLink ? "-[rgb]-.-" : "";
+    return settings.anyFourLink ? "-\\w-.-" : "";
+}
+
+export function generate5LinkStr(settings: PoeStringSettings): string {
+    return settings.anyFiveLink ? "(-\\w){4}" : "";
+}
+
+export function generate6LinkStr(settings: PoeStringSettings): string {
+    return settings.anySixLink ? "(-\\w){5}" : "";
 }
 
 export function generateSpecLinkStr(settings: PoeStringSettings): string {

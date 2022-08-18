@@ -52,6 +52,8 @@ const Vendor = () => {
 
     const [anyThreeLink, setAnyThreeLink] = React.useState(hasNKey(savedSettings, "anyThreeLink"));
     const [anyFourLink, setAnyFourLink] = React.useState(hasNKey(savedSettings, "anyFourLink"));
+    const [anyFiveLink, setAnyFiveLink] = React.useState(hasNKey(savedSettings, "anyFiveLink"));
+    const [anySixLink, setAnySixLink] = React.useState(hasNKey(savedSettings, "anySixLink"));
     const [movement10, setMovement10] = React.useState(hasNKey(savedSettings, "movement.ten"));
     const [movement15, setMovement15] = React.useState(hasNKey(savedSettings, "movement.fifteen"));
 
@@ -73,7 +75,7 @@ const Vendor = () => {
         setRrA, setGgA, setBbA, setRrg, setRrb, setGgr, setGgb, setBbr, setBbg, setRgb, setRaa, setGaa, setBaa,
         setRr, setGg, setBb, setRb, setGr, setBg,
         setSpecLink, setSpecLinkColorsR, setSpecLinkColorsG, setSpecLinkColorsB,
-        setAnyThreeLink, setAnyFourLink,
+        setAnyThreeLink, setAnyFourLink, setAnyFiveLink, setAnySixLink,
         setMovement10, setMovement15, setLightning,
         setFire, setCold, setPhys, setChaos, setAnyGem,
         setDmgPhys, setDmgElemental, setDmgSpellFlat, setDmgSpell
@@ -83,7 +85,7 @@ const Vendor = () => {
         rrA, ggA, bbA, rrg, rrb, ggr, ggb, bbr, bbg, rgb, raa, gaa, baa,
         rr, gg, bb, rb, gr, bg,
         specLink, specLinkColorsR, specLinkColorsG, specLinkColorsB,
-        anyThreeLink, anyFourLink,
+        anyThreeLink, anyFourLink, anyFiveLink, anySixLink,
         movement10, movement15, lightning,
         fire, cold, phys, chaos, anyGem,
         dmgPhys, dmgElemental, dmgSpellFlat, dmgSpell
@@ -92,6 +94,8 @@ const Vendor = () => {
     let settings: PoeStringSettings = {
         anyThreeLink,
         anyFourLink,
+        anyFiveLink,
+        anySixLink,
         movement: {
             ten: movement10,
             fifteen: movement15,
@@ -169,8 +173,10 @@ const Vendor = () => {
                     <Checkbox label="Movement speed (15%)" value={movement15} onChange={setMovement15}/>
 
                     <div className="column-header"> Any links</div>
-                    <SocketCheckbox label="Any 4 link" value={anyFourLink} onChange={setAnyFourLink} link="*-*-*-*"/>
                     <SocketCheckbox label="Any 3 link" value={anyThreeLink} onChange={setAnyThreeLink} link="*-*-*"/>
+                    <SocketCheckbox label="Any 4 link" value={anyFourLink} onChange={setAnyFourLink} link="*-*-*-*"/>
+                    <SocketCheckbox label="Any 5 link" value={anyFiveLink} onChange={setAnyFiveLink} link="*-*-*-*-*"/>
+                    <SocketCheckbox label="Any 6 link" value={anySixLink} onChange={setAnySixLink} link=""/>
 
                     <div className="column-header small-padding"> Link colors (2L)</div>
                     <SocketCheckbox label="r-r" value={rr} onChange={setRr}/>
@@ -180,7 +186,7 @@ const Vendor = () => {
                     <SocketCheckbox className="small-padding" label="r-b" value={rb} onChange={setRb}/>
                     <SocketCheckbox label="g-r" value={gr} onChange={setGr}/>
                     <SocketCheckbox label="b-g" value={bg} onChange={setBg}/>
-                    
+
                     <div className="column-header small-padding"> Other Links</div>
                     <Checkbox label="Enable (Can Be long)" value={specLink} onChange={setSpecLink}/>
                     <div>
@@ -188,7 +194,7 @@ const Vendor = () => {
                     <NumberInput label="g" value={specLinkColorsG} image="g" onChange={setSpecLinkColorsG}/>
                     <NumberInput label="b" value={specLinkColorsB} image="b" onChange={setSpecLinkColorsB}/>
                     </div>
-                    
+
                 </div>
                 <div className="item">
                     <div className="column-header">
@@ -250,7 +256,7 @@ export const Checkbox = (props: CheckboxProps) => {
 }
 
 const SocketCheckbox = (props: LinkCheckboxProps) => {
-    const els = props.link ? props.link.split("") : props.label.split("");
+    const els = props.link?.split("") ?? props.label.split("");
 
     return (
         <div className={props.className}>
