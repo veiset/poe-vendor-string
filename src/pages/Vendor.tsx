@@ -160,11 +160,11 @@ const Vendor = () => {
                     <Checkbox label="Movement speed (15%)" value={movement15} onChange={setMovement15}/>
 
                     <div className="column-header"> Any links</div>
-                    <Checkbox label="Any 6 link" value={anySixLink} onChange={setAnySixLink}/>
-                    <SocketCheckbox label="Any 5 link" value={anyFiveLink} onChange={setAnyFiveLink} link="*-*-*-*-*"/>
-                    <SocketCheckbox label="Any 4 link" value={anyFourLink} onChange={setAnyFourLink} link="*-*-*-*"/>
                     <SocketCheckbox label="Any 3 link" value={anyThreeLink} onChange={setAnyThreeLink} link="*-*-*"/>
-
+                    <SocketCheckbox label="Any 4 link" value={anyFourLink} onChange={setAnyFourLink} link="*-*-*-*"/>
+                    <SocketCheckbox label="Any 5 link" value={anyFiveLink} onChange={setAnyFiveLink} link="*-*-*-*-*"/>
+                    <SocketCheckbox label="Any 6 link" value={anySixLink} onChange={setAnySixLink} link=""/>
+                    
                     <div className="column-header small-padding"> Link colors (2L)</div>
                     <SocketCheckbox label="r-r" value={rr} onChange={setRr}/>
                     <SocketCheckbox label="g-g" value={gg} onChange={setGg}/>
@@ -226,7 +226,7 @@ export const Checkbox = (props: CheckboxProps) => {
 }
 
 const SocketCheckbox = (props: LinkCheckboxProps) => {
-    const els = props.link ? props.link.split("") : props.label.split("");
+    const els = props.link !== undefined ? props.link.split("") : props.label.split("");
 
     return (
         <div className={props.className}>
