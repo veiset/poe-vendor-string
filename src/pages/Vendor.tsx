@@ -226,7 +226,7 @@ export const Checkbox = (props: CheckboxProps) => {
 }
 
 const SocketCheckbox = (props: LinkCheckboxProps) => {
-    const els = props.link !== undefined ? props.link.split("") : props.label.split("");
+    const els = props.link?.split("") ?? props.label.split("");
 
     return (
         <div className={props.className}>
