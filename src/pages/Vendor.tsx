@@ -8,7 +8,7 @@ import socketLink from '../img/link.png';
 import {generateResultString, PoeStringSettings} from "../utils/OutputString";
 import ResultBox from "../components/ResultBox";
 import Header from "../components/Header";
-import {hasNKey} from "../utils/LocalStorage";
+import {hasNKey, hasNumberKey} from "../utils/LocalStorage";
 
 const Vendor = () => {
 
@@ -46,9 +46,9 @@ const Vendor = () => {
     const [bg, setBg] = React.useState(hasNKey(savedSettings, "colors.bg"));
 
     const [specLink, setSpecLink] = React.useState(hasNKey(savedSettings, "colors.specLink"));
-    const [specLinkColorsR, setSpecLinkColorsR] = React.useState(hasNKey(savedSettings, "colors.specLinkColors.r") ? savedSettings["colors.specLinkColors.r"] : 0);
-    const [specLinkColorsG, setSpecLinkColorsG] = React.useState(hasNKey(savedSettings, "colors.specLinkColors.g") ? savedSettings["colors.specLinkColors.g"] : 0);
-    const [specLinkColorsB, setSpecLinkColorsB] = React.useState(hasNKey(savedSettings, "colors.specLinkColors.b") ? savedSettings["colors.specLinkColors.b"] : 0);
+    const [specLinkColorsR, setSpecLinkColorsR] = React.useState<number|undefined>(hasNumberKey(savedSettings, "colors.specLinkColors.r"));
+    const [specLinkColorsG, setSpecLinkColorsG] = React.useState<number|undefined>(hasNumberKey(savedSettings, "colors.specLinkColors.g"));
+    const [specLinkColorsB, setSpecLinkColorsB] = React.useState<number|undefined>(hasNumberKey(savedSettings, "colors.specLinkColors.b"));
 
     const [anyThreeLink, setAnyThreeLink] = React.useState(hasNKey(savedSettings, "anyThreeLink"));
     const [anyFourLink, setAnyFourLink] = React.useState(hasNKey(savedSettings, "anyFourLink"));
@@ -74,12 +74,17 @@ const Vendor = () => {
         setRrr, setGgg, setBbb,
         setRrA, setGgA, setBbA, setRrg, setRrb, setGgr, setGgb, setBbr, setBbg, setRgb, setRaa, setGaa, setBaa,
         setRr, setGg, setBb, setRb, setGr, setBg,
-        setSpecLink, setSpecLinkColorsR, setSpecLinkColorsG, setSpecLinkColorsB,
+        setSpecLink,
         setAnyThreeLink, setAnyFourLink, setAnyFiveLink, setAnySixLink,
         setMovement10, setMovement15, setLightning,
         setFire, setCold, setPhys, setChaos, setAnyGem,
         setDmgPhys, setDmgElemental, setDmgSpellFlat, setDmgSpell
     ]
+
+    const listOfNumbers = [
+        setSpecLinkColorsR, setSpecLinkColorsG, setSpecLinkColorsB,
+    ]
+
     const listOfvalues = [
         rrr, ggg, bbb,
         rrA, ggA, bbA, rrg, rrb, ggr, ggb, bbr, bbg, rgb, raa, gaa, baa,
@@ -107,7 +112,7 @@ const Vendor = () => {
             rgb, raa, gaa, baa,
             rr, gg, bb, rb, gr, bg,
             specLink,
-            specLinkColors : {
+            specLinkColors: {
                 r: specLinkColorsR,
                 g: specLinkColorsG,
                 b: specLinkColorsB,
@@ -142,6 +147,9 @@ const Vendor = () => {
                     listOfOptions.forEach(setting => {
                         setting(false);
                     })
+                    listOfNumbers.forEach(settings => {
+                        settings(undefined);
+                    })
                 }}/>
                 <div className="break"/>
                 <div className="item">
@@ -168,15 +176,6 @@ const Vendor = () => {
                     <SocketCheckbox label="b-*-*" value={baa} onChange={setBaa}/>
                 </div>
                 <div className="item">
-                    <div className="column-header"> Movement speed</div>
-                    <Checkbox label="Movement speed (10%)" value={movement10} onChange={setMovement10}/>
-                    <Checkbox label="Movement speed (15%)" value={movement15} onChange={setMovement15}/>
-
-                    <div className="column-header"> Any links</div>
-                    <SocketCheckbox label="Any 3 link" value={anyThreeLink} onChange={setAnyThreeLink} link="*-*-*"/>
-                    <SocketCheckbox label="Any 4 link" value={anyFourLink} onChange={setAnyFourLink} link="*-*-*-*"/>
-                    <SocketCheckbox label="Any 5 link" value={anyFiveLink} onChange={setAnyFiveLink} link="*-*-*-*-*"/>
-                    <SocketCheckbox label="Any 6 link" value={anySixLink} onChange={setAnySixLink} link=""/>
 
                     <div className="column-header small-padding"> Link colors (2L)</div>
                     <SocketCheckbox label="r-r" value={rr} onChange={setRr}/>
@@ -187,16 +186,26 @@ const Vendor = () => {
                     <SocketCheckbox label="g-r" value={gr} onChange={setGr}/>
                     <SocketCheckbox label="b-g" value={bg} onChange={setBg}/>
 
+                    <div className="column-header"> Any links</div>
+                    <SocketCheckbox label="Any 3 link" value={anyThreeLink} onChange={setAnyThreeLink} link="*-*-*"/>
+                    <SocketCheckbox label="Any 4 link" value={anyFourLink} onChange={setAnyFourLink} link="*-*-*-*"/>
+                    <SocketCheckbox label="Any 5 link" value={anyFiveLink} onChange={setAnyFiveLink} link="*-*-*-*-*"/>
+                    <SocketCheckbox label="Any 6 link" value={anySixLink} onChange={setAnySixLink} link=""/>
+
                     <div className="column-header small-padding"> Other Links</div>
-                    <Checkbox label="Enable (Can Be long)" value={specLink} onChange={setSpecLink}/>
+                    <Checkbox label="Enable (Takes a lot of space)" value={specLink} onChange={setSpecLink}/>
                     <div>
-                    <NumberInput label="r" value={specLinkColorsR} image="r" onChange={setSpecLinkColorsR}/>
-                    <NumberInput label="g" value={specLinkColorsG} image="g" onChange={setSpecLinkColorsG}/>
-                    <NumberInput label="b" value={specLinkColorsB} image="b" onChange={setSpecLinkColorsB}/>
+                        <NumberInput label="r" value={specLinkColorsR} image="r" onChange={setSpecLinkColorsR}/>
+                        <NumberInput label="g" value={specLinkColorsG} image="g" onChange={setSpecLinkColorsG}/>
+                        <NumberInput label="b" value={specLinkColorsB} image="b" onChange={setSpecLinkColorsB}/>
                     </div>
 
                 </div>
                 <div className="item">
+                    <div className="column-header"> Movement speed</div>
+                    <Checkbox label="Movement speed (10%)" value={movement10} onChange={setMovement10}/>
+                    <Checkbox label="Movement speed (15%)" value={movement15} onChange={setMovement15}/>
+
                     <div className="column-header">
                         Misc
                     </div>
@@ -238,9 +247,9 @@ interface LinkCheckboxProps {
 
 interface NumberInputProps {
     label: string
-    value: number
+    value: number | undefined
     image?: string
-    onChange: Dispatch<SetStateAction<number>>
+    onChange: Dispatch<SetStateAction<number | undefined>>
     className?: string
 }
 
@@ -276,7 +285,10 @@ const SocketCheckbox = (props: LinkCheckboxProps) => {
 export const NumberInput = (props: NumberInputProps) => {
     return (
         <label className="numberinput">
-            <input className="numberinput-input" placeholder="0" type="number" min="0" max="6" value={props.value} onChange={e => props.onChange(Number(e.target.value))}/>
+            <input className="numberinput-input" placeholder="0" type="number" min="0" max="6" value={props.value} onChange={e => {
+                const number = Number(e.target.value);
+                number === 0 ? props.onChange(undefined) : props.onChange(number)
+            }}/>
             {props.image ? <img className="socket-size" src={imgFromChar(props.image)} alt="red"/> : null}
             <span>&nbsp;{props.label}</span>
         </label>

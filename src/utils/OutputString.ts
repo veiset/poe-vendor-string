@@ -39,9 +39,9 @@ export interface PoeStringSettings {
 
         specLink: boolean
         specLinkColors: {
-            r: number,
-            g: number,
-            b: number
+            r: number | undefined
+            g: number | undefined
+            b: number | undefined
         }
     }
     plusGems: {
@@ -86,7 +86,11 @@ export function generate3LinkStr(settings: PoeStringSettings): string {
     const {rrr, ggg, bbb, rrg, rrb, ggr, ggb, bbr, bbg, rgb, rrA, ggA, bbA, raa, baa, gaa} = colors;
 
     let result = "";
-    if (settings.anyThreeLink) {result = addExpression(result, "-\\w-"); return result};
+    if (settings.anyThreeLink) {
+        result = addExpression(result, "-\\w-");
+        return result
+    }
+    ;
     if (rrr) result = addExpression(result, "r-r-r");
     if (ggg) result = addExpression(result, "g-g-g");
     if (bbb) result = addExpression(result, "b-b-b");
@@ -122,20 +126,20 @@ export function generate6LinkStr(settings: PoeStringSettings): string {
 }
 
 export function generateSpecLinkStr(settings: PoeStringSettings): string {
-    if(!settings.colors.specLink)
+    if (!settings.colors.specLink)
         return "";
     const {r, g, b} = settings.colors.specLinkColors;
-    if(r === 0 && g === 0 && b === 0)
+    if ((r === 0 || r === undefined) && (g === 0 || g === undefined) && (b === 0 || b === undefined))
         return "";
     const lastColor = (b === 0 && g === 0) ? "r" : (b === 0 ? "g" : "b");
     let result = "ts:.+";
-    if(r > 0){
-        result += lastColor==="r" ? `(\\S*r){${r}}` : `(?=(\\S*r){${r}})`
+    if (r && r > 0) {
+        result += lastColor === "r" ? `(\\S*r){${r}}` : `(?=(\\S*r){${r}})`
     }
-    if(g > 0){
-        result += lastColor==="g" ? `(\\S*g){${g}}` : `(?=(\\S*g){${g}})`
+    if (g && g > 0) {
+        result += lastColor === "g" ? `(\\S*g){${g}}` : `(?=(\\S*g){${g}})`
     }
-    if(b > 0){
+    if (b && b > 0) {
         result += `(\\S*b){${b}}`
     }
     return result;
@@ -309,7 +313,7 @@ export function movementStr(settings: PoeStringSettings): string {
     return result;
 }
 
-export function gemStr(settings: PoeStringSettings): string  {
+export function gemStr(settings: PoeStringSettings): string {
     const {lightning, chaos, cold, fire, phys, any} = settings.plusGems;
     if (any || (lightning && chaos && cold && fire && phys)) return "\"ll g\"";
     let result = "";
