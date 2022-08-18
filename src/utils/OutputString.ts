@@ -106,6 +106,10 @@ export function generate3LinkStr(settings: PoeStringSettings): string {
 }
 
 export function generate4LinkStr(settings: PoeStringSettings): string {
+    return settings.anyFourLink ? "-[rgb]-.-" : "";
+}
+
+export function generateSpecLinkStr(settings: PoeStringSettings): string {
     if(!settings.colors.specLink)
         return "";
     const {r, g, b} = settings.colors.specLinkColors;
@@ -123,10 +127,6 @@ export function generate4LinkStr(settings: PoeStringSettings): string {
         result += `(\\S*b){${b}}`
     }
     return result;
-}
-
-export function generateSpecLinkStr(settings: PoeStringSettings): string {
-    return settings.anyFourLink ? "-[rgb]-.-" : "";
 }
 
 function oneAndAnyAny(c: string): string {
