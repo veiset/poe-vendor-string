@@ -45,6 +45,11 @@ const Vendor = () => {
     const [gr, setGr] = React.useState(hasNKey(savedSettings, "colors.gr"));
     const [bg, setBg] = React.useState(hasNKey(savedSettings, "colors.bg"));
 
+    const [specLink, setSpecLink] = React.useState(hasNKey(savedSettings, "colors.specLink"));
+    const [specLinkColorsR, setSpecLinkColorsR] = React.useState(hasNKey(savedSettings, "colors.specLinkColors.r") ? savedSettings["colors.specLinkColors.r"] : 0);
+    const [specLinkColorsG, setSpecLinkColorsG] = React.useState(hasNKey(savedSettings, "colors.specLinkColors.g") ? savedSettings["colors.specLinkColors.g"] : 0);
+    const [specLinkColorsB, setSpecLinkColorsB] = React.useState(hasNKey(savedSettings, "colors.specLinkColors.b") ? savedSettings["colors.specLinkColors.b"] : 0);
+
     const [anyThreeLink, setAnyThreeLink] = React.useState(hasNKey(savedSettings, "anyThreeLink"));
     const [anyFourLink, setAnyFourLink] = React.useState(hasNKey(savedSettings, "anyFourLink"));
     const [movement10, setMovement10] = React.useState(hasNKey(savedSettings, "movement.ten"));
@@ -67,6 +72,7 @@ const Vendor = () => {
         setRrr, setGgg, setBbb,
         setRrA, setGgA, setBbA, setRrg, setRrb, setGgr, setGgb, setBbr, setBbg, setRgb, setRaa, setGaa, setBaa,
         setRr, setGg, setBb, setRb, setGr, setBg,
+        setSpecLink, setSpecLinkColorsR, setSpecLinkColorsG, setSpecLinkColorsB,
         setAnyThreeLink, setAnyFourLink,
         setMovement10, setMovement15, setLightning,
         setFire, setCold, setPhys, setChaos, setAnyGem,
@@ -76,6 +82,7 @@ const Vendor = () => {
         rrr, ggg, bbb,
         rrA, ggA, bbA, rrg, rrb, ggr, ggb, bbr, bbg, rgb, raa, gaa, baa,
         rr, gg, bb, rb, gr, bg,
+        specLink, specLinkColorsR, specLinkColorsG, specLinkColorsB,
         anyThreeLink, anyFourLink,
         movement10, movement15, lightning,
         fire, cold, phys, chaos, anyGem,
@@ -95,6 +102,12 @@ const Vendor = () => {
             ggr, ggb, rrg, rrb, bbg, bbr,
             rgb, raa, gaa, baa,
             rr, gg, bb, rb, gr, bg,
+            specLink,
+            specLinkColors : {
+                r: specLinkColorsR,
+                g: specLinkColorsG,
+                b: specLinkColorsB,
+            }
         },
         plusGems: {
             lightning,
@@ -167,6 +180,15 @@ const Vendor = () => {
                     <SocketCheckbox className="small-padding" label="r-b" value={rb} onChange={setRb}/>
                     <SocketCheckbox label="g-r" value={gr} onChange={setGr}/>
                     <SocketCheckbox label="b-g" value={bg} onChange={setBg}/>
+                    
+                    <div className="column-header small-padding"> Other Links</div>
+                    <Checkbox label="Enable (Can Be long)" value={specLink} onChange={setSpecLink}/>
+                    <div>
+                    <NumberInput label="r" value={specLinkColorsR} image="r" onChange={setSpecLinkColorsR}/>
+                    <NumberInput label="g" value={specLinkColorsG} image="g" onChange={setSpecLinkColorsG}/>
+                    <NumberInput label="b" value={specLinkColorsB} image="b" onChange={setSpecLinkColorsB}/>
+                    </div>
+                    
                 </div>
                 <div className="item">
                     <div className="column-header">
@@ -208,6 +230,14 @@ interface LinkCheckboxProps {
     className?: string
 }
 
+interface NumberInputProps {
+    label: string
+    value: number
+    image?: string
+    onChange: Dispatch<SetStateAction<number>>
+    className?: string
+}
+
 export const Checkbox = (props: CheckboxProps) => {
     return (
         <div className={props.className}>
@@ -234,6 +264,16 @@ const SocketCheckbox = (props: LinkCheckboxProps) => {
                 </span>
             </label>
         </div>
+    );
+}
+
+export const NumberInput = (props: NumberInputProps) => {
+    return (
+        <label className="numberinput">
+            <input className="numberinput-input" placeholder="0" type="number" min="0" max="6" value={props.value} onChange={e => props.onChange(Number(e.target.value))}/>
+            {props.image ? <img className="socket-size" src={imgFromChar(props.image)} alt="red"/> : null}
+            <span>&nbsp;{props.label}</span>
+        </label>
     );
 }
 

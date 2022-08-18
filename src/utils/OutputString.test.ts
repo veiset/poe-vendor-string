@@ -53,6 +53,10 @@ function getDefaultSettings(): PoeStringSettings {
             rgb: false, raa: false, gaa: false, baa: false,
             rr: false, gg: false, bb: false,
             rb: false, gr: false, bg: false,
+            specLink: false,
+            specLinkColors : {
+                r: 0, g: 0, b: 0
+            }
         },
         plusGems: {
             lightning: false,

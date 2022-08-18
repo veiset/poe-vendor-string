@@ -26,10 +26,38 @@ body {
   padding-top: 20px;
 }
 
+.numberinput-input {
+  background-color: #e22434;
+  height: 33px;
+  width: 33px;
+  border-style: solid;
+  border-radius: 1px;
+  border-color: #8F8F9D;
+  margin: 3px 10px;
+  padding: 0px;
+}
+
 input[type="checkbox"] {
   background-color: #e22434;
   border: 0px;
 }
+
+input[type="number"] {
+  background-color: #ffffff;
+  font-size: 20px;
+  text-align: center;
+  -moz-appearance:textfield; /* Firefox */
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    display: none;
+    margin: 0;
+}
+
 input[type="search"] {
   background-color: #ffffff;
 }
@@ -44,6 +72,16 @@ input {
   margin-top: -20px;
   vertical-align: middle;
   white-space: nowrap;
+}
+
+.numberinput span {
+  display: inline-block;
+  margin-top: -10px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.numberinput img {
+  margin-bottom: -8px;
 }
 
 .socket-size {
