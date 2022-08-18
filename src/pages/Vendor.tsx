@@ -183,9 +183,11 @@ const Vendor = () => {
                     
                     <div className="column-header small-padding"> Other Links</div>
                     <Checkbox label="Enable (Can Be long)" value={specLink} onChange={setSpecLink}/>
-                    <NumberInput label="Red Links" value={specLinkColorsR} onChange={setSpecLinkColorsR}/>
-                    <NumberInput label="Green Links" value={specLinkColorsG} onChange={setSpecLinkColorsG}/>
-                    <NumberInput label="Blue Links" value={specLinkColorsB} onChange={setSpecLinkColorsB}/>
+                    <div>
+                    <NumberInput label="r" value={specLinkColorsR} image="r" onChange={setSpecLinkColorsR}/>
+                    <NumberInput label="g" value={specLinkColorsG} image="g" onChange={setSpecLinkColorsG}/>
+                    <NumberInput label="b" value={specLinkColorsB} image="b" onChange={setSpecLinkColorsB}/>
+                    </div>
                     
                 </div>
                 <div className="item">
@@ -231,6 +233,7 @@ interface LinkCheckboxProps {
 interface NumberInputProps {
     label: string
     value: number
+    image?: string
     onChange: Dispatch<SetStateAction<number>>
     className?: string
 }
@@ -266,12 +269,11 @@ const SocketCheckbox = (props: LinkCheckboxProps) => {
 
 export const NumberInput = (props: NumberInputProps) => {
     return (
-        <div className={props.className}>
-            <label className="numberinput">
-                <input className="numberinput-input" type="number" min="0" max="6" value={props.value} onChange={e => props.onChange(Number(e.target.value))}/>
-                <span>{props.label}</span>
-            </label>
-        </div>
+        <label className="numberinput">
+            <input className="numberinput-input" placeholder="0" type="number" min="0" max="6" value={props.value} onChange={e => props.onChange(Number(e.target.value))}/>
+            {props.image ? <img className="socket-size" src={imgFromChar(props.image)} alt="red"/> : null}
+            <span>&nbsp;{props.label}</span>
+        </label>
     );
 }
 
