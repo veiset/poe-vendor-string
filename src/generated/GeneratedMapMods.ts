@@ -103,7 +103,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters cannot be Stunned": {
    value: "Monsters cannot be Stunned",
    scary: 213,
-   matchSafe: "stu",
+   matchSafe: "tun",
  },
  "X% increased Monster Movement Speed|X% increased Monster Attack Speed|X% increased Monster Cast Speed": {
    value: "X% increased Monster Movement Speed|X% increased Monster Attack Speed|X% increased Monster Cast Speed",
@@ -123,7 +123,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters' Action Speed cannot be modified to below base value|Monsters cannot be Taunted": {
    value: "Monsters' Action Speed cannot be modified to below base value|Monsters cannot be Taunted",
    scary: 217,
-   matchSafe: "bel",
+   matchSafe: "elo",
  },
  "Monsters have X% chance to Impale with Attacks": {
    value: "Monsters have X% chance to Impale with Attacks",
@@ -380,20 +380,20 @@ export const mapModifiers: { [key: string]: MapMod } = {
    scary: 500,
    matchSafe: "tot",
  },
- "Rare Monsters each have a Nemesis Mod|X% more Rare Monsters": {
-   value: "Rare Monsters each have a Nemesis Mod|X% more Rare Monsters",
-   scary: 600,
-   matchSafe: "neme",
- },
  "Area contains two Unique Bosses": {
    value: "Area contains two Unique Bosses",
    scary: 600,
    matchSafe: "two",
  },
- "Magic Monster Packs each have a Bloodline Mod|X% more Magic Monsters": {
-   value: "Magic Monster Packs each have a Bloodline Mod|X% more Magic Monsters",
-   scary: 600,
-   matchSafe: "packs",
+ "X% increased number of Rare Monsters": {
+   value: "X% increased number of Rare Monsters",
+   scary: 803,
+   matchSafe: "nu",
+ },
+ "X% more Magic Monsters": {
+   value: "X% more Magic Monsters",
+   scary: 810,
+   matchSafe: "\"gic m\"",
  },
  "Slaying Enemies close together has a X% chance to attract monsters from Beyond": {
    value: "Slaying Enemies close together has a X% chance to attract monsters from Beyond",
