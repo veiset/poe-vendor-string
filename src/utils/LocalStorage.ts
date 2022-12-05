@@ -2,7 +2,7 @@ export const hasKey = (savedSettings: any, key: string): boolean => {
     return savedSettings !== undefined && savedSettings.hasOwnProperty(key)
 }
 
-const valueFromKeyMap = (savedSettings: any, key: string): any | undefined => {
+export const valueFromKeyMap = (savedSettings: any, key: string): any | undefined => {
     const props = key.split(".");
     let obj = savedSettings;
     for (const prop of props) {

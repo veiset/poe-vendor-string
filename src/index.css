@@ -132,6 +132,12 @@ input {
   font-size: 14px;
 }
 
+.item-third-size {
+  width: 32%;
+  font-family: monospace;
+  font-size: 14px;
+}
+
 .reset-container {
   width: 49%;
   font-family: monospace;
@@ -186,6 +192,17 @@ input {
   cursor: pointer;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
+}
+
+.float-left {
+  float: left;
+}
+
+.warn-weapon {
+  font-size: 16px;
+  padding-left: 10px;
+  margin-top: 0;
+  color: #d7d7d7;
 }
 
 label:hover {

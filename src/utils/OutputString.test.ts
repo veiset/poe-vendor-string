@@ -69,7 +69,18 @@ function getDefaultSettings(): PoeStringSettings {
             chaos: false,
             any: false,
         },
-        damage: {phys: false, elemental: false, spellFlat: false, spellDamage: false,}
+        damage: {phys: false, elemental: false, spellFlat: false, spellDamage: false,},
+        weapon: {
+            sceptre: false,
+            mace: false,
+            axe: false,
+            sword: false,
+            bow: false,
+            claw: false,
+            dagger: false,
+            staff: false,
+            wand: false,
+        },
     }
 }
 

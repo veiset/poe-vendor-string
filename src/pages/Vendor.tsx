@@ -5,14 +5,15 @@ import socketBlue from '../img/blue-socket.png';
 import socketAny from '../img/any-socket.png';
 import socketLink from '../img/link.png';
 
-import {generateResultString, PoeStringSettings} from "../utils/OutputString";
+import {generateResultString, generateWarnings, PoeStringSettings} from "../utils/OutputString";
 import ResultBox from "../components/ResultBox";
 import Header from "../components/Header";
 import {hasNKey, hasNumberKey} from "../utils/LocalStorage";
 
 const Vendor = () => {
 
-    const [result, setResult] = React.useState("")
+    const [result, setResult] = React.useState("");
+    const [warning, setWarning] = React.useState<string | undefined>();
     const savedSettings = JSON.parse(localStorage.getItem("vendorSearch") ?? "{}");
     console.log(savedSettings);
 
@@ -46,9 +47,9 @@ const Vendor = () => {
     const [bg, setBg] = React.useState(hasNKey(savedSettings, "colors.bg"));
 
     const [specLink, setSpecLink] = React.useState(hasNKey(savedSettings, "colors.specLink"));
-    const [specLinkColorsR, setSpecLinkColorsR] = React.useState<number|undefined>(hasNumberKey(savedSettings, "colors.specLinkColors.r"));
-    const [specLinkColorsG, setSpecLinkColorsG] = React.useState<number|undefined>(hasNumberKey(savedSettings, "colors.specLinkColors.g"));
-    const [specLinkColorsB, setSpecLinkColorsB] = React.useState<number|undefined>(hasNumberKey(savedSettings, "colors.specLinkColors.b"));
+    const [specLinkColorsR, setSpecLinkColorsR] = React.useState<number | undefined>(hasNumberKey(savedSettings, "colors.specLinkColors.r"));
+    const [specLinkColorsG, setSpecLinkColorsG] = React.useState<number | undefined>(hasNumberKey(savedSettings, "colors.specLinkColors.g"));
+    const [specLinkColorsB, setSpecLinkColorsB] = React.useState<number | undefined>(hasNumberKey(savedSettings, "colors.specLinkColors.b"));
 
     const [anyThreeLink, setAnyThreeLink] = React.useState(hasNKey(savedSettings, "anyThreeLink"));
     const [anyFourLink, setAnyFourLink] = React.useState(hasNKey(savedSettings, "anyFourLink"));
@@ -70,6 +71,17 @@ const Vendor = () => {
     const [dmgSpellFlat, setDmgSpellFlat] = React.useState(hasNKey(savedSettings, "damage.spellFlat"));
     const [dmgSpell, setDmgSpell] = React.useState(hasNKey(savedSettings, "damage.spellDamage"));
 
+    // weapons
+    const [weaponSceptre, setWeaponSceptre] = React.useState(hasNKey(savedSettings, "weapon.sceptre"));
+    const [weaponMace, setWeaponMace] = React.useState(hasNKey(savedSettings, "weapon.mace"));
+    const [weaponAxe, setWeaponAxe] = React.useState(hasNKey(savedSettings, "weapon.axe"));
+    const [weaponSword, setWeaponSword] = React.useState(hasNKey(savedSettings, "weapon.sword"));
+    const [weaponBow, setWeaponBow] = React.useState(hasNKey(savedSettings, "weapon.bow"));
+    const [weaponClaw, setWeaponClaw] = React.useState(hasNKey(savedSettings, "weapon.claw"));
+    const [weaponDagger, setWeaponDagger] = React.useState(hasNKey(savedSettings, "weapon.dagger"));
+    const [weaponStaff, setWeaponStaff] = React.useState(hasNKey(savedSettings, "weapon.staff"));
+    const [weaponWand, setWeaponWand] = React.useState(hasNKey(savedSettings, "weapon.wand"));
+
 
     const listOfOptions = [
         setRrr, setGgg, setBbb,
@@ -79,7 +91,8 @@ const Vendor = () => {
         setAnyThreeLink, setAnyFourLink, setAnyFiveLink, setAnySixLink, setAnySixSocket,
         setMovement10, setMovement15, setLightning,
         setFire, setCold, setPhys, setChaos, setAnyGem,
-        setDmgPhys, setDmgElemental, setDmgSpellFlat, setDmgSpell
+        setDmgPhys, setDmgElemental, setDmgSpellFlat, setDmgSpell,
+        setWeaponSceptre, setWeaponMace, setWeaponAxe, setWeaponSword, setWeaponBow, setWeaponClaw, setWeaponDagger, setWeaponStaff, setWeaponWand
     ]
 
     const listOfNumbers = [
@@ -94,7 +107,8 @@ const Vendor = () => {
         anyThreeLink, anyFourLink, anyFiveLink, anySixLink, anySixSocket,
         movement10, movement15, lightning,
         fire, cold, phys, chaos, anyGem,
-        dmgPhys, dmgElemental, dmgSpellFlat, dmgSpell
+        dmgPhys, dmgElemental, dmgSpellFlat, dmgSpell,
+        weaponSceptre, weaponMace, weaponAxe, weaponSword, weaponBow, weaponClaw, weaponDagger, weaponStaff, weaponWand
     ]
 
     let settings: PoeStringSettings = {
@@ -133,19 +147,31 @@ const Vendor = () => {
             elemental: dmgElemental,
             spellFlat: dmgSpellFlat,
             spellDamage: dmgSpell,
+        },
+        weapon: {
+            sceptre: weaponSceptre,
+            mace: weaponMace,
+            axe: weaponAxe,
+            sword: weaponSword,
+            bow: weaponBow,
+            claw: weaponClaw,
+            dagger: weaponDagger,
+            staff: weaponStaff,
+            wand: weaponWand,
         }
     };
 
     useEffect(() => {
         localStorage.setItem("vendorSearch", JSON.stringify(settings));
         setResult(generateResultString(settings));
+        setWarning(generateWarnings(settings));
     }, listOfvalues)
 
     return (
         <div className="wrapper">
             <div className="container">
                 <Header text={"Vendor Search"}/>
-                <ResultBox result={result} reset={() => {
+                <ResultBox result={result} warning={warning} reset={() => {
                     listOfOptions.forEach(setting => {
                         setting(false);
                     })
@@ -223,6 +249,26 @@ const Vendor = () => {
                     <Checkbox label="Flat Elemental damage" value={dmgElemental} onChange={setDmgElemental}/>
                     <Checkbox label="Flat Spell damage" value={dmgSpellFlat} onChange={setDmgSpellFlat}/>
                     <Checkbox label="Increased Spell damage" value={dmgSpell} onChange={setDmgSpell}/>
+
+                    <div className="column-header">
+                        Weapon bases
+                    </div>
+                    <p className="warn-weapon">This will always highlight the selected weapon type, even if it doesn't match sockets, links or stats.</p>
+                    <div>
+                        <Checkbox className="float-left item-third-size" label="Axe" value={weaponAxe} onChange={setWeaponAxe}/>
+                        <Checkbox className="float-left item-third-size" label="Mace" value={weaponMace} onChange={setWeaponMace}/>
+                        <Checkbox className="float-left item-third-size" label="Sword" value={weaponSword} onChange={setWeaponSword}/>
+                    </div>
+                    <div>
+                        <Checkbox className="float-left item-third-size" label="Staff" value={weaponStaff} onChange={setWeaponStaff}/>
+                        <Checkbox className="float-left item-third-size" label="Sceptre" value={weaponSceptre} onChange={setWeaponSceptre}/>
+                        <Checkbox className="float-left item-third-size" label="Claw" value={weaponClaw} onChange={setWeaponClaw}/>
+                    </div>
+                    <div>
+                        <Checkbox className="float-left item-third-size" label="Bow" value={weaponBow} onChange={setWeaponBow}/>
+                        <Checkbox className="float-left item-third-size" label="Wand" value={weaponWand} onChange={setWeaponWand}/>
+                        <Checkbox className="float-left item-third-size" label="Dagger" value={weaponDagger} onChange={setWeaponDagger}/>
+                    </div>
                 </div>
 
                 <div className="break"/>
@@ -274,8 +320,8 @@ const SocketCheckbox = (props: LinkCheckboxProps) => {
         <div className={props.className}>
             <label className="checkbox">
                 <input className="checkbox-input" type="checkbox" checked={props.value} onChange={e => props.onChange(e.target.checked)}/>
-                {els.map(c =>
-                    <img className="socket-size" src={imgFromChar(c)} alt="red"/>
+                {els.map((c, i) =>
+                    <img key={i} className="socket-size" src={imgFromChar(c)} alt="red"/>
                 )}
                 <span className="link-text">
                 {props.label.replaceAll("-", "")}

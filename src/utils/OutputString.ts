@@ -59,6 +59,17 @@ export interface PoeStringSettings {
         spellFlat: boolean
         spellDamage: boolean
     }
+    weapon: {
+        sceptre: boolean
+        mace: boolean
+        axe: boolean
+        sword: boolean
+        bow: boolean
+        claw: boolean
+        dagger: boolean
+        staff: boolean
+        wand: boolean
+    }
 }
 
 export function generateResultString(settings: PoeStringSettings): string {
@@ -73,6 +84,7 @@ export function generateResultString(settings: PoeStringSettings): string {
     result = addExpression(result, movementStr(settings));
     result = addExpression(result, gemStr(settings));
     result = addExpression(result, generateWeaponDamage(settings));
+    result = addExpression(result, generateWeaponType(settings));
     result = simplifyRBG(result);
     // fix for quoted regexes
     if (result.match("\"")) {
@@ -80,7 +92,14 @@ export function generateResultString(settings: PoeStringSettings): string {
         result = `"${result}"`;
     }
     return result;
+}
 
+export function generateWarnings(settings: PoeStringSettings): string | undefined {
+    let warnings = "";
+    if (gemStr(settings) && settings.weapon.wand) {
+        warnings += "All wands will be displayed [conflict: +1 wand & weapon base=wand].";
+    }
+    return warnings ?? undefined;
 }
 
 export function generate6Socket(settings: PoeStringSettings): string {
@@ -340,4 +359,25 @@ export function generateWeaponDamage(settings: PoeStringSettings): string {
     if (spellFlat) result = addExpression(result, "\"e to Sp\"");
 
     return result;
+}
+
+export function generateWeaponType(settings: PoeStringSettings): string {
+    const {sceptre, mace, axe, sword, bow, claw, dagger, staff, wand} = settings.weapon;
+    let result = "";
+    if (sceptre) result = addExpression(result, "sc");
+    if (mace) result = addExpression(result, "mac");
+    if (axe) result = addExpression(result, "ax");
+    if (sword) result = addExpression(result, "sw");
+    if (bow) result = addExpression(result, "bow");
+    if (claw) result = addExpression(result, "cl");
+    if (dagger) result = addExpression(result, "da");
+    if (staff) result = addExpression(result, "staf");
+    if (wand) result = addExpression(result, "wa");
+    if (result.includes("|")) {
+        return `s:.+(${result})`;
+    } else if (result) {
+        return `s:.+${result }`;
+    } else {
+        return "";
+    }
 }
