@@ -390,9 +390,14 @@ export const mapModifiers: { [key: string]: MapMod } = {
    scary: 600,
    matchSafe: "two",
  },
+ "This Map's Modifiers to Quantity of Items found also apply to Rarity": {
+   value: "This Map's Modifiers to Quantity of Items found also apply to Rarity",
+   scary: 630,
+   matchSafe: "p'",
+ },
  "Magic Monster Packs each have a Bloodline Mod|X% more Magic Monsters": {
    value: "Magic Monster Packs each have a Bloodline Mod|X% more Magic Monsters",
-   scary: 600,
+   scary: 650,
    matchSafe: "packs",
  },
  "Slaying Enemies close together has a X% chance to attract monsters from Beyond": {
