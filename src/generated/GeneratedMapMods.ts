@@ -380,11 +380,6 @@ export const mapModifiers: { [key: string]: MapMod } = {
    scary: 500,
    matchSafe: "tot",
  },
- "Rare Monsters each have a Nemesis Mod|X% more Rare Monsters": {
-   value: "Rare Monsters each have a Nemesis Mod|X% more Rare Monsters",
-   scary: 600,
-   matchSafe: "neme",
- },
  "Area contains two Unique Bosses": {
    value: "Area contains two Unique Bosses",
    scary: 600,
@@ -395,10 +390,15 @@ export const mapModifiers: { [key: string]: MapMod } = {
    scary: 630,
    matchSafe: "p'",
  },
- "Magic Monster Packs each have a Bloodline Mod|X% more Magic Monsters": {
-   value: "Magic Monster Packs each have a Bloodline Mod|X% more Magic Monsters",
-   scary: 650,
-   matchSafe: "packs",
+ "X% increased number of Rare Monsters": {
+   value: "X% increased number of Rare Monsters",
+   scary: 803,
+   matchSafe: "nu",
+ },
+ "X% more Magic Monsters": {
+   value: "X% more Magic Monsters",
+   scary: 810,
+   matchSafe: "\"gic m\"",
  },
  "Slaying Enemies close together has a X% chance to attract monsters from Beyond": {
    value: "Slaying Enemies close together has a X% chance to attract monsters from Beyond",
