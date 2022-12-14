@@ -33,7 +33,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "-X% maximum Player Resistances": {
    value: "-X% maximum Player Resistances",
    scary: 101,
-   matchSafe: "tances",
+   matchSafe: "\"% ma\"",
  },
  "Players have X% less Recovery Rate of Life and Energy Shield": {
    value: "Players have X% less Recovery Rate of Life and Energy Shield",
@@ -165,8 +165,8 @@ export const mapModifiers: { [key: string]: MapMod } = {
    scary: 305,
    matchSafe: "uct",
  },
- "+X% Monster Chaos Resistance|+X% Monster Elemental Resistance": {
-   value: "+X% Monster Chaos Resistance|+X% Monster Elemental Resistance",
+ "+X% Monster Chaos Resistance|+X% Monster Elemental Resistances": {
+   value: "+X% Monster Chaos Resistance|+X% Monster Elemental Resistances",
    scary: 306,
    matchSafe: "\"r el\"",
  },
