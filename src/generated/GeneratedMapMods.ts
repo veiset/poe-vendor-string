@@ -43,7 +43,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters are Hexproof": {
    value: "Monsters are Hexproof",
    scary: 200,
-   matchSafe: "\"e he\"",
+   matchSafe: "\"re he\"",
  },
  "Unique Bosses are Possessed": {
    value: "Unique Bosses are Possessed",
@@ -128,7 +128,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters have X% chance to Impale with Attacks": {
    value: "Monsters have X% chance to Impale with Attacks",
    scary: 218,
-   matchSafe: "\"o i\"",
+   matchSafe: "\"o im\"",
  },
  "Monsters have X% increased Area of Effect": {
    value: "Monsters have X% increased Area of Effect",
@@ -178,7 +178,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters have +X% chance to Suppress Spell Damage": {
    value: "Monsters have +X% chance to Suppress Spell Damage",
    scary: 308,
-   matchSafe: "\"o s\"",
+   matchSafe: "\"o su\"",
  },
  "Players have X% reduced Chance to Block|Players have X% less Armour": {
    value: "Players have X% reduced Chance to Block|Players have X% less Armour",
@@ -188,7 +188,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Players have -X% to amount of Suppressed Spell Damage Prevented|Monsters have X% increased Accuracy Rating": {
    value: "Players have -X% to amount of Suppressed Spell Damage Prevented|Monsters have X% increased Accuracy Rating",
    scary: 310,
-   matchSafe: "amo",
+   matchSafe: "rev",
  },
  "Monsters have X% chance to Avoid Elemental Ailments": {
    value: "Monsters have X% chance to Avoid Elemental Ailments",
@@ -353,7 +353,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Area is inhabited by Solaris fanatics": {
    value: "Area is inhabited by Solaris fanatics",
    scary: 499,
-   matchSafe: "lari",
+   matchSafe: "laris",
  },
  "Area is inhabited by Sea Witches and their Spawn": {
    value: "Area is inhabited by Sea Witches and their Spawn",
@@ -398,7 +398,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "X% more Magic Monsters": {
    value: "X% more Magic Monsters",
    scary: 810,
-   matchSafe: "\"gic m\"",
+   matchSafe: "\"e mag\"",
  },
  "Slaying Enemies close together has a X% chance to attract monsters from Beyond": {
    value: "Slaying Enemies close together has a X% chance to attract monsters from Beyond",
