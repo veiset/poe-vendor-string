@@ -37,6 +37,17 @@ body {
   padding: 0px;
 }
 
+.numberinput-large-input {
+  background-color: #e22434;
+  height: 33px;
+  width: 103px;
+  border-style: solid;
+  border-radius: 1px;
+  border-color: #8F8F9D;
+  margin: 3px 10px;
+  padding: 0px;
+}
+
 input[type="checkbox"] {
   background-color: #e22434;
   border: 0px;

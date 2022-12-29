@@ -7,6 +7,7 @@ import Maps from "./pages/Maps";
 import LinkMenu from "./components/LinkMenu";
 import About from "./components/About";
 import Flasks from "./pages/Flasks";
+import Heist from "./pages/Heist";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -20,6 +21,7 @@ root.render(
                 <Route path="/vendor" element={<Vendor/>}/>
                 <Route path="/maps" element={<Maps/>}/>
                 <Route path="/flasks" element={<Flasks/>}/>
+                <Route path="/heist" element={<Heist/>}/>
             </Routes>
             <About />
         </HashRouter>
