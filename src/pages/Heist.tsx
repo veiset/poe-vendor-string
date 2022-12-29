@@ -72,6 +72,9 @@ const Heist = () => {
 
     return (
         <div className="wrapper">
+            <p className="error">
+                Warning: Very proof of concept. Not ready for use!
+            </p>
             <div className="container-maps">
                 <Header text={"Heist"}/>
                 <ResultBox result={result} warning={undefined} reset={() => {
