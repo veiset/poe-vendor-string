@@ -114,6 +114,9 @@ html, body {
     width: 100%;
     display: flex;
 }
+.full-size {
+    width: 100%;
+}
 
 .break {
     flex-basis: 100%;
@@ -125,4 +128,23 @@ html, body {
 .col-3 {
     min-width: 200px;
     width: 32%;
+}
+
+.eq-col-2 {
+    flex-grow: 1;
+    width: 49%;
+}
+.eq-col-3 {
+    flex-grow: 1;
+    width: 32%;
+}
+@media(max-width: 860px) {
+    .eq-col-3 {
+        width: 49%;
+    }
+}
+@media(max-width: 425px) {
+    .eq-col-3 {
+        width: 99%;
+    }
 }

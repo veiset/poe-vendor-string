@@ -24,10 +24,6 @@
 .small-padding {
     padding-top: 10px;
 }
-.eq-col {
-    flex-grow: 1;
-    width: 32%;
-}
 .warn-weapon {
     font-size: 16px;
     padding-left: 10px;
@@ -44,11 +40,6 @@
     width: 32%;
     font-size: 14px;
 }
-@media(max-width: 860px) {
-    .eq-col {
-        width: 49%;
-    }
-}
 @media(max-width: 600px) {
     .link-text {
         white-space: nowrap;
@@ -62,9 +53,6 @@
     }
 }
 @media(max-width: 425px) {
-    .eq-col {
-        width: 99%;
-    }
     .link-text {
         white-space: nowrap;
         text-wrap: none;

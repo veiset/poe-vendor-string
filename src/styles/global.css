@@ -1,7 +1,7 @@
 h1 {
-    margin-bottom: 8px;
+    margin-top: 20px;
+    margin-bottom: 24px;
     padding-left: 8px;
-    margin-top: 8px;
     font-size: 28px;
     font-weight: 400;
     color: #ffffff;
@@ -75,4 +75,26 @@ input[type="search"] {
 }
 .checkbox-text {
     font-size: 18px;
+}
+
+.modifier-search-box {
+    padding: 8px;
+    width: 85%;
+    margin: 10px;
+    font-size: 16px;
+    font-family: monospace;
+}
+
+input[type="radio"] {
+    width: 1.5em;
+    height: 1.5em;
+    border: 0.15em solid currentColor;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.generic-top-element {
+    padding-left: 8px;
+    padding-top: 16px;
+    padding-bottom: 16px;
 }

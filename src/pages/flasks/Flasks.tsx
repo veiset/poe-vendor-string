@@ -1,11 +1,12 @@
-import Header from "../components/Header";
-import ResultBox from "../components/ResultBox";
+import Header from "../../components/Header";
+import "./Flasks.css";
+import ResultBox from "../../components/ResultBox";
 import React, {useEffect} from "react";
-import FlaskModList from "../components/FlaskModList";
-import {flaskPrefix, flaskSuffix} from "../generated/GeneratedFlaskMods";
-import {hasKey} from "../utils/LocalStorage";
-import {Checkbox} from "./Vendor";
-import {FlaskModSettings, generateFlaskOutput, minItemLevel} from "../utils/FlaskOuput";
+import FlaskModList from "../../components/FlaskModList";
+import {flaskPrefix, flaskSuffix} from "../../generated/GeneratedFlaskMods";
+import {hasKey} from "../../utils/LocalStorage";
+import {Checkbox} from "../vendor/Vendor";
+import {FlaskModSettings, generateFlaskOutput, minItemLevel} from "../../utils/FlaskOuput";
 
 const Flasks = () => {
     const modGroups = flaskPrefix.concat(flaskSuffix).map((modGroup) => modGroup.description);
@@ -18,7 +19,7 @@ const Flasks = () => {
     const [matchBothPrefixAndSuffix, setMatchBothPrefixAndSuffix] = React.useState(hasKey(savedSettings, "matchBothPrefixAndSuffix") ? savedSettings.matchBothPrefixAndSuffix : false);
 
     let [result, setResult] = React.useState("");
-    let [minIlevel, setMinIlevel] = React.useState<string|undefined>(undefined);
+    let [minIlevel, setMinIlevel] = React.useState<string | undefined>(undefined);
 
     useEffect(() => {
         const settings: FlaskModSettings = {
@@ -37,41 +38,43 @@ const Flasks = () => {
     }, [result, selectedPrefix, selectedSuffix, ilevel, onlyMaxPrefixTierMod, onlyMaxSuffixTierMod, matchBothPrefixAndSuffix]);
 
     return (
-        <div className="wrapper">
-            <div className="container-maps">
-                <Header text={"Flask Modifiers"}/>
-                <ResultBox result={result} warning={minIlevel} reset={() => {
-                    setSelectedPrefix([]);
-                    setSelectedSuffix([]);
-                    setIlevel("85");
-                }}/>
-                <div className="break"/>
-                <div className="item-wide">
-                    <label className="modifier-search-label" htmlFor="quantity">Flask item level: </label>
-                    <input type="search" className="modifier-quantity-box" id="quantity" name="search-mod"
-                           value={ilevel}
-                           onChange={v => setIlevel(v.target.value)}/>
-                    <Checkbox label="Require that both prefix and suffix matches" value={matchBothPrefixAndSuffix}
-                              onChange={setMatchBothPrefixAndSuffix}/>
-                </div>
-                <div className="break"/>
+        <>
+            <Header text={"Flask Modifiers"}/>
+            <ResultBox result={result} warning={minIlevel} reset={() => {
+                setSelectedPrefix([]);
+                setSelectedSuffix([]);
+                setIlevel("85");
+            }}/>
+            <div className="break"/>
+            <div className="full-size generic-top-element">
+                <label className="modifier-search-label" htmlFor="quantity">Flask item level</label>
+                <input type="search" className="modifier-quantity-box" id="quantity" name="search-mod"
+                       value={ilevel}
+                       onChange={v => setIlevel(v.target.value)}/>
+                <Checkbox label="Require that both prefix and suffix matches" value={matchBothPrefixAndSuffix}
+                          onChange={setMatchBothPrefixAndSuffix}/>
+            </div>
+            <div className="break"/>
 
-                <div className="item-half-size">
+            <div className="eq-col-2">
+                <div className="flask-checkbox-padding">
                     <div className="column-header">Prefix</div>
                     <Checkbox label="Only match prefix with the highest ilevel" value={onlyMaxPrefixTierMod}
                               onChange={setOnlyMaxPrefixTierMod}/>
-                    <FlaskModList id="flask-prefix" mods={flaskPrefix} onlyMaxTierMod={onlyMaxPrefixTierMod} ilevel={ilevel}
-                                  selected={selectedPrefix} setSelected={setSelectedPrefix}/>
                 </div>
-                <div className="item-half-size">
+                <FlaskModList id="flask-prefix" mods={flaskPrefix} onlyMaxTierMod={onlyMaxPrefixTierMod} ilevel={ilevel}
+                              selected={selectedPrefix} setSelected={setSelectedPrefix}/>
+            </div>
+            <div className="eq-col-2">
+                <div className="flask-checkbox-padding">
                     <div className="column-header">Suffix</div>
                     <Checkbox label="Only match suffix with the highest ilevel" value={onlyMaxSuffixTierMod}
                               onChange={setOnlyMaxSuffixTierMod}/>
-                    <FlaskModList id="flask-suffix" mods={flaskSuffix} onlyMaxTierMod={onlyMaxSuffixTierMod} ilevel={ilevel}
-                                  selected={selectedSuffix} setSelected={setSelectedSuffix}/>
                 </div>
+                <FlaskModList id="flask-suffix" mods={flaskSuffix} onlyMaxTierMod={onlyMaxSuffixTierMod} ilevel={ilevel}
+                              selected={selectedSuffix} setSelected={setSelectedSuffix}/>
             </div>
-        </div>
+        </>
     )
 }
 

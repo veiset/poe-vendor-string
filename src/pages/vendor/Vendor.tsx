@@ -1,15 +1,15 @@
 import React, {Dispatch, SetStateAction, useEffect} from 'react';
 import './Vendor.css';
-import socketRed from '../img/red-socket.png';
-import socketGreen from '../img/green-socket.png';
-import socketBlue from '../img/blue-socket.png';
-import socketAny from '../img/any-socket.png';
-import socketLink from '../img/link.png';
+import socketRed from '../../img/red-socket.png';
+import socketGreen from '../../img/green-socket.png';
+import socketBlue from '../../img/blue-socket.png';
+import socketAny from '../../img/any-socket.png';
+import socketLink from '../../img/link.png';
 
-import {generateResultString, generateWarnings, PoeStringSettings} from "../utils/OutputString";
-import ResultBox from "../components/ResultBox";
-import Header from "../components/Header";
-import {hasNKey, hasNumberKey} from "../utils/LocalStorage";
+import {generateResultString, generateWarnings, PoeStringSettings} from "../../utils/OutputString";
+import ResultBox from "../../components/ResultBox";
+import Header from "../../components/Header";
+import {hasNKey, hasNumberKey} from "../../utils/LocalStorage";
 
 const Vendor = () => {
 
@@ -181,7 +181,7 @@ const Vendor = () => {
             }}/>
             <div className="break"/>
             <div className="vendor-wrapper">
-                <div className="eq-col">
+                <div className="eq-col-3">
                     <div className="column-header">Link colors (3L)</div>
                     <SocketCheckbox label="r-r-*" value={rrA} onChange={setRrA}/>
                     <SocketCheckbox label="g-g-*" value={ggA} onChange={setGgA}/>
@@ -204,7 +204,7 @@ const Vendor = () => {
                     <SocketCheckbox label="g-*-*" value={gaa} onChange={setGaa}/>
                     <SocketCheckbox label="b-*-*" value={baa} onChange={setBaa}/>
                 </div>
-                <div className="eq-col">
+                <div className="eq-col-3">
                     <div className="column-header small-padding"> Link colors (2L)</div>
                     <SocketCheckbox label="r-r" value={rr} onChange={setRr}/>
                     <SocketCheckbox label="g-g" value={gg} onChange={setGg}/>
@@ -229,7 +229,7 @@ const Vendor = () => {
                         <NumberInput label="b" value={specLinkColorsB} image="b" onChange={setSpecLinkColorsB}/>
                     </div>
                 </div>
-                <div className="eq-col">
+                <div className="eq-col-3">
                     <div className="column-header"> Movement speed</div>
                     <Checkbox label="Movement speed (10%)" value={movement10} onChange={setMovement10}/>
                     <Checkbox label="Movement speed (15%)" value={movement15} onChange={setMovement15}/>

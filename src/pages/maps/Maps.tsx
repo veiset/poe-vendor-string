@@ -1,12 +1,13 @@
 import React, {useEffect} from "react";
-import ResultBox from "../components/ResultBox";
-import {MapMod, mapModifiers} from "../generated/GeneratedMapMods";
-import {generateMapModStr, MapModSettings} from "../utils/MapOutput";
-import MapModList from "../components/MapModList";
-import {Checkbox} from "./Vendor";
-import {getGradientColor} from "../utils/ColorGradient";
-import Header from "../components/Header";
-import {hasKey} from "../utils/LocalStorage";
+import './Maps.css';
+import ResultBox from "../../components/ResultBox";
+import {MapMod, mapModifiers} from "../../generated/GeneratedMapMods";
+import {generateMapModStr, MapModSettings} from "../../utils/MapOutput";
+import MapModList from "../../components/MapModList";
+import {Checkbox} from "../vendor/Vendor";
+import {getGradientColor} from "../../utils/ColorGradient";
+import Header from "../../components/Header";
+import {hasKey} from "../../utils/LocalStorage";
 
 const Maps = () => {
     const mods = Array.from(Object.keys(mapModifiers));
@@ -56,11 +57,11 @@ const Maps = () => {
                 setPacksize("");
             }}/>
             <div className="break"/>
-            <div className="item-wide">
-                <label className="modifier-search-label" htmlFor="quantity">Quantity of at least: </label>
+            <div className="full-size generic-top-element">
+                <label className="modifier-search-label" htmlFor="quantity">Quantity of at least</label>
                 <input type="search" className="modifier-quantity-box" id="quantity" name="search-mod" value={quantity}
                        onChange={v => setQuantity(v.target.value)}/>
-                <label className="modifier-search-label" htmlFor="quantity">Pack Size of at least: </label>
+                <label className="modifier-search-label" htmlFor="quantity">Pack Size of at least</label>
                 <input type="search" className="modifier-quantity-box" id="quantity" name="search-mod" value={packsize}
                        onChange={v => setPacksize(v.target.value)}/>
                 <Checkbox label="Optimize Quantity value (round down to nearest 10, saves a lot of query space)" value={optimizeQuant}
@@ -68,26 +69,25 @@ const Maps = () => {
                 <Checkbox label="Optimize Pack Size value" value={optimizePacksize}
                           onChange={setOptimizePacksize}/>
             </div>
-            <div className="item-half-size box-small-padding">
-                <div className="column-header">I don't want any of these mods</div>
+            <div className="eq-col-2 box-small-padding">
+                <div className="column-header map-column-text">I don't want any of these mods</div>
             </div>
-            <div className="item-half-size box-small-padding">
-                <div className="column-header">I want these mods</div>
+            <div className="eq-col-2 box-small-padding">
+                <div className="column-header map-column-text">I want these mods</div>
                 <div className="radio-button-modgroup">
-                    <input type="radio" id="mods-any" name="mods" value="any" checked={modGrouping === "any"}
+                    <input type="radio" className="radio-button-map" id="mods-any" name="mods" value="any" checked={modGrouping === "any"}
                            onChange={v => setModGrouping(v.target.value)}/>
                     <label htmlFor="mods-any">I want <b>any</b> of the modifiers</label>
-                    {" "}/
                     <input type="radio" id="mods-all" name="mods" value="all" checked={modGrouping === "all"}
                            onChange={v => setModGrouping(v.target.value)}/>
                     <label htmlFor="mods-all">I want <b>all</b> of the modifiers</label>
                 </div>
             </div>
             <div className="break"/>
-            <div className="item-half-size">
+            <div className="eq-col-2">
                 <MapModList id="bad-mods" colorFun={badMapColor} mods={badMods} selected={selectedBadMods} setSelected={setSelectedBadMods}/>
             </div>
-            <div className="item-half-size">
+            <div className="eq-col-2">
                 <MapModList id="good-mods" colorFun={goodMapColor} mods={goodMods} selected={selectedGoodMods} setSelected={setSelectedGoodMods}/>
             </div>
         </>

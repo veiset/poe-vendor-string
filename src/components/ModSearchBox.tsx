@@ -9,7 +9,7 @@ export interface ModSearchBoxProps {
 const ModSearchBox = (props: ModSearchBoxProps) => {
     const {id, search, setSearch} = props;
     return (
-        <div>
+        <div className="map-search-bar">
             <input
                 type="search"
                 value={search}
