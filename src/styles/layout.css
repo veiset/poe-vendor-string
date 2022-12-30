@@ -59,7 +59,7 @@ html, body {
 .content-main-area {
     width: var(--main-content-width);
     max-width: var(--main-content-width);
-    background: #1f1f21;
+    background: #1b1e21;
 }
 
 .content-left-gfx {

@@ -48,7 +48,7 @@ const PageLinks = () => {
             <PageLink text="Vendor" icon={vendorIcon} route={"/"} currentPage={currentPage}/>
             <PageLink text="Map modifiers" icon={mapIcon} route={"/maps"} currentPage={currentPage}/>
             <PageLink text="Flasks" icon={flaskIcon} route={"/flasks"} currentPage={currentPage}/>
-            <PageLink text="Heist" icon={heistIcon} route={"/heist"} currentPage={currentPage}/>
+            {/*<PageLink text="Heist" icon={heistIcon} route={"/heist"} currentPage={currentPage}/>*/}
             <ExternalLink text="Expedition (link)" icon={expeditionIcon} route={"https://xanthics.github.io/poe_gen_gwennen/"} currentPage={currentPage}/>
         </div>
     </div>)
