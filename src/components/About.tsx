@@ -1,15 +1,12 @@
 import React from "react";
+import './About.css';
 
 const About = () => {
     return (
-        <div className="wrapper-link">
-            <div className="container">
-                <div className="item-wide about-info">
-                    Feature requests and bugs can be reported <a href="https://github.com/veiset/poe-vendor-string/issues">here</a><br/>
-                    Source code at <a href="https://github.com/veiset/poe-vendor-string">github.com/veiset/poe-vendor-string</a><br/>
-                    Webpage stats at <a href="https://plausible.io/poe.re">plausible.io/poe.re</a>
-                </div>
-            </div>
+        <div className="item-wide about-info">
+            Source code at <a className="source-link" href="https://github.com/veiset/poe-vendor-string">github.com/veiset/poe-vendor-string</a><br/>
+            Feature requests, issues and bugs can be reported <a className="source-link" href="https://github.com/veiset/poe-vendor-string/issues">here</a><br/>
+            Webpage stats at <a className="source-link" href="https://plausible.io/poe.re">plausible.io/poe.re</a>
         </div>
     )
 }

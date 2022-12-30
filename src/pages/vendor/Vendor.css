@@ -1,0 +1,66 @@
+.vendor-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.socket-size {
+    position: relative;
+    top: 3px;
+    height: 32px;
+}
+.column-header {
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    font-size: 22px;
+    color: #ffffff;
+}
+.link-text {
+    padding-left: 10px;
+    font-size: 14px;
+    position: relative;
+    font-family: monospace;
+}
+.small-padding {
+    padding-top: 10px;
+}
+.warn-weapon {
+    font-size: 16px;
+    padding-left: 10px;
+    margin-top: 0;
+    color: #d7d7d7;
+}
+
+.float-left {
+    float: left;
+}
+.weapon-select {
+    text-wrap: none;
+    white-space: nowrap;
+    width: 32%;
+    font-size: 14px;
+}
+@media(max-width: 600px) {
+    .link-text {
+        white-space: nowrap;
+        text-wrap: none;
+        padding-top: 4px;
+        font-size: 12px;
+    }
+    .socket-size {
+        top: -1px;
+        height: 20px;
+    }
+}
+@media(max-width: 425px) {
+    .link-text {
+        white-space: nowrap;
+        text-wrap: none;
+        padding-top: 2px;
+        font-size: 14px;
+    }
+    .socket-size {
+        top: 2px;
+        height: 32px;
+    }
+}

@@ -1,21 +1,21 @@
 import React, {Dispatch, SetStateAction, useEffect} from 'react';
-import socketRed from '../img/red-socket.png';
-import socketGreen from '../img/green-socket.png';
-import socketBlue from '../img/blue-socket.png';
-import socketAny from '../img/any-socket.png';
-import socketLink from '../img/link.png';
+import './Vendor.css';
+import socketRed from '../../img/red-socket.png';
+import socketGreen from '../../img/green-socket.png';
+import socketBlue from '../../img/blue-socket.png';
+import socketAny from '../../img/any-socket.png';
+import socketLink from '../../img/link.png';
 
-import {generateResultString, generateWarnings, PoeStringSettings} from "../utils/OutputString";
-import ResultBox from "../components/ResultBox";
-import Header from "../components/Header";
-import {hasNKey, hasNumberKey} from "../utils/LocalStorage";
+import {generateResultString, generateWarnings, PoeStringSettings} from "../../utils/OutputString";
+import ResultBox from "../../components/ResultBox";
+import Header from "../../components/Header";
+import {hasNKey, hasNumberKey} from "../../utils/LocalStorage";
 
 const Vendor = () => {
 
     const [result, setResult] = React.useState("");
     const [warning, setWarning] = React.useState<string | undefined>();
     const savedSettings = JSON.parse(localStorage.getItem("vendorSearch") ?? "{}");
-    console.log(savedSettings);
 
     const [rrr, setRrr] = React.useState(hasNKey(savedSettings, "colors.rrr"));
     const [ggg, setGgg] = React.useState(hasNKey(savedSettings, "colors.ggg"));
@@ -168,19 +168,20 @@ const Vendor = () => {
     }, listOfvalues)
 
     return (
-        <div className="wrapper">
-            <div className="container">
-                <Header text={"Vendor Search"}/>
-                <ResultBox result={result} warning={warning} reset={() => {
-                    listOfOptions.forEach(setting => {
-                        setting(false);
-                    })
-                    listOfNumbers.forEach(settings => {
-                        settings(undefined);
-                    })
-                }}/>
-                <div className="break"/>
-                <div className="item">
+        <>
+            <Header text="Vendor"/>
+            <div className="break"/>
+            <ResultBox result={result} warning={warning} reset={() => {
+                listOfOptions.forEach(setting => {
+                    setting(false);
+                })
+                listOfNumbers.forEach(settings => {
+                    settings(undefined);
+                })
+            }}/>
+            <div className="break"/>
+            <div className="vendor-wrapper">
+                <div className="eq-col-3">
                     <div className="column-header">Link colors (3L)</div>
                     <SocketCheckbox label="r-r-*" value={rrA} onChange={setRrA}/>
                     <SocketCheckbox label="g-g-*" value={ggA} onChange={setGgA}/>
@@ -203,8 +204,7 @@ const Vendor = () => {
                     <SocketCheckbox label="g-*-*" value={gaa} onChange={setGaa}/>
                     <SocketCheckbox label="b-*-*" value={baa} onChange={setBaa}/>
                 </div>
-                <div className="item">
-
+                <div className="eq-col-3">
                     <div className="column-header small-padding"> Link colors (2L)</div>
                     <SocketCheckbox label="r-r" value={rr} onChange={setRr}/>
                     <SocketCheckbox label="g-g" value={gg} onChange={setGg}/>
@@ -215,11 +215,11 @@ const Vendor = () => {
                     <SocketCheckbox label="b-g" value={bg} onChange={setBg}/>
 
                     <div className="column-header"> Any links</div>
-                    <SocketCheckbox label="Any 3 link" value={anyThreeLink} onChange={setAnyThreeLink} link="*-*-*"/>
-                    <SocketCheckbox label="Any 4 link" value={anyFourLink} onChange={setAnyFourLink} link="*-*-*-*"/>
-                    <SocketCheckbox label="Any 5 link" value={anyFiveLink} onChange={setAnyFiveLink} link="*-*-*-*-*"/>
-                    <SocketCheckbox label="Any 6 link" value={anySixLink} onChange={setAnySixLink} link=""/>
-                    <SocketCheckbox label="Any 6 socket" value={anySixSocket} onChange={setAnySixSocket} link=""/>
+                    <SocketCheckbox label="" value={anyThreeLink} onChange={setAnyThreeLink} link="*-*-*"/>
+                    <SocketCheckbox label="" value={anyFourLink} onChange={setAnyFourLink} link="*-*-*-*"/>
+                    <SocketCheckbox label="" value={anyFiveLink} onChange={setAnyFiveLink} link="*-*-*-*-*"/>
+                    <Checkbox label="Any 6 link" value={anySixLink} onChange={setAnySixLink} />
+                    <Checkbox label="Any 6 socket" value={anySixSocket} onChange={setAnySixSocket} />
 
                     <div className="column-header small-padding"> Other Links</div>
                     <Checkbox label="Enable (Takes a lot of space)" value={specLink} onChange={setSpecLink}/>
@@ -228,9 +228,8 @@ const Vendor = () => {
                         <NumberInput label="g" value={specLinkColorsG} image="g" onChange={setSpecLinkColorsG}/>
                         <NumberInput label="b" value={specLinkColorsB} image="b" onChange={setSpecLinkColorsB}/>
                     </div>
-
                 </div>
-                <div className="item">
+                <div className="eq-col-3">
                     <div className="column-header"> Movement speed</div>
                     <Checkbox label="Movement speed (10%)" value={movement10} onChange={setMovement10}/>
                     <Checkbox label="Movement speed (15%)" value={movement15} onChange={setMovement15}/>
@@ -255,26 +254,25 @@ const Vendor = () => {
                     </div>
                     <p className="warn-weapon">This will always highlight the selected weapon type, even if it doesn't match sockets, links or stats.</p>
                     <div>
-                        <Checkbox className="float-left item-third-size" label="Axe" value={weaponAxe} onChange={setWeaponAxe}/>
-                        <Checkbox className="float-left item-third-size" label="Mace" value={weaponMace} onChange={setWeaponMace}/>
-                        <Checkbox className="float-left item-third-size" label="Sword" value={weaponSword} onChange={setWeaponSword}/>
+                        <Checkbox className="float-left weapon-select" label="Axe" value={weaponAxe} onChange={setWeaponAxe}/>
+                        <Checkbox className="float-left weapon-select" label="Mace" value={weaponMace} onChange={setWeaponMace}/>
+                        <Checkbox className="float-left weapon-select" label="Sword" value={weaponSword} onChange={setWeaponSword}/>
                     </div>
                     <div>
-                        <Checkbox className="float-left item-third-size" label="Staff" value={weaponStaff} onChange={setWeaponStaff}/>
-                        <Checkbox className="float-left item-third-size" label="Sceptre" value={weaponSceptre} onChange={setWeaponSceptre}/>
-                        <Checkbox className="float-left item-third-size" label="Claw" value={weaponClaw} onChange={setWeaponClaw}/>
+                        <Checkbox className="float-left weapon-select" label="Staff" value={weaponStaff} onChange={setWeaponStaff}/>
+                        <Checkbox className="float-left weapon-select" label="Sceptre" value={weaponSceptre} onChange={setWeaponSceptre}/>
+                        <Checkbox className="float-left weapon-select" label="Claw" value={weaponClaw} onChange={setWeaponClaw}/>
                     </div>
                     <div>
-                        <Checkbox className="float-left item-third-size" label="Bow" value={weaponBow} onChange={setWeaponBow}/>
-                        <Checkbox className="float-left item-third-size" label="Wand" value={weaponWand} onChange={setWeaponWand}/>
-                        <Checkbox className="float-left item-third-size" label="Dagger" value={weaponDagger} onChange={setWeaponDagger}/>
+                        <Checkbox className="float-left weapon-select" label="Bow" value={weaponBow} onChange={setWeaponBow}/>
+                        <Checkbox className="float-left weapon-select" label="Wand" value={weaponWand} onChange={setWeaponWand}/>
+                        <Checkbox className="float-left weapon-select" label="Dagger" value={weaponDagger} onChange={setWeaponDagger}/>
                     </div>
                 </div>
-
-                <div className="break"/>
-
             </div>
-        </div>
+
+            <div className="break"/>
+        </>
     )
 }
 
@@ -305,7 +303,7 @@ interface NumberInputProps {
 export const Checkbox = (props: CheckboxProps) => {
     return (
         <div className={props.className}>
-            <label className="checkbox">
+            <label className="checkbox checkbox-text">
                 <input className="checkbox-input" type="checkbox" checked={props.value} onChange={e => props.onChange(e.target.checked)}/>
                 <span>{props.label}</span>
             </label>
@@ -323,9 +321,9 @@ const SocketCheckbox = (props: LinkCheckboxProps) => {
                 {els.map((c, i) =>
                     <img key={i} className="socket-size" src={imgFromChar(c)} alt="red"/>
                 )}
-                <span className="link-text">
-                {props.label.replaceAll("-", "")}
-                </span>
+                {props.label &&
+                    <span className="link-text">{props.label.replaceAll("-", "")}</span>
+                }
             </label>
         </div>
     );
@@ -338,8 +336,8 @@ export const NumberInput = (props: NumberInputProps) => {
                 const number = Number(e.target.value);
                 number === 0 ? props.onChange(undefined) : props.onChange(number)
             }}/>
-            {props.image ? <img className="socket-size" src={imgFromChar(props.image)} alt="red"/> : null}
-            <span>&nbsp;{props.label}</span>
+            {props.image ? <img className="socket-size" src={imgFromChar(props.image)} alt={props.image}/> : null}
+            {props.label && <span>&nbsp;{props.label}</span>}
         </label>
     );
 }

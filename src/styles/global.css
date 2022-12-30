@@ -1,0 +1,102 @@
+h1 {
+    margin-top: 20px;
+    margin-bottom: 24px;
+    padding-left: 8px;
+    font-size: 28px;
+    font-weight: 400;
+    color: #ffffff;
+}
+
+.checkbox-input {
+    accent-color: #4d6873;
+    height: 32px;
+    width: 32px;
+    margin: 3px 10px;
+    padding-top: 20px;
+}
+.numberinput-input {
+    height: 33px;
+    width: 33px;
+    font-size: 11px;
+    font-family: monospace;
+    border-style: solid;
+    border-radius: 1px;
+    border-color: #8F8F9D;
+    margin: 3px 10px;
+    padding: 0;
+}
+
+.numberinput-large-input {
+    height: 33px;
+    width: 103px;
+    border-style: solid;
+    border-radius: 1px;
+    border-color: #8F8F9D;
+    margin: 3px 10px;
+    padding: 0;
+}
+.numberinput span {
+    display: inline-block;
+    margin-top: -10px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.numberinput img {
+    margin-bottom: -8px;
+}
+input[type="checkbox"] {
+    background-color: #e22434;
+    border: 0;
+}
+
+input[type="number"] {
+    background-color: #ffffff;
+    font-size: 20px;
+    text-align: center;
+    -moz-appearance:textfield; /* Firefox */
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    display: none;
+    margin: 0;
+}
+
+input[type="search"] {
+    background-color: #ffffff;
+}
+
+.checkbox span {
+    display: inline-block;
+    margin-top: -20px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.checkbox-text {
+    font-size: 18px;
+}
+
+.modifier-search-box {
+    padding: 8px;
+    width: 85%;
+    margin: 10px;
+    font-size: 16px;
+    font-family: monospace;
+}
+
+input[type="radio"] {
+    width: 1.5em;
+    height: 1.5em;
+    border: 0.15em solid currentColor;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.generic-top-element {
+    padding-left: 8px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}

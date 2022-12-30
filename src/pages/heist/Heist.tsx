@@ -1,6 +1,6 @@
-import ResultBox from "../components/ResultBox";
-import Header from "../components/Header";
-import {HeistContractType, heistContractTypes, heistTargetValues} from "../generated/GeneratedHeist";
+import ResultBox from "../../components/ResultBox";
+import Header from "../../components/Header";
+import {HeistContractType, heistContractTypes, heistTargetValues} from "../../generated/GeneratedHeist";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
 
 interface ContractLevel {

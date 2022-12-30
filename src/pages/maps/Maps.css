@@ -1,0 +1,39 @@
+.modifier-search-label {
+    font-size: 20px;
+    padding-left: 10px;
+}
+.modifier-quantity-box {
+    width: 90px;
+    padding: 8px;
+    margin: 10px;
+    font-size: 16px;
+    font-family: monospace;
+}
+
+.selected-mod {
+    color: #000000;
+    background-color: #c0ecfa;
+    text-underline: white;
+}
+.selectable-item {
+    font-size: 16px;
+    padding: 5px;
+}
+
+.box-small-padding {
+    margin-bottom: 0;
+}
+.mod-list {
+    cursor: pointer;
+    padding: 15px;
+}
+.map-column-text {
+    font-size: 28px;
+    padding-left: 17px;
+}
+.map-search-bar {
+    padding-left: 8px;
+}
+.radio-button-modgroup {
+    padding: 8px 8px 8px 10px;
+}
