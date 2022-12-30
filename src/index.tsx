@@ -21,7 +21,11 @@ root.render(
                     </div>
                     <div className="content-main">
                         <div className="content-left-gfx"/>
-                        <div className="content-main-area"><Pages /></div>
+                        <div className="content-main-area">
+                            <div className="page-content">
+                                <Pages />
+                            </div>
+                        </div>
                         <div className="content-right-gfx"/>
                     </div>
                 </div>

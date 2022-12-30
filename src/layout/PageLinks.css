@@ -11,7 +11,6 @@
     padding-top: 2px;
     font-size: 18px;
     white-space: nowrap;
-    margin-bottom: 5px;
 }
 .page-links {
     display: flex;
@@ -36,16 +35,16 @@ a:hover {
     text-decoration: underline;
 }
 .page-link-current {
-    background-color: rgba(110, 110, 110, 0.3);
+    background-color: rgba(72, 72, 72, 0.3);
 }
 
 .page-link-wrapper {
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    padding-bottom: 0;
 }
 
-@media(max-width: calc(230px + 1250px + 6px)) {
+@media(max-width: calc(230px + 1250px + 20px)) {
     .page-links {
         flex-direction: row;
     }

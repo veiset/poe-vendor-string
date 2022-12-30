@@ -59,7 +59,7 @@ html, body {
 .content-main-area {
     width: var(--main-content-width);
     max-width: var(--main-content-width);
-    background: #121213;
+    background: #1f1f21;
     border-left: 1px solid #464646;
     border-right: 1px solid #464646;
 }
@@ -74,14 +74,18 @@ html, body {
     flex-grow: 1;
     width: 0;
 }
+.page-content {
+    padding: 5px;
+}
 
-@media(max-width: calc(230px + 1250px + 6px)) {
+@media(max-width: calc(230px + 1250px + 20px)) {
     .content-links {
         width: 100%;
-        min-height: 50px;
         background-image: none;
         display: flex;
         flex-direction: row;
+        flex-shrink: initial;
+        min-height: inherit;
     }
     .content-height-wrapper {
         align-items: flex-start;
@@ -102,6 +106,5 @@ html, body {
         min-width: 150px;
         width: 100%;
         border: 0 solid #464646;
-        flex-grow: 1;
     }
 }
