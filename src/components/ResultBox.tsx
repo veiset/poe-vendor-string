@@ -24,31 +24,33 @@ const ResultBox = (props: ResultBoxProps) => {
     }, [result, autoCopy, error]);
 
     return (
-        <div className="item-wide result-box">
-            <div className="result-string">
-                <div className={result.length > maxLength ? "result" : result === copied ? "result copied-good" : "result"}>
-                    {result}
-                    {result.length > maxLength && <div className="error">Error: more than 50 characters, cannot be used in the PoE client</div>}
-                    {!error && result.length <= maxLength && result.length > 0 && <div className="size-info">length: {result.length} / 50</div>}
-                    {error && <div className="error">Error: {error}</div>}
-                    {warning && <div className="warning">{warning}</div>}
-                </div>
+        <div className="row result-box">
+            <div className={result.length > maxLength ? "result" : result === copied ? "result copied-good" : "result"}>
+                {result}
+                {result.length > maxLength && <div className="error">Error: more than 50 characters, cannot be used in the PoE client</div>}
+                {!error && result.length <= maxLength && result.length > 0 && <div className="size-info">length: {result.length} / 50</div>}
+                {error && <div className="error">Error: {error}</div>}
+                {warning && <div className="warning">{warning}</div>}
             </div>
-            <div className="copy-box">
-                <div className="copy">
-                    <button className="copy-button" onClick={() => {
-                        setCopied(result);
-                        navigator.clipboard.writeText(result);
-                    }}>
-                        Copy
-                    </button>
-                    <button className="reset-button" onClick={() => {
-                        reset()
-                    }}>
-                        Reset
-                    </button>
+            <div className="col-align-right">
+                <div className="result-action">
+                    <div className="row">
+                        <button className="copy-button" onClick={() => {
+                            setCopied(result);
+                            navigator.clipboard.writeText(result);
+                        }}>
+                            Copy
+                        </button>
+                        <button className="reset-button" onClick={() => {
+                            reset()
+                        }}>
+                            Reset
+                        </button>
+                    </div>
+                    <div className="row">
+                        <AutoCopyCheckbox value={autoCopy} onChange={setAutoCopy}/>
+                    </div>
                 </div>
-                <AutoCopyCheckbox value={autoCopy} onChange={setAutoCopy}/>
             </div>
         </div>
     )

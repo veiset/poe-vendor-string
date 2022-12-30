@@ -1,4 +1,5 @@
 import React, {Dispatch, SetStateAction, useEffect} from 'react';
+import './Vendor.css';
 import socketRed from '../img/red-socket.png';
 import socketGreen from '../img/green-socket.png';
 import socketBlue from '../img/blue-socket.png';
@@ -168,113 +169,114 @@ const Vendor = () => {
     }, listOfvalues)
 
     return (
-        <div className="wrapper">
-            <div className="container">
-                <Header text={"Vendor Search"}/>
-                <ResultBox result={result} warning={warning} reset={() => {
-                    listOfOptions.forEach(setting => {
-                        setting(false);
-                    })
-                    listOfNumbers.forEach(settings => {
-                        settings(undefined);
-                    })
-                }}/>
-                <div className="break"/>
-                <div className="item">
-                    <div className="column-header">Link colors (3L)</div>
-                    <SocketCheckbox label="r-r-*" value={rrA} onChange={setRrA}/>
-                    <SocketCheckbox label="g-g-*" value={ggA} onChange={setGgA}/>
-                    <SocketCheckbox label="b-b-*" value={bbA} onChange={setBbA}/>
-
-                    <SocketCheckbox className="small-padding" label="r-r-r" value={rrr} onChange={setRrr}/>
-                    <SocketCheckbox label="r-r-g" value={rrg} onChange={setRrg}/>
-                    <SocketCheckbox label="r-r-b" value={rrb} onChange={setRrb}/>
-
-                    <SocketCheckbox className="small-padding" label="g-g-g" value={ggg} onChange={setGgg}/>
-                    <SocketCheckbox label="g-g-r" value={ggr} onChange={setGgr}/>
-                    <SocketCheckbox label="g-g-b" value={ggb} onChange={setGgb}/>
-
-                    <SocketCheckbox className="small-padding" label="b-b-b" value={bbb} onChange={setBbb}/>
-                    <SocketCheckbox label="b-b-r" value={bbr} onChange={setBbr}/>
-                    <SocketCheckbox label="b-b-g" value={bbg} onChange={setBbg}/>
-
-                    <SocketCheckbox className="small-padding" label="r-g-b" value={rgb} onChange={setRgb}/>
-                    <SocketCheckbox label="r-*-*" value={raa} onChange={setRaa}/>
-                    <SocketCheckbox label="g-*-*" value={gaa} onChange={setGaa}/>
-                    <SocketCheckbox label="b-*-*" value={baa} onChange={setBaa}/>
-                </div>
-                <div className="item">
-
-                    <div className="column-header small-padding"> Link colors (2L)</div>
-                    <SocketCheckbox label="r-r" value={rr} onChange={setRr}/>
-                    <SocketCheckbox label="g-g" value={gg} onChange={setGg}/>
-                    <SocketCheckbox label="b-b" value={bb} onChange={setBb}/>
-
-                    <SocketCheckbox className="small-padding" label="r-b" value={rb} onChange={setRb}/>
-                    <SocketCheckbox label="g-r" value={gr} onChange={setGr}/>
-                    <SocketCheckbox label="b-g" value={bg} onChange={setBg}/>
-
-                    <div className="column-header"> Any links</div>
-                    <SocketCheckbox label="Any 3 link" value={anyThreeLink} onChange={setAnyThreeLink} link="*-*-*"/>
-                    <SocketCheckbox label="Any 4 link" value={anyFourLink} onChange={setAnyFourLink} link="*-*-*-*"/>
-                    <SocketCheckbox label="Any 5 link" value={anyFiveLink} onChange={setAnyFiveLink} link="*-*-*-*-*"/>
-                    <SocketCheckbox label="Any 6 link" value={anySixLink} onChange={setAnySixLink} link=""/>
-                    <SocketCheckbox label="Any 6 socket" value={anySixSocket} onChange={setAnySixSocket} link=""/>
-
-                    <div className="column-header small-padding"> Other Links</div>
-                    <Checkbox label="Enable (Takes a lot of space)" value={specLink} onChange={setSpecLink}/>
-                    <div>
-                        <NumberInput label="r" value={specLinkColorsR} image="r" onChange={setSpecLinkColorsR}/>
-                        <NumberInput label="g" value={specLinkColorsG} image="g" onChange={setSpecLinkColorsG}/>
-                        <NumberInput label="b" value={specLinkColorsB} image="b" onChange={setSpecLinkColorsB}/>
-                    </div>
-
-                </div>
-                <div className="item">
-                    <div className="column-header"> Movement speed</div>
-                    <Checkbox label="Movement speed (10%)" value={movement10} onChange={setMovement10}/>
-                    <Checkbox label="Movement speed (15%)" value={movement15} onChange={setMovement15}/>
-
-                    <div className="column-header">
-                        Misc
-                    </div>
-                    <Checkbox label="+1 wand (any)" value={anyGem} onChange={setAnyGem}/>
-                    <Checkbox label="+1 lightning wand" value={lightning} onChange={setLightning}/>
-                    <Checkbox label="+1 fire wand" value={fire} onChange={setFire}/>
-                    <Checkbox label="+1 cold wand" value={cold} onChange={setCold}/>
-                    <Checkbox label="+1 phys wand" value={phys} onChange={setPhys}/>
-                    <Checkbox label="+1 chaos wand" value={chaos} onChange={setChaos}/>
-
-                    <Checkbox className="small-padding" label="Physical damage" value={dmgPhys} onChange={setDmgPhys}/>
-                    <Checkbox label="Flat Elemental damage" value={dmgElemental} onChange={setDmgElemental}/>
-                    <Checkbox label="Flat Spell damage" value={dmgSpellFlat} onChange={setDmgSpellFlat}/>
-                    <Checkbox label="Increased Spell damage" value={dmgSpell} onChange={setDmgSpell}/>
-
-                    <div className="column-header">
-                        Weapon bases
-                    </div>
-                    <p className="warn-weapon">This will always highlight the selected weapon type, even if it doesn't match sockets, links or stats.</p>
-                    <div>
-                        <Checkbox className="float-left item-third-size" label="Axe" value={weaponAxe} onChange={setWeaponAxe}/>
-                        <Checkbox className="float-left item-third-size" label="Mace" value={weaponMace} onChange={setWeaponMace}/>
-                        <Checkbox className="float-left item-third-size" label="Sword" value={weaponSword} onChange={setWeaponSword}/>
-                    </div>
-                    <div>
-                        <Checkbox className="float-left item-third-size" label="Staff" value={weaponStaff} onChange={setWeaponStaff}/>
-                        <Checkbox className="float-left item-third-size" label="Sceptre" value={weaponSceptre} onChange={setWeaponSceptre}/>
-                        <Checkbox className="float-left item-third-size" label="Claw" value={weaponClaw} onChange={setWeaponClaw}/>
-                    </div>
-                    <div>
-                        <Checkbox className="float-left item-third-size" label="Bow" value={weaponBow} onChange={setWeaponBow}/>
-                        <Checkbox className="float-left item-third-size" label="Wand" value={weaponWand} onChange={setWeaponWand}/>
-                        <Checkbox className="float-left item-third-size" label="Dagger" value={weaponDagger} onChange={setWeaponDagger}/>
-                    </div>
-                </div>
-
-                <div className="break"/>
+        <>
+            <Header text="Vendor"/>
+            <div className="break"/>
+            <ResultBox result={result} warning={warning} reset={() => {
+                listOfOptions.forEach(setting => {
+                    setting(false);
+                })
+                listOfNumbers.forEach(settings => {
+                    settings(undefined);
+                })
+            }}/>
+            <div className="break"/>
+            <div>
 
             </div>
-        </div>
+            <div className="item">
+                <div className="column-header">Link colors (3L)</div>
+                <SocketCheckbox label="r-r-*" value={rrA} onChange={setRrA}/>
+                <SocketCheckbox label="g-g-*" value={ggA} onChange={setGgA}/>
+                <SocketCheckbox label="b-b-*" value={bbA} onChange={setBbA}/>
+
+                <SocketCheckbox className="small-padding" label="r-r-r" value={rrr} onChange={setRrr}/>
+                <SocketCheckbox label="r-r-g" value={rrg} onChange={setRrg}/>
+                <SocketCheckbox label="r-r-b" value={rrb} onChange={setRrb}/>
+
+                <SocketCheckbox className="small-padding" label="g-g-g" value={ggg} onChange={setGgg}/>
+                <SocketCheckbox label="g-g-r" value={ggr} onChange={setGgr}/>
+                <SocketCheckbox label="g-g-b" value={ggb} onChange={setGgb}/>
+
+                <SocketCheckbox className="small-padding" label="b-b-b" value={bbb} onChange={setBbb}/>
+                <SocketCheckbox label="b-b-r" value={bbr} onChange={setBbr}/>
+                <SocketCheckbox label="b-b-g" value={bbg} onChange={setBbg}/>
+
+                <SocketCheckbox className="small-padding" label="r-g-b" value={rgb} onChange={setRgb}/>
+                <SocketCheckbox label="r-*-*" value={raa} onChange={setRaa}/>
+                <SocketCheckbox label="g-*-*" value={gaa} onChange={setGaa}/>
+                <SocketCheckbox label="b-*-*" value={baa} onChange={setBaa}/>
+            </div>
+            <div className="item">
+
+                <div className="column-header small-padding"> Link colors (2L)</div>
+                <SocketCheckbox label="r-r" value={rr} onChange={setRr}/>
+                <SocketCheckbox label="g-g" value={gg} onChange={setGg}/>
+                <SocketCheckbox label="b-b" value={bb} onChange={setBb}/>
+
+                <SocketCheckbox className="small-padding" label="r-b" value={rb} onChange={setRb}/>
+                <SocketCheckbox label="g-r" value={gr} onChange={setGr}/>
+                <SocketCheckbox label="b-g" value={bg} onChange={setBg}/>
+
+                <div className="column-header"> Any links</div>
+                <SocketCheckbox label="Any 3 link" value={anyThreeLink} onChange={setAnyThreeLink} link="*-*-*"/>
+                <SocketCheckbox label="Any 4 link" value={anyFourLink} onChange={setAnyFourLink} link="*-*-*-*"/>
+                <SocketCheckbox label="Any 5 link" value={anyFiveLink} onChange={setAnyFiveLink} link="*-*-*-*-*"/>
+                <SocketCheckbox label="Any 6 link" value={anySixLink} onChange={setAnySixLink} link=""/>
+                <SocketCheckbox label="Any 6 socket" value={anySixSocket} onChange={setAnySixSocket} link=""/>
+
+                <div className="column-header small-padding"> Other Links</div>
+                <Checkbox label="Enable (Takes a lot of space)" value={specLink} onChange={setSpecLink}/>
+                <div>
+                    <NumberInput label="r" value={specLinkColorsR} image="r" onChange={setSpecLinkColorsR}/>
+                    <NumberInput label="g" value={specLinkColorsG} image="g" onChange={setSpecLinkColorsG}/>
+                    <NumberInput label="b" value={specLinkColorsB} image="b" onChange={setSpecLinkColorsB}/>
+                </div>
+
+            </div>
+            <div className="item">
+                <div className="column-header"> Movement speed</div>
+                <Checkbox label="Movement speed (10%)" value={movement10} onChange={setMovement10}/>
+                <Checkbox label="Movement speed (15%)" value={movement15} onChange={setMovement15}/>
+
+                <div className="column-header">
+                    Misc
+                </div>
+                <Checkbox label="+1 wand (any)" value={anyGem} onChange={setAnyGem}/>
+                <Checkbox label="+1 lightning wand" value={lightning} onChange={setLightning}/>
+                <Checkbox label="+1 fire wand" value={fire} onChange={setFire}/>
+                <Checkbox label="+1 cold wand" value={cold} onChange={setCold}/>
+                <Checkbox label="+1 phys wand" value={phys} onChange={setPhys}/>
+                <Checkbox label="+1 chaos wand" value={chaos} onChange={setChaos}/>
+
+                <Checkbox className="small-padding" label="Physical damage" value={dmgPhys} onChange={setDmgPhys}/>
+                <Checkbox label="Flat Elemental damage" value={dmgElemental} onChange={setDmgElemental}/>
+                <Checkbox label="Flat Spell damage" value={dmgSpellFlat} onChange={setDmgSpellFlat}/>
+                <Checkbox label="Increased Spell damage" value={dmgSpell} onChange={setDmgSpell}/>
+
+                <div className="column-header">
+                    Weapon bases
+                </div>
+                <p className="warn-weapon">This will always highlight the selected weapon type, even if it doesn't match sockets, links or stats.</p>
+                <div>
+                    <Checkbox className="float-left item-third-size" label="Axe" value={weaponAxe} onChange={setWeaponAxe}/>
+                    <Checkbox className="float-left item-third-size" label="Mace" value={weaponMace} onChange={setWeaponMace}/>
+                    <Checkbox className="float-left item-third-size" label="Sword" value={weaponSword} onChange={setWeaponSword}/>
+                </div>
+                <div>
+                    <Checkbox className="float-left item-third-size" label="Staff" value={weaponStaff} onChange={setWeaponStaff}/>
+                    <Checkbox className="float-left item-third-size" label="Sceptre" value={weaponSceptre} onChange={setWeaponSceptre}/>
+                    <Checkbox className="float-left item-third-size" label="Claw" value={weaponClaw} onChange={setWeaponClaw}/>
+                </div>
+                <div>
+                    <Checkbox className="float-left item-third-size" label="Bow" value={weaponBow} onChange={setWeaponBow}/>
+                    <Checkbox className="float-left item-third-size" label="Wand" value={weaponWand} onChange={setWeaponWand}/>
+                    <Checkbox className="float-left item-third-size" label="Dagger" value={weaponDagger} onChange={setWeaponDagger}/>
+                </div>
+            </div>
+
+            <div className="break"/>
+        </>
     )
 }
 

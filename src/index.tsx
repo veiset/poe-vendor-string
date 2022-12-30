@@ -1,7 +1,8 @@
 import "@fontsource/manrope";
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './layout.css';
+import './styles/layout.css';
+import './styles/global.css';
 import linkGraphic from './img/pagegfx/chain_icon.png';
 import PageLinks from "./layout/PageLinks";
 import {HashRouter} from "react-router-dom";

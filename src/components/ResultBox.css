@@ -1,42 +1,45 @@
 .result-box {
+    font-family: monospace;
+    font-size: 24px;
     background-color: black;
-    width: 100%;
-    display: flex;
-    padding: 20px 0 20px 40px;
-}
-.result-string {
-    white-space: nowrap;
-    text-wrap: none;
-    width: 70%;
-}
-.copy-box {
-    width: 20%;
-    margin-left: auto;
+    color: white;
+    flex-wrap: nowrap;
+    flex-direction: row;
 }
 .result {
-    font-family: monospace;
-    font-size: 28px;
-    height: 40px;
-    color: white;
+    padding: 30px;
+    height: 62px;
+    text-wrap: none;
+    white-space: nowrap;
+    flex-shrink: 10;
+    flex-grow: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
-.copy {
-    position: relative;
+.result-action {
+    width: 196px;
+    padding: 22px 22px 10px 10px;
+    flex-grow: 1;
 }
 .auto-copy {
+    padding-left: 3px;
+    padding-bottom: 2px;
     margin-top: auto;
     position: relative;
 }
 .checkbox-autocopy {
     margin-left: 0;
+    margin-right: 5px;
     height: 20px;
     width: 20px;
+    cursor:pointer;
 }
 .auto-copy-text {
     font-size: 14px;
     position: relative;
     bottom: 4px;
 }
-auto-copy-text:hover {
+.auto-copy-text:hover {
     cursor:pointer;
 }
 
@@ -46,11 +49,45 @@ auto-copy-text:hover {
 .error {
     color: #e22434;
     padding-top: 10px;
-    font-size: 18px;
+    font-size: 16px;
 }
 .warning {
     color: #e28d24;
     padding-top: 10px;
     font-size: 16px;
 }
+.size-info {
+    color: #b1b1b7;
+    padding-top: 10px;
+    font-size: 16px;
+}
 
+.copy-button {
+    background-color: #25700d;
+    font-family: monospace;
+    border: none;
+    color: white;
+    padding: 15px 12px;
+    width: 90px;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 4px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+.reset-button {
+    width: 90px;
+    background-color: #6b091b;
+    font-family: monospace;
+    border: none;
+    color: white;
+    padding: 15px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 4px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}

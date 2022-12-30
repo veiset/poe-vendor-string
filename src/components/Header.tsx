@@ -5,7 +5,7 @@ export interface HeaderProps {
 const Header = (props: HeaderProps) => {
     const {text} = props;
     return (
-        <div className="item-wide info-header">Path of Exile Regex - {text}</div>
+        <h1 className="row">Path of Exile Regex - {text}</h1>
     )
 }
 
