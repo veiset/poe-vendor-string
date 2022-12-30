@@ -31,14 +31,14 @@ html, body {
     flex-direction: column;
     width: var(--link-width);
     align-items: stretch;
-    min-height: 400px;
+    min-height: 500px;
     color: #d5d5d5;
     background: #121213 url('img/pagegfx/chain_repeating.png') repeat-y right center;
 }
 .content-link-icon {
     width: 118px;
     height: 209px;
-    top: 194px;
+    top: 274px;
     left: calc(var(--link-width) - 118px);
     position: absolute;
 }
@@ -65,14 +65,14 @@ html, body {
 }
 
 .content-left-gfx {
-    background: #000000 url('img/pagegfx/left_middle_fade.png') no-repeat right top;
+    background: #000000 url('img/pagegfx/left_middle_fade_s.png') no-repeat right top;
     flex-grow: 1;
-    width: 2px;
+    width: 0;
 }
 .content-right-gfx {
-    background: #000000 url('img/pagegfx/right_middle_fade.png') no-repeat left top;
+    background: #000000 url('img/pagegfx/right_middle_fade_s.png') no-repeat left top;
     flex-grow: 1;
-    width: 2px;
+    width: 0;
 }
 
 @media(max-width: calc(230px + 1250px + 6px)) {
@@ -99,7 +99,7 @@ html, body {
         display: none;
     }
     .content-main-area {
-        min-width: 300px;
+        min-width: 150px;
         width: 100%;
         border: 0 solid #464646;
         flex-grow: 1;
