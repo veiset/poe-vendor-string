@@ -76,6 +76,7 @@ html, body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    padding-bottom: 20px;
 }
 
 @media(max-width: calc(230px + 1250px + 20px)) {
@@ -120,4 +121,8 @@ html, body {
 }
 .col-align-right {
     margin-left: auto;
+}
+.col-3 {
+    min-width: 200px;
+    width: 32%;
 }
