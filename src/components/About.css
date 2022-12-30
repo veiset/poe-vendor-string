@@ -1,0 +1,10 @@
+.about-info {
+    padding: 100px 8px 20px;
+    font-size: 16px;
+    align-content: flex-end;
+    flex-grow: 1;
+    height: 100%;
+}
+.source-link {
+    color: #56c8fc;
+}

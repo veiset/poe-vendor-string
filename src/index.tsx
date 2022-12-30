@@ -7,6 +7,7 @@ import linkGraphic from './img/pagegfx/chain_icon.png';
 import PageLinks from "./layout/PageLinks";
 import {HashRouter} from "react-router-dom";
 import Pages from "./layout/Pages";
+import About from "./components/About";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -25,6 +26,7 @@ root.render(
                         <div className="content-main-area">
                             <div className="page-content">
                                 <Pages />
+                                <About />
                             </div>
                         </div>
                         <div className="content-right-gfx"/>

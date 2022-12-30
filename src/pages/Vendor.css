@@ -13,7 +13,7 @@
     padding-left: 10px;
     padding-bottom: 4px;
     font-size: 22px;
-    font-weight: bold;
+    color: #ffffff;
 }
 .link-text {
     padding-left: 10px;
@@ -42,7 +42,6 @@
     text-wrap: none;
     white-space: nowrap;
     width: 32%;
-    font-family: monospace;
     font-size: 14px;
 }
 @media(max-width: 860px) {

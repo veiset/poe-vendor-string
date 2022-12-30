@@ -16,7 +16,6 @@ const Vendor = () => {
     const [result, setResult] = React.useState("");
     const [warning, setWarning] = React.useState<string | undefined>();
     const savedSettings = JSON.parse(localStorage.getItem("vendorSearch") ?? "{}");
-    console.log(savedSettings);
 
     const [rrr, setRrr] = React.useState(hasNKey(savedSettings, "colors.rrr"));
     const [ggg, setGgg] = React.useState(hasNKey(savedSettings, "colors.ggg"));
@@ -304,7 +303,7 @@ interface NumberInputProps {
 export const Checkbox = (props: CheckboxProps) => {
     return (
         <div className={props.className}>
-            <label className="checkbox">
+            <label className="checkbox checkbox-text">
                 <input className="checkbox-input" type="checkbox" checked={props.value} onChange={e => props.onChange(e.target.checked)}/>
                 <span>{props.label}</span>
             </label>

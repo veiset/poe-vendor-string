@@ -8,7 +8,7 @@ h1 {
 }
 
 .checkbox-input {
-    accent-color: #365e21;
+    accent-color: #4d7365;
     height: 32px;
     width: 32px;
     margin: 3px 10px;
@@ -72,4 +72,7 @@ input[type="search"] {
     margin-top: -20px;
     vertical-align: middle;
     white-space: nowrap;
+}
+.checkbox-text {
+    font-size: 18px;
 }

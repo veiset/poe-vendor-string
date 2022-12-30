@@ -44,6 +44,9 @@ a:hover {
     flex-direction: column;
     padding-bottom: 0;
 }
+.source-info {
+    padding-top: 20px;
+}
 
 @media(max-width: calc(230px + 1250px + 20px)) {
     .page-links {
@@ -57,4 +60,3 @@ a:hover {
         flex-wrap: wrap;
     }
 }
-

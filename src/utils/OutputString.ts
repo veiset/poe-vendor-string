@@ -243,15 +243,11 @@ function simplifyABABAB(result: string, c: string, c2: string): string {
     let r = result;
     const search1 = `${c}-${c}-${c}|${c2}-${c2}-${c2}|${c}-${c}-${c2}|${c}-${c2}-${c}|${c2}-${c}-${c}|${c2}-${c2}-${c}|${c2}-${c}-${c2}|${c}-${c2}-${c2}`;
     const searchTerms = search1.split("|");
-    console.log(`Input: ${result}`)
-    console.log(`Out:   ${search1}`);
     if (searchTerms.every((v) => result.includes(v))) {
         const shortened = `[${c}${c2}]-[${c}${c2}]-[${c}${c2}]`;
-        console.log(`Short: ${shortened}`);
         r = r.split("|").filter(v => !searchTerms.some((t) => v === t)).join("|");
         r = addExpression(r, shortened);
     }
-    console.log(`Result: ${result}`);
     return r;
 
 }
