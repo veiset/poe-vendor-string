@@ -1,0 +1,17 @@
+.page-link-header {
+    padding-top: 6px;
+    padding-left: 8px;
+    padding-right: 20px;
+    font-size: 24px;
+}
+.page-link {
+    padding-left: 10px;
+    font-size: 18px;
+}
+.page-link-icon {
+    position: relative;
+    top: 10px;
+    padding-right: 5px;
+    height: 30px;
+    width: 30px;
+}

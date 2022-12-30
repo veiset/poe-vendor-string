@@ -1,30 +1,33 @@
+import "@fontsource/manrope";
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import Vendor from './pages/Vendor';
-import {HashRouter, Route, Routes} from "react-router-dom";
-import Maps from "./pages/Maps";
-import LinkMenu from "./components/LinkMenu";
-import About from "./components/About";
-import Flasks from "./pages/Flasks";
-import Heist from "./pages/Heist";
+import './layout.css';
+import linkGraphic from './img/pagegfx/chain_icon.png';
+import PageLinks from "./layout/link/PageLinks";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
     <React.StrictMode>
-        <HashRouter>
-            <LinkMenu/>
-            <Routes>
-                <Route path="/" element={<Vendor/>}/>
-                <Route path="/vendor" element={<Vendor/>}/>
-                <Route path="/maps" element={<Maps/>}/>
-                <Route path="/flasks" element={<Flasks/>}/>
-                <Route path="/heist" element={<Heist/>}/>
-            </Routes>
-            <About />
-        </HashRouter>
+        <div className="content-height-wrapper">
+            <div className="content-container">
+                <div className="content-links">
+                    <img src={linkGraphic} className="content-link-icon" />
+                    <PageLinks />
+                </div>
+                <div className="content-main">
+                    <div className="content-left-gfx"></div>
+                    <div className="content-main-area">
+                        hello
+                        <p>Hello<br/>Hello<br/>Hello<br/>Hello<br/>Hello<br/>Hello<br/></p>
+                        <p>Hello<br/>Hello<br/>Hello<br/>Hello<br/>Hello<br/>Hello<br/></p>
+                        <p>Hello<br/>Hello<br/>Hello<br/>Hello<br/>Hello<br/>Hello<br/></p>
+                    </div>
+                    <div className="content-right-gfx"></div>
+                </div>
+            </div>
+        </div>
     </React.StrictMode>
 );
 
