@@ -1,0 +1,42 @@
+.heist-action-button {
+    transition-duration: 0.3s;
+    background-color: #98c0d5;
+    border: 1px solid #050101;
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px;
+    font-size: 18px;
+
+}
+.heist-action-button:hover {
+    background-color: #2d2d33; /* Green */
+    color: white;
+}
+.heist-level-input {
+    padding-left: 10px;
+    padding-bottom: 30px;
+    min-width: 300px;
+}
+
+.heist-input-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.heist-contract-type {
+    color: #ffffff;
+}
+
+.heist-icon {
+    width: 24px;
+    height: 24px;
+    padding-right: 5px;
+}
+.heist-level-input-boxes {
+    padding-left: 10px;
+}
+.heist-value-input {
+    margin-top: 16px;
+
+}
