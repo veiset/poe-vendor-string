@@ -61,8 +61,8 @@ const Maps = () => {
                 <label className="modifier-search-label" htmlFor="quantity">Quantity of at least</label>
                 <input type="search" className="modifier-quantity-box" id="quantity" name="search-mod" value={quantity}
                        onChange={v => setQuantity(v.target.value)}/>
-                <label className="modifier-search-label" htmlFor="quantity">Pack Size of at least</label>
-                <input type="search" className="modifier-quantity-box" id="quantity" name="search-mod" value={packsize}
+                <label className="modifier-search-label" htmlFor="pack-size">Pack Size of at least</label>
+                <input type="search" className="modifier-quantity-box" id="pack-size" name="search-mod" value={packsize}
                        onChange={v => setPacksize(v.target.value)}/>
                 <Checkbox label="Optimize Quantity value (round down to nearest 10, saves a lot of query space)" value={optimizeQuant}
                           onChange={setOptimizeQuant}/>
