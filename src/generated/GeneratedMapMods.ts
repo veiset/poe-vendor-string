@@ -5,13 +5,13 @@ export interface MapMod {
 }
  
 export const mapModifiers: { [key: string]: MapMod } = {
- "Monsters reflect X% of Elemental Damage": {
-   value: "Monsters reflect X% of Elemental Damage",
+ "Monsters reflect #% of Elemental Damage": {
+   value: "Monsters reflect #% of Elemental Damage",
    scary: 0,
    matchSafe: "\"tal d\"",
  },
- "Monsters reflect X% of Physical Damage": {
-   value: "Monsters reflect X% of Physical Damage",
+ "Monsters reflect #% of Physical Damage": {
+   value: "Monsters reflect #% of Physical Damage",
    scary: 1,
    matchSafe: "\"f ph\"",
  },
@@ -30,13 +30,13 @@ export const mapModifiers: { [key: string]: MapMod } = {
    scary: 100,
    matchSafe: "\"h tem\"",
  },
- "-X% maximum Player Resistances": {
-   value: "-X% maximum Player Resistances",
+ "-#% maximum Player Resistances": {
+   value: "-#% maximum Player Resistances",
    scary: 101,
    matchSafe: "\"% ma\"",
  },
- "Players have X% less Recovery Rate of Life and Energy Shield": {
-   value: "Players have X% less Recovery Rate of Life and Energy Shield",
+ "Players have #% less Recovery Rate of Life and Energy Shield": {
+   value: "Players have #% less Recovery Rate of Life and Energy Shield",
    scary: 102,
    matchSafe: "\"s rec\"",
  },
@@ -50,8 +50,8 @@ export const mapModifiers: { [key: string]: MapMod } = {
    scary: 201,
    matchSafe: "poss",
  },
- "Players have X% reduced effect of Non-Curse Auras from Skills": {
-   value: "Players have X% reduced effect of Non-Curse Auras from Skills",
+ "Players have #% reduced effect of Non-Curse Auras from Skills": {
+   value: "Players have #% reduced effect of Non-Curse Auras from Skills",
    scary: 203,
    matchSafe: "non",
  },
@@ -60,38 +60,38 @@ export const mapModifiers: { [key: string]: MapMod } = {
    scary: 204,
    matchSafe: "\"h en\"",
  },
- "Monsters have X% increased Critical Strike Chance": {
-   value: "Monsters have X% increased Critical Strike Chance",
+ "Monsters have #% increased Critical Strike Chance": {
+   value: "Monsters have #% increased Critical Strike Chance",
    scary: 205,
    matchSafe: "\"ke c\"",
  },
- "Unique Boss deals X% increased Damage": {
-   value: "Unique Boss deals X% increased Damage",
+ "Unique Boss deals #% increased Damage": {
+   value: "Unique Boss deals #% increased Damage",
    scary: 206,
    matchSafe: "eals",
  },
- "X% increased Monster Damage": {
-   value: "X% increased Monster Damage",
+ "#% increased Monster Damage": {
+   value: "#% increased Monster Damage",
    scary: 207,
    matchSafe: "\"d monster d\"",
  },
- "Monsters deal X% extra Physical Damage as Cold": {
-   value: "Monsters deal X% extra Physical Damage as Cold",
+ "Monsters deal #% extra Physical Damage as Cold": {
+   value: "Monsters deal #% extra Physical Damage as Cold",
    scary: 208,
    matchSafe: "\"as c\"",
  },
- "Monsters deal X% extra Physical Damage as Fire": {
-   value: "Monsters deal X% extra Physical Damage as Fire",
+ "Monsters deal #% extra Physical Damage as Fire": {
+   value: "Monsters deal #% extra Physical Damage as Fire",
    scary: 209,
    matchSafe: "\" as f\"",
  },
- "Monsters deal X% extra Physical Damage as Lightning": {
-   value: "Monsters deal X% extra Physical Damage as Lightning",
+ "Monsters deal #% extra Physical Damage as Lightning": {
+   value: "Monsters deal #% extra Physical Damage as Lightning",
    scary: 210,
    matchSafe: "\"as l\"",
  },
- "Area has patches of Shocked Ground which increase Damage taken by X%": {
-   value: "Area has patches of Shocked Ground which increase Damage taken by X%",
+ "Area has patches of Shocked Ground which increase Damage taken by #%": {
+   value: "Area has patches of Shocked Ground which increase Damage taken by #%",
    scary: 211,
    matchSafe: "ked",
  },
@@ -105,13 +105,13 @@ export const mapModifiers: { [key: string]: MapMod } = {
    scary: 213,
    matchSafe: "tun",
  },
- "X% increased Monster Movement Speed|X% increased Monster Attack Speed|X% increased Monster Cast Speed": {
-   value: "X% increased Monster Movement Speed|X% increased Monster Attack Speed|X% increased Monster Cast Speed",
+ "#% increased Monster Movement Speed|#% increased Monster Attack Speed|#% increased Monster Cast Speed": {
+   value: "#% increased Monster Movement Speed|#% increased Monster Attack Speed|#% increased Monster Cast Speed",
    scary: 214,
    matchSafe: "mov",
  },
- "Monsters have a X% chance to cause Elemental Ailments on Hit": {
-   value: "Monsters have a X% chance to cause Elemental Ailments on Hit",
+ "Monsters have a #% chance to cause Elemental Ailments on Hit": {
+   value: "Monsters have a #% chance to cause Elemental Ailments on Hit",
    scary: 215,
    matchSafe: "cau",
  },
@@ -125,13 +125,13 @@ export const mapModifiers: { [key: string]: MapMod } = {
    scary: 217,
    matchSafe: "elo",
  },
- "Monsters have X% chance to Impale with Attacks": {
-   value: "Monsters have X% chance to Impale with Attacks",
+ "Monsters have #% chance to Impale with Attacks": {
+   value: "Monsters have #% chance to Impale with Attacks",
    scary: 218,
    matchSafe: "\"o im\"",
  },
- "Monsters have X% increased Area of Effect": {
-   value: "Monsters have X% increased Area of Effect",
+ "Monsters have #% increased Area of Effect": {
+   value: "Monsters have #% increased Area of Effect",
    scary: 219,
    matchSafe: "\"e \\d+% increased ar\"",
  },
@@ -140,18 +140,18 @@ export const mapModifiers: { [key: string]: MapMod } = {
    scary: 300,
    matchSafe: "nsecrate",
  },
- "Monsters gain X% of Maximum Life as Extra Maximum Energy Shield": {
-   value: "Monsters gain X% of Maximum Life as Extra Maximum Energy Shield",
+ "Monsters gain #% of Maximum Life as Extra Maximum Energy Shield": {
+   value: "Monsters gain #% of Maximum Life as Extra Maximum Energy Shield",
    scary: 301,
    matchSafe: "\"m li\"",
  },
- "Unique Boss has X% increased Life|Unique Boss has X% increased Area of Effect": {
-   value: "Unique Boss has X% increased Life|Unique Boss has X% increased Area of Effect",
+ "Unique Boss has #% increased Life|Unique Boss has #% increased Area of Effect": {
+   value: "Unique Boss has #% increased Life|Unique Boss has #% increased Area of Effect",
    scary: 302,
-   matchSafe: "\"as x\"",
+   matchSafe: "\"as \\d+\"",
  },
- "X% more Monster Life": {
-   value: "X% more Monster Life",
+ "#% more Monster Life": {
+   value: "#% more Monster Life",
    scary: 303,
    matchSafe: "\"r li\"",
  },
@@ -160,68 +160,68 @@ export const mapModifiers: { [key: string]: MapMod } = {
    scary: 304,
    matchSafe: "fli",
  },
- "+X% Monster Physical Damage Reduction": {
-   value: "+X% Monster Physical Damage Reduction",
+ "+#% Monster Physical Damage Reduction": {
+   value: "+#% Monster Physical Damage Reduction",
    scary: 305,
    matchSafe: "uct",
  },
- "+X% Monster Chaos Resistance|+X% Monster Elemental Resistances": {
-   value: "+X% Monster Chaos Resistance|+X% Monster Elemental Resistances",
+ "+#% Monster Chaos Resistance|+#% Monster Elemental Resistances": {
+   value: "+#% Monster Chaos Resistance|+#% Monster Elemental Resistances",
    scary: 306,
    matchSafe: "\"r el\"",
  },
- "X% less effect of Curses on Monsters": {
-   value: "X% less effect of Curses on Monsters",
+ "#% less effect of Curses on Monsters": {
+   value: "#% less effect of Curses on Monsters",
    scary: 307,
    matchSafe: "rses",
  },
- "Monsters have +X% chance to Suppress Spell Damage": {
-   value: "Monsters have +X% chance to Suppress Spell Damage",
+ "Monsters have +#% chance to Suppress Spell Damage": {
+   value: "Monsters have +#% chance to Suppress Spell Damage",
    scary: 308,
    matchSafe: "\"o su\"",
  },
- "Players have X% reduced Chance to Block|Players have X% less Armour": {
-   value: "Players have X% reduced Chance to Block|Players have X% less Armour",
+ "Players have #% reduced Chance to Block|Players have #% less Armour": {
+   value: "Players have #% reduced Chance to Block|Players have #% less Armour",
    scary: 309,
    matchSafe: "loc",
  },
- "Players have -X% to amount of Suppressed Spell Damage Prevented|Monsters have X% increased Accuracy Rating": {
-   value: "Players have -X% to amount of Suppressed Spell Damage Prevented|Monsters have X% increased Accuracy Rating",
+ "Players have -#% to amount of Suppressed Spell Damage Prevented|Monsters have #% increased Accuracy Rating": {
+   value: "Players have -#% to amount of Suppressed Spell Damage Prevented|Monsters have #% increased Accuracy Rating",
    scary: 310,
    matchSafe: "rev",
  },
- "Monsters have X% chance to Avoid Elemental Ailments": {
-   value: "Monsters have X% chance to Avoid Elemental Ailments",
+ "Monsters have #% chance to Avoid Elemental Ailments": {
+   value: "Monsters have #% chance to Avoid Elemental Ailments",
    scary: 311,
    matchSafe: "\"d el\"",
  },
- "Monsters take X% reduced Extra Damage from Critical Strikes": {
-   value: "Monsters take X% reduced Extra Damage from Critical Strikes",
+ "Monsters take #% reduced Extra Damage from Critical Strikes": {
+   value: "Monsters take #% reduced Extra Damage from Critical Strikes",
    scary: 312,
    matchSafe: "kes",
  },
- "Buffs on Players expire X% faster": {
-   value: "Buffs on Players expire X% faster",
+ "Buffs on Players expire #% faster": {
+   value: "Buffs on Players expire #% faster",
    scary: 400,
    matchSafe: "fs",
  },
- "Players gain X% reduced Flask Charges": {
-   value: "Players gain X% reduced Flask Charges",
+ "Players gain #% reduced Flask Charges": {
+   value: "Players gain #% reduced Flask Charges",
    scary: 401,
    matchSafe: "ask",
  },
- "Players have X% less Area of Effect": {
-   value: "Players have X% less Area of Effect",
+ "Players have #% less Area of Effect": {
+   value: "Players have #% less Area of Effect",
    scary: 402,
    matchSafe: "\"ss are\"",
  },
- "Players have X% less Cooldown Recovery Rate": {
-   value: "Players have X% less Cooldown Recovery Rate",
+ "Players have #% less Cooldown Recovery Rate": {
+   value: "Players have #% less Cooldown Recovery Rate",
    scary: 403,
    matchSafe: "coo",
  },
- "Players have X% less Accuracy Rating": {
-   value: "Players have X% less Accuracy Rating",
+ "Players have #% less Accuracy Rating": {
+   value: "Players have #% less Accuracy Rating",
    scary: 404,
    matchSafe: "\"s ac\"",
  },
@@ -245,8 +245,8 @@ export const mapModifiers: { [key: string]: MapMod } = {
    scary: 408,
    matchSafe: "oj",
  },
- "Monsters have a X% chance to avoid Poison, Impale, and Bleeding": {
-   value: "Monsters have a X% chance to avoid Poison, Impale, and Bleeding",
+ "Monsters have a #% chance to avoid Poison, Impale, and Bleeding": {
+   value: "Monsters have a #% chance to avoid Poison, Impale, and Bleeding",
    scary: 409,
    matchSafe: "n,",
  },
@@ -390,18 +390,18 @@ export const mapModifiers: { [key: string]: MapMod } = {
    scary: 630,
    matchSafe: "p'",
  },
- "X% increased number of Rare Monsters": {
-   value: "X% increased number of Rare Monsters",
+ "#% increased number of Rare Monsters": {
+   value: "#% increased number of Rare Monsters",
    scary: 803,
    matchSafe: "nu",
  },
- "X% more Magic Monsters": {
-   value: "X% more Magic Monsters",
+ "#% more Magic Monsters": {
+   value: "#% more Magic Monsters",
    scary: 810,
    matchSafe: "\"e mag\"",
  },
- "Slaying Enemies close together has a X% chance to attract monsters from Beyond": {
-   value: "Slaying Enemies close together has a X% chance to attract monsters from Beyond",
+ "Slaying Enemies close together has a #% chance to attract monsters from Beyond": {
+   value: "Slaying Enemies close together has a #% chance to attract monsters from Beyond",
    scary: 900,
    matchSafe: "yi",
  },
