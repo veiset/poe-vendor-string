@@ -60,10 +60,10 @@ export const mapModifiers: { [key: string]: MapMod } = {
    scary: 204,
    matchSafe: "\"h en\"",
  },
- "Monsters have #% increased Critical Strike Chance": {
-   value: "Monsters have #% increased Critical Strike Chance",
+ "Monsters have #% increased Critical Strike Chance|+#% to Monster Critical Strike Multiplier": {
+   value: "Monsters have #% increased Critical Strike Chance|+#% to Monster Critical Strike Multiplier",
    scary: 205,
-   matchSafe: "\"ke c\"",
+   matchSafe: "tip",
  },
  "Unique Boss deals #% increased Damage|Unique Boss has #% increased Attack and Cast Speed": {
    value: "Unique Boss deals #% increased Damage|Unique Boss has #% increased Attack and Cast Speed",
