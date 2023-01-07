@@ -65,8 +65,8 @@ export const mapModifiers: { [key: string]: MapMod } = {
    scary: 205,
    matchSafe: "\"ke c\"",
  },
- "Unique Boss deals #% increased Damage": {
-   value: "Unique Boss deals #% increased Damage",
+ "Unique Boss deals #% increased Damage|Unique Boss has #% increased Attack and Cast Speed": {
+   value: "Unique Boss deals #% increased Damage|Unique Boss has #% increased Attack and Cast Speed",
    scary: 206,
    matchSafe: "eals",
  },
@@ -148,7 +148,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Unique Boss has #% increased Life|Unique Boss has #% increased Area of Effect": {
    value: "Unique Boss has #% increased Life|Unique Boss has #% increased Area of Effect",
    scary: 302,
-   matchSafe: "\"as \\d+\"",
+   matchSafe: "\"d li\"",
  },
  "#% more Monster Life": {
    value: "#% more Monster Life",
