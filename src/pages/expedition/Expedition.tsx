@@ -7,6 +7,7 @@ import "./Expedition.css";
 import {Checkbox} from "../vendor/Vendor";
 import ExpeditionOptions from "./ExpeditionOptions";
 import ModSearchBox from "../../components/ModSearchBox";
+import Collapsable from "../../components/collapsable/Collapsable";
 
 const leagueName = "Sanctum";
 
@@ -106,6 +107,7 @@ const Expedition = () => {
     const [lowValueUniques, setLowValueUniques] = useState<boolean>(false);
     const [selectedItems, setSelectedItems] = useState<ValuedItem[]>([]);
     const [fillerItems, setFillerItems] = useState<ValuedItem[]>([]);
+    const [allMatchedItems, setAllMatchedItems] = useState<ValuedItem[]>([]);
 
     const [result, setResult] = useState("");
 
@@ -141,10 +143,22 @@ const Expedition = () => {
 
     useEffect(() => {
         if (data) {
-            let valuedItems = generateFillerItems(selectedItems, data);
-            const regex = selectedItems.concat(expensiveUniques ? valuedItems : [])
+            const valuedItems = generateFillerItems(selectedItems, data);
+            const fillerItems = expensiveUniques ? valuedItems : [];
+            const valueMap = new Map(data.map(i => [i.name, i]));
+            const allMainItems = selectedItems.concat(fillerItems)
+            const regex = allMainItems
                 .map((e) => baseTypeRegex[e.baseType].regex.replaceAll("\"", "")).join("|");
             setFillerItems(valuedItems);
+            const allMatchedItems = selectedItems
+                .concat(fillerItems)
+                .flatMap((e) => baseTypeRegex[e.baseType].items)
+                .map((item) => valueMap.get(item.name)!!)
+                .filter((x, i, a) => a.indexOf(x) == i);
+            const allOtherItems = allMatchedItems.filter((vi) => !selectedItems.concat(fillerItems).some((e) => e.name === vi.name));
+            console.log(allMainItems);
+            console.log(allMatchedItems)
+            setAllMatchedItems(allOtherItems.sort((a, b) => b.chaosValue - a.chaosValue));
             setResult(`"${regex}"`);
         }
     }, [data, selectedItems, expensiveUniques]);
@@ -158,12 +172,13 @@ const Expedition = () => {
         <>
             <Header text={"Gwennen Expedition"}/>
             <ResultBox result={result} warning={undefined} reset={() => {
+                setSelectedItems([]);
             }}/>
             <ExpeditionOptions
                 expensiveUniques={expensiveUniques}
                 setExpensiveUniques={setExpensiveUniques}
             />
-            <div className="row">
+            <div className="row expedition-selection-header">
                 <div className="expedition-col-40">User selected items</div>
                 <div className="expedition-col-60">Automatically added</div>
             </div>
@@ -178,6 +193,13 @@ const Expedition = () => {
                         return (<ItemDisplay key={selected.name} selectedItems={selectedItems} setSelectedItems={setSelectedItems} valuedItem={selected} />);
                     })}
                 </div>
+            </div>
+            <div className="row">
+                <Collapsable header={"Show all other items that will also match (based on base type)"}>
+                    {allMatchedItems.map((item) => {
+                        return (<ItemDisplay key={item.name} selectedItems={selectedItems} setSelectedItems={setSelectedItems} valuedItem={item} />);
+                    })}
+                </Collapsable>
             </div>
             <div className="row">
                 <div className="expedition-col-40">

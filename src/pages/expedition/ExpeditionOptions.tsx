@@ -1,6 +1,5 @@
 import {Checkbox} from "../vendor/Vendor";
 import {Dispatch, SetStateAction} from "react";
-import './ExpeditionOptions.css';
 
 interface ExpeditionOptionProps {
     expensiveUniques: boolean,

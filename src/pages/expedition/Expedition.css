@@ -72,5 +72,21 @@ a.item-link {
     border-color: #508ead;
 }
 .expedition-item-regex-area {
+    padding-left: 20px;
     min-height: 120px;
+}
+.expedition-col-20 {
+    width: 20%;
+}
+.expedition-col-40 {
+    width: 40%;
+}
+.expedition-col-60 {
+    width: 60%;
+}
+.expedition-selection-header {
+    padding: 20px;
+}
+.expedition-selection-area {
+    padding: 20px;
 }

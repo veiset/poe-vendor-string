@@ -1,0 +1,25 @@
+.collapsable-wrapper {
+    display: flex;
+    width: 100%;
+    margin: 20px;
+    flex-direction: column;
+}
+.collapsable-header {
+    font-size: 16px;
+    border-radius: 3px 3px 0 0;
+    padding: 18px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #454f5b;
+    cursor: pointer;
+}
+.collapsable-header:hover {
+    background-color: #55616e;
+}
+.collapsable-content {
+    background-color: #121215;
+    padding: 30px;
+}
+.collapsable-anim {
+}
