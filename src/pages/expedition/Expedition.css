@@ -68,12 +68,10 @@ a.item-link {
     color: #ae521a;
 }
 .expedition-selected-item {
-    background-color: #303a44;
-    border-color: #508ead;
 }
 .expedition-item-regex-area {
     padding-left: 20px;
-    min-height: 120px;
+    min-height: 200px;
 }
 .expedition-col-20 {
     width: 20%;
