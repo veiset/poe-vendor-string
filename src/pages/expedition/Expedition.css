@@ -61,6 +61,10 @@
     top: 0;
     white-space:nowrap;
 }
+.item-tooltip-text-wiki {
+    font-size: 13px;
+    color: #d5d5d5;
+}
 .item-tooltip:hover .item-tooltip-text {
     visibility: visible;
 }

@@ -34,7 +34,10 @@ export const ItemDisplay = (props: ItemDisplayProps) => {
             </img>
             <span className="expedition-img-value">
                 {normalizeValue(valuedItem.chaosValue)}
-                <span className="item-tooltip-text"><a className="item-link" target="_blank" href={`https://www.poewiki.net/w/index.php?search=${valuedItem.name}`}>{valuedItem.name}</a></span>
+                <span className="item-tooltip-text">
+                    <span>{valuedItem.name}</span>&nbsp;
+                    <a className="item-tooltip-text-wiki" onClick={(e) => e.stopPropagation()} target="_blank" href={`https://www.poewiki.net/w/index.php?search=${valuedItem.name}`}>[wiki]</a>
+                </span>
             </span>
         </div>
     );
