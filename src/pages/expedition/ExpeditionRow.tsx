@@ -64,9 +64,9 @@ export const ExpeditionRow = (props: ExpeditionRowProps) => {
                 {valuedBaseType.otherItems
                     .filter((e) => {
                         if (showLowValueUniques) return true;
-                        if (itemSearch && itemSearch.length > 1 && baseTypeMatch) return true;
+                        if (itemSearch && itemSearch.length > 2 && baseTypeMatch) return true;
                         const matchName = e.name.toLowerCase().includes(itemSearch.toLowerCase());
-                        if (itemSearch && itemSearch.length > 1 && matchName) return true;
+                        if (itemSearch && itemSearch.length > 2 && matchName) return true;
                         return showLowValueUniques || e.chaosValue > 100;
                     }).map((v) => <ItemDisplay selectedItems={selectedItems} setSelectedItems={setSelectedItems} key={v.name} valuedItem={v}/>)}
             </div>

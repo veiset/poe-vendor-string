@@ -8,6 +8,7 @@ import {Checkbox} from "../vendor/Vendor";
 import ExpeditionOptions from "./ExpeditionOptions";
 import ModSearchBox from "../../components/ModSearchBox";
 import Collapsable from "../../components/collapsable/Collapsable";
+import {distinct, distinctByKey} from "../../utils/ListUtils";
 
 const leagueName = "Sanctum";
 
@@ -34,6 +35,8 @@ interface PoeNinjaData {
 function takeWhile<T>(arr: T[], func: (all: T[], current: T) => boolean): T[] {
     return arr.reduce((acc: T[], el: T) => (!func(acc, el) ? acc : acc.concat(el)), []);
 }
+
+const sortByChaosValue = (a: ValuedItem, b: ValuedItem): number => b.chaosValue - a.chaosValue
 
 const generateValuedBaseTypes = (baseTypeRegex: { [key: string]: BaseTypeRegex }, items: ValuedItem[]): ValuedBaseType[] => {
     const itemValueMap: Map<string, ValuedItem> = new Map(items.map(i => [i.name, i]));
@@ -63,7 +66,7 @@ const generateValuedBaseTypes = (baseTypeRegex: { [key: string]: BaseTypeRegex }
             }
         }
 
-        const items = (valuedItems as ValuedItem[]).sort((a, b) => b.chaosValue - a.chaosValue);
+        const items = (valuedItems as ValuedItem[]).sort(sortByChaosValue);
 
         return {
             baseType: baseRegex.baseType,
@@ -80,35 +83,56 @@ const priceData = (league: string, type: string): Promise<PoeNinjaData> => {
         .then((r) => r.json());
 }
 
+const generateRegex = (selected: ValuedItem[], fillerItems: ValuedItem[]): string => {
+    const allBases = distinct(selected.concat(fillerItems).map((e) => e.baseType));
+    if (allBases.length === 0) {
+        return "";
+    }
+
+    const regex = allBases.map((e) => baseTypeRegex[e].regex).join("|").replaceAll("\"", "");
+    return `"${regex}"`;
+}
+
 const generateFillerItems = (selected: ValuedItem[], allItems: ValuedItem[]): ValuedItem[] => {
-    const currentRegexLength = selected
-        .map((e) => baseTypeRegex[e.baseType].regex)
-        .join("|")
-        .replaceAll("\"", "").length;
+    const selectedBases = distinct(selected.map((e) => e.baseType));
+    const currentRegexLength = generateRegex(selected, []).length;
+    const baseRegexSpace = Math.max(currentRegexLength, 2);
 
     const itemsSortedByValue = allItems
         .filter((e) => !selected.some((ev) => ev.name === e.name))
-        .sort((a, b) => b.chaosValue - a.chaosValue);
+        .sort(sortByChaosValue);
 
-    const mostValuedItems = takeWhile(itemsSortedByValue, (all) =>
-        all.map((e) => baseTypeRegex[e.baseType].regex).join("|").replaceAll("\"", "").length < 50 - currentRegexLength - 2
-    );
-
-    return mostValuedItems.slice(0, mostValuedItems.length - 1);
+    let count = baseRegexSpace;
+    return itemsSortedByValue.reduce((acc: ValuedItem[], el: ValuedItem) => {
+        let currentBases = selectedBases.concat(acc.map((e) => e.baseType));
+        if (currentBases.includes(el.baseType) && el.chaosValue > 200) {
+            return acc.concat(el);
+        }
+        const regexAddition = "|" + baseTypeRegex[el.baseType].regex.replaceAll("\"", "");
+        const newRegexSize = count + regexAddition.length;
+        if (newRegexSize <= 50 && el.chaosValue > 200) {
+            count += regexAddition.length;
+            return acc.concat(el);
+        } else {
+            return acc;
+        }
+    },[]);
 }
 
 const Expedition = () => {
 
-    // ValueMap: Str -> Chaos
-    const [data, setData] = useState<ValuedItem[]>();
+    // Item data
+    const [items, setItems] = useState<ValuedItem[]>();
     const [valuedBases, setValuedBases] = useState<ValuedBaseType[]>([]);
-    const [itemSearch, setItemSearch] = useState("");
-    const [expensiveUniques, setExpensiveUniques] = useState<boolean>(true);
-    const [lowValueUniques, setLowValueUniques] = useState<boolean>(false);
     const [selectedItems, setSelectedItems] = useState<ValuedItem[]>([]);
     const [fillerItems, setFillerItems] = useState<ValuedItem[]>([]);
-    const [allMatchedItems, setAllMatchedItems] = useState<ValuedItem[]>([]);
+    const [otherMatchingItems, setOtherMatchingItems] = useState<ValuedItem[]>([]);
+    const [valueMap, setValueMap] = useState<Map<string, ValuedItem>>(new Map());
+    // Settings
+    const [addFillerItems, setAddFillerItems] = useState<boolean>(true);
+    const [displayLowValue, setDisplayLowValue] = useState<boolean>(false);
 
+    const [itemSearch, setItemSearch] = useState("");
     const [result, setResult] = useState("");
 
     useEffect(() => {
@@ -118,8 +142,7 @@ const Expedition = () => {
             priceData(leagueName, "Jewel"),
             priceData(leagueName, "Weapon"),
         ]).then((responses) => {
-            const allItems: ValuedItem[] = responses.flatMap((d) => d.lines);
-            const pricedObtainableItems = allItems
+            const pricedObtainableItems = responses.flatMap((d) => d.lines)
                 .filter((e) => {
                     return e.links === undefined;
                 })
@@ -127,44 +150,42 @@ const Expedition = () => {
                     const baseType: BaseTypeRegex | undefined = e.baseType in baseTypeRegex ? baseTypeRegex[e.baseType] : undefined;
                     return baseType?.items.map((item) => item.name).includes(e.name);
                 })
-                .sort((a, b) => b.chaosValue - a.chaosValue);
-            setData(pricedObtainableItems);
+                .sort(sortByChaosValue);
+
+            setItems(pricedObtainableItems);
             setFillerItems(generateFillerItems(selectedItems, pricedObtainableItems));
+            setValueMap(new Map(pricedObtainableItems.map(i => [i.name, i])));
         });
     }, []);
 
     useEffect(() => {
-        if (data !== undefined) {
-            setValuedBases(generateValuedBaseTypes(baseTypeRegex, data));
-            console.log("Missing economy data on:", valuedBases.flatMap((e) => e.otherItems).filter((e) => e.chaosValue === -1));
+        if (items !== undefined) {
+            setValuedBases(generateValuedBaseTypes(baseTypeRegex, items));
+            console.log("Missing economy items on:", valuedBases.flatMap((e) => e.otherItems).filter((e) => e.chaosValue === -1));
         }
-    }, [data]);
+    }, [items]);
 
 
     useEffect(() => {
-        if (data) {
-            const valuedItems = generateFillerItems(selectedItems, data);
-            const fillerItems = expensiveUniques ? valuedItems : [];
-            const valueMap = new Map(data.map(i => [i.name, i]));
-            const allMainItems = selectedItems.concat(fillerItems)
-            const regex = allMainItems
-                .map((e) => baseTypeRegex[e.baseType].regex.replaceAll("\"", "")).join("|");
-            setFillerItems(valuedItems);
+        if (items) {
+            const displayedFillerItems = generateFillerItems(selectedItems, items);
+            setFillerItems(displayedFillerItems);
+
+            const fillerItems = addFillerItems ? displayedFillerItems : [];
+            setResult(generateRegex(selectedItems, fillerItems));
+
             const allMatchedItems = selectedItems
                 .concat(fillerItems)
                 .flatMap((e) => baseTypeRegex[e.baseType].items)
                 .map((item) => valueMap.get(item.name)!!)
                 .filter((x, i, a) => a.indexOf(x) == i);
             const allOtherItems = allMatchedItems.filter((vi) => !selectedItems.concat(fillerItems).some((e) => e.name === vi.name));
-            console.log(allMainItems);
-            console.log(allMatchedItems)
-            setAllMatchedItems(allOtherItems.sort((a, b) => b.chaosValue - a.chaosValue));
-            setResult(`"${regex}"`);
+            setOtherMatchingItems(allOtherItems.sort(sortByChaosValue));
         }
-    }, [data, selectedItems, expensiveUniques]);
+    }, [items, selectedItems, addFillerItems]);
 
 
-    if (data === undefined) {
+    if (items === undefined) {
         return <div>Loading...</div>;
     }
 
@@ -174,9 +195,12 @@ const Expedition = () => {
             <ResultBox result={result} warning={undefined} reset={() => {
                 setSelectedItems([]);
             }}/>
+            <div className="row">
+                <h2 className="label-warning">BETA! Only data for Sanctum economy / economy is not updated automatically yet</h2>
+            </div>
             <ExpeditionOptions
-                expensiveUniques={expensiveUniques}
-                setExpensiveUniques={setExpensiveUniques}
+                expensiveUniques={addFillerItems}
+                setExpensiveUniques={setAddFillerItems}
             />
             <div className="row expedition-selection-header">
                 <div className="expedition-col-40">User selected items</div>
@@ -188,15 +212,15 @@ const Expedition = () => {
                         return (<ItemDisplay key={selected.name} selectedItems={selectedItems} setSelectedItems={setSelectedItems} valuedItem={selected} />);
                     })}
                 </div>
-                <div className={"expedition-col-60" + (expensiveUniques ? "" : " expedition-fade")}>
+                <div className={"expedition-col-60" + (addFillerItems ? "" : " expedition-fade")}>
                     {fillerItems.map((selected) => {
                         return (<ItemDisplay key={selected.name} selectedItems={selectedItems} setSelectedItems={setSelectedItems} valuedItem={selected} />);
                     })}
                 </div>
             </div>
             <div className="row">
-                <Collapsable header={"Show all other items that will also match (based on base type)"}>
-                    {allMatchedItems.map((item) => {
+                <Collapsable header={"Show all other items that will also match (based on selected basetypes)"}>
+                    {otherMatchingItems.map((item) => {
                         return (<ItemDisplay key={item.name} selectedItems={selectedItems} setSelectedItems={setSelectedItems} valuedItem={item} />);
                     })}
                 </Collapsable>
@@ -206,14 +230,14 @@ const Expedition = () => {
                     <ModSearchBox id="item-search" placeholder={"Search for an item ..."} search={itemSearch} setSearch={setItemSearch}/>
                 </div>
                 <div className="expedition-col-60">
-                    <Checkbox label="Display low value uniques" value={lowValueUniques}
-                              onChange={setLowValueUniques}/>
+                    <Checkbox label="Display low value uniques" value={displayLowValue}
+                              onChange={setDisplayLowValue}/>
                 </div>
             </div>
             <div className="full-size expedition-row-container">
                 {valuedBases
                     .filter((e) => {
-                        if (!itemSearch || itemSearch.length < 2) return true;
+                        if (!itemSearch || itemSearch.length < 3) return true;
                         if (e.baseType.toLowerCase().includes(itemSearch.toLowerCase())) return true;
 
                         const search = itemSearch.toLowerCase();
@@ -223,7 +247,7 @@ const Expedition = () => {
                         return (<ExpeditionRow
                             setSelectedItems={setSelectedItems}
                             selectedItems={selectedItems}
-                            showLowValueUniques={lowValueUniques}
+                            showLowValueUniques={displayLowValue}
                             itemSearch={itemSearch}
                             valuedBaseType={base}
                             key={base.baseType}
