@@ -116,7 +116,7 @@ const generateFillerItems = (selected: ValuedItem[], allItems: ValuedItem[]): Va
         } else {
             return acc;
         }
-    },[]);
+    }, []);
 }
 
 const Expedition = () => {
@@ -209,19 +209,19 @@ const Expedition = () => {
             <div className="row expedition-item-regex-area">
                 <div className="expedition-col-40">
                     {selectedItems.map((selected) => {
-                        return (<ItemDisplay key={selected.name} selectedItems={selectedItems} setSelectedItems={setSelectedItems} valuedItem={selected} />);
+                        return (<ItemDisplay key={selected.name} selectedItems={selectedItems} setSelectedItems={setSelectedItems} valuedItem={selected}/>);
                     })}
                 </div>
                 <div className={"expedition-col-60" + (addFillerItems ? "" : " expedition-fade")}>
                     {fillerItems.map((selected) => {
-                        return (<ItemDisplay key={selected.name} selectedItems={selectedItems} setSelectedItems={setSelectedItems} valuedItem={selected} />);
+                        return (<ItemDisplay key={selected.name} selectedItems={selectedItems} setSelectedItems={setSelectedItems} valuedItem={selected}/>);
                     })}
                 </div>
             </div>
             <div className="row">
                 <Collapsable header={"Show all other items that will also match (based on selected basetypes)"}>
                     {otherMatchingItems.map((item) => {
-                        return (<ItemDisplay key={item.name} selectedItems={selectedItems} setSelectedItems={setSelectedItems} valuedItem={item} />);
+                        return (<ItemDisplay key={item.name} selectedItems={selectedItems} setSelectedItems={setSelectedItems} valuedItem={item}/>);
                     })}
                 </Collapsable>
             </div>

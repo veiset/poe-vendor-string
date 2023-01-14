@@ -10,9 +10,15 @@
     padding: 18px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     background-color: #454f5b;
+    gap: 10px;
     cursor: pointer;
+}
+.collapsable-icon {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: monospace;
+    color: #9d9d9d;
 }
 .collapsable-header:hover {
     background-color: #55616e;

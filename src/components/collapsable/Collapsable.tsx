@@ -15,8 +15,8 @@ const Collapsable = (props: CollapsableProps) => {
     return (
         <div className="collapsable-wrapper">
             <div className="collapsable-header" onClick={() => setIsOpen(!isOpen)}>
+                <div className="collapsable-icon">{isOpen ? '-' : '+'}</div>
                 <div>{header}</div>
-                <div>{isOpen ? '-' : '+'}</div>
             </div>
             {isOpen && <div className={"collapsable-content" + (isOpen ? " collapsable-anim" : "")}>{children}</div>}
         </div>
