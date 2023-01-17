@@ -81,7 +81,7 @@ export const heistModifiers: { [key: string]: HeistMod } = {
  },
  "#% more Monster Life": {
    value: "#% more Monster Life",
-   matchSafe: "\"#% more Monster Life\"",
+   matchSafe: "\"\\d+% more Monster Life\"",
  },
  "+#% Monster Chaos Resistance|+#% Monster Elemental Resistances": {
    value: "+#% Monster Chaos Resistance|+#% Monster Elemental Resistances",
@@ -305,7 +305,7 @@ export const heistModifiers: { [key: string]: HeistMod } = {
  },
  "Players gain #% reduced Flask Charges": {
    value: "Players gain #% reduced Flask Charges",
-   matchSafe: "\"Players gain #% reduced Flask Charges\"",
+   matchSafe: "\"Players gain \\d+% reduced Flask Charges\"",
  },
  "Players gain #% reduced Flask Charges per #% Alert Level": {
    value: "Players gain #% reduced Flask Charges per #% Alert Level",
@@ -584,11 +584,11 @@ export const heistTargetValues: { [key: string]: HeistTargetValue } = {
 export const heistContractTypes: { [key: string]: HeistContractType} = {
  "Deception": {
    name: "Deception",
-   matchSafe: "dec",
+   matchSafe: "dece",
  },
  "Counter-Thaumaturgy": {
    name: "Counter-Thaumaturgy",
-   matchSafe: "cou",
+   matchSafe: "ounte",
  },
  "Perception": {
    name: "Perception",
@@ -604,11 +604,11 @@ export const heistContractTypes: { [key: string]: HeistContractType} = {
  },
  "Demolition": {
    name: "Demolition",
-   matchSafe: "dem",
+   matchSafe: "mol",
  },
  "Engineering": {
    name: "Engineering",
-   matchSafe: "eng",
+   matchSafe: "eeri",
  },
  "Lockpicking": {
    name: "Lockpicking",
@@ -616,6 +616,6 @@ export const heistContractTypes: { [key: string]: HeistContractType} = {
  },
  "Trap Disarmament": {
    name: "Trap Disarmament",
-   matchSafe: "rap",
+   matchSafe: "sar",
  },
 };
