@@ -23,9 +23,9 @@ jobs:
     - uses: suisei-cn/actions-download-file@v1.3.0
       id: league-jewel 
       with:
-        url: "https://poe.ninja/api/data/itemoverview?league=$($env:LEAGUE)&type=UniqueJewel"
+        url: "https://poe.ninja/api/data/itemoverview?league=${{ env.LEAGUE }}&type=UniqueJewel"
         target: expedition/
-        filename: "eco_$($env:LEAGUE)_UniqueJewel.json"
+        filename: "eco_${{ env.LEAGUE }}_UniqueJewel.json"
         
     - run: |
        date > generated.txt
