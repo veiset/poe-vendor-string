@@ -8,7 +8,7 @@ import {Checkbox} from "../vendor/Vendor";
 import ExpeditionOptions from "./ExpeditionOptions";
 import ModSearchBox from "../../components/ModSearchBox";
 import Collapsable from "../../components/collapsable/Collapsable";
-import {distinct, distinctByKey} from "../../utils/ListUtils";
+import {distinct} from "../../utils/ListUtils";
 
 const leagueName = "Sanctum";
 
@@ -30,10 +30,6 @@ export interface ValuedBaseType {
 
 interface PoeNinjaData {
     lines: ValuedItem[]
-}
-
-function takeWhile<T>(arr: T[], func: (all: T[], current: T) => boolean): T[] {
-    return arr.reduce((acc: T[], el: T) => (!func(acc, el) ? acc : acc.concat(el)), []);
 }
 
 const sortByChaosValue = (a: ValuedItem, b: ValuedItem): number => b.chaosValue - a.chaosValue
@@ -178,7 +174,7 @@ const Expedition = () => {
                 .concat(fillerItems)
                 .flatMap((e) => baseTypeRegex[e.baseType].items)
                 .map((item) => valueMap.get(item.name)!!)
-                .filter((x, i, a) => a.indexOf(x) == i);
+                .filter((x, i, a) => a.indexOf(x) === i);
             const allOtherItems = allMatchedItems.filter((vi) => !selectedItems.concat(fillerItems).some((e) => e.name === vi.name));
             setOtherMatchingItems(allOtherItems.sort(sortByChaosValue));
         }
@@ -196,7 +192,7 @@ const Expedition = () => {
                 setSelectedItems([]);
             }}/>
             <div className="row">
-                <h2 className="label-warning">BETA! Only data for Sanctum economy / economy is not updated automatically yet</h2>
+                <h2 className="label-warning">BETA! Only data for Sanctum economy. Economy is updating, but in BETA</h2>
             </div>
             <ExpeditionOptions
                 expensiveUniques={addFillerItems}
@@ -208,7 +204,7 @@ const Expedition = () => {
             </div>
             <div className="row expedition-item-regex-area">
                 <div className="expedition-col-40">
-                    {selectedItems.map((selected) => {
+                    {selectedItems.sort(sortByChaosValue).map((selected) => {
                         return (<ItemDisplay key={selected.name} selectedItems={selectedItems} setSelectedItems={setSelectedItems} valuedItem={selected}/>);
                     })}
                 </div>
@@ -227,7 +223,7 @@ const Expedition = () => {
             </div>
             <div className="row">
                 <div className="expedition-col-40">
-                    <ModSearchBox id="item-search" placeholder={"Search for an item ..."} search={itemSearch} setSearch={setItemSearch}/>
+                    <ModSearchBox id="item-search" placeholder="Search for an item ..." search={itemSearch} setSearch={setItemSearch}/>
                 </div>
                 <div className="expedition-col-60">
                     <Checkbox label="Display low value uniques" value={displayLowValue}

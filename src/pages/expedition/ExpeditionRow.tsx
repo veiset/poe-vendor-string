@@ -23,12 +23,13 @@ export const ItemDisplay = (props: ItemDisplayProps) => {
     }
     const selected = selectedItems.some((e) => e.name === valuedItem.name);
     return (
-        <div className={`expedition-img-container item-tooltip ` + (selected ? "expedition-selected-item" : "")} onClick={() => {
+        <div className={`expedition-img-container item-tooltip ` + (selected ? "expedition-selected-item" : "")} onClick={(e) => {
             if (selected) {
                 setSelectedItems(selectedItems.filter((e) => e.name !== valuedItem?.name));
             } else {
                 setSelectedItems([...selectedItems, valuedItem])
             }
+            e.stopPropagation();
         }}>
             <img alt={valuedItem.name} className="expedition-img" src={valuedItem.icon}>
             </img>
@@ -55,8 +56,29 @@ export const ExpeditionRow = (props: ExpeditionRowProps) => {
     const {valuedBaseType, itemSearch, showLowValueUniques, selectedItems, setSelectedItems} = props;
     const baseTypeMatch = itemSearch && valuedBaseType.baseType.toLowerCase().includes(itemSearch.toLowerCase());
 
+    const baseTypeIsSelected = selectedItems
+        .map((e) => e.baseType)
+        .some((e) => e.toLowerCase() === valuedBaseType.baseType.toLowerCase());
+
+    const otherItems = valuedBaseType.otherItems
+        .filter((e) => {
+            if (showLowValueUniques) return true;
+            if (itemSearch && itemSearch.length > 2 && baseTypeMatch) return true;
+            const matchName = e.name.toLowerCase().includes(itemSearch.toLowerCase());
+            if (itemSearch && itemSearch.length > 2 && matchName) return true;
+            return showLowValueUniques || e.chaosValue > 100;
+        });
+
+    const allShownItems = valuedBaseType.mostValuedItem ? otherItems.concat(valuedBaseType.mostValuedItem) : otherItems;
+
     return (
-        <div className="full-size expedition-row">
+        <div className={baseTypeIsSelected ? "expedition-selected-basetype full-size expedition-row" : "full-size expedition-row"} onClick={(e) => {
+            if (baseTypeIsSelected) {
+                setSelectedItems(selectedItems.filter((e) => e.baseType !== valuedBaseType.baseType))
+            } else {
+                setSelectedItems(selectedItems.concat(allShownItems))
+            }
+        }}>
             <div className="expedition-basetype-cell">
                 {valuedBaseType.baseType}
             </div>
@@ -64,14 +86,8 @@ export const ExpeditionRow = (props: ExpeditionRowProps) => {
                 <ItemDisplay selectedItems={selectedItems} setSelectedItems={setSelectedItems} valuedItem={valuedBaseType.mostValuedItem}/>
             </div>
             <div>
-                {valuedBaseType.otherItems
-                    .filter((e) => {
-                        if (showLowValueUniques) return true;
-                        if (itemSearch && itemSearch.length > 2 && baseTypeMatch) return true;
-                        const matchName = e.name.toLowerCase().includes(itemSearch.toLowerCase());
-                        if (itemSearch && itemSearch.length > 2 && matchName) return true;
-                        return showLowValueUniques || e.chaosValue > 100;
-                    }).map((v) => <ItemDisplay selectedItems={selectedItems} setSelectedItems={setSelectedItems} key={v.name} valuedItem={v}/>)}
+                {
+                    otherItems.map((v) => <ItemDisplay selectedItems={selectedItems} setSelectedItems={setSelectedItems} key={v.name} valuedItem={v}/>)}
             </div>
         </div>
     );

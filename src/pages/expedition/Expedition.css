@@ -1,6 +1,11 @@
 .expedition-row {
     display: flex;
     flex-direction: row;
+    cursor: pointer;
+}
+.expedition-selected-basetype {
+    background-color: #2b3d4f !important;
+    border-bottom: 1px solid #000;
 }
 .expedition-row-container {
     margin: 20px;
