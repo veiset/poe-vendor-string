@@ -1,6 +1,9 @@
 name: Economy
 on: push
 
+env:
+  LEAGUE: Sanctum
+
 jobs:
   build:
     name: Update unique items economy files
@@ -9,19 +12,21 @@ jobs:
     - uses: actions/checkout@v3
       with:
         ref: 'gh-pages'
+        
     - uses: suisei-cn/actions-download-file@v1.3.0
-      id: downloadfile 
-      name: Download the file
+      id: standard_jewel 
       with:
         url: "https://poe.ninja/api/data/itemoverview?league=Standard&type=UniqueJewel"
         target: expedition/
         filename: eco_Standard_UniqueJewel.json
-    - name: test output
-      id: whatever
-      run: |
-        cat expedition/eco_Standard_UniqueJewel.json
-        ls .
-        ls expedition
+        
+    - uses: suisei-cn/actions-download-file@v1.3.0
+      id: league-jewel 
+      with:
+        url: "https://poe.ninja/api/data/itemoverview?league=$LEAGUE&type=UniqueJewel"
+        target: expedition/
+        filename: eco_${{ LEAGUE }}_UniqueJewel.json
+        
     - run: |
        date > generated.txt
        git config user.name github-actions
