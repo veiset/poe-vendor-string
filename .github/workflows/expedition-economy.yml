@@ -1,7 +1,8 @@
 name: Economy
 on:
+  push:
   schedule:
-    - cron:  '* */4 * * *' 
+    - cron:  '0 */4 * * *' 
 
 env:
   LEAGUE: Sanctum
