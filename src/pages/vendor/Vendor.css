@@ -34,6 +34,9 @@
 .float-left {
     float: left;
 }
+.float-right {
+    float: right;
+}
 .weapon-select {
     text-wrap: none;
     white-space: nowrap;

@@ -51,6 +51,12 @@
     padding-top: 10px;
     font-size: 16px;
 }
+.label-error {
+    color: #e22434;
+}
+.label-warning {
+    color: #e28d24;
+}
 .warning {
     color: #e28d24;
     padding-top: 6px;
