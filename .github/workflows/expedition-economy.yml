@@ -17,7 +17,7 @@ jobs:
       with:
         ref: 'gh-pages'
     - uses: suisei-cn/actions-download-file@v1.3.0
-      id: downloadfile  # Remember to give an ID if you need the output filename
+      id: downloadfile 
       name: Download the file
       with:
         url: "https://poe.ninja/api/data/itemoverview?league=Standard&type=UniqueJewel"
@@ -35,4 +35,7 @@ jobs:
        git config user.email github-actions@github.com
        git add .
        git commit -m "generated"
-       git push
+    - uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
