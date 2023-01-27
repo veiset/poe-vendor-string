@@ -16,7 +16,8 @@ jobs:
       name: Download the file
       with:
         url: "https://poe.ninja/api/data/itemoverview?league=Standard&type=UniqueJewel"
-        target: expedition
+        target: expedition/
+        filename: eco_Standard_UniqueJewel.json
     - name: test output
       id: whatever
-      run: ls expedition
+      run: cat expedition/eco_Standard_UniqueJewel.json
