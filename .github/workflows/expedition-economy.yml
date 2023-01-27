@@ -27,3 +27,10 @@ jobs:
         cat expedition/eco_Standard_UniqueJewel.json
         ls .
         ls expedition
+    - run: |
+       date > generated.txt
+       git config user.name github-actions
+       git config user.email github-actions@github.com
+       git add .
+       git commit -m "generated"
+       git push
