@@ -3,13 +3,8 @@ on: push
 
 jobs:
   build:
-    name: Docker build and push
+    name: Update unique items economy files
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    outputs:
-      image_url: ${{ steps.setOutput.outputs.image_url }}
     steps:
     - uses: actions/checkout@v3
       with:
@@ -33,7 +28,4 @@ jobs:
        git config user.email github-actions@github.com
        git add .
        git commit -m "generated"
-    - uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
+       git push
