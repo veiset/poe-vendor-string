@@ -1,5 +1,7 @@
 name: Economy
 on: push
+permissions:
+  pages: write
 
 jobs:
   build:
