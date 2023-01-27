@@ -1,0 +1,19 @@
+name: Economy
+on: push
+
+jobs:
+  build:
+    name: Docker build and push
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image_url: ${{ steps.setOutput.outputs.image_url }}
+    steps:
+    - uses: suisei-cn/actions-download-file@v1.3.0
+      id: downloadfile  # Remember to give an ID if you need the output filename
+      name: Download the file
+      with:
+        url: "https://poe.ninja/api/data/itemoverview?league=Standard&type=UniqueJewel"
+        target: public/test.json
