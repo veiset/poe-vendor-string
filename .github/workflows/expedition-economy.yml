@@ -45,19 +45,19 @@ jobs:
       with:
         url: "https://poe.ninja/api/data/itemoverview?league=Hardcore&type=UniqueJewel"
         target: expedition/
-        filename: eco_Standard_UniqueJewel.json
+        filename: eco_Hardcore_UniqueJewel.json
     - uses: suisei-cn/actions-download-file@v1.3.0
       id: standard_hardcore_weapon 
       with:
         url: "https://poe.ninja/api/data/itemoverview?league=Hardcore&type=UniqueWeapon"
         target: expedition/
-        filename: eco_Standard_UniqueWeapon.json
+        filename: eco_Hardcore_UniqueWeapon.json
     - uses: suisei-cn/actions-download-file@v1.3.0
       id: standard_hardcore_armour
       with:
         url: "https://poe.ninja/api/data/itemoverview?league=Hardcore&type=UniqueArmour"
         target: expedition/
-        filename: eco_Standard_UniqueArmour.json
+        filename: eco_Hardcore_UniqueArmour.json
     - uses: suisei-cn/actions-download-file@v1.3.0
       id: standard_hardcore_accessory
       with:
