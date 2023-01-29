@@ -61,7 +61,7 @@
     color: #ae521a;
     font-weight: bold;
     border-radius: 6px;
-    padding: 5px;
+    margin: 5px;
     left: 0px;
     top: 0;
     white-space:nowrap;
@@ -79,7 +79,7 @@ a.item-link {
 .expedition-selected-item {
 }
 .expedition-item-regex-area {
-    padding-left: 20px;
+    margin: 10px;
     min-height: 200px;
 }
 .expedition-col-20 {
@@ -92,8 +92,44 @@ a.item-link {
     width: 60%;
 }
 .expedition-selection-header {
-    padding: 20px;
+    padding: 10px 20px 20px;
 }
 .expedition-selection-area {
     padding: 20px;
+}
+.select-league-info {
+    font-size: 16px;
+    padding-left: 20px;
+}
+.select-league {
+    min-width: 220px;
+    background-color: #444e5b;
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #000000;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+.option-league {
+    font-size: 16px;
+}
+.auto-add-items {
+    padding-top: 10px;
+}
+.low-value-uniques {
+    padding-top: 10px;
+}
+.economy-info {
+    padding-left: 20px;
+    margin: 0;
+    font-size: 14px;
+    color: #8F8F9D;
+}
+.economy-rebuild-warning {
+    padding: 40px;
+    font-size: 24px;
+    color: #f58948;
 }

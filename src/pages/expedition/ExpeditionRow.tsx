@@ -8,6 +8,7 @@ interface ItemDisplayProps {
 }
 
 const normalizeValue = (chaosValue: number): string => {
+    if (chaosValue === -1) return "?";
     if (chaosValue > 1000) {
         const kvalue = chaosValue / 1000;
         const value = Math.round(kvalue);
@@ -19,7 +20,7 @@ export const ItemDisplay = (props: ItemDisplayProps) => {
     const {valuedItem, selectedItems, setSelectedItems } = props;
 
     if (!valuedItem) {
-        return (<div>!</div>);
+        return (<div></div>);
     }
     const selected = selectedItems.some((e) => e.name === valuedItem.name);
     return (

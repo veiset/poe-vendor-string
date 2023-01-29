@@ -9,8 +9,12 @@ import ExpeditionOptions from "./ExpeditionOptions";
 import ModSearchBox from "../../components/ModSearchBox";
 import Collapsable from "../../components/collapsable/Collapsable";
 import {distinct} from "../../utils/ListUtils";
+import relativeTime from 'dayjs/plugin/relativeTime'
+import dayjs from "dayjs";
 
-const leagueName = "Sanctum";
+dayjs.extend(relativeTime);
+
+export const leagueName = "Sanctum";
 
 export interface ValuedItem {
     name: string
@@ -18,6 +22,7 @@ export interface ValuedItem {
     chaosValue: number
     icon: string
     links?: number
+    detailsId?: string
 }
 
 export interface ValuedBaseType {
@@ -130,18 +135,19 @@ const Expedition = () => {
 
     const [itemSearch, setItemSearch] = useState("");
     const [result, setResult] = useState("");
+    const [league, setLeague] = useState(leagueName);
+    const [lastUpdated, setLastUpdated] = useState(": new version deployed, prices being updated...");
 
     useEffect(() => {
         Promise.all([
-            priceData(leagueName, "Accessory"),
-            priceData(leagueName, "Armour"),
-            priceData(leagueName, "Jewel"),
-            priceData(leagueName, "Weapon"),
+            priceData(league, "Accessory"),
+            priceData(league, "Armour"),
+            priceData(league, "Jewel"),
+            priceData(league, "Weapon"),
         ]).then((responses) => {
             const pricedObtainableItems = responses.flatMap((d) => d.lines)
-                .filter((e) => {
-                    return e.links === undefined;
-                })
+                .filter((e) => e.links === undefined)
+                .filter((e) => !e.detailsId?.endsWith("relic"))
                 .filter((e) => {
                     const baseType: BaseTypeRegex | undefined = e.baseType in baseTypeRegex ? baseTypeRegex[e.baseType] : undefined;
                     return baseType?.items.map((item) => item.name).includes(e.name);
@@ -150,14 +156,35 @@ const Expedition = () => {
 
             setItems(pricedObtainableItems);
             setFillerItems(generateFillerItems(selectedItems, pricedObtainableItems));
-            setValueMap(new Map(pricedObtainableItems.map(i => [i.name, i])));
+            const valuedItems = new Map(pricedObtainableItems.map(i => [i.name, i]));
+            setValueMap(valuedItems);
+            if (selectedItems.length > 0) {
+                setSelectedItems(selectedItems
+                    .map((s) => valuedItems.get(s.name))
+                    .filter((e) => e !== undefined) as ValuedItem[]);
+            }
         });
+    }, [league]);
+
+    useEffect(() => {
+        fetch(`generated.txt`, {headers: {'Content-Type': 'application/text'}})
+            .then((r) => r.text())
+            .then((date) => {
+                const d2 = dayjs(date);
+                if (d2.isValid()) {
+                    const nextUpdate = d2.add(4, "hour");
+                    setLastUpdated(`${d2.fromNow()}, next update at ~${nextUpdate.format("HH:00:00 (Z)")}`)
+                }
+            });
     }, []);
+
 
     useEffect(() => {
         if (items !== undefined) {
             setValuedBases(generateValuedBaseTypes(baseTypeRegex, items));
+            console.log("total items:", items.length);
             console.log("Missing economy items on:", valuedBases.flatMap((e) => e.otherItems).filter((e) => e.chaosValue === -1));
+            console.log("Missing economy items on:", items.filter((e) => e.chaosValue === 0).length);
         }
     }, [items]);
 
@@ -173,16 +200,16 @@ const Expedition = () => {
             const allMatchedItems = selectedItems
                 .concat(fillerItems)
                 .flatMap((e) => baseTypeRegex[e.baseType].items)
-                .map((item) => valueMap.get(item.name)!!)
+                .map((item) => valueMap.get(item.name))
                 .filter((x, i, a) => a.indexOf(x) === i);
-            const allOtherItems = allMatchedItems.filter((vi) => !selectedItems.concat(fillerItems).some((e) => e.name === vi.name));
-            setOtherMatchingItems(allOtherItems.sort(sortByChaosValue));
+            const allOtherItems = allMatchedItems.filter((vi) => !selectedItems.concat(fillerItems).some((e) => e.name === vi?.name));
+            setOtherMatchingItems((allOtherItems.filter((e) => e !== undefined) as ValuedItem[]).sort(sortByChaosValue));
         }
-    }, [items, selectedItems, addFillerItems]);
-
+    }, [items, selectedItems, addFillerItems, league]);
 
     if (items === undefined) {
-        return <div>Loading...</div>;
+        return <div className="economy-rebuild-warning">New version of application being deployed. Economy files should be ready in a few minutes. Please
+            refresh the page in a minute or two.</div>;
     }
 
     return (
@@ -191,15 +218,15 @@ const Expedition = () => {
             <ResultBox result={result} warning={undefined} reset={() => {
                 setSelectedItems([]);
             }}/>
-            <div className="row">
-                <h2 className="label-warning">BETA! Only data for Sanctum economy. Economy is updating, but in BETA</h2>
-            </div>
             <ExpeditionOptions
+                league={league}
+                lastUpdate={lastUpdated}
+                setLeague={setLeague}
                 expensiveUniques={addFillerItems}
                 setExpensiveUniques={setAddFillerItems}
             />
             <div className="row expedition-selection-header">
-                <div className="expedition-col-40">User selected items</div>
+                <div className="expedition-col-40">Selected items</div>
                 <div className="expedition-col-60">Automatically added</div>
             </div>
             <div className="row expedition-item-regex-area">
@@ -226,7 +253,7 @@ const Expedition = () => {
                     <ModSearchBox id="item-search" placeholder="Search for an item ..." search={itemSearch} setSearch={setItemSearch}/>
                 </div>
                 <div className="expedition-col-60">
-                    <Checkbox label="Display low value uniques" value={displayLowValue}
+                    <Checkbox className="low-value-uniques" label="Display low value uniques" value={displayLowValue}
                               onChange={setDisplayLowValue}/>
                 </div>
             </div>
