@@ -136,7 +136,7 @@ const Expedition = () => {
     const [itemSearch, setItemSearch] = useState("");
     const [result, setResult] = useState("");
     const [league, setLeague] = useState(leagueName);
-    const [lastUpdated, setLastUpdated] = useState(": new version deployed, prices being updated...");
+    const [lastUpdated, setLastUpdated] = useState("Outdated prices. Check back in a few mins...");
 
     useEffect(() => {
         Promise.all([
@@ -163,6 +163,10 @@ const Expedition = () => {
                     .map((s) => valuedItems.get(s.name))
                     .filter((e) => e !== undefined) as ValuedItem[]);
             }
+        }).catch(() => {
+            if (league !== "Standard") {
+                setLeague("Standard");
+            }
         });
     }, [league]);
 
@@ -173,7 +177,11 @@ const Expedition = () => {
                 const d2 = dayjs(date);
                 if (d2.isValid()) {
                     const nextUpdate = d2.add(4, "hour");
-                    setLastUpdated(`${d2.fromNow()}, next update at ~${nextUpdate.format("HH:mm:00 (Z)")}`)
+                    if (dayjs(new Date()).diff(d2, "day") > 1) {
+                        setLastUpdated(`Old economy. Using data from ${d2.fromNow()}. Prices will soon be updated.`);
+                    } else {
+                        setLastUpdated(`Economy last updated ${d2.fromNow()}, next update at ~${nextUpdate.format("HH:mm:00 (Z)")}`)
+                    }
                 }
             });
     }, []);
@@ -208,8 +216,7 @@ const Expedition = () => {
     }, [items, selectedItems, addFillerItems, league]);
 
     if (items === undefined) {
-        return <div className="economy-rebuild-warning">New version of application being deployed. Economy files should be ready in a few minutes. Please
-            refresh the page in a minute or two.</div>;
+        return <div>Loading...</div>;
     }
 
     return (

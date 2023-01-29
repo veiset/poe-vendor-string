@@ -16,13 +16,13 @@ const ExpeditionOptions = (props: ExpeditionOptionProps) => {
         <div className="row">
             <div className="expedition-col-40">
                 <span className="select-league-info">League:</span>
-                <select name="league" className="select-league" id="league-select" onChange={(e) => setLeague(e.target.value)}>
+                <select name="league" className="select-league" value={league} id="league-select" onChange={(e) => setLeague(e.target.value)}>
                     <option className="option-league" value={leagueName}>{leagueName}</option>
                     <option className="option-league" value={"Hardcore " + leagueName}>Hardcore {leagueName}</option>
                     <option className="option-league" value="Standard">Standard</option>
                     <option className="option-league" value="Hardcore">Hardcore</option>
                 </select>
-                <p className="economy-info">Economy last updated {lastUpdate}</p>
+                <p className="economy-info">{lastUpdate}</p>
             </div>
             <div className="expedition-col-60">
                 <Checkbox className="auto-add-items" label="Automatically add most expensive uniques" value={expensiveUniques}
