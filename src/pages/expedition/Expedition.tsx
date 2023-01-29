@@ -173,7 +173,7 @@ const Expedition = () => {
                 const d2 = dayjs(date);
                 if (d2.isValid()) {
                     const nextUpdate = d2.add(4, "hour");
-                    setLastUpdated(`${d2.fromNow()}, next update at ~${nextUpdate.format("HH:00:00 (Z)")}`)
+                    setLastUpdated(`${d2.fromNow()}, next update at ~${nextUpdate.format("HH:mm:00 (Z)")}`)
                 }
             });
     }, []);
