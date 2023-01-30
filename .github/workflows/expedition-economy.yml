@@ -65,7 +65,7 @@ jobs:
       with:
         url: "https://poe.ninja/api/data/itemoverview?league=Hardcore&type=UniqueAccessory"
         target: expedition/
-        filename: eco_Standard_UniqueAccessory.json
+        filename: eco_Hardcore_UniqueAccessory.json
         
     # League Economy
     - uses: suisei-cn/actions-download-file@v1.3.0
