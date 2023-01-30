@@ -111,7 +111,7 @@ const generateFillerItems = (selected: ValuedItem[], allItems: ValuedItem[]): Va
         }
         const regexAddition = "|" + baseTypeRegex[el.baseType].regex.replaceAll("\"", "");
         const newRegexSize = count + regexAddition.length;
-        if (newRegexSize <= 50 && el.chaosValue > 200) {
+        if (newRegexSize <= 50 && el.chaosValue > 69) {
             count += regexAddition.length;
             return acc.concat(el);
         } else {
