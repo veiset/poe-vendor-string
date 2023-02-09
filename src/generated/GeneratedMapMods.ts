@@ -108,7 +108,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "#% increased Monster Movement Speed|#% increased Monster Attack Speed|#% increased Monster Cast Speed": {
    value: "#% increased Monster Movement Speed|#% increased Monster Attack Speed|#% increased Monster Cast Speed",
    scary: 214,
-   matchSafe: "mov",
+   matchSafe: "\"r at\"",
  },
  "Monsters have a #% chance to cause Elemental Ailments on Hit": {
    value: "Monsters have a #% chance to cause Elemental Ailments on Hit",
@@ -288,7 +288,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Area has patches of Burning Ground": {
    value: "Area has patches of Burning Ground",
    scary: 417,
-   matchSafe: "\"f bu\"",
+   matchSafe: "\"f bur\"",
  },
  "Area has patches of Chilled Ground": {
    value: "Area has patches of Chilled Ground",
@@ -368,7 +368,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Area has increased monster variety": {
    value: "Area has increased monster variety",
    scary: 499,
-   matchSafe: "var",
+   matchSafe: "ety",
  },
  "Area is inhabited by 2 additional Rogue Exiles": {
    value: "Area is inhabited by 2 additional Rogue Exiles",
