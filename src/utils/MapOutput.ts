@@ -104,7 +104,11 @@ function generateNumberRegex(number: string, optimize: boolean): string {
         const d1 = str[1];
         if (str[1] === "0") {
             return `([${d0}-9]\\d|\\d{3})`;
-        } else {
+        }
+        else if (str[0] === "9") {
+            return `(${d0}[${d1}-9]|\\d{3})`;
+        }
+        else {
             return `(${d0}[${d1}-9]|[${Number(d0) + 1}-9]\\d|\\d{3})`;
         }
     }
