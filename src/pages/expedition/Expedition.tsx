@@ -79,6 +79,11 @@ const generateValuedBaseTypes = (baseTypeRegex: { [key: string]: BaseTypeRegex }
     }).sort((a, b) => b.maxChaosValue - a.maxChaosValue);
 }
 
+const fallbackPricing = (type: string): Promise<PoeNinjaData> => {
+    return fetch(`expedition/eco_fallback_Unique${type}.json`)
+        .then((r) => r.json())
+}
+
 const priceData = (league: string, type: string): Promise<PoeNinjaData> => {
     return fetch(`expedition/eco_${league}_Unique${type}.json`)
         .then((r) => r.json());
@@ -120,10 +125,21 @@ const generateFillerItems = (selected: ValuedItem[], allItems: ValuedItem[]): Va
     }, []);
 }
 
+const cleanUpValuedItems = (data: ValuedItem[]): ValuedItem[] => {
+   return data
+       .filter((e) => e.links === undefined)
+       .filter((e) => !e.detailsId?.endsWith("relic"))
+       .filter((e) => {
+           const baseType: BaseTypeRegex | undefined = e.baseType in baseTypeRegex ? baseTypeRegex[e.baseType] : undefined;
+           return baseType?.items.map((item) => item.name).includes(e.name);
+       })
+}
+
 const Expedition = () => {
 
     // Item data
     const [items, setItems] = useState<ValuedItem[]>();
+    const [fallbackPrices, setFallbackPrices] = useState<ValuedItem[]>();
     const [valuedBases, setValuedBases] = useState<ValuedBaseType[]>([]);
     const [selectedItems, setSelectedItems] = useState<ValuedItem[]>([]);
     const [fillerItems, setFillerItems] = useState<ValuedItem[]>([]);
@@ -140,18 +156,24 @@ const Expedition = () => {
 
     useEffect(() => {
         Promise.all([
+            fallbackPricing("Accessory"),
+            fallbackPricing("Armour"),
+            fallbackPricing("Jewel"),
+            fallbackPricing("Weapon"),
+        ]).then((responses) => {
+            const valuedItems = cleanUpValuedItems(responses.flatMap((d) => d.lines));
+            setFallbackPrices(valuedItems);
+        });
+    }, []);
+
+    useEffect(() => {
+        Promise.all([
             priceData(league, "Accessory"),
             priceData(league, "Armour"),
             priceData(league, "Jewel"),
             priceData(league, "Weapon"),
         ]).then((responses) => {
-            const pricedObtainableItems = responses.flatMap((d) => d.lines)
-                .filter((e) => e.links === undefined)
-                .filter((e) => !e.detailsId?.endsWith("relic"))
-                .filter((e) => {
-                    const baseType: BaseTypeRegex | undefined = e.baseType in baseTypeRegex ? baseTypeRegex[e.baseType] : undefined;
-                    return baseType?.items.map((item) => item.name).includes(e.name);
-                })
+            const pricedObtainableItems = cleanUpValuedItems(responses.flatMap((d) => d.lines))
                 .sort(sortByChaosValue);
 
             setItems(pricedObtainableItems);
@@ -215,7 +237,7 @@ const Expedition = () => {
         }
     }, [items, selectedItems, addFillerItems, league]);
 
-    if (items === undefined) {
+    if (fallbackPrices === undefined) {
         return <div>Loading...</div>;
     }
 
