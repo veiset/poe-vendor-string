@@ -1,4 +1,4 @@
-import {PricedBaseType, PricedItemWithFallback} from "./Expedition";
+import {PricedBaseType, PricedItemWithFallback} from "./ExpeditionTypes";
 import {Dispatch, SetStateAction} from "react";
 
 interface ItemDisplayProps {
@@ -64,9 +64,7 @@ export const ExpeditionRow = (props: ExpeditionRowProps) => {
             <div className="expedition-basetype-cell">
                 {pricedBaseType.baseType}
             </div>
-            {
-                itemsToDisplayWithSearch.map((item) => <ItemDisplay key={item.item.name} pricedItem={item}/>)
-            }
+            {itemsToDisplayWithSearch.map((item) => <ItemDisplay key={item.item.name} pricedItem={item}/>)}
         </div>
     );
 };

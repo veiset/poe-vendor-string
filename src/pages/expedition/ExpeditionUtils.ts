@@ -1,0 +1,93 @@
+import {distinct, groupBy} from "../../utils/ListUtils";
+import {baseTypeRegex, Item} from "../../generated/GeneratedExpedition";
+import dayjs from "dayjs";
+import {PoeNinjaItem, PriceData, PricedBaseType, PricedItemWithFallback} from "./ExpeditionTypes";
+
+const sortByValue = (a: PricedItemWithFallback, b: PricedItemWithFallback): number => b.displayPrice - a.displayPrice
+
+export const generateRegex = (selectedBases: string[], fillerBases: string[]): string => {
+    const allBases = distinct(selectedBases.concat(fillerBases));
+    if (allBases.length === 0) {
+        return "";
+    }
+
+    const regex = allBases.map((e) => baseTypeRegex[e].regex).join("|").replaceAll("\"", "");
+    return `"${regex}"`;
+}
+
+export const generateFillerBases = (selectedBases: string[], priceData: PriceData): PricedBaseType[] => {
+    const currentRegexLength = generateRegex(selectedBases, []).length;
+    let count = Math.max(currentRegexLength);
+
+    return priceData.pricedBaseTypes.reduce((acc: PricedBaseType[], el: PricedBaseType) => {
+        let currentBases = selectedBases.concat(acc.map((e) => e.baseType));
+        if (currentBases.includes(el.baseType)) {
+            return acc;
+        }
+        const regexAddition = "|" + baseTypeRegex[el.baseType].regex.replaceAll("\"", "");
+        const newRegexSize = count + regexAddition.length;
+        if (newRegexSize <= 50 && el.mostExpensiveItem > 69) {
+            count += regexAddition.length;
+            return acc.concat(el);
+        } else {
+            return acc;
+        }
+    }, []);
+}
+export const generateSortedPriceData = (allItems: Item[], fallbackPrices: PoeNinjaItem[], leaguePrices: PoeNinjaItem[]): PriceData => {
+    const fallbackMap = new Map(fallbackPrices.map(i => [i.name, i.chaosValue]));
+    const leagueMap = new Map(leaguePrices?.map(i => [i.name, i.chaosValue]));
+
+    // Find items not in the generated base items
+    const allSeenItems = allItems.map((item) => item.name)
+        .concat(fallbackPrices.map((pricedItem) => pricedItem.name))
+        .concat(leaguePrices.map((pricedItem) => pricedItem.name));
+    const itemsToRemove = new Set(allItems.map((item) => item.name));
+    const itemsNotInGenerator = allSeenItems.filter(itemName => !itemsToRemove.has(itemName));
+    if (itemsNotInGenerator.length > 0) {
+        console.warn(itemsNotInGenerator);
+    }
+
+    const pricedItemsWithFallback: PricedItemWithFallback[] = allItems.map((item) => {
+        const price = leagueMap.get(item.name);
+        const fallbackPrice = fallbackMap.get(item.name) ?? -1;
+        return {
+            item: item,
+            price: price,
+            fallbackPrice: fallbackPrice,
+            displayPrice: price ?? fallbackPrice,
+        }
+    });
+
+    // Generate priced base types
+    const groupedItems: { [key: string]: PricedItemWithFallback[] } = groupBy(pricedItemsWithFallback, (e) => e.item.baseType);
+    const baseTypes: string[] = Array.from(Object.keys(groupedItems));
+    const pricedBaseTypes = baseTypes.map((baseType) => {
+        const items = groupedItems[baseType].sort(sortByValue);
+        return {
+            baseType: baseType,
+            items: items,
+            mostExpensiveItem: items[0].displayPrice,
+            regex: baseTypeRegex[baseType].regex,
+        }
+    });
+
+    return {
+        pricedBaseTypes: pricedBaseTypes.sort((e1, e2) => e2.mostExpensiveItem - e1.mostExpensiveItem),
+        unknownItems: itemsNotInGenerator,
+        usingOnlyFallback: leaguePrices.length === 0,
+    }
+}
+
+export const dateTextFromString = (date: string): string => {
+    const d2 = dayjs(date);
+    if (d2.isValid()) {
+        const nextUpdate = d2.add(4, "hour");
+        if (dayjs(new Date()).diff(d2, "day") > 1) {
+            return `Old economy. Using data from ${d2.fromNow()}. Prices will soon be updated.`;
+        } else {
+            return `Economy last updated ${d2.fromNow()}, next update at ~${nextUpdate.format("HH:mm:00 (Z)")}`;
+        }
+    }
+    return "Economy updated is unknown.";
+}

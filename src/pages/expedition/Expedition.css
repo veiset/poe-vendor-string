@@ -128,3 +128,9 @@ a.item-link {
     font-size: 14px;
     color: #8F8F9D;
 }
+
+.expedition-help-heading {
+    font-size: 24px;
+    margin-top: 20px;
+    margin-bottom: 14px;
+}

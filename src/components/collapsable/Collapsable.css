@@ -1,7 +1,7 @@
 .collapsable-wrapper {
     display: flex;
     width: 100%;
-    margin: 20px;
+    margin: 5px 20px;
     flex-direction: column;
 }
 .collapsable-header {
