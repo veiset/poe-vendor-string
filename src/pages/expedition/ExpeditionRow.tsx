@@ -1,44 +1,35 @@
-import {ValuedBaseType, ValuedItem} from "./Expedition";
+import {PricedBaseType, PricedItemWithFallback} from "./Expedition";
 import {Dispatch, SetStateAction} from "react";
 
 interface ItemDisplayProps {
-    selectedItems: ValuedItem[]
-    setSelectedItems: Dispatch<SetStateAction<ValuedItem[]>>
-    valuedItem: ValuedItem | undefined
+    pricedItem: PricedItemWithFallback
 }
 
-const normalizeValue = (chaosValue: number): string => {
-    if (chaosValue === -1) return "?";
-    if (chaosValue > 1000) {
-        const kvalue = chaosValue / 1000;
+const normalizeValue = (item: PricedItemWithFallback): string => {
+    if (item.displayPrice === -1) return "?";
+    const fallbackPriceIcon = item.price === undefined ? "?" : "";
+    if (item.displayPrice > 1000) {
+        const kvalue = item.displayPrice / 1000;
         const value = Math.round(kvalue);
-        return `${value}k`
+        return `${value}k${fallbackPriceIcon}`
     }
-    return `${Math.round(chaosValue)}`;
+    return `${Math.round(item.displayPrice)}${fallbackPriceIcon}`;
 }
-export const ItemDisplay = (props: ItemDisplayProps) => {
-    const {valuedItem, selectedItems, setSelectedItems } = props;
 
-    if (!valuedItem) {
-        return (<div></div>);
-    }
-    const selected = selectedItems.some((e) => e.name === valuedItem.name);
+export const ItemDisplay = (props: ItemDisplayProps) => {
+    const {pricedItem} = props;
+    const item = pricedItem.item;
+
     return (
-        <div className={`expedition-img-container item-tooltip ` + (selected ? "expedition-selected-item" : "")} onClick={(e) => {
-            if (selected) {
-                setSelectedItems(selectedItems.filter((e) => e.name !== valuedItem?.name));
-            } else {
-                setSelectedItems([...selectedItems, valuedItem])
-            }
-            e.stopPropagation();
-        }}>
-            <img alt={valuedItem.name} className="expedition-img" src={valuedItem.icon}>
+        <div className="expedition-img-container item-tooltip">
+            <img alt={item.name} className="expedition-img" src={item.icon}>
             </img>
             <span className="expedition-img-value">
-                {normalizeValue(valuedItem.chaosValue)}
+                {normalizeValue(pricedItem)}
                 <span className="item-tooltip-text">
-                    <span>{valuedItem.name}</span>&nbsp;
-                    <a className="item-tooltip-text-wiki" onClick={(e) => e.stopPropagation()} target="_blank" href={`https://www.poewiki.net/w/index.php?search=${valuedItem.name}`}>[wiki]</a>
+                    <span>{item.name}</span>&nbsp;
+                    <a className="item-tooltip-text-wiki" onClick={(e) => e.stopPropagation()} target="_blank"
+                       href={`https://www.poewiki.net/w/index.php?search=${item.name}`}>[wiki]</a>
                 </span>
             </span>
         </div>
@@ -46,50 +37,36 @@ export const ItemDisplay = (props: ItemDisplayProps) => {
 }
 
 interface ExpeditionRowProps {
-    valuedBaseType: ValuedBaseType
+    pricedBaseType: PricedBaseType
     itemSearch: string
-    showLowValueUniques: boolean
-    selectedItems: ValuedItem[]
-    setSelectedItems: Dispatch<SetStateAction<ValuedItem[]>>
+    minValueToDisplay: number
+    selectedBaseTypes: string[]
+    setSelectedBaseType: Dispatch<SetStateAction<string[]>>
 }
 
 export const ExpeditionRow = (props: ExpeditionRowProps) => {
-    const {valuedBaseType, itemSearch, showLowValueUniques, selectedItems, setSelectedItems} = props;
-    const baseTypeMatch = itemSearch && valuedBaseType.baseType.toLowerCase().includes(itemSearch.toLowerCase());
+    const {pricedBaseType, selectedBaseTypes, minValueToDisplay, setSelectedBaseType, itemSearch} = props;
 
-    const baseTypeIsSelected = selectedItems
-        .map((e) => e.baseType)
-        .some((e) => e.toLowerCase() === valuedBaseType.baseType.toLowerCase());
-
-    const otherItems = valuedBaseType.otherItems
-        .filter((e) => {
-            if (showLowValueUniques) return true;
-            if (itemSearch && itemSearch.length > 2 && baseTypeMatch) return true;
-            const matchName = e.name.toLowerCase().includes(itemSearch.toLowerCase());
-            if (itemSearch && itemSearch.length > 2 && matchName) return true;
-            return showLowValueUniques || e.chaosValue > 100;
-        });
-
-    const allShownItems = valuedBaseType.mostValuedItem ? otherItems.concat(valuedBaseType.mostValuedItem) : otherItems;
+    const baseTypeIsSelected = selectedBaseTypes.some((e) => e === pricedBaseType.baseType);
+    const valuedItems = pricedBaseType.items.filter((e) => e.displayPrice >= minValueToDisplay);
+    const itemsMatchingSearch = itemSearch.length > 2 ? pricedBaseType.items.filter((e) => e.item.name.includes(itemSearch)) : [];
+    const itemsToDisplay = valuedItems.length === 0 ? [pricedBaseType.items[0]] : valuedItems;
+    const itemsToDisplayWithSearch = Array.from(new Set(itemsMatchingSearch.concat(itemsToDisplay)));
 
     return (
         <div className={baseTypeIsSelected ? "expedition-selected-basetype full-size expedition-row" : "full-size expedition-row"} onClick={(e) => {
             if (baseTypeIsSelected) {
-                setSelectedItems(selectedItems.filter((e) => e.baseType !== valuedBaseType.baseType))
+                setSelectedBaseType(selectedBaseTypes.filter((e) => e !== pricedBaseType.baseType));
             } else {
-                setSelectedItems(selectedItems.concat(allShownItems))
+                setSelectedBaseType(selectedBaseTypes.concat(pricedBaseType.baseType));
             }
         }}>
             <div className="expedition-basetype-cell">
-                {valuedBaseType.baseType}
+                {pricedBaseType.baseType}
             </div>
-            <div>
-                <ItemDisplay selectedItems={selectedItems} setSelectedItems={setSelectedItems} valuedItem={valuedBaseType.mostValuedItem}/>
-            </div>
-            <div>
-                {
-                    otherItems.map((v) => <ItemDisplay selectedItems={selectedItems} setSelectedItems={setSelectedItems} key={v.name} valuedItem={v}/>)}
-            </div>
+            {
+                itemsToDisplayWithSearch.map((item) => <ItemDisplay key={item.item.name} pricedItem={item}/>)
+            }
         </div>
     );
 };
