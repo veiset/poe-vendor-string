@@ -4,7 +4,6 @@ import Header from "../../components/Header";
 import ResultBox from "../../components/ResultBox";
 import ExpeditionRow, {ItemDisplay} from "./ExpeditionRow";
 import "./Expedition.css";
-import {Checkbox} from "../vendor/Vendor";
 import ExpeditionOptions from "./ExpeditionOptions";
 import ModSearchBox from "../../components/ModSearchBox";
 import Collapsable from "../../components/collapsable/Collapsable";
@@ -82,8 +81,7 @@ const generateRegex = (selectedBases: string[], fillerBases: string[]): string =
 
 const generateFillerBases = (selectedBases: string[], priceData: PriceData): PricedBaseType[] => {
     const currentRegexLength = generateRegex(selectedBases, []).length;
-    const baseRegexSpace = Math.max(currentRegexLength, 2);
-    let count = baseRegexSpace;
+    let count = Math.max(currentRegexLength);
 
     return priceData.pricedBaseTypes.reduce((acc: PricedBaseType[], el: PricedBaseType) => {
         let currentBases = selectedBases.concat(acc.map((e) => e.baseType));
@@ -146,7 +144,7 @@ const generateSortedPriceData = (allItems: Item[], fallbackPrices: PoeNinjaItem[
     }
 }
 
-const cleanUpValuedItems = (data: PoeNinjaItem[]): PoeNinjaItem[] => {
+const cleanUpPoeNinjaItems = (data: PoeNinjaItem[]): PoeNinjaItem[] => {
     return data
         .filter((e) => e.links === undefined)
         .filter((e) => !e.detailsId?.endsWith("relic"))
@@ -154,6 +152,23 @@ const cleanUpValuedItems = (data: PoeNinjaItem[]): PoeNinjaItem[] => {
             const baseType: BaseTypeRegex | undefined = e.baseType in baseTypeRegex ? baseTypeRegex[e.baseType] : undefined;
             return baseType?.items.map((item) => item.name).includes(e.name);
         })
+}
+
+const filterPricedItems = (
+    pricedBaseTypes: PricedBaseType[],
+    predicate: (pricedBaseType: PricedBaseType, item: PricedItemWithFallback) => boolean
+): PricedItemWithFallback[] => {
+    return pricedBaseTypes
+        .flatMap((pricedBaseType: PricedBaseType) => {
+            return pricedBaseType.items.filter((item) => predicate(pricedBaseType, item))
+        })
+}
+const showMostExpensiveAndValuedItems = (minValueToDisplay: number) => (pricedBaseType: PricedBaseType, item: PricedItemWithFallback) => {
+    return item.displayPrice >= minValueToDisplay || item.displayPrice === pricedBaseType.mostExpensiveItem
+}
+
+const showLowValueItems = (minValueToDisplay: number) => (pricedBaseType: PricedBaseType, item: PricedItemWithFallback) => {
+    return item.displayPrice < minValueToDisplay && item.displayPrice !== pricedBaseType.mostExpensiveItem
 }
 
 const dateTextFromString = (date: string): string => {
@@ -198,7 +213,7 @@ const Expedition = () => {
             fallbackPricing("Jewel"),
             fallbackPricing("Weapon"),
         ]).then((responses) => {
-            const valuedItems = cleanUpValuedItems(responses.flatMap((d) => d.lines));
+            const valuedItems = cleanUpPoeNinjaItems(responses.flatMap((d) => d.lines));
             setFallbackPrices(valuedItems);
         });
         fetch(`generated.txt`, {headers: {'Content-Type': 'application/text'}})
@@ -220,7 +235,7 @@ const Expedition = () => {
             fetchLeaguePricing(league, "Jewel"),
             fetchLeaguePricing(league, "Weapon"),
         ]).then((responses) => {
-            const pricedObtainableItems = cleanUpValuedItems(responses.flatMap((d) => d.lines));
+            const pricedObtainableItems = cleanUpPoeNinjaItems(responses.flatMap((d) => d.lines));
             setLeaguePrices(pricedObtainableItems);
         }).catch(() => {
             console.warn("Fetching of real time data failed");
@@ -263,34 +278,31 @@ const Expedition = () => {
             </div>
             <div className="row expedition-item-regex-area">
                 <div className="expedition-col-40">
-                    {priceData.pricedBaseTypes.filter((pricedBase) => {
-                        return selectedBaseTypes.includes(pricedBase.baseType);
-                    }).flatMap((item) => {
-                        return item.items.filter((e) => e.displayPrice >= minValueToDisplay || e.displayPrice === item.mostExpensiveItem)
-                    }).map((f) => {
-                        return <ItemDisplay key={f.item.name} pricedItem={f} />
+                    {filterPricedItems(
+                        priceData.pricedBaseTypes.filter((pricedBase) => selectedBaseTypes.includes(pricedBase.baseType)),
+                        showMostExpensiveAndValuedItems(minValueToDisplay)
+                    ).map((pricedItem) => {
+                        return <ItemDisplay key={pricedItem.item.name} pricedItem={pricedItem}/>
                     })}
                 </div>
                 <div className={"expedition-col-60" + (addFillerItems ? "" : " expedition-fade")}>
-                    {fillerBases
-                        .flatMap((base) => {
-                            return base.items.filter((item) => {
-                                return item.displayPrice >= minValueToDisplay || item.displayPrice === base.mostExpensiveItem
-                            })
-                        }).map((pricedItem) => {
-                            return (<ItemDisplay key={pricedItem.item.name} pricedItem={pricedItem} />);
-                        })
-                    }
+                    {filterPricedItems(
+                        fillerBases,
+                        showMostExpensiveAndValuedItems(minValueToDisplay)
+                    ).map((pricedItem) => {
+                        return <ItemDisplay key={pricedItem.item.name} pricedItem={pricedItem}/>;
+                    })}
                 </div>
             </div>
             <div className="row">
                 <Collapsable header={"Show all other items that will also match (based on selected basetypes)"}>
-                    {priceData.pricedBaseTypes.filter((pricedBase) => {
-                        return selectedBaseTypes.includes(pricedBase.baseType);
-                    }).flatMap((item) => {
-                        return item.items.filter((e) => e.displayPrice < minValueToDisplay && e.displayPrice !== item.mostExpensiveItem)
-                    }).map((f) => {
-                        return <ItemDisplay key={f.item.name} pricedItem={f} />
+                    {filterPricedItems(
+                        priceData.pricedBaseTypes
+                            .filter((pricedBase) => selectedBaseTypes.includes(pricedBase.baseType))
+                            .concat(fillerBases),
+                        showLowValueItems(minValueToDisplay)
+                    ).map((pricedItem, i) => {
+                        return <ItemDisplay key={pricedItem.item.name + i} pricedItem={pricedItem}/>
                     })}
                 </Collapsable>
             </div>
@@ -299,10 +311,10 @@ const Expedition = () => {
                     <ModSearchBox id="item-search" placeholder="Search for an item ..." search={itemSearch} setSearch={setItemSearch}/>
                 </div>
                 <div className="expedition-col-60">
-                    Minimum chaos value:
+                    Minimum chaos value to display:
                     <input type="search" className="modifier-quantity-box" id="pack-size" name="search-mod" value={minValueToDisplay}
                            onChange={v => setMinValueToDisplay(v.target.value as unknown as number)}/>
-                    (most expensive item in a base will still be shown)
+                    (most expensive of a base will still be shown)
                 </div>
             </div>
             <div className="full-size expedition-row-container">
@@ -328,7 +340,8 @@ const Expedition = () => {
             <div onClick={() => {
                 console.log("Loading more");
                 setDisplayedItems(20);
-            } }>Load more...</div>
+            }}>Load more...
+            </div>
             <div className="full-size"></div>
         </>
     );
