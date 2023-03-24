@@ -17,7 +17,7 @@ export const generateRegex = (selectedBases: string[], fillerBases: string[]): s
 
 export const generateFillerBases = (selectedBases: string[], priceData: PriceData): PricedBaseType[] => {
     const currentRegexLength = generateRegex(selectedBases, []).length;
-    let count = Math.max(currentRegexLength);
+    let count = Math.max(currentRegexLength, 2);
 
     return priceData.pricedBaseTypes.reduce((acc: PricedBaseType[], el: PricedBaseType) => {
         let currentBases = selectedBases.concat(acc.map((e) => e.baseType));
