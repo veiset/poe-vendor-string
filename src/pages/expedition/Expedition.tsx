@@ -155,6 +155,7 @@ const Expedition = () => {
     const [lastUpdated, setLastUpdated] = useState("Outdated prices. Check back in a few mins...");
 
     useEffect(() => {
+        console.log("Fetching pre-data");
         Promise.all([
             fallbackPricing("Accessory"),
             fallbackPricing("Armour"),
@@ -164,6 +165,19 @@ const Expedition = () => {
             const valuedItems = cleanUpValuedItems(responses.flatMap((d) => d.lines));
             setFallbackPrices(valuedItems);
         });
+        fetch(`generated.txt`, {headers: {'Content-Type': 'application/text'}})
+            .then((r) => r.text())
+            .then((date) => {
+                const d2 = dayjs(date);
+                if (d2.isValid()) {
+                    const nextUpdate = d2.add(4, "hour");
+                    if (dayjs(new Date()).diff(d2, "day") > 1) {
+                        setLastUpdated(`Old economy. Using data from ${d2.fromNow()}. Prices will soon be updated.`);
+                    } else {
+                        setLastUpdated(`Economy last updated ${d2.fromNow()}, next update at ~${nextUpdate.format("HH:mm:00 (Z)")}`)
+                    }
+                }
+            });
     }, []);
 
     useEffect(() => {
@@ -186,27 +200,9 @@ const Expedition = () => {
                     .filter((e) => e !== undefined) as ValuedItem[]);
             }
         }).catch(() => {
-            if (league !== "Standard") {
-                setLeague("Standard");
-            }
+            console.log("Real time data failed");
         });
     }, [league]);
-
-    useEffect(() => {
-        fetch(`generated.txt`, {headers: {'Content-Type': 'application/text'}})
-            .then((r) => r.text())
-            .then((date) => {
-                const d2 = dayjs(date);
-                if (d2.isValid()) {
-                    const nextUpdate = d2.add(4, "hour");
-                    if (dayjs(new Date()).diff(d2, "day") > 1) {
-                        setLastUpdated(`Old economy. Using data from ${d2.fromNow()}. Prices will soon be updated.`);
-                    } else {
-                        setLastUpdated(`Economy last updated ${d2.fromNow()}, next update at ~${nextUpdate.format("HH:mm:00 (Z)")}`)
-                    }
-                }
-            });
-    }, []);
 
 
     useEffect(() => {
