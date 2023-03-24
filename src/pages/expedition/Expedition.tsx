@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {BaseTypeRegex, baseTypeRegex} from "../../generated/GeneratedExpedition";
+import {BaseTypeRegex, baseTypeRegex, Item} from "../../generated/GeneratedExpedition";
 import Header from "../../components/Header";
 import ResultBox from "../../components/ResultBox";
 import ExpeditionRow, {ItemDisplay} from "./ExpeditionRow";
@@ -8,7 +8,7 @@ import {Checkbox} from "../vendor/Vendor";
 import ExpeditionOptions from "./ExpeditionOptions";
 import ModSearchBox from "../../components/ModSearchBox";
 import Collapsable from "../../components/collapsable/Collapsable";
-import {distinct} from "../../utils/ListUtils";
+import {distinct, groupBy} from "../../utils/ListUtils";
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dayjs from "dayjs";
 
@@ -37,7 +37,37 @@ interface PoeNinjaData {
     lines: ValuedItem[]
 }
 
+interface PricedItemWithFallback {
+    item: Item
+    price: number | undefined
+    fallbackPrice: number
+    displayPrice: number
+}
+
+interface PricedBaseType {
+    baseType: string,
+    items: PricedItemWithFallback[]
+    regex: string
+    mostExpensiveItem: number
+}
+
+interface PriceData {
+    pricedBaseTypes: PricedBaseType[]
+    unknownItems: string[]
+    usingOnlyFallback: boolean
+}
+
+
 const sortByChaosValue = (a: ValuedItem, b: ValuedItem): number => b.chaosValue - a.chaosValue
+
+const sortByValue = (a: PricedItemWithFallback, b: PricedItemWithFallback): number => b.displayPrice - a.displayPrice
+
+const allItemsFromGeneratedItems = (baseTypeRegex: { [key: string]: BaseTypeRegex }): Item[] => {
+    const baseTypes: string[] = Array.from(Object.keys(baseTypeRegex));
+    return baseTypes.flatMap((baseType) => {
+        return baseTypeRegex[baseType].items;
+    });
+}
 
 const generateValuedBaseTypes = (baseTypeRegex: { [key: string]: BaseTypeRegex }, items: ValuedItem[]): ValuedBaseType[] => {
     const itemValueMap: Map<string, ValuedItem> = new Map(items.map(i => [i.name, i]));
@@ -84,7 +114,7 @@ const fallbackPricing = (type: string): Promise<PoeNinjaData> => {
         .then((r) => r.json())
 }
 
-const priceData = (league: string, type: string): Promise<PoeNinjaData> => {
+const fetchLeaguePricing = (league: string, type: string): Promise<PoeNinjaData> => {
     return fetch(`expedition/eco_${league}_Unique${type}.json`)
         .then((r) => r.json());
 }
@@ -125,21 +155,82 @@ const generateFillerItems = (selected: ValuedItem[], allItems: ValuedItem[]): Va
     }, []);
 }
 
+const generateSortedPriceData = (allItems: Item[], fallbackPrices: ValuedItem[], leaguePrices: ValuedItem[]): PriceData => {
+    const fallbackMap = new Map(fallbackPrices.map(i => [i.name, i.chaosValue]));
+    const leagueMap = new Map(leaguePrices?.map(i => [i.name, i.chaosValue]));
+
+    // Find items not in the generated base items
+    const allSeenItems = allItems.map((item) => item.name)
+        .concat(fallbackPrices.map((pricedItem) => pricedItem.name))
+        .concat(leaguePrices.map((pricedItem) => pricedItem.name));
+    const itemsToRemove = new Set(allItems.map((item) => item.name));
+    const itemsNotInGenerator = allSeenItems.filter(itemName => !itemsToRemove.has(itemName));
+    if (itemsNotInGenerator.length > 0) {
+        console.warn(itemsNotInGenerator);
+    }
+
+    const pricedItemsWithFallback: PricedItemWithFallback[] = allItems.map((item) => {
+        const price = leagueMap.get(item.name);
+        const fallbackPrice = fallbackMap.get(item.name) ?? -1;
+        return {
+            item: item,
+            price: price,
+            fallbackPrice: fallbackPrice,
+            displayPrice: price ?? fallbackPrice,
+        }
+    });
+
+    // Generate priced base types
+    const groupedItems: { [key: string]: PricedItemWithFallback[] } = groupBy(pricedItemsWithFallback, (e) => e.item.baseType);
+    const baseTypes: string[] = Array.from(Object.keys(groupedItems));
+    const pricedBaseTypes = baseTypes.map((baseType) => {
+        const items = groupedItems[baseType].sort(sortByValue);
+        return {
+            baseType: baseType,
+            items: items,
+            mostExpensiveItem: items[0].displayPrice,
+            regex: baseTypeRegex[baseType].regex,
+        }
+    });
+
+    return {
+        pricedBaseTypes: pricedBaseTypes.sort((e1, e2) => e2.mostExpensiveItem - e1.mostExpensiveItem),
+        unknownItems: itemsNotInGenerator,
+        usingOnlyFallback: leaguePrices.length === 0,
+    }
+}
+
 const cleanUpValuedItems = (data: ValuedItem[]): ValuedItem[] => {
-   return data
-       .filter((e) => e.links === undefined)
-       .filter((e) => !e.detailsId?.endsWith("relic"))
-       .filter((e) => {
-           const baseType: BaseTypeRegex | undefined = e.baseType in baseTypeRegex ? baseTypeRegex[e.baseType] : undefined;
-           return baseType?.items.map((item) => item.name).includes(e.name);
-       })
+    return data
+        .filter((e) => e.links === undefined)
+        .filter((e) => !e.detailsId?.endsWith("relic"))
+        .filter((e) => {
+            const baseType: BaseTypeRegex | undefined = e.baseType in baseTypeRegex ? baseTypeRegex[e.baseType] : undefined;
+            return baseType?.items.map((item) => item.name).includes(e.name);
+        })
+}
+
+const dateTextFromString = (date: string): string => {
+    const d2 = dayjs(date);
+    if (d2.isValid()) {
+        const nextUpdate = d2.add(4, "hour");
+        if (dayjs(new Date()).diff(d2, "day") > 1) {
+            return `Old economy. Using data from ${d2.fromNow()}. Prices will soon be updated.`;
+        } else {
+            return `Economy last updated ${d2.fromNow()}, next update at ~${nextUpdate.format("HH:mm:00 (Z)")}`;
+        }
+    }
+    return "Economy updated is unknown.";
 }
 
 const Expedition = () => {
 
-    // Item data
-    const [items, setItems] = useState<ValuedItem[]>();
-    const [fallbackPrices, setFallbackPrices] = useState<ValuedItem[]>();
+    const allItems = allItemsFromGeneratedItems(baseTypeRegex);
+
+    const [leaguePrices, setLeaguePrices] = useState<ValuedItem[]>([]);
+    const [fallbackPrices, setFallbackPrices] = useState<ValuedItem[]>([]);
+    const [priceData, setPriceData] = useState<PriceData>();
+
     const [valuedBases, setValuedBases] = useState<ValuedBaseType[]>([]);
     const [selectedItems, setSelectedItems] = useState<ValuedItem[]>([]);
     const [fillerItems, setFillerItems] = useState<ValuedItem[]>([]);
@@ -151,11 +242,12 @@ const Expedition = () => {
 
     const [itemSearch, setItemSearch] = useState("");
     const [result, setResult] = useState("");
-    const [league, setLeague] = useState(leagueName);
+    const [league, setLeague] = useState(leagueName); // should use local storage
     const [lastUpdated, setLastUpdated] = useState("Outdated prices. Check back in a few mins...");
 
     useEffect(() => {
         console.log("Fetching pre-data");
+        const allItems = allItemsFromGeneratedItems(baseTypeRegex);
         Promise.all([
             fallbackPricing("Accessory"),
             fallbackPricing("Armour"),
@@ -168,29 +260,26 @@ const Expedition = () => {
         fetch(`generated.txt`, {headers: {'Content-Type': 'application/text'}})
             .then((r) => r.text())
             .then((date) => {
-                const d2 = dayjs(date);
-                if (d2.isValid()) {
-                    const nextUpdate = d2.add(4, "hour");
-                    if (dayjs(new Date()).diff(d2, "day") > 1) {
-                        setLastUpdated(`Old economy. Using data from ${d2.fromNow()}. Prices will soon be updated.`);
-                    } else {
-                        setLastUpdated(`Economy last updated ${d2.fromNow()}, next update at ~${nextUpdate.format("HH:mm:00 (Z)")}`)
-                    }
-                }
+                setLastUpdated(dateTextFromString(date));
             });
     }, []);
 
     useEffect(() => {
-        Promise.all([
-            priceData(league, "Accessory"),
-            priceData(league, "Armour"),
-            priceData(league, "Jewel"),
-            priceData(league, "Weapon"),
-        ]).then((responses) => {
-            const pricedObtainableItems = cleanUpValuedItems(responses.flatMap((d) => d.lines))
-                .sort(sortByChaosValue);
+        const priceData = generateSortedPriceData(allItems, fallbackPrices, leaguePrices);
+        console.log("priceData", priceData);
+        setPriceData(priceData)
+    }, [fallbackPrices, leaguePrices]);
 
-            setItems(pricedObtainableItems);
+    useEffect(() => {
+        Promise.all([
+            fetchLeaguePricing(league, "Accessory"),
+            fetchLeaguePricing(league, "Armour"),
+            fetchLeaguePricing(league, "Jewel"),
+            fetchLeaguePricing(league, "Weapon"),
+        ]).then((responses) => {
+            const pricedObtainableItems = cleanUpValuedItems(responses.flatMap((d) => d.lines));
+
+            setLeaguePrices(pricedObtainableItems);
             setFillerItems(generateFillerItems(selectedItems, pricedObtainableItems));
             const valuedItems = new Map(pricedObtainableItems.map(i => [i.name, i]));
             setValueMap(valuedItems);
@@ -206,18 +295,18 @@ const Expedition = () => {
 
 
     useEffect(() => {
-        if (items !== undefined) {
-            setValuedBases(generateValuedBaseTypes(baseTypeRegex, items));
-            console.log("total items:", items.length);
-            console.log("Missing economy items on:", valuedBases.flatMap((e) => e.otherItems).filter((e) => e.chaosValue === -1));
-            console.log("Missing economy items on:", items.filter((e) => e.chaosValue === 0).length);
+        if (leaguePrices !== undefined) {
+            setValuedBases(generateValuedBaseTypes(baseTypeRegex, leaguePrices));
+            console.log("total leaguePrices:", leaguePrices.length);
+            console.log("Missing economy leaguePrices on:", valuedBases.flatMap((e) => e.otherItems).filter((e) => e.chaosValue === -1));
+            console.log("Missing economy leaguePrices on:", leaguePrices.filter((e) => e.chaosValue === 0).length);
         }
-    }, [items]);
+    }, [leaguePrices]);
 
 
     useEffect(() => {
-        if (items) {
-            const displayedFillerItems = generateFillerItems(selectedItems, items);
+        if (leaguePrices) {
+            const displayedFillerItems = generateFillerItems(selectedItems, leaguePrices);
             setFillerItems(displayedFillerItems);
 
             const fillerItems = addFillerItems ? displayedFillerItems : [];
@@ -231,9 +320,9 @@ const Expedition = () => {
             const allOtherItems = allMatchedItems.filter((vi) => !selectedItems.concat(fillerItems).some((e) => e.name === vi?.name));
             setOtherMatchingItems((allOtherItems.filter((e) => e !== undefined) as ValuedItem[]).sort(sortByChaosValue));
         }
-    }, [items, selectedItems, addFillerItems, league]);
+    }, [leaguePrices, selectedItems, addFillerItems, league]);
 
-    if (fallbackPrices === undefined) {
+    if (priceData === undefined) {
         return <div>Loading...</div>;
     }
 
@@ -267,7 +356,7 @@ const Expedition = () => {
                 </div>
             </div>
             <div className="row">
-                <Collapsable header={"Show all other items that will also match (based on selected basetypes)"}>
+                <Collapsable header={"Show all other leaguePrices that will also match (based on selected basetypes)"}>
                     {otherMatchingItems.map((item) => {
                         return (<ItemDisplay key={item.name} selectedItems={selectedItems} setSelectedItems={setSelectedItems} valuedItem={item}/>);
                     })}
