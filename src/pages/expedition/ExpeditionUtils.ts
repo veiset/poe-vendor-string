@@ -11,7 +11,10 @@ export const generateRegex = (selectedBases: string[], fillerBases: string[]): s
         return "";
     }
 
-    const regex = allBases.map((e) => baseTypeRegex[e].regex).join("|").replaceAll("\"", "");
+    const regex = allBases
+        .map((e) => baseTypeRegex[e].regex)
+        .join("|")
+        .replaceAll("\"", "");
     return `"${regex}"`;
 }
 
@@ -26,11 +29,12 @@ export const generateFillerBases = (selectedBases: string[], priceData: PriceDat
         }
         const regexAddition = "|" + baseTypeRegex[el.baseType].regex.replaceAll("\"", "");
         const newRegexSize = count + regexAddition.length;
-        if (newRegexSize <= 50 && el.mostExpensiveItem > 69) {
+        if (newRegexSize > 50) {
+            count = 50;
+            return acc;
+        } else {
             count += regexAddition.length;
             return acc.concat(el);
-        } else {
-            return acc;
         }
     }, []);
 }
@@ -90,4 +94,17 @@ export const dateTextFromString = (date: string): string => {
         }
     }
     return "Economy updated is unknown.";
+}
+
+export const toggleSelectBaseType = (
+    selectedBaseTypes: string[],
+    setSelectedBaseType: (v: string[]) => void,
+    baseType: string
+) => {
+    const baseTypeIsSelected = selectedBaseTypes.some((e) => e === baseType);
+    if (baseTypeIsSelected) {
+        setSelectedBaseType(selectedBaseTypes.filter((e) => e !== baseType));
+    } else {
+        setSelectedBaseType(selectedBaseTypes.concat(baseType));
+    }
 }

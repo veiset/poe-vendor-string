@@ -33,3 +33,9 @@ export interface PriceData {
     usingOnlyFallback: boolean
 }
 
+export interface ExpeditionLocalStorage {
+    selectedBaseTypes: string[]
+    league: string
+    minValueToDisplay: number
+    addFillerItems: boolean
+}

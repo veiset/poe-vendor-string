@@ -12,11 +12,14 @@ interface ExpeditionOptionProps {
 
 const ExpeditionOptions = (props: ExpeditionOptionProps) => {
     const { expensiveUniques, setExpensiveUniques, league, lastUpdate, setLeague } = props;
+    const leagues = [leagueName, "Hardcore " + leagueName, "Standard", "Hardcore"];
+    const hasCurrentLeague = leagues.some((l) => l === league);
     return (
         <div className="row">
             <div className="expedition-col-40">
                 <span className="select-league-info">League:</span>
                 <select name="league" className="select-league" value={league} id="league-select" onChange={(e) => setLeague(e.target.value)}>
+                    {!hasCurrentLeague && <option className={"option-league"} value={league}>{league}</option>}
                     <option className="option-league" value={leagueName}>{leagueName}</option>
                     <option className="option-league" value={"Hardcore " + leagueName}>Hardcore {leagueName}</option>
                     <option className="option-league" value="Standard">Standard</option>

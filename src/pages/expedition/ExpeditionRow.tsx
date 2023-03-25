@@ -1,8 +1,10 @@
 import {PricedBaseType, PricedItemWithFallback} from "./ExpeditionTypes";
 import {Dispatch, SetStateAction} from "react";
+import {toggleSelectBaseType} from "./ExpeditionUtils";
 
 interface ItemDisplayProps {
     pricedItem: PricedItemWithFallback
+    onClick?: (e: any) => any
 }
 
 const normalizeValue = (item: PricedItemWithFallback): string => {
@@ -17,11 +19,11 @@ const normalizeValue = (item: PricedItemWithFallback): string => {
 }
 
 export const ItemDisplay = (props: ItemDisplayProps) => {
-    const {pricedItem} = props;
+    const {pricedItem, onClick} = props;
     const item = pricedItem.item;
 
     return (
-        <div className="expedition-img-container item-tooltip">
+        <div onClick={onClick} className="expedition-img-container item-tooltip">
             <img alt={item.name} className="expedition-img" src={item.icon}>
             </img>
             <span className="expedition-img-value">
@@ -44,6 +46,7 @@ interface ExpeditionRowProps {
     setSelectedBaseType: Dispatch<SetStateAction<string[]>>
 }
 
+
 export const ExpeditionRow = (props: ExpeditionRowProps) => {
     const {pricedBaseType, selectedBaseTypes, minValueToDisplay, setSelectedBaseType, itemSearch} = props;
 
@@ -54,13 +57,12 @@ export const ExpeditionRow = (props: ExpeditionRowProps) => {
     const itemsToDisplayWithSearch = Array.from(new Set(itemsMatchingSearch.concat(itemsToDisplay)));
 
     return (
-        <div className={baseTypeIsSelected ? "expedition-selected-basetype full-size expedition-row" : "full-size expedition-row"} onClick={(e) => {
-            if (baseTypeIsSelected) {
-                setSelectedBaseType(selectedBaseTypes.filter((e) => e !== pricedBaseType.baseType));
-            } else {
-                setSelectedBaseType(selectedBaseTypes.concat(pricedBaseType.baseType));
-            }
-        }}>
+        <div
+            className={baseTypeIsSelected ? "expedition-selected-basetype full-size expedition-row" : "full-size expedition-row"}
+            onClick={() => {
+                toggleSelectBaseType(selectedBaseTypes, setSelectedBaseType, pricedBaseType.baseType)
+            }}
+        >
             <div className="expedition-basetype-cell">
                 {pricedBaseType.baseType}
             </div>

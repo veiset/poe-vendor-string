@@ -10,8 +10,8 @@ import Collapsable from "../../components/collapsable/Collapsable";
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dayjs from "dayjs";
 import {cleanUpPoeNinjaItems, filterPricedItems, showLowValueItems, showMostExpensiveAndValuedItems} from "./ExpeditionFilter";
-import {PoeNinjaData, PoeNinjaItem, PriceData, PricedBaseType, PricedItemWithFallback} from "./ExpeditionTypes";
-import {dateTextFromString, generateFillerBases, generateRegex, generateSortedPriceData} from "./ExpeditionUtils";
+import {ExpeditionLocalStorage, PoeNinjaData, PoeNinjaItem, PriceData, PricedBaseType, PricedItemWithFallback} from "./ExpeditionTypes";
+import {dateTextFromString, generateFillerBases, generateRegex, generateSortedPriceData, toggleSelectBaseType} from "./ExpeditionUtils";
 import {ExpeditionHelp} from "./ExpeditionHelp";
 
 dayjs.extend(relativeTime);
@@ -37,6 +37,15 @@ const fetchLeaguePricing = (league: string, type: string): Promise<PoeNinjaData>
 
 const Expedition = () => {
 
+    const defaultSettings: ExpeditionLocalStorage = {
+        selectedBaseTypes: [],
+        league: leagueName,
+        addFillerItems: true,
+        minValueToDisplay: 90,
+    }
+    const savedSettings = JSON.parse(localStorage.getItem("expedition") ?? "{}");
+    const settings: ExpeditionLocalStorage = {...defaultSettings, ...savedSettings};
+
     const allItems = allItemsFromGeneratedItems(baseTypeRegex);
 
     const [leaguePrices, setLeaguePrices] = useState<PoeNinjaItem[]>([]);
@@ -45,10 +54,10 @@ const Expedition = () => {
     const [fillerBases, setFillerBases] = useState<PricedBaseType[]>([]);
 
     // Settings
-    const [selectedBaseTypes, setSelectedBaseTypes] = useState<string[]>([]); // local storage
-    const [league, setLeague] = useState(leagueName); // should use local storage where Standard/Hardcore/League IFNOT currentLeague
-    const [minValueToDisplay, setMinValueToDisplay] = useState<number>(90); // local storage
-    const [addFillerItems, setAddFillerItems] = useState<boolean>(true); // local storage
+    const [selectedBaseTypes, setSelectedBaseTypes] = useState<string[]>(settings.selectedBaseTypes);
+    const [league, setLeague] = useState(settings.league);
+    const [addFillerItems, setAddFillerItems] = useState<boolean>(settings.addFillerItems);
+    const [minValueToDisplay, setMinValueToDisplay] = useState<number>(settings.minValueToDisplay);
 
     // Temporary settings
     const [itemSearch, setItemSearch] = useState("");
@@ -105,6 +114,16 @@ const Expedition = () => {
         }
     }, [priceData, addFillerItems, selectedBaseTypes, leaguePrices]);
 
+    useEffect(() => {
+        const settings: ExpeditionLocalStorage = {
+            selectedBaseTypes,
+            league,
+            minValueToDisplay,
+            addFillerItems
+        }
+        localStorage.setItem("expedition", JSON.stringify(settings));
+    }, [selectedBaseTypes, league, minValueToDisplay, addFillerItems]);
+
     if (priceData === undefined) {
         return <div>Loading...</div>;
     }
@@ -115,8 +134,9 @@ const Expedition = () => {
         <>
             <Header text={"Gwennen Expedition"}/>
             <ResultBox result={result} warning={warning} reset={() => {
-                setSelectedBaseTypes([]);
-                setMinValueToDisplay(90);
+                setSelectedBaseTypes(defaultSettings.selectedBaseTypes);
+                setMinValueToDisplay(defaultSettings.minValueToDisplay);
+                setAddFillerItems(defaultSettings.addFillerItems);
             }}/>
             {priceData.usingOnlyFallback && <div></div>}
             <ExpeditionOptions
@@ -136,7 +156,13 @@ const Expedition = () => {
                         priceData.pricedBaseTypes.filter((pricedBase) => selectedBaseTypes.includes(pricedBase.baseType)),
                         showMostExpensiveAndValuedItems(minValueToDisplay)
                     ).map((pricedItem) => {
-                        return <ItemDisplay key={pricedItem.item.name} pricedItem={pricedItem}/>
+                        return <ItemDisplay
+                            pricedItem={pricedItem}
+                            key={pricedItem.item.name}
+                            onClick={() => {
+                                toggleSelectBaseType(selectedBaseTypes, setSelectedBaseTypes, pricedItem.item.baseType)
+                            }}
+                        />
                     })}
                 </div>
                 <div className={"expedition-col-60" + (addFillerItems ? "" : " expedition-fade")}>
@@ -144,7 +170,13 @@ const Expedition = () => {
                         fillerBases,
                         showMostExpensiveAndValuedItems(minValueToDisplay)
                     ).map((pricedItem) => {
-                        return <ItemDisplay key={pricedItem.item.name} pricedItem={pricedItem}/>;
+                        return <ItemDisplay
+                            pricedItem={pricedItem}
+                            key={pricedItem.item.name}
+                            onClick={() => {
+                                toggleSelectBaseType(selectedBaseTypes, setSelectedBaseTypes, pricedItem.item.baseType)
+                            }}
+                        />;
                     })}
                 </div>
             </div>
@@ -161,7 +193,7 @@ const Expedition = () => {
                 </Collapsable>
             </div>
             <div className="row">
-                <ExpeditionHelp />
+                <ExpeditionHelp/>
             </div>
             <div className="row">
                 <div className="expedition-col-40">
