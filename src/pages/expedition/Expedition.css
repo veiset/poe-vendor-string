@@ -157,3 +157,9 @@ a.item-link {
 .expedition-load-wrap {
     padding-left: 20px;
 }
+.span-help-number {
+    color: #ecba53;
+}
+.unseen-unique {
+    color: #bd7f40;
+}

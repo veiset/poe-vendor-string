@@ -42,16 +42,6 @@ export const generateSortedPriceData = (allItems: Item[], fallbackPrices: PoeNin
     const fallbackMap = new Map(fallbackPrices.map(i => [i.name, i.chaosValue]));
     const leagueMap = new Map(leaguePrices?.map(i => [i.name, i.chaosValue]));
 
-    // Find items not in the generated base items
-    const allSeenItems = allItems.map((item) => item.name)
-        .concat(fallbackPrices.map((pricedItem) => pricedItem.name))
-        .concat(leaguePrices.map((pricedItem) => pricedItem.name));
-    const itemsToRemove = new Set(allItems.map((item) => item.name));
-    const itemsNotInGenerator = allSeenItems.filter(itemName => !itemsToRemove.has(itemName));
-    if (itemsNotInGenerator.length > 0) {
-        console.warn(itemsNotInGenerator);
-    }
-
     const pricedItemsWithFallback: PricedItemWithFallback[] = allItems.map((item) => {
         const price = leagueMap.get(item.name);
         const fallbackPrice = fallbackMap.get(item.name) ?? -1;
@@ -78,7 +68,6 @@ export const generateSortedPriceData = (allItems: Item[], fallbackPrices: PoeNin
 
     return {
         pricedBaseTypes: pricedBaseTypes.sort((e1, e2) => e2.mostExpensiveItem - e1.mostExpensiveItem),
-        unknownItems: itemsNotInGenerator,
         usingOnlyFallback: leaguePrices.length === 0,
     }
 }

@@ -1,9 +1,19 @@
 import Collapsable from "../../components/collapsable/Collapsable";
-import {PricedItemWithFallback} from "./ExpeditionTypes";
-import {baseTypeRegex} from "../../generated/GeneratedExpedition";
+import {PoeNinjaItem, PriceData, PricedItemWithFallback} from "./ExpeditionTypes";
+import {numberOfUniques, uniquesSeen, obtainableItems, baseTypeRegex} from "../../generated/GeneratedExpedition";
 import {ItemDisplay} from "./ExpeditionRow";
 
-export const ExpeditionHelp = () => {
+export interface ExpeditionHelpProps {
+    priceData: PriceData
+    leaguePrices: PoeNinjaItem[]
+    fallbackPrices: PoeNinjaItem[]
+}
+
+export const ExpeditionHelp = (props: ExpeditionHelpProps) => {
+    const {leaguePrices, fallbackPrices} = props;
+    const allEconomyItems = Array.from(new Set(leaguePrices.concat(fallbackPrices).map((e) => e.name)));
+    const newItems = allEconomyItems.filter((x) => !uniquesSeen.includes(x));
+
     const bases = Object.keys(baseTypeRegex);
     const sampleItemFallback: PricedItemWithFallback = {
         item: baseTypeRegex[bases[0]].items[0],
@@ -27,15 +37,15 @@ export const ExpeditionHelp = () => {
         <Collapsable header={"Explanation / Help"}>
             <div className="expedition-help-heading">Examples of items</div>
             <div className="row small-padding">
-                <ItemDisplay pricedItem={regularItem} />
+                <ItemDisplay pricedItem={regularItem}/>
                 a regular item where the price is shown (in this case {regularItem.displayPrice} chaos)
             </div>
             <div className="row small-padding">
-                <ItemDisplay pricedItem={expensiveItem} />
+                <ItemDisplay pricedItem={expensiveItem}/>
                 an expensive item ({expensiveItem.displayPrice} chaos is rounded up to 4000 and shown as 4k)
             </div>
             <div className="row small-padding">
-                <ItemDisplay pricedItem={sampleItemFallback} />
+                <ItemDisplay pricedItem={sampleItemFallback}/>
                 an item with no price data in the current league (the price will be marked with a question mark '{sampleItemFallback.displayPrice}?')
             </div>
 
@@ -55,7 +65,25 @@ export const ExpeditionHelp = () => {
                 After deploying a new version of the page there will be a small delay before the economy files are fetched.
                 During that time you will get a warning about no real time data and all items will be using the fallback economy files,
                 you can still use the page but the economy data is out of date.
-                This will typically only last for 5-10 minutes after a new deploy of the webpage.
+                This will typically only last for 5-10 minutes after a new version of the webpage is deployed.
+            </div>
+            <div className="expedition-help-heading">Missing items</div>
+            <div>
+                If you find any items missing, or items that shouldn't show up, such as an item that cannot be chanced please
+                report them at <a className="source-link" href="https://github.com/veiset/poe-vendor-string/issues">the issue tracker</a>.
+                <br/>
+                There are currently <span className="span-help-number">{numberOfUniques}</span> uniques known by the generator,
+                of which <span className="span-help-number">{obtainableItems}</span> are obtainable from Gwennen.
+            </div>
+            <div>
+                <br/>
+                {newItems.length > 0
+                    ? <div>
+                        Number of items from the real time data not seen by the generator: {newItems.length}
+                        <br/> Items currently not considered by the regex: {newItems.map((e) => <span key={e} className="unseen-unique"> {e},</span>)}
+                    </div>
+                    : <div>All the items in the real time economy data is know by the regex generator, but bugs might still occur.</div>
+                }
             </div>
 
         </Collapsable>

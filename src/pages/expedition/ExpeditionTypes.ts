@@ -29,7 +29,6 @@ export interface PricedBaseType {
 
 export interface PriceData {
     pricedBaseTypes: PricedBaseType[]
-    unknownItems: string[]
     usingOnlyFallback: boolean
 }
 

@@ -10,7 +10,7 @@ import Collapsable from "../../components/collapsable/Collapsable";
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dayjs from "dayjs";
 import {cleanUpPoeNinjaItems, filterPricedItems, showLowValueItems, showMostExpensiveAndValuedItems} from "./ExpeditionFilter";
-import {ExpeditionLocalStorage, PoeNinjaData, PoeNinjaItem, PriceData, PricedBaseType, PricedItemWithFallback} from "./ExpeditionTypes";
+import {ExpeditionLocalStorage, PoeNinjaData, PoeNinjaItem, PriceData, PricedBaseType} from "./ExpeditionTypes";
 import {dateTextFromString, generateFillerBases, generateRegex, generateSortedPriceData, toggleSelectBaseType} from "./ExpeditionUtils";
 import {ExpeditionHelp} from "./ExpeditionHelp";
 
@@ -193,7 +193,7 @@ const Expedition = () => {
                 </Collapsable>
             </div>
             <div className="row">
-                <ExpeditionHelp/>
+                <ExpeditionHelp priceData={priceData} leaguePrices={leaguePrices} fallbackPrices={fallbackPrices} />
             </div>
             <div className="row">
                 <div className="expedition-col-40">
