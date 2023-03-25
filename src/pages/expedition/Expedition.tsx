@@ -226,9 +226,13 @@ const Expedition = () => {
                         />)
                     })}
             </div>
-            <div onClick={() => {
-                setDisplayedItems(displayedItems + 10);
-            }}>Load more...
+            <div className="full-size expedition-load-wrap">
+                <button className="expedition-load-more"
+                        onClick={() => {
+                            setDisplayedItems(displayedItems + 10);
+                        }}
+                >Load more items ...
+                </button>
             </div>
             <div className="full-size"></div>
         </>

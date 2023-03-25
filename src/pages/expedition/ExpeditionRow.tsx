@@ -8,15 +8,16 @@ interface ItemDisplayProps {
 }
 
 const normalizeValue = (item: PricedItemWithFallback): string => {
-    if (item.displayPrice === -1) return "?";
-    const fallbackPriceIcon = item.price === undefined ? "?" : "";
     if (item.displayPrice > 1000) {
         const kvalue = item.displayPrice / 1000;
         const value = Math.round(kvalue);
-        return `${value}k${fallbackPriceIcon}`
+        return `${value}k`
     }
-    return `${Math.round(item.displayPrice)}${fallbackPriceIcon}`;
+    return `${Math.round(item.displayPrice)}`;
 }
+
+const isFallbackPrice = (pricedItem: PricedItemWithFallback) =>
+    pricedItem.displayPrice === -1 || pricedItem.price === undefined;
 
 export const ItemDisplay = (props: ItemDisplayProps) => {
     const {pricedItem, onClick} = props;
@@ -27,7 +28,7 @@ export const ItemDisplay = (props: ItemDisplayProps) => {
             <img alt={item.name} className="expedition-img" src={item.icon}>
             </img>
             <span className="expedition-img-value">
-                {normalizeValue(pricedItem)}
+                {normalizeValue(pricedItem)}{isFallbackPrice(pricedItem) && <span className="expedition-fallback-price">?</span>}
                 <span className="item-tooltip-text">
                     <span>{item.name}</span>&nbsp;
                     <a className="item-tooltip-text-wiki" onClick={(e) => e.stopPropagation()} target="_blank"

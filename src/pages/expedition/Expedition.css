@@ -134,3 +134,26 @@ a.item-link {
     margin-top: 20px;
     margin-bottom: 14px;
 }
+.expedition-fallback-price {
+    padding-left: 1px;
+    color: #ecba53;
+    font-weight: bold;
+}
+.expedition-load-more {
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #dedede;
+    border: 1px solid #050101;
+    transition-duration: 0.3s;
+    background-color: #454f5b;
+    padding: 10px;
+    margin: 10px;
+
+}
+.expedition-load-more:hover {
+    background-color: #55616e;
+}
+.expedition-load-wrap {
+    padding-left: 20px;
+}
