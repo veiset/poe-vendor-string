@@ -3,15 +3,17 @@ import {Dispatch, SetStateAction} from "react";
 import {leagueName} from "./Expedition";
 
 interface ExpeditionOptionProps {
-    expensiveUniques: boolean,
+    expensiveUniques: boolean
     league: string
     lastUpdate: string
+    minAddValue: number
     setLeague: Dispatch<SetStateAction<string>>
     setExpensiveUniques: Dispatch<SetStateAction<boolean>>
+    setMinAddValue: Dispatch<SetStateAction<number>>
 }
 
 const ExpeditionOptions = (props: ExpeditionOptionProps) => {
-    const { expensiveUniques, setExpensiveUniques, league, lastUpdate, setLeague } = props;
+    const { expensiveUniques, setExpensiveUniques, setMinAddValue, league, lastUpdate, setLeague, minAddValue } = props;
     const leagues = [leagueName, "Hardcore " + leagueName, "Standard", "Hardcore"];
     const hasCurrentLeague = leagues.some((l) => l === league);
     return (
@@ -27,9 +29,15 @@ const ExpeditionOptions = (props: ExpeditionOptionProps) => {
                 </select>
                 <p className="economy-info">{lastUpdate}</p>
             </div>
-            <div className="expedition-col-60">
-                <Checkbox className="auto-add-items" label="Automatically add most expensive uniques" value={expensiveUniques}
+            <div className="expedition-col-60 expedition-options-row">
+                <Checkbox className="auto-add-items" label="Automatically add most expensive uniques," value={expensiveUniques}
                           onChange={setExpensiveUniques}/>
+                <div>
+                    <span className="expedition-option-text">with min value</span>
+                    <input type="search" className="modifier-quantity-box" id="pack-size" name="search-mod" value={minAddValue}
+                           onChange={v => setMinAddValue(v.target.value as unknown as number)}/>
+
+                </div>
             </div>
         </div>
     );

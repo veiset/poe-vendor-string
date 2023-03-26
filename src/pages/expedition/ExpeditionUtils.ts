@@ -18,11 +18,12 @@ export const generateRegex = (selectedBases: string[], fillerBases: string[]): s
     return `"${regex}"`;
 }
 
-export const generateFillerBases = (selectedBases: string[], priceData: PriceData): PricedBaseType[] => {
+export const generateFillerBases = (selectedBases: string[], priceData: PriceData, minValue: number): PricedBaseType[] => {
     const currentRegexLength = generateRegex(selectedBases, []).length;
     let count = Math.max(currentRegexLength, 2);
 
     return priceData.pricedBaseTypes.reduce((acc: PricedBaseType[], el: PricedBaseType) => {
+        if (el.mostExpensiveItem < minValue) return acc;
         let currentBases = selectedBases.concat(acc.map((e) => e.baseType));
         if (currentBases.includes(el.baseType)) {
             return acc;

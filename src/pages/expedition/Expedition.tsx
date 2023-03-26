@@ -42,6 +42,7 @@ const Expedition = () => {
         league: leagueName,
         addFillerItems: true,
         minValueToDisplay: 90,
+        minAddValue: 0,
     }
     const savedSettings = JSON.parse(localStorage.getItem("expedition") ?? "{}");
     const settings: ExpeditionLocalStorage = {...defaultSettings, ...savedSettings};
@@ -58,6 +59,7 @@ const Expedition = () => {
     const [league, setLeague] = useState(settings.league);
     const [addFillerItems, setAddFillerItems] = useState<boolean>(settings.addFillerItems);
     const [minValueToDisplay, setMinValueToDisplay] = useState<number>(settings.minValueToDisplay);
+    const [minAddValue, setMinAddValue] = useState<number>(settings.minAddValue);
 
     // Temporary settings
     const [itemSearch, setItemSearch] = useState("");
@@ -105,24 +107,25 @@ const Expedition = () => {
 
     useEffect(() => {
         if (priceData && addFillerItems) {
-            const fillerBases = generateFillerBases(selectedBaseTypes, priceData);
+            const fillerBases = generateFillerBases(selectedBaseTypes, priceData, minAddValue);
             setFillerBases(fillerBases);
             setResult(generateRegex(selectedBaseTypes, fillerBases.map((e) => e.baseType)));
         } else {
             setFillerBases([]);
             setResult(generateRegex(selectedBaseTypes, []));
         }
-    }, [priceData, addFillerItems, selectedBaseTypes, leaguePrices]);
+    }, [priceData, addFillerItems, selectedBaseTypes, leaguePrices, minAddValue]);
 
     useEffect(() => {
         const settings: ExpeditionLocalStorage = {
             selectedBaseTypes,
             league,
             minValueToDisplay,
-            addFillerItems
+            addFillerItems,
+            minAddValue,
         }
         localStorage.setItem("expedition", JSON.stringify(settings));
-    }, [selectedBaseTypes, league, minValueToDisplay, addFillerItems]);
+    }, [selectedBaseTypes, league, minValueToDisplay, addFillerItems, minAddValue]);
 
     if (priceData === undefined) {
         return <div>Loading...</div>;
@@ -145,6 +148,8 @@ const Expedition = () => {
                 setLeague={setLeague}
                 expensiveUniques={addFillerItems}
                 setExpensiveUniques={setAddFillerItems}
+                minAddValue={minAddValue}
+                setMinAddValue={setMinAddValue}
             />
             <div className="row expedition-selection-header">
                 <div className="expedition-col-40">Selected items</div>

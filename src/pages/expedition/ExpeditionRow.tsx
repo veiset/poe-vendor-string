@@ -30,9 +30,11 @@ export const ItemDisplay = (props: ItemDisplayProps) => {
             <span className="expedition-img-value">
                 {normalizeValue(pricedItem)}{isFallbackPrice(pricedItem) && <span className="expedition-fallback-price">?</span>}
                 <span className="item-tooltip-text">
-                    <span>{item.name}</span>&nbsp;
+                    <span className="hover-img-text">{item.name}&nbsp;</span>
+                    <div>
                     <a className="item-tooltip-text-wiki" onClick={(e) => e.stopPropagation()} target="_blank"
                        href={`https://www.poewiki.net/w/index.php?search=${item.name}`}>[wiki]</a>
+                    </div>
                 </span>
             </span>
         </div>

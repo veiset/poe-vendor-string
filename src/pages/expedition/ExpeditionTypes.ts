@@ -37,4 +37,5 @@ export interface ExpeditionLocalStorage {
     league: string
     minValueToDisplay: number
     addFillerItems: boolean
+    minAddValue: number
 }

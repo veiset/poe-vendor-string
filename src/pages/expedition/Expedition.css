@@ -18,6 +18,15 @@
     padding: 20px 5px 20px 20px;
     min-width: 200px;
 }
+.expedition-options-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.expedition-option-text {
+    padding-left: 2px;
+    font-size: 18px;
+}
 .expedition-img-container {
     cursor: pointer;
     position: relative;
@@ -57,17 +66,18 @@
     position: absolute;
     z-index: 1;
     visibility: hidden;
+    overflow: hidden;
     background-color: rgba(0, 0, 0, 0.84);
     color: #ae521a;
     font-weight: bold;
     border-radius: 6px;
     margin: 5px;
-    left: 0px;
+    left: -10px;
     top: 0;
     white-space:nowrap;
 }
 .item-tooltip-text-wiki {
-    font-size: 13px;
+    font-size: 14px;
     color: #d5d5d5;
 }
 .item-tooltip:hover .item-tooltip-text {
