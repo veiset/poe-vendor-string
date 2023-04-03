@@ -83,7 +83,7 @@ export const dateTextFromString = (date: string): string => {
             return `Economy last updated ${d2.fromNow()}, next update at ~${nextUpdate.format("HH:mm:00 (Z)")}`;
         }
     }
-    return "Economy updated is unknown.";
+    return "Economy real time is being updated. Will be ready in 5 mins or less.";
 }
 
 export const toggleSelectBaseType = (
