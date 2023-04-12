@@ -18,7 +18,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Players cannot Regenerate Life, Mana or Energy Shield": {
    value: "Players cannot Regenerate Life, Mana or Energy Shield",
    scary: 2,
-   matchSafe: "ege",
+   matchSafe: "gen",
  },
  "Cannot Leech from Monsters": {
    value: "Cannot Leech from Monsters",
@@ -39,6 +39,11 @@ export const mapModifiers: { [key: string]: MapMod } = {
    value: "Players have #% less Recovery Rate of Life and Energy Shield",
    scary: 102,
    matchSafe: "\"s rec\"",
+ },
+ "Monsters deal #% extra Physical Damage as Chaos|Monsters Inflict Withered for 2 seconds on Hit": {
+   value: "Monsters deal #% extra Physical Damage as Chaos|Monsters Inflict Withered for 2 seconds on Hit",
+   scary: 103,
+   matchSafe: "withe",
  },
  "Monsters are Hexproof": {
    value: "Monsters are Hexproof",
@@ -68,7 +73,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Unique Boss deals #% increased Damage|Unique Boss has #% increased Attack and Cast Speed": {
    value: "Unique Boss deals #% increased Damage|Unique Boss has #% increased Attack and Cast Speed",
    scary: 206,
-   matchSafe: "eals",
+   matchSafe: "\"ls \\d+\"",
  },
  "#% increased Monster Damage": {
    value: "#% increased Monster Damage",
@@ -78,7 +83,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters deal #% extra Physical Damage as Cold": {
    value: "Monsters deal #% extra Physical Damage as Cold",
    scary: 208,
-   matchSafe: "\"as c\"",
+   matchSafe: "\"as co\"",
  },
  "Monsters deal #% extra Physical Damage as Fire": {
    value: "Monsters deal #% extra Physical Damage as Fire",
@@ -158,7 +163,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Players cannot inflict Exposure": {
    value: "Players cannot inflict Exposure",
    scary: 304,
-   matchSafe: "fli",
+   matchSafe: "\"ot i\"",
  },
  "+#% Monster Physical Damage Reduction": {
    value: "+#% Monster Physical Damage Reduction",
@@ -183,7 +188,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Players have #% reduced Chance to Block|Players have #% less Armour": {
    value: "Players have #% reduced Chance to Block|Players have #% less Armour",
    scary: 309,
-   matchSafe: "loc",
+   matchSafe: "\"o bl\"",
  },
  "Players have -#% to amount of Suppressed Spell Damage Prevented|Monsters have #% increased Accuracy Rating": {
    value: "Players have -#% to amount of Suppressed Spell Damage Prevented|Monsters have #% increased Accuracy Rating",
