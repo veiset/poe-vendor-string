@@ -253,7 +253,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters have a #% chance to avoid Poison, Impale, and Bleeding": {
    value: "Monsters have a #% chance to avoid Poison, Impale, and Bleeding",
    scary: 409,
-   matchSafe: "n,",
+   matchSafe: "on,",
  },
  "Monsters gain an Endurance Charge on Hit": {
    value: "Monsters gain an Endurance Charge on Hit",
