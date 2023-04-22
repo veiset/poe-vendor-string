@@ -40,6 +40,7 @@ html, body {
     height: 209px;
     top: 274px;
     left: calc(var(--link-width) - 118px);
+    z-index: -1;
     position: absolute;
 }
 

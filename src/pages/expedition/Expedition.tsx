@@ -131,7 +131,7 @@ const Expedition = () => {
         return <div>Loading...</div>;
     }
 
-    const warning = priceData.usingOnlyFallback ? `Warning: Could not load real time economy for ${league}. Using fallback economy data.` : undefined;
+    const warning = priceData.usingOnlyFallback ? `Warning: Could not find economy data for ${league}, using fallback. (new webpage version being deployed)` : undefined;
 
     return (
         <>

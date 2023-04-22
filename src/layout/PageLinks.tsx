@@ -5,6 +5,7 @@ import flaskIcon from '../img/linkicons/glassblower.png';
 import heistIcon from '../img/linkicons/blueprint.png';
 import expeditionIcon from '../img/linkicons/expeidition_reroll.png';
 import {Link, useLocation} from 'react-router-dom'
+import coffeeIcon from '../img/bmc-logo-no-background.png'
 
 export interface PageLinkProps {
     text: string
@@ -50,6 +51,10 @@ const PageLinks = () => {
             <PageLink text="Expedition" icon={expeditionIcon} route={"/expedition"} currentPage={currentPage}/>
             <PageLink text="Heist" icon={heistIcon} route={"/heist"} currentPage={currentPage}/>
             <PageLink text="Flasks" icon={flaskIcon} route={"/flasks"} currentPage={currentPage}/>
+            <p className="support-coffee">
+                <img src={coffeeIcon} alt="buy me a coffee" className="coffee-icon" />
+                <a className="source-link" target="_blank" href="https://www.buymeacoffee.com/veiset">Buy me a coffee</a> to help with the server costs.
+            </p>
         </div>
     </div>)
 }
