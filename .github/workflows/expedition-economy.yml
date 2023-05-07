@@ -119,6 +119,15 @@ jobs:
         url: "https://poe.ninja/api/data/itemoverview?league=Hardcore ${{ env.LEAGUE }}&type=UniqueAccessory"
         target: expedition/
         filename: "eco_Hardcore ${{ env.LEAGUE }}_UniqueAccessory.json"
+
+    # Beast Economy
+    - uses: suisei-cn/actions-download-file@v1.3.0
+      id: beasts
+      with:
+        url: "https://poe.ninja/api/data/itemoverview?league=${{ env.LEAGUE }}&type=Beast&language=en"
+        target: beast/
+        filename: "beast_poe_ninja.json"
+
         
     - run: |
        date > generated.txt

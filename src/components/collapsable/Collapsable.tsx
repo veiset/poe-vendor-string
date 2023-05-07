@@ -3,14 +3,15 @@ import "./Collapsable.css";
 
 interface CollapsableProps {
     header: string
+    isOpenByDefault?: boolean
     children?: React.ReactNode;
 }
 
 const Collapsable = (props: CollapsableProps) => {
 
-    const {header, children} = props;
+    const {header, isOpenByDefault, children} = props;
 
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [isOpen, setIsOpen] = useState<boolean>(isOpenByDefault ?? false);
 
     return (
         <div className="collapsable-wrapper">

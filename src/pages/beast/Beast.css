@@ -1,0 +1,35 @@
+.beast-row {
+    padding: 2px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    color: #c5c5c5;
+}
+.beast-header {
+    font-weight: bold;
+    color: #d5d5d5;
+}
+.beast-name-cell {
+    width: 22%;
+}
+.beast-regex-cell {
+    width: 8%;
+}
+.beast-value-cell {
+    width: 8%;
+}
+.beast-recipe-cell {
+    width: 58%;
+}
+.beast-price-info {
+    font-size: 14px;
+    padding-left: 10px;
+    margin-top: 4px;
+    padding-right: 10px;
+}
+.beast-highlighted {
+    color: #d5ffcd;
+}
+.beast-options {
+    padding: 20px;
+}
