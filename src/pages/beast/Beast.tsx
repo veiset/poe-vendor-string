@@ -26,8 +26,13 @@ interface BeastPriceRegex {
 const sortByChaosValue = (e1: BeastPriceRegex, e2: BeastPriceRegex) => e2.chaosValue - e1.chaosValue;
 
 const generateRegex = (prices: BeastPriceRegex[], minValue: number | undefined, maxValue: number | undefined): string => {
+    let done = false;
     const regex = prices.filter((e) => e.chaosValue > 0).reduce((acc: string, el: BeastPriceRegex) => {
+        if (done) {
+            return acc;
+        }
         if (acc.length + el.regex.length + 1 > 50) {
+            done = true;
             return acc;
         }
         if (el.chaosValue > (maxValue ?? 9999999)) return acc;
@@ -78,7 +83,6 @@ const Beast = () => {
             <ResultBox result={result} warning={""} reset={() => {
             }}/>
             <p className="beast-price-info">Using price data from {leagueName}. Last updated: {lastUpdated}</p>
-            <p className="beast-price-info warning">Still in testing. Please let me know if there are any beasts that shows up that shouldn't, or beasts that aren't showing up but should.</p>
             <div className="row beast-options">
                 <div>
                     <span className="expedition-option-text">Min chaos value:</span>
