@@ -61,7 +61,7 @@ export const beastRegex: BeastRegex[] = [
   { beast: "Cursed Spawn", recipe: "", regex: "sed s"},
   { beast: "Devourer", recipe: "", regex: "Devourer"},
   { beast: "Dirt Scrabbler", recipe: "", regex: "rt s"},
-  { beast: "Diseased Arachnid", recipe: "", regex: "sed ar"},
+  { beast: "Diseased Arachnid", recipe: "", regex: "sed ara"},
   { beast: "Dread Primate", recipe: "", regex: "ad p"},
   { beast: "Dune Hellion", recipe: "", regex: "ne h"},
   { beast: "Dust Scrabbler", recipe: "", regex: "ust s"},
