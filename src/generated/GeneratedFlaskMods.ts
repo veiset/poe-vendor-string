@@ -427,7 +427,7 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 2,
    description: "+# to Maximum Charges",
-   regex: "wid|lenti|unti|dant|mpl",
+   regex: "wid|lenti|unti|dant|ampl",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 2,
@@ -453,7 +453,7 @@ export const flaskPrefix: FlaskModGroup[] = [
      level: 82,
      name: "Ample",
      value: "+(32-35) to Maximum Charges",
-     regex: "mpl"
+     regex: "ampl"
    }]
  },
  {
