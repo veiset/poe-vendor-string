@@ -90,7 +90,7 @@ function generateNumberRegex(number: string, optimize: boolean): string {
         } else if (str[2] === "0") {
             return `(\\d[${d1}-9]\\d)`;
         } else if (str[1] === "0") {
-            return `(\\d0[${d2}-9]\\d|\\d[1-9]\\d)`;
+            return `(\\d0[${d2}-9]|\\d[1-9]\\d)`;
         } else {
             return `(1[${d1}-9][${d2}-9]|1[${Number(d1) + 1}-9]\\d)`;
         }
