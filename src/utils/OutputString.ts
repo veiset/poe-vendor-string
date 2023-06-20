@@ -131,7 +131,7 @@ export function generate3LinkStr(settings: PoeStringSettings): string {
     if (bbg) result = addExpression(result, twoAndOne("b", "g"));
     if (bbr) result = addExpression(result, twoAndOne("b", "r"));
 
-    if (rgb) result = addExpression(result, "([^w])-(?!\\1|w)(.).*-(?!\\1|\\2|w)(.)");
+    if (rgb) result = addExpression(result, " ([^w])-(?!\\1|w)(.)(-.)*-(?!\\1|\\2|w)(.)");
     if (raa) result = addExpression(result, oneAndAnyAny("r"));
     if (gaa) result = addExpression(result, oneAndAnyAny("g"));
     if (baa) result = addExpression(result, oneAndAnyAny("b"));
