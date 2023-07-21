@@ -181,7 +181,7 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 20,
    description: "#% increased Duration",
-   regex: "xp|cli|xa|anal|inv",
+   regex: "xp|clin|xa|anal|inv",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 84,
@@ -192,7 +192,7 @@ export const flaskPrefix: FlaskModGroup[] = [
      level: 68,
      name: "Clinician's",
      value: "(31-35)% increased Duration",
-     regex: "cli"
+     regex: "clin"
    },   {
      level: 52,
      name: "Examiner's",
@@ -489,7 +489,7 @@ export const flaskPrefix: FlaskModGroup[] = [
      level: 63,
      name: "Masochist's",
      value: "Gain 2 Charges when you are Hit by an Enemy",
-     regex: "mas"
+     regex: "aso"
    },   {
      level: 80,
      name: "Flagellant's",
@@ -1122,7 +1122,7 @@ export const flaskSuffix: FlaskModGroup[] = [
      level: 80,
      name: "of Draining",
      value: "0.8% of Spell Damage Leeched as Energy Shield during Effect",
-     regex: "dr"
+     regex: "dra"
    },   {
      level: 60,
      name: "of Siphoning",
@@ -1180,7 +1180,7 @@ export const flaskSuffix: FlaskModGroup[] = [
  {
    minLevel: 8,
    description: "Grants Immunity to Bleeding for # seconds if used while Bleeding Grants Immunity to Corrupted Blood for # seconds if used while affected by Corrupted Blood",
-   regex: "af",
+   regex: "aff",
    tag: { name: "ailment", sort: 50, color: "#e9c7fc" },
    mods: [   {
      level: 56,
@@ -1407,7 +1407,7 @@ export const flaskSuffix: FlaskModGroup[] = [
      level: 42,
      name: "of the Skink",
      value: "Immunity to Bleeding and Corrupted Blood during Effect (44-40)% less Duration",
-     regex: "ink"
+     regex: "skin"
    },   {
      level: 8,
      name: "of the Lizard",
