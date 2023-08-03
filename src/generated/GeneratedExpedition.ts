@@ -153,7 +153,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
    items: [{ id: "557", name: "Geofri's Baptism", baseType: "Brass Maul", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kTWFjZXMvVHdvSGFuZE1hY2U3VW5pcXVlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/378419527e/TwoHandMace7Unique.png" }],
  },
  "Brass Spirit Shield": {
-   baseType: "Brass Spirit Shield", regex: "\"ss sp\"",
+   baseType: "Brass Spirit Shield", regex: "\"rass s\"",
    items: [{ id: "1110", name: "Sentari's Answer", baseType: "Brass Spirit Shield", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1NhbnRhcmlzQW5zd2VyIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/f4438d618f/SantarisAnswer.png" }],
  },
  "Bronze Gauntlets": {
@@ -1321,7 +1321,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
    items: [{ id: "132", name: "Aurseize", baseType: "Steelscale Gauntlets", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvQXVyc2VpemUiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/4c0d010425/Aurseize.png" }],
  },
  "Stiletto": {
-   baseType: "Stiletto", regex: "til",
+   baseType: "Stiletto", regex: "ett",
    items: [{ id: "178", name: "Bloodplay", baseType: "Stiletto", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL0Jsb29kUGxheSIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/3c8258f393/BloodPlay.png" }],
  },
  "Strapped Boots": {
@@ -1349,7 +1349,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
    items: [{ id: "98216", name: "Briskwrap", baseType: "Sun Leather", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Ccmlza3dyYXAiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/4a3c7d71e6/Briskwrap.png" }],
  },
  "Supreme Spiked Shield": {
-   baseType: "Supreme Spiked Shield", regex: "up",
+   baseType: "Supreme Spiked Shield", regex: "upr",
    items: [{ id: "688", name: "Jaws of Agony", baseType: "Supreme Spiked Shield", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0JlYXJUcmFwU2hpZWxkMiIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/4d66593647/BearTrapShield2.png" }],
  },
  "Tarnished Spirit Shield": {
@@ -1505,7 +1505,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
    items: [{ id: "93178", name: "Maloney's Nightfall", baseType: "Vile Arrow Quiver", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9NYWxvbmV5c05pZ2h0ZmFsbCIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/aad4bc5b10/MaloneysNightfall.png" }],
  },
  "Vile Staff": {
-   baseType: "Vile Staff", regex: "\"ile s\"",
+   baseType: "Vile Staff", regex: "\"vile s\"",
    items: [{ id: "1672", name: "The Whispering Ice", baseType: "Vile Staff", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvU3RhZmY4dW5pcXVlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/04e7459f43/Staff8unique.png" }],
  },
  "Vine Circlet": {
@@ -1545,7 +1545,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
    items: [{ id: "1512", name: "The Goddess Bound", baseType: "Whalebone Rapier", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9SYXBpZXJzL1VuaXF1ZVJhcGllcjYiLCJ3IjoxLCJoIjo0LCJzY2FsZSI6MX1d/b9f0cc5e60/UniqueRapier6.png" }],
  },
  "Widowsilk Robe": {
-   baseType: "Widowsilk Robe", regex: "ws",
+   baseType: "Widowsilk Robe", regex: "wid",
    items: [{ id: "2321", name: "Doedre's Skin", baseType: "Widowsilk Robe", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Eb2VkcmVzU2tpbiIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/a04f3c7a0a/DoedresSkin.png" }],
  },
  "Wild Leather": {
