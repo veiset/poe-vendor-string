@@ -67,9 +67,9 @@ const Vendor = () => {
     const [anyGem, setAnyGem] = React.useState(hasNKey(savedSettings, "plusGems.any"));
 
     const [dmgPhys, setDmgPhys] = React.useState(hasNKey(savedSettings, "damage.phys"));
-    const [dmgElemental, setDmgElemental] = React.useState(hasNKey(savedSettings, "damage.elemental"));
-    const [dmgSpellFlat, setDmgSpellFlat] = React.useState(hasNKey(savedSettings, "damage.spellFlat"));
-    const [dmgSpell, setDmgSpell] = React.useState(hasNKey(savedSettings, "damage.spellDamage"));
+    const [fireMult, setFireMult] = React.useState(hasNKey(savedSettings, "damage.firemult"));
+    const [coldMult, setColdMult] = React.useState(hasNKey(savedSettings, "damage.coldmult"));
+    const [chaosMult, setChaosMult] = React.useState(hasNKey(savedSettings, "damage.firemult"));
 
     // weapons
     const [weaponSceptre, setWeaponSceptre] = React.useState(hasNKey(savedSettings, "weapon.sceptre"));
@@ -91,7 +91,7 @@ const Vendor = () => {
         setAnyThreeLink, setAnyFourLink, setAnyFiveLink, setAnySixLink, setAnySixSocket,
         setMovement10, setMovement15, setLightning,
         setFire, setCold, setPhys, setChaos, setAnyGem,
-        setDmgPhys, setDmgElemental, setDmgSpellFlat, setDmgSpell,
+        setDmgPhys, setFireMult, setColdMult, setChaosMult,
         setWeaponSceptre, setWeaponMace, setWeaponAxe, setWeaponSword, setWeaponBow, setWeaponClaw, setWeaponDagger, setWeaponStaff, setWeaponWand
     ]
 
@@ -107,7 +107,7 @@ const Vendor = () => {
         anyThreeLink, anyFourLink, anyFiveLink, anySixLink, anySixSocket,
         movement10, movement15, lightning,
         fire, cold, phys, chaos, anyGem,
-        dmgPhys, dmgElemental, dmgSpellFlat, dmgSpell,
+        dmgPhys, fireMult, coldMult, chaosMult,
         weaponSceptre, weaponMace, weaponAxe, weaponSword, weaponBow, weaponClaw, weaponDagger, weaponStaff, weaponWand
     ]
 
@@ -144,9 +144,9 @@ const Vendor = () => {
         },
         damage: {
             phys: dmgPhys,
-            elemental: dmgElemental,
-            spellFlat: dmgSpellFlat,
-            spellDamage: dmgSpell,
+            firemult: fireMult,
+            coldmult: coldMult,
+            chaosmult: chaosMult,
         },
         weapon: {
             sceptre: weaponSceptre,
@@ -245,9 +245,9 @@ const Vendor = () => {
                     <Checkbox label="+1 chaos wand" value={chaos} onChange={setChaos}/>
 
                     <Checkbox className="small-padding" label="Physical damage" value={dmgPhys} onChange={setDmgPhys}/>
-                    <Checkbox label="Flat Elemental damage" value={dmgElemental} onChange={setDmgElemental}/>
-                    <Checkbox label="Flat Spell damage" value={dmgSpellFlat} onChange={setDmgSpellFlat}/>
-                    <Checkbox label="Increased Spell damage" value={dmgSpell} onChange={setDmgSpell}/>
+                    <Checkbox label="Fire DOT multi" value={fireMult} onChange={setFireMult}/>
+                    <Checkbox label="Cold DOT multi" value={coldMult} onChange={setColdMult}/>
+                    <Checkbox label="Chaos DOT multi" value={chaosMult} onChange={setChaosMult}/>
 
                     <div className="column-header">
                         Weapon bases

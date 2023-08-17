@@ -55,9 +55,9 @@ export interface PoeStringSettings {
     }
     damage: {
         phys: boolean
-        elemental: boolean
-        spellFlat: boolean
-        spellDamage: boolean
+        firemult: boolean
+        coldmult: boolean
+        chaosmult: boolean
     }
     weapon: {
         sceptre: boolean
@@ -347,12 +347,12 @@ export function gemStr(settings: PoeStringSettings): string {
 }
 
 export function generateWeaponDamage(settings: PoeStringSettings): string {
-    const {phys, elemental, spellFlat, spellDamage} = settings.damage;
+    const {phys, firemult, coldmult, chaosmult} = settings.damage;
     let result = "";
     if (phys) result = addExpression(result, "Glint|Heav");
-    if (elemental) result = addExpression(result, "Heat|roste|Humm");
-    if (spellDamage) result = addExpression(result, "Appre");
-    if (spellFlat) result = addExpression(result, "\"e to Sp\"");
+    if (firemult) result = addExpression(result, "Inclement");
+    if (coldmult) result = addExpression(result, "Earnest");
+    if (chaosmult) result = addExpression(result, "Waning");
 
     return result;
 }
