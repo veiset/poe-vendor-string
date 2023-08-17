@@ -352,7 +352,7 @@ export function generateWeaponDamage(settings: PoeStringSettings): string {
     if (phys) result = addExpression(result, "Glint|Heav");
     if (firemult) result = addExpression(result, "Earn");
     if (coldmult) result = addExpression(result, "Incl");
-    if (chaosmult) result = addExpression(result, "Wani"); 
+    if (chaosmult) result = addExpression(result, "Wani");
 
     return result;
 }
