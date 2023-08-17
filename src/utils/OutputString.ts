@@ -350,9 +350,9 @@ export function generateWeaponDamage(settings: PoeStringSettings): string {
     const {phys, firemult, coldmult, chaosmult} = settings.damage;
     let result = "";
     if (phys) result = addExpression(result, "Glint|Heav");
-    if (firemult) result = addExpression(result, "Inclement");
-    if (coldmult) result = addExpression(result, "Earnest");
-    if (chaosmult) result = addExpression(result, "Waning");
+    if (firemult) result = addExpression(result, "Earn");
+    if (coldmult) result = addExpression(result, "Incl");
+    if (chaosmult) result = addExpression(result, "Wani");
 
     return result;
 }
