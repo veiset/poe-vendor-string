@@ -10,6 +10,7 @@ import {dateTextFromString} from "../expedition/ExpeditionUtils";
 export interface PoeNinjaBeast {
     name: string
     chaosValue: number
+    listingCount: number
 }
 
 export interface PoeNinjaBeastData {
@@ -21,6 +22,7 @@ interface BeastPriceRegex {
     chaosValue: number
     recipe: string
     regex: string
+    numberOfBeasts: number
 }
 
 const sortByChaosValue = (e1: BeastPriceRegex, e2: BeastPriceRegex) => e2.chaosValue - e1.chaosValue;
@@ -61,15 +63,18 @@ const Beast = () => {
 
         data.then((d) => {
             const priceLookup = new Map(d.lines.map((b) => [b.name, b.chaosValue]));
+            const lookup = new Map(d.lines.map((b) => [b.name, b]));
             const pricedRegex: BeastPriceRegex[] = beastRegex.map((b) =>
                 ({
                     name: b.beast,
-                    chaosValue: priceLookup.get(b.beast) as number,
+                    chaosValue: priceLookup.get(b.beast) ?? 0,
                     recipe: b.recipe,
-                    regex: b.regex
+                    regex: b.regex,
+                    numberOfBeasts: lookup.get(b.beast)?.listingCount ?? 0
                 })
-            );
-            setBeastPrices(pricedRegex.sort(sortByChaosValue));
+            ).filter((e) => e.numberOfBeasts > 5); // filter price fixing, or very low amount of beasts
+            pricedRegex.sort(sortByChaosValue)
+            setBeastPrices(pricedRegex);
         });
     }, []);
 
@@ -113,11 +118,11 @@ const Beast = () => {
                         <div className="beast-value-cell">Chaos</div>
                         <div className="beast-recipe-cell">Recipe</div>
                     </div>
-                    {beastPrices.map((e) => {
+                    {beastPrices.sort(sortByChaosValue).map((e) => {
                         const highlighted = result.includes(e.regex);
                         const highlightedCss = highlighted ? "beast-highlighted" : "";
                         return (
-                            <div className={`beast-row ${highlightedCss}`}>
+                            <div className={`beast-row ${highlightedCss}`} key={e.name}>
                                 <div className="beast-name-cell" key={e.name}>{e.name}</div>
                                 <div className="beast-regex-cell">{e.regex}</div>
                                 <div className="beast-value-cell">{e.chaosValue}</div>
