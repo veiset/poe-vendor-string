@@ -1,0 +1,17 @@
+.coffee-banner {
+    text-align: center;
+    font-size: 20px;
+    color: #232323;
+    padding: 20px;
+    background-color: #f89883;
+}
+.close-banner {
+    padding-left: 20px;
+    color: #444444;
+    cursor: pointer;
+}
+.banner-link {
+    color: #000000;
+    font-weight: bold;
+    text-decoration: underline;
+}
