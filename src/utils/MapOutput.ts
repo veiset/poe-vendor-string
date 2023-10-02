@@ -66,7 +66,7 @@ function generateGoodMods(settings: MapModSettings): string {
     }
 }
 
-function generateNumberRegex(number: string, optimize: boolean): string {
+export function generateNumberRegex(number: string, optimize: boolean): string {
     const numbers = number.match(/\d/g);
     if (numbers === null) {
         return "";
@@ -91,7 +91,12 @@ function generateNumberRegex(number: string, optimize: boolean): string {
             return `(\\d[${d1}-9]\\d)`;
         } else if (str[1] === "0") {
             return `(\\d0[${d2}-9]|\\d[1-9]\\d)`;
+        } else if (str[1] === "9" && str[2] === "9") {
+            return `(199)`;
         } else {
+            if (d1 === "9") {
+                return `(19[${d2}-9])`;
+            }
             return `(1[${d1}-9][${d2}-9]|1[${Number(d1) + 1}-9]\\d)`;
         }
     }
