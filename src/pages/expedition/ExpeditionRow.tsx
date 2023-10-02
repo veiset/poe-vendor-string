@@ -1,6 +1,7 @@
 import {PricedBaseType, PricedItemWithFallback} from "./ExpeditionTypes";
 import {Dispatch, SetStateAction} from "react";
 import {toggleSelectBaseType} from "./ExpeditionUtils";
+import chaosOrb from "../../img/Chaos_Orb_inventory_icon.png";
 
 interface ItemDisplayProps {
     pricedItem: PricedItemWithFallback
@@ -29,6 +30,7 @@ export const ItemDisplay = (props: ItemDisplayProps) => {
             </img>
             <span className="expedition-img-value">
                 {normalizeValue(pricedItem)}{isFallbackPrice(pricedItem) && <span className="expedition-fallback-price">?</span>}
+                <img src={chaosOrb} className="chaos-orb-price-icon" />
                 <span className="item-tooltip-text">
                     <span className="hover-img-text">{item.name}&nbsp;</span>
                     <div>

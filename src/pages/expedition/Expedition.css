@@ -33,6 +33,7 @@
     float: left;
     border: 1px solid #1b1e22;
     margin: 5px;
+    min-width: 60px;
 }
 .expedition-img {
     max-height: 84px;
@@ -43,7 +44,7 @@
     bottom: 0;
     right: 0;
     color: #ffebb7;
-    font-size: 16px;
+    font-size: 14px;
     padding-left: 2px;
     padding-right: 2px;
     background-color: #1b1e21;
@@ -172,4 +173,10 @@ a.item-link {
 }
 .unseen-unique {
     color: #bd7f40;
+}
+.chaos-orb-price-icon {
+    padding-top: 3px;
+    height: 16px;
+    width: 16px;
+    float: right;
 }
