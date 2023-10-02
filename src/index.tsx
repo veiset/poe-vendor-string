@@ -16,7 +16,6 @@ const root = ReactDOM.createRoot(
 root.render(
     <React.StrictMode>
         <HashRouter>
-            <CoffeeBanner />
             <div className="content-height-wrapper">
                 <div className="content-container">
                     <div className="content-links">
