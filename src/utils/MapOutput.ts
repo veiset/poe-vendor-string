@@ -13,19 +13,19 @@ export interface MapModSettings {
 export function generateMapModStr(settings: MapModSettings): string {
     const exclusions = generateBadMods(settings);
     const inclusions = generateGoodMods(settings);
-    const quantity = addPrefix("m q.*", generateNumberRegex(settings.quantity, settings.optimizeQuant));
-    const packsize = addPrefix("iz.*", generateNumberRegex(settings.packsize, settings.optimizePacksize));
+    const quantity = addQuantifier("m q.*", generateNumberRegex(settings.quantity, settings.optimizeQuant));
+    const packsize = addQuantifier("iz.*", generateNumberRegex(settings.packsize, settings.optimizePacksize));
 
     const result = `${exclusions} ${inclusions} ${quantity} ${packsize}`
         .trim().replaceAll(/\s{2,}/g, ' ');
     return optimize(result);
 }
 
-function addPrefix(prefix: string, string: string) {
+function addQuantifier(prefix: string, string: string) {
    if (string === "") {
        return "";
    }
-   return `"${prefix}${string}"`;
+   return `"${prefix}${string}%"`;
 }
 
 function optimize(string: string): string {
@@ -66,7 +66,7 @@ function generateGoodMods(settings: MapModSettings): string {
     }
 }
 
-export function generateNumberRegex(number: string, optimize: boolean): string {
+function generateNumberRegex(number: string, optimize: boolean): string {
     const numbers = number.match(/\d/g);
     if (numbers === null) {
         return "";
@@ -78,7 +78,7 @@ export function generateNumberRegex(number: string, optimize: boolean): string {
         return "";
     }
     if (quant >= 200) {
-        return `(2\\d{2})`;
+        return `2..`;
     }
     if (quant > 100) {
         const str = quant.toString();
@@ -86,18 +86,18 @@ export function generateNumberRegex(number: string, optimize: boolean): string {
         const d1 = str[1];
         const d2 = str[2];
         if (str[1] === "0" && str[2] === "0") {
-            return `(${d0}\\d{2})`;
+            return `${d0}..`;
         } else if (str[2] === "0") {
-            return `(\\d[${d1}-9]\\d)`;
+            return `1[${d1}-9].`;
         } else if (str[1] === "0") {
-            return `(\\d0[${d2}-9]|\\d[1-9]\\d)`;
+            return `(\\d0[${d2}-9]|\\d[1-9].)`;
         } else if (str[1] === "9" && str[2] === "9") {
-            return `(199)`;
+            return `199`;
         } else {
             if (d1 === "9") {
-                return `(19[${d2}-9])`;
+                return `19[${d2}-9]`;
             }
-            return `(1[${d1}-9][${d2}-9]|1[${Number(d1) + 1}-9]\\d)`;
+            return `1([${d1}-9][${d2}-9]|[${Number(d1) + 1}-9].)`;
         }
     }
     if (quant === 100) {
@@ -108,17 +108,17 @@ export function generateNumberRegex(number: string, optimize: boolean): string {
         const d0 = str[0];
         const d1 = str[1];
         if (str[1] === "0") {
-            return `([${d0}-9]\\d|\\d{3})`;
+            return `([${d0}-9].|1..)`;
         }
         else if (str[0] === "9") {
-            return `(${d0}[${d1}-9]|\\d{3})`;
+            return `(${d0}[${d1}-9]|1..)`;
         }
         else {
-            return `(${d0}[${d1}-9]|[${Number(d0) + 1}-9]\\d|\\d{3})`;
+            return `(${d0}[${d1}-9]|[${Number(d0) + 1}-9].|1..)`;
         }
     }
     if (quant <= 9) {
-        return `([${quant}-9]|\\d\\d\\d?)`;
+        return `([${quant}-9]|\\d..?)`;
     }
     return number;
 }

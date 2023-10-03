@@ -1,23 +1,36 @@
-import { generateNumberRegex } from './MapOutput';
+import {generateMapModStr, MapModSettings} from './MapOutput';
 
-describe('testing index file', () => {
+describe('testing quantity and quality regex number matching', () => {
     const sampleSize = 199;
+
+    const settings = (quant: string, optimize: boolean): MapModSettings => ({
+        badMods: [],
+        goodMods: [],
+        allGoodMods: false,
+        optimizePacksize: optimize,
+        optimizeQuant: optimize,
+        quantity: quant,
+        packsize: "",
+    })
 
     test('Should match correct quantities without optimization', () => {
         arrayRange(sampleSize).map(i => i + 1).forEach(selectedValue => {
             const shouldNotMatch = arrayRange(selectedValue);
             const shouldMatch = arrayRange(sampleSize - selectedValue + 1).map(i => selectedValue + i);
             shouldNotMatch.map(noMatch => {
-                const regex = generateNumberRegex(`${selectedValue}`, false);
+                const regex = generateMapModStr(settings(`${selectedValue}`, false)).replaceAll("\"", "");
                 const r = new RegExp(regex);
-                expect(r.test(`${noMatch}%`)).toBe(false);
+                const mapText = `map quantity: ${noMatch}%`;
+                // console.log(`r: ${r}, map: "${mapText}" matching: ${noMatch} -> selected: ${selectedValue}`);
+                expect(r.test(mapText)).toBe(false);
             });
 
             shouldMatch.map(match => {
-                const regex = generateNumberRegex(`${selectedValue}`, false);
+                const regex = generateMapModStr(settings(`${selectedValue}`, false)).replaceAll("\"", "");
                 const r = new RegExp(regex);
-                // console.log(`r: ${r}, m: ${match} -> s: ${selectedValue}`);
-                expect(r.test(`${match}%`)).toBe(true);
+                const mapText = `map quantity: ${match}%`;
+                // console.log(`r: ${r}, map: "${mapText}" matching: ${match} -> selected: ${selectedValue}`);
+                expect(r.test(mapText)).toBe(true);
             });
         })
     });
@@ -28,15 +41,15 @@ describe('testing index file', () => {
             const shouldNotMatch = arrayRange(selectedValue);
             const shouldMatch = arrayRange(sampleSize - selectedValue + 1).map(i => selectedValue + i);
             shouldNotMatch.map(noMatch => {
-                const regex = generateNumberRegex(`${selectedValue}`, true);
+                const regex = generateMapModStr(settings(`${selectedValue}`, true)).replaceAll("\"", "");
                 const r = new RegExp(regex);
-                expect(r.test(`${noMatch}%`)).toBe(false);
+                expect(r.test(`map quantity: ${noMatch}%`)).toBe(false);
             });
 
             shouldMatch.map(match => {
-                const regex = generateNumberRegex(`${selectedValue}`, true);
+                const regex = generateMapModStr(settings(`${selectedValue}`, true)).replaceAll("\"", "");
                 const r = new RegExp(regex);
-                expect(r.test(`${match}%`)).toBe(true);
+                expect(r.test(`map quantity: ${match}%`)).toBe(true);
             });
         })
     });
