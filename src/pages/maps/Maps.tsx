@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import './Maps.css';
 import ResultBox from "../../components/ResultBox";
-import {MapMod, mapModifiers} from "../../generated/GeneratedMapMods";
+import {MapMod, mapModifiers, kiracModifier} from "../../generated/GeneratedMapMods";
 import {generateMapModStr, MapModSettings} from "../../utils/MapOutput";
 import MapModList from "../../components/MapModList";
 import {Checkbox} from "../vendor/Vendor";
@@ -11,16 +11,21 @@ import {hasKey} from "../../utils/LocalStorage";
 
 const Maps = () => {
     const mods = Array.from(Object.keys(mapModifiers));
+    const kiracModList = Array.from(Object.keys(kiracModifier));
     const badMods = mods
         .map((m) => ({...mapModifiers[m], value: m}))
         .sort((a, b) => a.scary - b.scary);
     const goodMods = mods
         .map((m) => ({...mapModifiers[m], value: m}))
         .sort((a, b) => b.scary - a.scary);
+    const kiracMods = kiracModList
+        .map((m) => ({...kiracModifier[m], value: m}))
+        .sort((a, b) => b.scary - a.scary);
 
     const savedSettings = JSON.parse(localStorage.getItem("mapSearch") ?? "{}")
     const [selectedBadMods, setSelectedBadMods] = React.useState<string[]>(hasKey(savedSettings, "badMods") ? savedSettings.badMods.filter((v: string) => mods.includes(v)) : []);
     const [selectedGoodMods, setSelectedGoodMods] = React.useState<string[]>(hasKey(savedSettings, "goodMods") ? savedSettings.goodMods.filter((v: string) => mods.includes(v)) : []);
+    const [selectedKirac, setSelectedKirac] = React.useState<string[]>(hasKey(savedSettings, "kirac") ? savedSettings.kirac.filter((v: string) => kiracModList.includes(v)) : []);
     const [modGrouping, setModGrouping] = React.useState(hasKey(savedSettings, "allGoodMods") ? (savedSettings.allGoodMods ? "all" : "any") : "any");
     const [quantity, setQuantity] = React.useState(hasKey(savedSettings, "quantity") ? savedSettings.quantity : "");
     const [packsize, setPacksize] = React.useState(hasKey(savedSettings, "packsize") ? savedSettings.packsize : "");
@@ -33,6 +38,7 @@ const Maps = () => {
         let settings: MapModSettings = {
             badMods: selectedBadMods,
             goodMods: selectedGoodMods,
+            kirac: selectedKirac,
             allGoodMods: modGrouping === "all",
             quantity,
             packsize,
@@ -42,7 +48,7 @@ const Maps = () => {
         let search = generateMapModStr(settings);
         localStorage.setItem("mapSearch", JSON.stringify(settings));
         setResult(search);
-    }, [result, selectedBadMods, selectedGoodMods, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize]);
+    }, [result, selectedBadMods, selectedGoodMods, selectedKirac, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize]);
 
 
     return (
@@ -51,6 +57,7 @@ const Maps = () => {
             <ResultBox result={result} warning={undefined} reset={() => {
                 setSelectedGoodMods([]);
                 setSelectedBadMods([]);
+                setSelectedKirac([]);
                 setOptimizePacksize(true);
                 setOptimizeQuant(true);
                 setQuantity("");
@@ -89,6 +96,11 @@ const Maps = () => {
             </div>
             <div className="eq-col-2">
                 <MapModList id="good-mods" colorFun={goodMapColor} mods={goodMods} selected={selectedGoodMods} setSelected={setSelectedGoodMods}/>
+            </div>
+            <div className="eq-col-2"></div>
+            <div className="eq-col-2">
+                <h2>Kirac missions</h2>
+                <MapModList id="kirac" disableSearch={true} colorFun={goodMapColor} mods={kiracMods} selected={selectedKirac} setSelected={setSelectedKirac}/>
             </div>
         </>
     );

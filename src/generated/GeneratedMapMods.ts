@@ -411,3 +411,80 @@ export const mapModifiers: { [key: string]: MapMod } = {
    matchSafe: "yi",
  },
 };
+export const kiracModifier: { [key: string]: MapMod } = {
+ "Area contains The Sacred Grove": {
+   value: "Area contains The Sacred Grove",
+   scary: 900,
+   matchSafe: "sac",
+ },
+ "Area contains an additional Legion Encounter": {
+   value: "Area contains an additional Legion Encounter",
+   scary: 899,
+   matchSafe: "leg",
+ },
+ "Area contains an additional Expedition Encounter": {
+   value: "Area contains an additional Expedition Encounter",
+   scary: 898,
+   matchSafe: "xped",
+ },
+ "Area contains an additional Smuggler's Cache": {
+   value: "Area contains an additional Smuggler's Cache",
+   scary: 897,
+   matchSafe: "r'",
+ },
+ "Area contains Metamorph Monsters": {
+   value: "Area contains Metamorph Monsters",
+   scary: 896,
+   matchSafe: "tam",
+ },
+ "Areas contain Ritual Altars": {
+   value: "Areas contain Ritual Altars",
+   scary: 895,
+   matchSafe: "ual",
+ },
+ "Area contains # additional Abysses": {
+   value: "Area contains # additional Abysses",
+   scary: 894,
+   matchSafe: "ses",
+ },
+ "Area contains # additional Breaches": {
+   value: "Area contains # additional Breaches",
+   scary: 893,
+   matchSafe: "brea",
+ },
+ "Area contains # additional Harbingers": {
+   value: "Area contains # additional Harbingers",
+   scary: 892,
+   matchSafe: "arb",
+ },
+ "Area contains # additional Essences": {
+   value: "Area contains # additional Essences",
+   scary: 891,
+   matchSafe: "esse",
+ },
+ "Area contains # additional Strongboxes": {
+   value: "Area contains # additional Strongboxes",
+   scary: 890,
+   matchSafe: "gb",
+ },
+ "Area is inhabited by # additional Tormented Spirits": {
+   value: "Area is inhabited by # additional Tormented Spirits",
+   scary: 889,
+   matchSafe: "rme",
+ },
+ "Area contains # additional Shrines": {
+   value: "Area contains # additional Shrines",
+   scary: 888,
+   matchSafe: "rines",
+ },
+ "Area is inhabited by # additional Rogue Exiles": {
+   value: "Area is inhabited by # additional Rogue Exiles",
+   scary: 887,
+   matchSafe: "rog",
+ },
+ "Area is inhabited by Cultists of Kitava": {
+   value: "Area is inhabited by Cultists of Kitava",
+   scary: 886,
+   matchSafe: "cul",
+ },
+};

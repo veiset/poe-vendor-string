@@ -6,6 +6,7 @@ describe('testing quantity and quality regex number matching', () => {
     const settings = (quant: string, optimize: boolean): MapModSettings => ({
         badMods: [],
         goodMods: [],
+        kirac: [],
         allGoodMods: false,
         optimizePacksize: optimize,
         optimizeQuant: optimize,

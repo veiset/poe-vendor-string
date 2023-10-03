@@ -1,8 +1,9 @@
-import {mapModifiers} from "../generated/GeneratedMapMods";
+import {mapModifiers, kiracModifier} from "../generated/GeneratedMapMods";
 
 export interface MapModSettings {
     badMods: string[]
     goodMods: string[]
+    kirac: string[]
     allGoodMods: boolean
     quantity: string
     packsize: string
@@ -13,10 +14,11 @@ export interface MapModSettings {
 export function generateMapModStr(settings: MapModSettings): string {
     const exclusions = generateBadMods(settings);
     const inclusions = generateGoodMods(settings);
+    const kirac = generateKirac(settings);
     const quantity = addQuantifier("m q.*", generateNumberRegex(settings.quantity, settings.optimizeQuant));
     const packsize = addQuantifier("iz.*", generateNumberRegex(settings.packsize, settings.optimizePacksize));
 
-    const result = `${exclusions} ${inclusions} ${quantity} ${packsize}`
+    const result = `${exclusions} ${inclusions} ${quantity} ${packsize} ${kirac}`
         .trim().replaceAll(/\s{2,}/g, ' ');
     return optimize(result);
 }
@@ -64,6 +66,21 @@ function generateGoodMods(settings: MapModSettings): string {
         }).join("|").replaceAll("\"", "")
         return `"${modStr}"`
     }
+}
+
+function generateKirac(settings: MapModSettings): string {
+    const {kirac} = settings;
+
+    if (kirac.length === 0) {
+        return "";
+    }
+
+    const selectedKirac = kirac.map((m) => {
+        return kiracModifier[m].matchSafe
+    }).join("|");
+
+    return `"(${selectedKirac}).*ici"`;
+
 }
 
 function generateNumberRegex(number: string, optimize: boolean): string {

@@ -8,10 +8,11 @@ export interface ModListProps {
     selected: string[]
     setSelected: Dispatch<SetStateAction<string[]>>
     colorFun?: (mapMod: MapMod) => string
+    disableSearch?: boolean
 }
 
 const MapModList = (props: ModListProps) => {
-    const {id, mods, selected, setSelected, colorFun} = props;
+    const {id, mods, selected, setSelected, colorFun, disableSearch} = props;
     const [search, setSearch] = React.useState("");
 
     useEffect(() => { }, [selected]);
@@ -22,7 +23,7 @@ const MapModList = (props: ModListProps) => {
 
     return (
         <>
-            <ModSearchBox id={id} search={search} setSearch={setSearch} />
+            {!disableSearch && <ModSearchBox id={id} search={search} setSearch={setSearch} />}
             <div className="mod-list">
                 {mapMods.map((v) => {
                     const isSelected = selected.includes(v.value);
