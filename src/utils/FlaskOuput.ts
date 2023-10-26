@@ -8,6 +8,7 @@ export interface FlaskModSettings {
     onlyMaxSuffixTierMod: boolean
     matchBothPrefixAndSuffix: boolean
     ignoreEffectTiers: boolean
+    matchOpenPrefixSuffix: boolean
 }
 
 
@@ -38,7 +39,7 @@ export function minItemLevel(modGroups: FlaskModGroup[], settings: FlaskModSetti
 }
 
 export function generateFlaskOutput(modGroups: FlaskModGroup[], settings: FlaskModSettings): string {
-    const {prefix, suffix, ilevel, onlyMaxPrefixTierMod, onlyMaxSuffixTierMod, matchBothPrefixAndSuffix, ignoreEffectTiers} = settings;
+    const {prefix, suffix, ilevel, onlyMaxPrefixTierMod, onlyMaxSuffixTierMod, matchBothPrefixAndSuffix, ignoreEffectTiers, matchOpenPrefixSuffix} = settings;
     const ilevelNumber = isNaN(Number(ilevel)) ? 85 : Number(ilevel);
 
     const prefixRegex = prefix.map((p => {
@@ -52,16 +53,29 @@ export function generateFlaskOutput(modGroups: FlaskModGroup[], settings: FlaskM
     })).filter((v) => v !== undefined).join("|");
 
     const filteredPrefixRegex = replaceEffectTier(prefixRegex, modGroups, ignoreEffectTiers);
-    
+    const openPrefix = "^[a-z]+ Flask";
+    const openSuffix = "Flask$";
+
     if (filteredPrefixRegex.length > 0 && suffixRegex.length > 0) {
         if (matchBothPrefixAndSuffix) {
-            return `"${filteredPrefixRegex}" "${suffixRegex}"`;
+            if (matchOpenPrefixSuffix) {
+                return `"${filteredPrefixRegex}"|"${openPrefix}" "${suffixRegex}"|"${openSuffix}"`;
+            } else {
+                return `"${filteredPrefixRegex}" "${suffixRegex}"`;
+            }
         } else {
             return `"${filteredPrefixRegex}|${suffixRegex}"`;
         }
     } else if (filteredPrefixRegex.length > 0) {
-        return `"${filteredPrefixRegex}"`;
+        if (matchOpenPrefixSuffix) {
+            return `"${filteredPrefixRegex}"|"${openPrefix}"`;
+        } else {
+            return `"${filteredPrefixRegex}"`;
+        }
     } else if (suffixRegex.length > 0) {
+        if (matchOpenPrefixSuffix) {
+            return `"${suffixRegex}"|"${openSuffix}"`;
+        }
         return `"${suffixRegex}"`;
     } else {
         return "";

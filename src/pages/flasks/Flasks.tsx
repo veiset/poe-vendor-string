@@ -18,6 +18,7 @@ const Flasks = () => {
     const [onlyMaxSuffixTierMod, setOnlyMaxSuffixTierMod] = React.useState(hasKey(savedSettings, "onlyMaxSuffixTierMod") ? savedSettings.onlyMaxSuffixTierMod : true);
     const [matchBothPrefixAndSuffix, setMatchBothPrefixAndSuffix] = React.useState(hasKey(savedSettings, "matchBothPrefixAndSuffix") ? savedSettings.matchBothPrefixAndSuffix : false);
     const [ignoreEffectTiers, setIgnoreEffectTiers] = React.useState(hasKey(savedSettings, "ignoreEffectTiers") ? savedSettings.ignoreEffectTiers : false);
+    const [matchOpenPrefixSuffix, setMatchOpenPrefixSuffix] = React.useState(hasKey(savedSettings, "matchOpenPrefixSuffix") ? savedSettings.matchOpenPrefixSuffix : false);
 
     let [result, setResult] = React.useState("");
     let [minIlevel, setMinIlevel] = React.useState<string | undefined>(undefined);
@@ -31,13 +32,14 @@ const Flasks = () => {
             onlyMaxSuffixTierMod,
             matchBothPrefixAndSuffix,
             ignoreEffectTiers,
+            matchOpenPrefixSuffix,
         }
         let allMods = flaskPrefix.concat(flaskSuffix);
         let search = generateFlaskOutput(allMods, settings);
         localStorage.setItem("flaskSearch", JSON.stringify(settings));
         setResult(search);
         setMinIlevel(minItemLevel(allMods, settings));
-    }, [result, selectedPrefix, selectedSuffix, ilevel, onlyMaxPrefixTierMod, onlyMaxSuffixTierMod, matchBothPrefixAndSuffix, ignoreEffectTiers]);
+    }, [result, selectedPrefix, selectedSuffix, ilevel, onlyMaxPrefixTierMod, onlyMaxSuffixTierMod, matchBothPrefixAndSuffix, ignoreEffectTiers, matchOpenPrefixSuffix]);
 
     return (
         <>
@@ -55,7 +57,9 @@ const Flasks = () => {
                        onChange={v => setIlevel(v.target.value)}/>
                 <Checkbox label="Require that both prefix and suffix matches" value={matchBothPrefixAndSuffix}
                           onChange={setMatchBothPrefixAndSuffix}/>
-              <Checkbox label="Ignore tier for increased effect flasks (useful when rolling flasks for Mageblood)" value={ignoreEffectTiers}
+                <Checkbox label="Match open prefix or open suffix" value={matchOpenPrefixSuffix}
+                        onChange={setMatchOpenPrefixSuffix}/>
+                <Checkbox label="Ignore tier for increased effect flasks (useful when rolling flasks for Mageblood)" value={ignoreEffectTiers}
                         onChange={setIgnoreEffectTiers}/>
             </div>
             <div className="break"/>
