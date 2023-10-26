@@ -26,7 +26,7 @@ const ResultBox = (props: ResultBoxProps) => {
     return (
         <div className="row result-box">
             <div className={result.length > maxLength ? "result" : result === copied ? "result copied-good" : "result"}>
-                {result}
+                <span>{result}</span>
                 {result.length > maxLength && <div className="error">Error: more than 50 characters, cannot be used in the PoE client</div>}
                 {!error && result.length <= maxLength && result.length > 0 && <div className="size-info">length: {result.length} / 50</div>}
                 {error && <div className="error">Error: {error}</div>}
