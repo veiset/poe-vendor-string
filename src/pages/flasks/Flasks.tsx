@@ -17,6 +17,7 @@ const Flasks = () => {
     const [onlyMaxPrefixTierMod, setOnlyMaxPrefixTierMod] = React.useState(hasKey(savedSettings, "onlyMaxPrefixTierMod") ? savedSettings.onlyMaxPrefixTierMod : true);
     const [onlyMaxSuffixTierMod, setOnlyMaxSuffixTierMod] = React.useState(hasKey(savedSettings, "onlyMaxSuffixTierMod") ? savedSettings.onlyMaxSuffixTierMod : true);
     const [matchBothPrefixAndSuffix, setMatchBothPrefixAndSuffix] = React.useState(hasKey(savedSettings, "matchBothPrefixAndSuffix") ? savedSettings.matchBothPrefixAndSuffix : false);
+    const [ignoreEffectTiers, setIgnoreEffectTiers] = React.useState(hasKey(savedSettings, "ignoreEffectTiers") ? savedSettings.ignoreEffectTiers : false);
 
     let [result, setResult] = React.useState("");
     let [minIlevel, setMinIlevel] = React.useState<string | undefined>(undefined);
@@ -29,13 +30,14 @@ const Flasks = () => {
             onlyMaxPrefixTierMod,
             onlyMaxSuffixTierMod,
             matchBothPrefixAndSuffix,
+            ignoreEffectTiers,
         }
         let allMods = flaskPrefix.concat(flaskSuffix);
         let search = generateFlaskOutput(allMods, settings);
         localStorage.setItem("flaskSearch", JSON.stringify(settings));
         setResult(search);
         setMinIlevel(minItemLevel(allMods, settings));
-    }, [result, selectedPrefix, selectedSuffix, ilevel, onlyMaxPrefixTierMod, onlyMaxSuffixTierMod, matchBothPrefixAndSuffix]);
+    }, [result, selectedPrefix, selectedSuffix, ilevel, onlyMaxPrefixTierMod, onlyMaxSuffixTierMod, matchBothPrefixAndSuffix, ignoreEffectTiers]);
 
     return (
         <>
@@ -53,6 +55,8 @@ const Flasks = () => {
                        onChange={v => setIlevel(v.target.value)}/>
                 <Checkbox label="Require that both prefix and suffix matches" value={matchBothPrefixAndSuffix}
                           onChange={setMatchBothPrefixAndSuffix}/>
+              <Checkbox label="Ignore tier for increased effect flasks (useful when rolling flasks for Mageblood)" value={ignoreEffectTiers}
+                        onChange={setIgnoreEffectTiers}/>
             </div>
             <div className="break"/>
 

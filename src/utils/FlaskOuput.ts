@@ -7,6 +7,7 @@ export interface FlaskModSettings {
     onlyMaxPrefixTierMod: boolean
     onlyMaxSuffixTierMod: boolean
     matchBothPrefixAndSuffix: boolean
+    ignoreEffectTiers: boolean
 }
 
 
@@ -37,7 +38,7 @@ export function minItemLevel(modGroups: FlaskModGroup[], settings: FlaskModSetti
 }
 
 export function generateFlaskOutput(modGroups: FlaskModGroup[], settings: FlaskModSettings): string {
-    const {prefix, suffix, ilevel, onlyMaxPrefixTierMod, onlyMaxSuffixTierMod, matchBothPrefixAndSuffix} = settings;
+    const {prefix, suffix, ilevel, onlyMaxPrefixTierMod, onlyMaxSuffixTierMod, matchBothPrefixAndSuffix, ignoreEffectTiers} = settings;
     const ilevelNumber = isNaN(Number(ilevel)) ? 85 : Number(ilevel);
 
     const prefixRegex = prefix.map((p => {
@@ -50,19 +51,34 @@ export function generateFlaskOutput(modGroups: FlaskModGroup[], settings: FlaskM
         return mod ? findRegex(mod, ilevelNumber, onlyMaxSuffixTierMod) : undefined;
     })).filter((v) => v !== undefined).join("|");
 
-    if (prefixRegex.length > 0 && suffixRegex.length > 0) {
+    const filteredPrefixRegex = replaceEffectTier(prefixRegex, modGroups, ignoreEffectTiers);
+    
+    if (filteredPrefixRegex.length > 0 && suffixRegex.length > 0) {
         if (matchBothPrefixAndSuffix) {
-            return `"${prefixRegex}" "${suffixRegex}"`;
+            return `"${filteredPrefixRegex}" "${suffixRegex}"`;
         } else {
-            return `"${prefixRegex}|${suffixRegex}"`;
+            return `"${filteredPrefixRegex}|${suffixRegex}"`;
         }
-    } else if (prefixRegex.length > 0) {
-        return `"${prefixRegex}"`;
+    } else if (filteredPrefixRegex.length > 0) {
+        return `"${filteredPrefixRegex}"`;
     } else if (suffixRegex.length > 0) {
         return `"${suffixRegex}"`;
     } else {
         return "";
     }
+}
+
+function replaceEffectTier(regex: string, modGroups: FlaskModGroup[], ignoreEffectTiers: boolean): string {
+    if (ignoreEffectTiers) {
+        const effectMod = modGroups.find((f) => f.description.includes("reduced Duration"));
+        if (!effectMod) {
+            return regex;
+        }
+        const tieredEffectRegexs = effectMod.mods.map((e) => e.regex);
+        const tierReplaceRegex = new RegExp(tieredEffectRegexs.join("|"));
+        return regex.replace(tierReplaceRegex, effectMod.regex)
+    }
+    return regex;
 }
 
 function findIlevel(modGroup: FlaskModGroup, ilevelNumber: number): number | undefined {
