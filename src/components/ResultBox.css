@@ -5,6 +5,10 @@
     color: white;
     flex-wrap: nowrap;
     flex-direction: row;
+
+    @media (max-width: 800px) {
+        flex-direction: column;
+    }
 }
 .result {
     padding: 30px;
@@ -14,7 +18,19 @@
     flex-shrink: 10;
     flex-grow: 0;
     text-overflow: ellipsis;
-    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: scroll;
+
+    > span {
+        @media (max-width: 800px) {
+            white-space: nowrap;
+        }
+    }
+
+    @media (max-width: 800px) {
+        padding: 30px 8px;
+        text-overflow: clip;
+    }
 }
 .result-action {
     width: 196px;
