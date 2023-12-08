@@ -32,7 +32,7 @@ const Maps = () => {
     const [optimizeQuant, setOptimizeQuant] = React.useState(hasKey(savedSettings, "optimizeQuant") ? savedSettings.optimizeQuant : true);
     const [optimizePacksize, setOptimizePacksize] = React.useState(hasKey(savedSettings, "optimizePacksize") ? savedSettings.optimizePacksize : true);
 
-    let [result, setResult] = React.useState("");
+    const [result, setResult] = React.useState("");
 
     useEffect(() => {
         let settings: MapModSettings = {
