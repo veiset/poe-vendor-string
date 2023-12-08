@@ -17,15 +17,7 @@
     white-space: nowrap;
     flex-shrink: 10;
     flex-grow: 0;
-    text-overflow: ellipsis;
-    overflow-y: hidden;
-    overflow-x: scroll;
-
-    > span {
-        @media (max-width: 800px) {
-            white-space: nowrap;
-        }
-    }
+    overflow: hidden;
 
     @media (max-width: 800px) {
         padding: 30px 8px;
