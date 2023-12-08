@@ -16,7 +16,7 @@ import {ExpeditionHelp} from "./ExpeditionHelp";
 
 dayjs.extend(relativeTime);
 
-export const leagueName = "Ancestor";
+export const leagueName = "Affliction";
 
 const allItemsFromGeneratedItems = (baseTypeRegex: { [key: string]: BaseTypeRegex }): Item[] => {
     const baseTypes: string[] = Array.from(Object.keys(baseTypeRegex));
