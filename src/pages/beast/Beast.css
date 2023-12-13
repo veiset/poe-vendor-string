@@ -28,8 +28,11 @@
     padding-right: 10px;
 }
 .beast-highlighted {
-    color: #d5ffcd;
+    color: #50dbe0;
 }
 .beast-options {
-    padding: 20px;
+    padding: 20px 20px 10px;
+}
+.hidden-beast {
+    color: #1b1e22;
 }
