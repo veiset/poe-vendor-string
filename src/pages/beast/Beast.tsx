@@ -7,7 +7,7 @@ import "./Beast.css";
 import Collapsable from "../../components/collapsable/Collapsable";
 import {dateTextFromString} from "../expedition/ExpeditionUtils";
 import {Checkbox} from "../vendor/Vendor";
-import {hasKey} from "../../utils/LocalStorage";
+import {defaultSettings, loadSettings, SavedSettings, saveSettings} from "../../utils/LocalStorage";
 
 export interface PoeNinjaBeast {
     name: string
@@ -29,18 +29,6 @@ interface BeastPriceRegex {
 }
 
 const sortByChaosValue = (e1: BeastPriceRegex, e2: BeastPriceRegex) => e2.chaosValue - e1.chaosValue;
-
-export interface BeastSettings {
-  includeHarvest: boolean
-  minChaosValue: string
-  maxChaosValue: string
-}
-
-const defaultSettings: BeastSettings = {
-  includeHarvest: true,
-  minChaosValue: '',
-  maxChaosValue: '',
-}
 
 const generateRegex = (
     prices: BeastPriceRegex[],
@@ -68,12 +56,13 @@ const generateRegex = (
 }
 
 const Beast = () => {
-    const savedSettings: BeastSettings = JSON.parse(localStorage.getItem("beast") ?? '{}');
+    const savedSettings: SavedSettings = loadSettings();
+    const [minChaosValue, setMinChaosValue] = useState<string>(savedSettings.beast.minChaosValue);
+    const [maxChaosValue, setMaxChaosValue] = useState<string>(savedSettings.beast.maxChaosValue);
+    const [includeHarvest, setIncludeHarvest] = React.useState(savedSettings.beast.includeHarvest);
+
     const [beastPrices, setBeastPrices] = useState<BeastPriceRegex[]>([]);
-    const [minChaosValue, setMinChaosValue] = useState<string>(hasKey(savedSettings, "minChaosValue") ? savedSettings.minChaosValue: '');
-    const [maxChaosValue, setMaxChaosValue] = useState<string>(hasKey(savedSettings, "maxChaosValue") ? savedSettings.maxChaosValue: '');
     const [lastUpdated, setLastUpdated] = useState("Outdated prices. Check back in a few mins...");
-    const [includeHarvest, setIncludeHarvest] = React.useState(hasKey(savedSettings, "includeHarvest") ? savedSettings.includeHarvest : true);
     const [result, setResult] = useState<string>("");
 
     useEffect(() => {
@@ -104,12 +93,14 @@ const Beast = () => {
     }, []);
 
     useEffect(() => {
-        const settings: BeastSettings = {
-          includeHarvest,
-          minChaosValue,
-          maxChaosValue,
-        }
-        localStorage.setItem("beast", JSON.stringify(settings));
+        saveSettings({
+            ...savedSettings,
+            beast: {
+                includeHarvest,
+                minChaosValue,
+                maxChaosValue,
+            }
+        });
         const minChaosN  = minChaosValue ? minChaosValue as unknown as number : undefined;
         const maxChaosN = maxChaosValue ? maxChaosValue as unknown as number : undefined;
         setResult(generateRegex(beastPrices, includeHarvest, minChaosN, maxChaosN));
@@ -119,9 +110,9 @@ const Beast = () => {
         <>
             <Header text={"Bestiary"}/>
             <ResultBox result={result} warning={""} reset={() => {
-              setIncludeHarvest(true);
-              setMinChaosValue('');
-              setMaxChaosValue('');
+              setIncludeHarvest(defaultSettings.beast.includeHarvest);
+              setMinChaosValue(defaultSettings.beast.minChaosValue);
+              setMaxChaosValue(defaultSettings.beast.maxChaosValue);
             }}/>
             <p className="beast-price-info">Using price data from {leagueName}. Last updated: {lastUpdated}</p>
             <div className="row beast-options">

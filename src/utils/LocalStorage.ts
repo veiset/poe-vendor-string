@@ -1,3 +1,40 @@
+export interface SavedSettings {
+    version: number
+    beast: BeastSettings
+    heist: HeistSettings
+}
+
+export interface BeastSettings {
+    includeHarvest: boolean
+    minChaosValue: string
+    maxChaosValue: string
+}
+
+export interface HeistSettings {
+
+}
+
+export const defaultSettings: SavedSettings = {
+    version: 1,
+    beast: {
+        includeHarvest: true,
+        minChaosValue: '',
+        maxChaosValue: '',
+    },
+    heist: {
+
+    }
+}
+
+export const loadSettings = (): SavedSettings => {
+    const loaded = JSON.parse(localStorage.getItem("settings") ?? "{}");
+    return {...defaultSettings, ...loaded};
+}
+
+export const saveSettings = (settings: SavedSettings): void => {
+    localStorage.setItem("settings", JSON.stringify(settings));
+}
+
 export const hasKey = (savedSettings: any, key: string): boolean => {
     return savedSettings !== undefined && savedSettings.hasOwnProperty(key)
 }
