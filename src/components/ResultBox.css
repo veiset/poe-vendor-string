@@ -1,8 +1,8 @@
 .result-box {
     font-family: monospace;
     font-size: 24px;
-    background-color: black;
-    color: white;
+    background-color: var(--color-area);
+    color: var(--color-text);
     flex-wrap: nowrap;
     flex-direction: row;
 
@@ -10,6 +10,7 @@
         flex-direction: column;
     }
 }
+
 .result {
     padding: 30px;
     height: 62px;
@@ -24,52 +25,66 @@
         text-overflow: clip;
     }
 }
+
+.result-regex {
+    background-color: var(--color-regex-bg);
+}
+
 .result-action {
     width: 196px;
     padding: 22px 22px 10px 10px;
     flex-grow: 1;
 }
+
 .auto-copy {
     padding-left: 3px;
     padding-bottom: 2px;
     margin-top: auto;
     position: relative;
 }
+
 .checkbox-autocopy {
     margin-left: 0;
     margin-right: 5px;
     height: 20px;
     width: 20px;
-    cursor:pointer;
+    cursor: pointer;
 }
+
 .auto-copy-text {
     font-size: 14px;
     position: relative;
     bottom: 4px;
 }
+
 .auto-copy-text:hover {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .copied-good {
-    color: #44c117;
+    color: var(--color-text-copied);
 }
+
 .error {
-    color: #e22434;
+    color: var(--color-text-error);
     padding-top: 10px;
     font-size: 16px;
 }
+
 .label-error {
-    color: #e22434;
+    color: var(--color-text-error);
 }
+
 .label-warning {
-    color: #e28d24;
+    color: var(--color-text-warn);
 }
+
 .warning {
-    color: #e28d24;
+    color: var(--color-text-warn);
     padding-top: 6px;
     font-size: 16px;
 }
+
 .size-info {
     color: #b1b1b7;
     padding-top: 10px;
@@ -77,7 +92,7 @@
 }
 
 .copy-button {
-    background-color: #25700d;
+    background-color: var(--color-correct);
     font-family: monospace;
     border: none;
     color: white;
@@ -93,7 +108,7 @@
 
 .reset-button {
     width: 90px;
-    background-color: #6b091b;
+    background-color: var(--color-deep-error);
     font-family: monospace;
     border: none;
     color: white;

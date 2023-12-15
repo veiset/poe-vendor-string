@@ -1,3 +1,24 @@
+:root {
+    --color-site-bg: #000000;
+    --color-bg: #1b1e23;
+    --color-area: #283036;
+    --color-regex-bg: var(--color-area);
+    --color-soft-area: #7C9EB2;
+    --color-soft-error: #FAC9B8;
+    --color-error: #C84630;
+    --color-deep-error: #af2539;
+    --color-soft-correct: #D7F2BA;
+    --color-correct: #307351;
+    --color-text: #FFFCF2;
+
+    --color-text-warn: #efa05a;
+    --color-deep-text: #EAF2EF;
+    --color-text-highlight: #99c2ce;
+    --color-text-link: #7eb9b2;
+    --color-text-error: #ff6872;
+    --color-text-copied: #69c976;
+}
+
 h1 {
     margin-top: 20px;
     margin-bottom: 24px;
@@ -21,6 +42,7 @@ h2 {
     margin: 3px 10px;
     padding-top: 20px;
 }
+
 .numberinput-input {
     height: 33px;
     width: 33px;
@@ -42,15 +64,18 @@ h2 {
     margin: 3px 10px;
     padding: 0;
 }
+
 .numberinput span {
     display: inline-block;
     margin-top: -10px;
     vertical-align: middle;
     white-space: nowrap;
 }
+
 .numberinput img {
     margin-bottom: -8px;
 }
+
 input[type="checkbox"] {
     background-color: #e22434;
     border: 0;
@@ -60,10 +85,10 @@ input[type="number"] {
     background-color: #ffffff;
     font-size: 20px;
     text-align: center;
-    -moz-appearance:textfield; /* Firefox */
+    -moz-appearance: textfield; /* Firefox */
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
-    box-sizing: border-box;         /* Opera/IE 8+ */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box; /* Opera/IE 8+ */
 }
 
 input::-webkit-outer-spin-button,
@@ -82,6 +107,7 @@ input[type="search"] {
     vertical-align: middle;
     white-space: nowrap;
 }
+
 .checkbox-text {
     font-size: 18px;
 }

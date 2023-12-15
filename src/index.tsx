@@ -11,30 +11,29 @@ import About from "./components/About";
 import CoffeeBanner from "./components/banner/CoffeeBanner";
 
 const root = ReactDOM.createRoot(
-    document.getElementById('root') as HTMLElement
+  document.getElementById('root') as HTMLElement
 );
 root.render(
-    <React.StrictMode>
-        <HashRouter>
-            <div className="content-height-wrapper">
-                <div className="content-container">
-                    <div className="content-links">
-                        <img alt="chain-gfx" src={linkGraphic} className="content-link-icon"/>
-                        <PageLinks/>
-                    </div>
-                    <div className="content-main">
-                        <div className="content-left-gfx"/>
-                        <div className="content-main-area">
-                            <div className="page-content">
-                                <Pages />
-                                <About />
-                            </div>
-                        </div>
-                        <div className="content-right-gfx"/>
-                    </div>
-                </div>
+  <React.StrictMode>
+    <HashRouter>
+      <div className="content-height-wrapper">
+        <div className="content-container">
+          <div className="content-links">
+            <PageLinks/>
+          </div>
+          <div className="content-main">
+            <div className="content-left-gfx"/>
+            <div className="content-main-area">
+              <div className="page-content">
+                <Pages/>
+                <About/>
+              </div>
             </div>
-        </HashRouter>
-    </React.StrictMode>
+            <div className="content-right-gfx"/>
+          </div>
+        </div>
+      </div>
+    </HashRouter>
+  </React.StrictMode>
 );
 

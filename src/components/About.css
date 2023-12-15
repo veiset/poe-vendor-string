@@ -5,6 +5,7 @@
     flex-grow: 1;
     height: 100%;
 }
+
 .source-link {
-    color: #56c8fc;
+    color: var(--color-text-link);
 }

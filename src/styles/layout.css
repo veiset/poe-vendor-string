@@ -5,6 +5,7 @@
 
 body {
     font-family: "Manrope", serif;
+    color: var(--color-text);
 }
 
 html, body {
@@ -12,8 +13,9 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #000000;
+    background-color: var(--color-site-bg);
 }
+
 #root {
     height: 100%;
 }
@@ -32,9 +34,9 @@ html, body {
     width: var(--link-width);
     align-items: stretch;
     min-height: 500px;
-    color: #d5d5d5;
-    background: #121213 url('../img/pagegfx/chain_repeating.png') repeat-y right center;
+    background: var(--color-bg);
 }
+
 .content-link-icon {
     width: 118px;
     height: 209px;
@@ -60,19 +62,19 @@ html, body {
 .content-main-area {
     width: var(--main-content-width);
     max-width: var(--main-content-width);
-    background: #1b1e21;
+    background: var(--color-bg);
 }
 
 .content-left-gfx {
-    background: #000000 url('../img/pagegfx/left_middle_fade_s.png') no-repeat right top;
     flex-grow: 1;
     width: 0;
 }
+
 .content-right-gfx {
-    background: #000000 url('../img/pagegfx/right_middle_fade_s.png') no-repeat left top;
     flex-grow: 1;
     width: 0;
 }
+
 .page-content {
     display: flex;
     flex-direction: row;
@@ -80,7 +82,7 @@ html, body {
     padding-bottom: 20px;
 }
 
-@media(max-width: calc(230px + 1250px + 20px)) {
+@media (max-width: calc(230px + 1250px + 20px)) {
     .content-links {
         width: 100%;
         background-image: none;
@@ -89,11 +91,13 @@ html, body {
         flex-shrink: initial;
         min-height: inherit;
     }
+
     .content-height-wrapper {
         align-items: flex-start;
         justify-content: flex-start;
         flex-direction: row;
     }
+
     .content-container {
         width: 100%;
         flex-direction: row;
@@ -101,9 +105,11 @@ html, body {
         justify-content: flex-start;
         flex-flow: column;
     }
+
     .content-link-icon {
         display: none;
     }
+
     .content-main-area {
         min-width: 150px;
         width: 100%;
@@ -115,6 +121,7 @@ html, body {
     width: 100%;
     display: flex;
 }
+
 .full-size {
     width: 100%;
 }
@@ -123,9 +130,11 @@ html, body {
     flex-basis: 100%;
     height: 0;
 }
+
 .col-align-right {
     margin-left: auto;
 }
+
 .col-3 {
     min-width: 200px;
     width: 32%;
@@ -135,16 +144,19 @@ html, body {
     flex-grow: 1;
     width: 49%;
 }
+
 .eq-col-3 {
     flex-grow: 1;
     width: 32%;
 }
-@media(max-width: 860px) {
+
+@media (max-width: 860px) {
     .eq-col-3 {
         width: 49%;
     }
 }
-@media(max-width: 425px) {
+
+@media (max-width: 425px) {
     .eq-col-3 {
         width: 99%;
     }

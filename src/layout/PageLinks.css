@@ -5,16 +5,19 @@
     font-size: 24px;
     color: #ffffff;
 }
+
 .support-coffee {
     margin-top: 0;
     padding-left: 5px;
 }
+
 .coffee-icon {
     padding-top: 10px;
     padding-left: 10px;
     padding-right: 4px;
     height: 20px;
 }
+
 .page-link {
     flex-grow: 0;
     padding-left: 7px;
@@ -23,6 +26,7 @@
     font-size: 18px;
     white-space: nowrap;
 }
+
 .page-links {
     display: flex;
     flex-direction: column;
@@ -37,16 +41,19 @@
     height: 32px;
     width: 32px;
 }
+
 a {
-    color: #d5d5d5;
+    color: var(--color-text);
     text-decoration: none;
 }
+
 a:hover {
-    color: #bfebf8;
+    color: var(--color-text-highlight);
     text-decoration: underline;
 }
+
 .page-link-current {
-    background-color: rgba(62, 70, 79, 0.3);
+    background-color: var(--color-area);
 }
 
 .page-link-wrapper {
@@ -54,17 +61,20 @@ a:hover {
     flex-direction: column;
     padding-bottom: 0;
 }
+
 .source-info {
     padding-top: 20px;
 }
 
-@media(max-width: calc(230px + 1250px + 20px)) {
+@media (max-width: calc(230px + 1250px + 20px)) {
     .page-links {
         flex-direction: row;
     }
+
     .page-link {
         padding-right: 20px;
     }
+
     .page-link-wrapper {
         flex-direction: row;
         flex-wrap: wrap;
