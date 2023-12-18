@@ -1,7 +1,7 @@
 import {defaultSettings, SavedSettings} from "./SavedSettings";
 
 
-function merge(a: any, b: any): any {
+export function merge(a: any, b: any): any {
   return [a, b].reduce((r, o) => Object
       .entries(o)
       .reduce((q, [k, v]) => ({
