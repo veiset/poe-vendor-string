@@ -1,41 +1,33 @@
 import {Item} from "../../generated/GeneratedExpedition";
 
 export interface PoeNinjaItem {
-    name: string
-    baseType: string
-    chaosValue: number
-    icon: string
-    links?: number
-    detailsId?: string
+  name: string
+  baseType: string
+  chaosValue: number
+  icon: string
+  links?: number
+  detailsId?: string
 }
 
 export interface PoeNinjaData {
-    lines: PoeNinjaItem[]
+  lines: PoeNinjaItem[]
 }
 
 export interface PricedItemWithFallback {
-    item: Item
-    price: number | undefined
-    fallbackPrice: number
-    displayPrice: number
+  item: Item
+  price: number | undefined
+  fallbackPrice: number
+  displayPrice: number
 }
 
 export interface PricedBaseType {
-    baseType: string
-    items: PricedItemWithFallback[]
-    regex: string
-    mostExpensiveItem: number
+  baseType: string
+  items: PricedItemWithFallback[]
+  regex: string
+  mostExpensiveItem: number
 }
 
 export interface PriceData {
-    pricedBaseTypes: PricedBaseType[]
-    usingOnlyFallback: boolean
-}
-
-export interface ExpeditionLocalStorage {
-    selectedBaseTypes: string[]
-    league: string
-    minValueToDisplay: number
-    addFillerItems: boolean
-    minAddValue: number
+  pricedBaseTypes: PricedBaseType[]
+  usingOnlyFallback: boolean
 }

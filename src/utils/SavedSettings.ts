@@ -10,6 +10,8 @@ export interface SavedSettings {
   heist: HeistSettings
   flask: FlaskSettings
   expedition: ExpeditionSettings
+  map: MapSettings
+  vendor: VendorSettings
 }
 
 export interface BeastSettings {
@@ -40,6 +42,91 @@ export interface ExpeditionSettings {
   addFillerItems: boolean,
   minValueToDisplay: number
   minAddValue: number
+}
+
+export interface MapSettings {
+  badMods: string[]
+  goodMods: string[]
+  kirac: string[]
+  allGoodMods: string
+  quantity: string
+  packsize: string
+  optimizeQuant: boolean
+  optimizePacksize: boolean
+}
+
+export interface VendorSettings {
+  anyThreeLink: boolean
+  anyFourLink: boolean
+  anyFiveLink: boolean
+  anySixLink: boolean
+  anySixSocket: boolean
+  movement: {
+    ten: boolean
+    fifteen: boolean
+  }
+  colors: {
+    rrr: boolean
+    ggg: boolean
+    bbb: boolean
+
+    rrA: boolean
+    ggA: boolean
+    bbA: boolean
+
+    ggr: boolean
+    ggb: boolean
+    rrg: boolean
+    rrb: boolean
+    bbg: boolean
+    bbr: boolean
+
+    rgb: boolean
+
+    raa: boolean
+    gaa: boolean
+    baa: boolean
+
+    rr: boolean
+    gg: boolean
+    bb: boolean
+
+    rb: boolean
+    gr: boolean
+    bg: boolean
+
+    specLink: boolean
+    specLinkColors: {
+      r: number | undefined
+      g: number | undefined
+      b: number | undefined
+    }
+  }
+  plusGems: {
+    lightning: boolean
+    fire: boolean
+    cold: boolean
+    phys: boolean
+    chaos: boolean
+    any: boolean
+  }
+  damage: {
+    phys: boolean
+    firemult: boolean
+    coldmult: boolean
+    chaosmult: boolean
+  }
+  weapon: {
+    sceptre: boolean
+    mace: boolean
+    axe: boolean
+    sword: boolean
+    bow: boolean
+    claw: boolean
+    dagger: boolean
+    staff: boolean
+    wand: boolean
+  }
 }
 
 export const defaultSettings: SavedSettings = {
@@ -73,5 +160,88 @@ export const defaultSettings: SavedSettings = {
     addFillerItems: true,
     minValueToDisplay: 90,
     minAddValue: 0,
+  },
+  map: {
+    badMods: [],
+    goodMods: [],
+    kirac: [],
+    allGoodMods: "any",
+    quantity: "",
+    packsize: "",
+    optimizeQuant: true,
+    optimizePacksize: true,
+  },
+  vendor: {
+    anyThreeLink: false,
+    anyFourLink: false,
+    anyFiveLink: false,
+    anySixLink: false,
+    anySixSocket: false,
+    movement: {
+      ten: false,
+      fifteen: false,
+    },
+    colors: {
+      rrr: false,
+      ggg: false,
+      bbb: false,
+
+      rrA: false,
+      ggA: false,
+      bbA: false,
+
+      ggr: false,
+      ggb: false,
+      rrg: false,
+      rrb: false,
+      bbg: false,
+      bbr: false,
+
+      rgb: false,
+
+      raa: false,
+      gaa: false,
+      baa: false,
+
+      rr: false,
+      gg: false,
+      bb: false,
+
+      rb: false,
+      gr: false,
+      bg: false,
+
+      specLink: false,
+      specLinkColors: {
+        r: undefined,
+        g: undefined,
+        b: undefined,
+      }
+    },
+    plusGems: {
+      lightning: false,
+      fire: false,
+      cold: false,
+      phys: false,
+      chaos: false,
+      any: false,
+    },
+    damage: {
+      phys: false,
+      firemult: false,
+      coldmult: false,
+      chaosmult: false,
+    },
+    weapon: {
+      sceptre: false,
+      mace: false,
+      axe: false,
+      sword: false,
+      bow: false,
+      claw: false,
+      dagger: false,
+      staff: false,
+      wand: false,
+    }
   }
 }

@@ -15,7 +15,7 @@ import {
   showLowValueItems,
   showMostExpensiveAndValuedItems
 } from "./ExpeditionFilter";
-import {ExpeditionLocalStorage, PoeNinjaData, PoeNinjaItem, PriceData, PricedBaseType} from "./ExpeditionTypes";
+import {PoeNinjaData, PoeNinjaItem, PriceData, PricedBaseType} from "./ExpeditionTypes";
 import {
   dateTextFromString,
   generateFillerBases,
