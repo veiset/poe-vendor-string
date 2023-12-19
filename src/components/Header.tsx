@@ -1,4 +1,5 @@
 import './Header.css';
+import Profile from "./profile/Profile";
 
 export interface HeaderProps {
   text: string
@@ -7,7 +8,12 @@ export interface HeaderProps {
 const Header = (props: HeaderProps) => {
   const {text} = props;
   return (
-    <h1 className="row page-header">{text} Regex</h1>
+    <div className="page-header-container">
+      <h1 className="page-header">{text} Regex</h1>
+      <div className="page-header-profile">
+        <Profile/>
+      </div>
+    </div>
   )
 }
 
