@@ -27,6 +27,12 @@
     cursor: pointer;
     padding: 15px;
 }
+.map-list{
+    cursor: pointer;
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
 .map-column-text {
     font-size: 28px;
     padding-left: 17px;
