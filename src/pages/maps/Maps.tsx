@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useContext, useEffect} from "react";
 import './Maps.css';
 import ResultBox from "../../components/ResultBox";
 import {kiracModifier, MapMod, mapModifiers} from "../../generated/GeneratedMapMods";
@@ -7,15 +7,13 @@ import MapModList from "../../components/MapModList";
 import {Checkbox} from "../vendor/Vendor";
 import {getGradientColor} from "../../utils/ColorGradient";
 import Header from "../../components/Header";
-import {saveSettings} from "../../utils/LocalStorage";
-import {defaultSettings, SavedSettings} from "../../utils/SavedSettings";
+import {loadSettings, saveSettings} from "../../utils/LocalStorage";
+import {defaultSettings} from "../../utils/SavedSettings";
+import {ProfileContext} from "../../components/profile/ProfileContext";
 
-interface MapProps {
-  profile: SavedSettings
-}
-
-const Maps = (props: MapProps) => {
-  const {profile} = props;
+const Maps = () => {
+  const {globalProfile} = useContext(ProfileContext);
+  const profile = loadSettings(globalProfile);
 
   const mods = Array.from(Object.keys(mapModifiers));
   const kiracModList = Array.from(Object.keys(kiracModifier));

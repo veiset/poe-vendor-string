@@ -23,17 +23,10 @@ export const loadProfileNames = (): string[] => {
   return Object.keys(loadProfiles());
 }
 
-export const loadProfile = (profile: string): SavedSettings => {
-  return loadSettings(profile);
-}
-
 export const deleteProfile = (profile: string): void => {
   const profiles = loadProfiles();
   delete profiles[profile];
   localStorage.setItem("profiles", JSON.stringify(profiles));
-}
-export const loadCurrentProfile = (): SavedSettings => {
-  return loadSettings(selectedProfile());
 }
 export const loadSettings = (profile: string): SavedSettings => {
   const settings = loadProfiles()[profile] ?? {};
@@ -48,6 +41,7 @@ export const setSelectedProfile = (name: string): void => {
 }
 
 export const saveSettings = (settings: SavedSettings): void => {
+  console.log({settings});
   localStorage.setItem("selectedProfile", settings.name);
   const profiles = loadProfiles();
   profiles[settings.name] = settings;

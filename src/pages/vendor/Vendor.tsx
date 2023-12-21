@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useEffect} from 'react';
+import React, {Dispatch, SetStateAction, useContext, useEffect} from 'react';
 import './Vendor.css';
 import socketRed from '../../img/red-socket.png';
 import socketGreen from '../../img/green-socket.png';
@@ -9,16 +9,14 @@ import socketLink from '../../img/link.png';
 import {generateResultString, generateWarnings} from "../../utils/OutputString";
 import ResultBox from "../../components/ResultBox";
 import Header from "../../components/Header";
-import {saveSettings} from "../../utils/LocalStorage";
-import {SavedSettings, VendorSettings} from "../../utils/SavedSettings";
+import {loadSettings, saveSettings} from "../../utils/LocalStorage";
+import {VendorSettings} from "../../utils/SavedSettings";
+import {ProfileContext} from "../../components/profile/ProfileContext";
 
 
-interface VendorProps {
-  profile: SavedSettings
-}
-
-const Vendor = (props: VendorProps) => {
-  const {profile} = props;
+const Vendor = () => {
+  const {globalProfile} = useContext(ProfileContext);
+  const profile = loadSettings(globalProfile);
 
   const [result, setResult] = React.useState("");
   const [warning, setWarning] = React.useState<string | undefined>();

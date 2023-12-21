@@ -2,19 +2,15 @@ import './Profile.css';
 import React, {createContext, useContext, useEffect, useState} from "react";
 import ProfileEditBox from "./ProfileEditBox";
 import {
-  deleteProfile, loadProfile,
-  loadProfileNames,
+  deleteProfile,
+  loadProfileNames, loadSettings,
   saveSettings,
   selectedProfile,
   setSelectedProfile
 } from "../../utils/LocalStorage";
 import {defaultSettings} from "../../utils/SavedSettings";
+import {ProfileContext} from "./ProfileContext";
 
-export const ProfileContext = createContext({
-  globalProfile: selectedProfile(),
-  setGlobalProfile: (profile: string) => {
-  }
-});
 
 const Profile = () => {
   const {setGlobalProfile} = useContext(ProfileContext);
@@ -63,6 +59,7 @@ const Profile = () => {
   }, [setGlobalProfile, profile]);
 
   const confirmAdd = () => {
+    console.log(`Adding new profile: ${editName}`)
     setProfiles(profiles.concat(editName));
     setProfile(editName);
     const newProfile = {...defaultSettings};
@@ -72,8 +69,9 @@ const Profile = () => {
   }
 
   const confirmEdit = () => {
+    console.log(`Renaming profile: ${profile} -> ${editName}`)
     const oldProfile = profile;
-    const profileSettings = loadProfile(oldProfile);
+    const profileSettings = loadSettings(oldProfile);
     saveSettings({...profileSettings, name: editName});
     setProfiles(profiles.filter((e) => e !== profile).concat(editName));
     setProfile(editName);

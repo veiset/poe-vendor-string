@@ -7,7 +7,7 @@ import "./Beast.css";
 import Collapsable from "../../components/collapsable/Collapsable";
 import {dateTextFromString} from "../expedition/ExpeditionUtils";
 import {Checkbox} from "../vendor/Vendor";
-import {loadCurrentProfile, saveSettings} from "../../utils/LocalStorage";
+import {saveSettings} from "../../utils/LocalStorage";
 import {defaultSettings, SavedSettings} from "../../utils/SavedSettings";
 
 export interface PoeNinjaBeast {

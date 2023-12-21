@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {BaseTypeRegex, baseTypeRegex, Item} from "../../generated/GeneratedExpedition";
 import Header from "../../components/Header";
 import ResultBox from "../../components/ResultBox";
@@ -25,7 +25,8 @@ import {
 } from "./ExpeditionUtils";
 import {ExpeditionHelp} from "./ExpeditionHelp";
 import {defaultSettings, SavedSettings} from "../../utils/SavedSettings";
-import {loadCurrentProfile, saveSettings} from "../../utils/LocalStorage";
+import {loadSettings, saveSettings} from "../../utils/LocalStorage";
+import {ProfileContext} from "../../components/profile/ProfileContext";
 
 dayjs.extend(relativeTime);
 
@@ -48,12 +49,9 @@ const fetchLeaguePricing = (league: string, type: string): Promise<PoeNinjaData>
     .then((r) => r.json());
 }
 
-interface ExpeditionProps {
-  profile: SavedSettings
-}
-
-const Expedition = (props: ExpeditionProps) => {
-  const {profile} = props;
+const Expedition = () => {
+  const {globalProfile} = useContext(ProfileContext);
+  const profile = loadSettings(globalProfile);
 
   const allItems = allItemsFromGeneratedItems(baseTypeRegex);
 

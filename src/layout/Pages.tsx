@@ -1,32 +1,33 @@
 import Heist from "../pages/heist/Heist";
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 import Vendor from "../pages/vendor/Vendor";
 import Maps from "../pages/maps/Maps";
 import Flasks from "../pages/flasks/Flasks";
 import Expedition from "../pages/expedition/Expedition";
 import Beast from "../pages/beast/Beast";
-import {ProfileContext} from "../components/profile/Profile";
 import {useEffect, useState} from "react";
-import {loadCurrentProfile, loadProfile, selectedProfile} from "../utils/LocalStorage";
+import {loadSettings, selectedProfile} from "../utils/LocalStorage";
+import {ProfileContext} from "../components/profile/ProfileContext";
 
 const Pages = () => {
   const [globalProfile, setGlobalProfile] = useState(selectedProfile());
-  const [profile, setProfile] = useState(loadCurrentProfile());
+  const [profile, setProfile] = useState(loadSettings(globalProfile));
 
   useEffect(() => {
-    let savedSettings = loadProfile(globalProfile);
+    console.log(`Loading profile: ${globalProfile}`)
+    let savedSettings = loadSettings(globalProfile);
     setProfile(savedSettings);
   }, [globalProfile]);
 
   return (
     <ProfileContext.Provider value={{globalProfile, setGlobalProfile}}>
       <Routes>
-        <Route path="/" element={<Vendor profile={profile} key={"vendor-" + profile.name}/>}/>
-        <Route path="/vendor" element={<Vendor profile={profile} key={"vendor-" + profile.name}/>}/>
-        <Route path="/maps" element={<Maps profile={profile} key={"map-" + profile.name}/>}/>
-        <Route path="/flasks" element={<Flasks profile={profile} key={"flask-" + profile.name}/>}/>
-        <Route path="/heist" element={<Heist profile={profile} key={"heist-" + profile.name}/>}/>
-        <Route path="/expedition" element={<Expedition profile={profile} key={"expedition-" + profile.name}/>}/>
+        <Route path="/" element={<Vendor key={"vendor-" + profile.name}/>}/>
+        <Route path="/vendor" element={<Vendor key={"vendor-" + profile.name}/>}/>
+        <Route path="/maps" element={<Maps key={"map-" + profile.name}/>}/>
+        <Route path="/flasks" element={<Flasks key={"flask-" + profile.name}/>}/>
+        <Route path="/heist" element={<Heist key={"heist-" + profile.name}/>}/>
+        <Route path="/expedition" element={<Expedition key={"expedition-" + profile.name}/>}/>
         <Route path="/beast" element={<Beast profile={profile} key={"beast-" + profile.name}/>}/>
       </Routes>
     </ProfileContext.Provider>

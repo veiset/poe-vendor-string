@@ -1,12 +1,8 @@
-import {loadCurrentProfile, loadSettings, merge, saveSettings} from "./LocalStorage";
+import {merge, saveSettings} from "./LocalStorage";
 import {defaultSettings} from "./SavedSettings";
 
 export function migrateSavedSettings_V1() {
   if (localStorage.getItem("profiles") !== null) {
-    return;
-  }
-  const settings = loadCurrentProfile();
-  if (settings.version !== 1) {
     return;
   }
 

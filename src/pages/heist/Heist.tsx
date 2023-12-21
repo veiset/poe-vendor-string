@@ -1,13 +1,14 @@
 import ResultBox from "../../components/ResultBox";
 import Header from "../../components/Header";
-import {HeistContractType, heistContractTypes, heistTargetValues} from "../../generated/GeneratedHeist";
-import {useEffect, useState} from "react";
+import {HeistContractType, heistTargetValues} from "../../generated/GeneratedHeist";
+import {useContext, useEffect, useState} from "react";
 import './Heist.css';
 import HeistContractSelect, {changeVal} from "./HeistContractSelect";
 import {Checkbox} from "../vendor/Vendor";
 import {addExpression} from "../../utils/OutputString";
-import {defaultSettings, SavedSettings} from "../../utils/SavedSettings";
-import {loadCurrentProfile, loadSettings, saveSettings} from "../../utils/LocalStorage";
+import {defaultSettings} from "../../utils/SavedSettings";
+import {loadSettings, saveSettings} from "../../utils/LocalStorage";
+import {ProfileContext} from "../../components/profile/ProfileContext";
 
 
 export interface ContractLevel {
@@ -69,12 +70,9 @@ const generateHeistStr = (contractLevels: ContractLevel[], targetValue: number, 
   }
 }
 
-interface HeistProps {
-  profile: SavedSettings
-}
-
-const Heist = (props: HeistProps) => {
-  const {profile} = props;
+const Heist = () => {
+  const {globalProfile} = useContext(ProfileContext);
+  const profile = loadSettings(globalProfile);
   const [contractLevels, setContractLevels] = useState<ContractLevel[]>(profile.heist.contractLevels);
   const [targetValue, setTargetValue] = useState<number>(profile.heist.targetValue);
   const [requireCoinValue, setRequireCoinValue] = useState(profile.heist.requireCoinValue);

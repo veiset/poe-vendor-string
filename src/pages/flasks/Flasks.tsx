@@ -1,21 +1,19 @@
 import Header from "../../components/Header";
 import "./Flasks.css";
 import ResultBox from "../../components/ResultBox";
-import React, {useEffect} from "react";
+import React, {useContext, useEffect} from "react";
 import FlaskModList from "../../components/FlaskModList";
 import {flaskPrefix, flaskSuffix} from "../../generated/GeneratedFlaskMods";
-import {saveSettings} from "../../utils/LocalStorage";
+import {loadSettings, saveSettings} from "../../utils/LocalStorage";
 import {Checkbox} from "../vendor/Vendor";
 import {generateFlaskOutput, minItemLevel} from "../../utils/FlaskOuput";
 import {defaultSettings, FlaskSettings, SavedSettings} from "../../utils/SavedSettings";
+import {ProfileContext} from "../../components/profile/ProfileContext";
 
 
-interface FlaskProps {
-  profile: SavedSettings
-}
-
-const Flasks = (props: FlaskProps) => {
-  const {profile} = props;
+const Flasks = () => {
+  const {globalProfile} = useContext(ProfileContext);
+  const profile = loadSettings(globalProfile);
   const modGroups = flaskPrefix.concat(flaskSuffix).map((modGroup) => modGroup.description);
   const [selectedPrefix, setSelectedPrefix] = React.useState<string[]>(profile.flask.selectedPrefix.filter((v: string) => modGroups.includes(v)));
   const [selectedSuffix, setSelectedSuffix] = React.useState<string[]>(profile.flask.selectedSuffix.filter((v: string) => modGroups.includes(v)));
