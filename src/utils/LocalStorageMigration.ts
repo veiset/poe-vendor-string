@@ -25,6 +25,10 @@ export function migrateSavedSettings_V1() {
     expedition: {
       ...JSON.parse(localStorage.getItem("expedition") ?? "{}"),
     }
-  })
+  });
   saveSettings(updatedSettings);
+  localStorage.removeItem("mapSearch");
+  localStorage.removeItem("vendorSearch");
+  localStorage.removeItem("flaskSearch");
+  localStorage.removeItem("expedition");
 }
