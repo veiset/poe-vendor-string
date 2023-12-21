@@ -25,7 +25,7 @@ import {
 } from "./ExpeditionUtils";
 import {ExpeditionHelp} from "./ExpeditionHelp";
 import {defaultSettings, SavedSettings} from "../../utils/SavedSettings";
-import {loadSettings, saveSettings} from "../../utils/LocalStorage";
+import {loadCurrentProfile, loadSettings, saveSettings} from "../../utils/LocalStorage";
 
 dayjs.extend(relativeTime);
 
@@ -49,7 +49,7 @@ const fetchLeaguePricing = (league: string, type: string): Promise<PoeNinjaData>
 }
 
 const Expedition = () => {
-  const savedSettings: SavedSettings = loadSettings();
+  const savedSettings: SavedSettings = loadCurrentProfile();
 
   const allItems = allItemsFromGeneratedItems(baseTypeRegex);
 
@@ -72,7 +72,7 @@ const Expedition = () => {
   const [displayedItems, setDisplayedItems] = useState(15);
 
   useEffect(() => {
-    console.log("Fetching pre-data");
+    console.log("Fetching pre-data expedition data");
     Promise.all([
       fallbackPricing("Accessory"),
       fallbackPricing("Armour"),

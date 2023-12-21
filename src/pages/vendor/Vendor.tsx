@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useEffect} from 'react';
+import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import './Vendor.css';
 import socketRed from '../../img/red-socket.png';
 import socketGreen from '../../img/green-socket.png';
@@ -9,79 +9,84 @@ import socketLink from '../../img/link.png';
 import {generateResultString, generateWarnings, PoeStringSettings} from "../../utils/OutputString";
 import ResultBox from "../../components/ResultBox";
 import Header from "../../components/Header";
-import {hasNKey, hasNumberKey, loadSettings, saveSettings} from "../../utils/LocalStorage";
+import {hasNKey, hasNumberKey, loadCurrentProfile, loadSettings, saveSettings} from "../../utils/LocalStorage";
 import {SavedSettings, VendorSettings} from "../../utils/SavedSettings";
 
-const Vendor = () => {
+
+interface VendorProps {
+  profile: SavedSettings
+}
+
+const Vendor = (props: VendorProps) => {
+  const {profile} = props;
 
   const [result, setResult] = React.useState("");
   const [warning, setWarning] = React.useState<string | undefined>();
-  const savedSettings: SavedSettings = loadSettings();
 
-  const [rrr, setRrr] = React.useState(savedSettings.vendor.colors.rrr);
-  const [ggg, setGgg] = React.useState(savedSettings.vendor.colors.ggg);
-  const [bbb, setBbb] = React.useState(savedSettings.vendor.colors.bbb);
+  const [rrr, setRrr] = React.useState(profile.vendor.colors.rrr);
+  const [ggg, setGgg] = React.useState(profile.vendor.colors.ggg);
+  const [bbb, setBbb] = React.useState(profile.vendor.colors.bbb);
 
-  const [rrA, setRrA] = React.useState(savedSettings.vendor.colors.rrA);
-  const [ggA, setGgA] = React.useState(savedSettings.vendor.colors.ggA);
-  const [bbA, setBbA] = React.useState(savedSettings.vendor.colors.bbA);
+  const [rrA, setRrA] = React.useState(profile.vendor.colors.rrA);
+  const [ggA, setGgA] = React.useState(profile.vendor.colors.ggA);
+  const [bbA, setBbA] = React.useState(profile.vendor.colors.bbA);
 
-  const [rrg, setRrg] = React.useState(savedSettings.vendor.colors.rrg);
-  const [rrb, setRrb] = React.useState(savedSettings.vendor.colors.rrb);
-  const [ggr, setGgr] = React.useState(savedSettings.vendor.colors.ggr);
-  const [ggb, setGgb] = React.useState(savedSettings.vendor.colors.ggb);
-  const [bbr, setBbr] = React.useState(savedSettings.vendor.colors.bbr);
-  const [bbg, setBbg] = React.useState(savedSettings.vendor.colors.bbg);
+  const [rrg, setRrg] = React.useState(profile.vendor.colors.rrg);
+  const [rrb, setRrb] = React.useState(profile.vendor.colors.rrb);
+  const [ggr, setGgr] = React.useState(profile.vendor.colors.ggr);
+  const [ggb, setGgb] = React.useState(profile.vendor.colors.ggb);
+  const [bbr, setBbr] = React.useState(profile.vendor.colors.bbr);
+  const [bbg, setBbg] = React.useState(profile.vendor.colors.bbg);
 
-  const [rgb, setRgb] = React.useState(savedSettings.vendor.colors.rgb);
+  const [rgb, setRgb] = React.useState(profile.vendor.colors.rgb);
 
-  const [raa, setRaa] = React.useState(savedSettings.vendor.colors.raa);
-  const [gaa, setGaa] = React.useState(savedSettings.vendor.colors.gaa);
-  const [baa, setBaa] = React.useState(savedSettings.vendor.colors.baa);
+  const [raa, setRaa] = React.useState(profile.vendor.colors.raa);
+  const [gaa, setGaa] = React.useState(profile.vendor.colors.gaa);
+  const [baa, setBaa] = React.useState(profile.vendor.colors.baa);
 
-  const [rr, setRr] = React.useState(savedSettings.vendor.colors.rr);
-  const [gg, setGg] = React.useState(savedSettings.vendor.colors.gg);
-  const [bb, setBb] = React.useState(savedSettings.vendor.colors.bb);
+  const [rr, setRr] = React.useState(profile.vendor.colors.rr);
+  const [gg, setGg] = React.useState(profile.vendor.colors.gg);
+  const [bb, setBb] = React.useState(profile.vendor.colors.bb);
 
-  const [rb, setRb] = React.useState(savedSettings.vendor.colors.rb);
-  const [gr, setGr] = React.useState(savedSettings.vendor.colors.gr);
-  const [bg, setBg] = React.useState(savedSettings.vendor.colors.bg);
+  const [rb, setRb] = React.useState(profile.vendor.colors.rb);
+  const [gr, setGr] = React.useState(profile.vendor.colors.gr);
+  const [bg, setBg] = React.useState(profile.vendor.colors.bg);
 
-  const [specLink, setSpecLink] = React.useState(savedSettings.vendor.colors.specLink);
-  const [specLinkColorsR, setSpecLinkColorsR] = React.useState<number | undefined>(savedSettings.vendor.colors.specLinkColors.r);
-  const [specLinkColorsG, setSpecLinkColorsG] = React.useState<number | undefined>(savedSettings.vendor.colors.specLinkColors.g);
-  const [specLinkColorsB, setSpecLinkColorsB] = React.useState<number | undefined>(savedSettings.vendor.colors.specLinkColors.b);
+  const [specLink, setSpecLink] = React.useState(profile.vendor.colors.specLink);
+  const [specLinkColorsR, setSpecLinkColorsR] = React.useState<number | undefined>(profile.vendor.colors.specLinkColors.r);
+  const [specLinkColorsG, setSpecLinkColorsG] = React.useState<number | undefined>(profile.vendor.colors.specLinkColors.g);
+  const [specLinkColorsB, setSpecLinkColorsB] = React.useState<number | undefined>(profile.vendor.colors.specLinkColors.b);
 
-  const [anyThreeLink, setAnyThreeLink] = React.useState(savedSettings.vendor.anyThreeLink);
-  const [anyFourLink, setAnyFourLink] = React.useState(savedSettings.vendor.anyFourLink);
-  const [anyFiveLink, setAnyFiveLink] = React.useState(savedSettings.vendor.anyFiveLink);
-  const [anySixLink, setAnySixLink] = React.useState(savedSettings.vendor.anySixLink);
-  const [anySixSocket, setAnySixSocket] = React.useState(savedSettings.vendor.anySixSocket);
-  const [movement10, setMovement10] = React.useState(savedSettings.vendor.movement.ten);
-  const [movement15, setMovement15] = React.useState(savedSettings.vendor.movement.fifteen);
+  const [anyThreeLink, setAnyThreeLink] = React.useState(profile.vendor.anyThreeLink);
+  const [anyFourLink, setAnyFourLink] = React.useState(profile.vendor.anyFourLink);
+  const [anyFiveLink, setAnyFiveLink] = React.useState(profile.vendor.anyFiveLink);
+  const [anySixLink, setAnySixLink] = React.useState(profile.vendor.anySixLink);
+  const [anySixSocket, setAnySixSocket] = React.useState(profile.vendor.anySixSocket);
+  const [movement10, setMovement10] = React.useState(profile.vendor.movement.ten);
+  const [movement15, setMovement15] = React.useState(profile.vendor.movement.fifteen);
 
-  const [lightning, setLightning] = React.useState(savedSettings.vendor.plusGems.lightning);
-  const [fire, setFire] = React.useState(savedSettings.vendor.plusGems.fire);
-  const [cold, setCold] = React.useState(savedSettings.vendor.plusGems.cold);
-  const [phys, setPhys] = React.useState(savedSettings.vendor.plusGems.phys);
-  const [chaos, setChaos] = React.useState(savedSettings.vendor.plusGems.chaos);
-  const [anyGem, setAnyGem] = React.useState(savedSettings.vendor.plusGems.any);
+  const [lightning, setLightning] = React.useState(profile.vendor.plusGems.lightning);
+  const [fire, setFire] = React.useState(profile.vendor.plusGems.fire);
+  const [cold, setCold] = React.useState(profile.vendor.plusGems.cold);
+  const [phys, setPhys] = React.useState(profile.vendor.plusGems.phys);
+  const [chaos, setChaos] = React.useState(profile.vendor.plusGems.chaos);
+  const [anyGem, setAnyGem] = React.useState(profile.vendor.plusGems.any);
 
-  const [dmgPhys, setDmgPhys] = React.useState(savedSettings.vendor.damage.phys);
-  const [fireMult, setFireMult] = React.useState(savedSettings.vendor.damage.firemult);
-  const [coldMult, setColdMult] = React.useState(savedSettings.vendor.damage.coldmult);
-  const [chaosMult, setChaosMult] = React.useState(savedSettings.vendor.damage.chaosmult);
+  const [dmgPhys, setDmgPhys] = React.useState(profile.vendor.damage.phys);
+  const [fireMult, setFireMult] = React.useState(profile.vendor.damage.firemult);
+  const [coldMult, setColdMult] = React.useState(profile.vendor.damage.coldmult);
+  const [chaosMult, setChaosMult] = React.useState(profile.vendor.damage.chaosmult);
 
   // weapons
-  const [weaponSceptre, setWeaponSceptre] = React.useState(savedSettings.vendor.weapon.sceptre);
-  const [weaponMace, setWeaponMace] = React.useState(savedSettings.vendor.weapon.mace);
-  const [weaponAxe, setWeaponAxe] = React.useState(savedSettings.vendor.weapon.axe);
-  const [weaponSword, setWeaponSword] = React.useState(savedSettings.vendor.weapon.sword);
-  const [weaponBow, setWeaponBow] = React.useState(savedSettings.vendor.weapon.bow);
-  const [weaponClaw, setWeaponClaw] = React.useState(savedSettings.vendor.weapon.claw);
-  const [weaponDagger, setWeaponDagger] = React.useState(savedSettings.vendor.weapon.dagger);
-  const [weaponStaff, setWeaponStaff] = React.useState(savedSettings.vendor.weapon.staff);
-  const [weaponWand, setWeaponWand] = React.useState(savedSettings.vendor.weapon.wand);
+  const [weaponSceptre, setWeaponSceptre] = React.useState(profile.vendor.weapon.sceptre);
+  const [weaponMace, setWeaponMace] = React.useState(profile.vendor.weapon.mace);
+  const [weaponAxe, setWeaponAxe] = React.useState(profile.vendor.weapon.axe);
+  const [weaponSword, setWeaponSword] = React.useState(profile.vendor.weapon.sword);
+  const [weaponBow, setWeaponBow] = React.useState(profile.vendor.weapon.bow);
+  const [weaponClaw, setWeaponClaw] = React.useState(profile.vendor.weapon.claw);
+  const [weaponDagger, setWeaponDagger] = React.useState(profile.vendor.weapon.dagger);
+  const [weaponStaff, setWeaponStaff] = React.useState(profile.vendor.weapon.staff);
+  const [weaponWand, setWeaponWand] = React.useState(profile.vendor.weapon.wand);
 
 
   const listOfOptions = [
@@ -109,7 +114,7 @@ const Vendor = () => {
     movement10, movement15, lightning,
     fire, cold, phys, chaos, anyGem,
     dmgPhys, fireMult, coldMult, chaosMult,
-    weaponSceptre, weaponMace, weaponAxe, weaponSword, weaponBow, weaponClaw, weaponDagger, weaponStaff, weaponWand
+    weaponSceptre, weaponMace, weaponAxe, weaponSword, weaponBow, weaponClaw, weaponDagger, weaponStaff, weaponWand,
   ]
 
   let settings: VendorSettings = {
@@ -164,7 +169,7 @@ const Vendor = () => {
 
   useEffect(() => {
     saveSettings({
-      ...savedSettings,
+      ...profile,
       vendor: {
         ...settings
       },

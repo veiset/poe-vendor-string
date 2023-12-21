@@ -106,6 +106,10 @@
     transition-duration: 0.4s;
 }
 
+.copy-button:disabled {
+    background-color: var(--color-disabled);
+}
+
 .reset-button {
     width: 90px;
     background-color: var(--color-deep-error);

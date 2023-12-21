@@ -4,13 +4,13 @@ import ResultBox from "../../components/ResultBox";
 import React, {useEffect} from "react";
 import FlaskModList from "../../components/FlaskModList";
 import {flaskPrefix, flaskSuffix} from "../../generated/GeneratedFlaskMods";
-import {loadSettings, saveSettings} from "../../utils/LocalStorage";
+import {loadCurrentProfile, loadSettings, saveSettings} from "../../utils/LocalStorage";
 import {Checkbox} from "../vendor/Vendor";
 import {generateFlaskOutput, minItemLevel} from "../../utils/FlaskOuput";
 import {defaultSettings, FlaskSettings, SavedSettings} from "../../utils/SavedSettings";
 
 const Flasks = () => {
-  const savedSettings: SavedSettings = loadSettings();
+  const savedSettings: SavedSettings = loadCurrentProfile();
   const modGroups = flaskPrefix.concat(flaskSuffix).map((modGroup) => modGroup.description);
   const [selectedPrefix, setSelectedPrefix] = React.useState<string[]>(savedSettings.flask.selectedPrefix.filter((v: string) => modGroups.includes(v)));
   const [selectedSuffix, setSelectedSuffix] = React.useState<string[]>(savedSettings.flask.selectedSuffix.filter((v: string) => modGroups.includes(v)));

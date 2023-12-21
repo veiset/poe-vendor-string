@@ -54,3 +54,8 @@
 .new-profile-box {
 
 }
+
+.profile-warning {
+    margin: 10px;
+    color: var(--color-text-warn);
+}

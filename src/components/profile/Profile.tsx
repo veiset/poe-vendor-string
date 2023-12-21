@@ -1,9 +1,25 @@
 import './Profile.css';
-import React, {useEffect, useState} from "react";
+import React, {createContext, useContext, useEffect, useState} from "react";
+import ProfileEditBox from "./ProfileEditBox";
+import {
+  deleteProfile,
+  loadProfileNames,
+  saveSettings,
+  selectedProfile,
+  setSelectedProfile
+} from "../../utils/LocalStorage";
+import {defaultSettings} from "../../utils/SavedSettings";
+
+export const ProfileContext = createContext({
+  globalProfile: selectedProfile(),
+  setGlobalProfile: (profile: string) => {
+  }
+});
 
 const Profile = () => {
-  const [profiles, setProfiles] = useState(["default", "Elementalist", "Gladiator"]);
-  const [selectedProfile, setSelectedProfile] = useState(profiles[0]);
+  const {setGlobalProfile} = useContext(ProfileContext);
+  const [profiles, setProfiles] = useState(loadProfileNames());
+  const [profile, setProfile] = useState(selectedProfile());
   const [showNew, setShowNew] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
@@ -29,110 +45,105 @@ const Profile = () => {
     };
   }, [editName, showNew, showEdit, showDelete]);
 
-  const showNewProfileBox = () => {
-    setShowEdit(false);
-    setShowDelete(false);
+  useEffect(() => {
+    if (profiles.includes(editName) && (showEdit || showNew)) {
+      setWarning("Profile with that name already exists");
+    } else if (editName === "" && (showEdit || showNew)) {
+      setWarning("Enter profile name");
+    } else if (profiles.length === 1 && showDelete) {
+      setWarning("Cannot delete last profile");
+    } else {
+      setWarning(undefined);
+    }
+  }, [editName, showEdit, showNew, showDelete, profiles]);
 
-    setEditName("");
-    setShowNew(true);
-  }
-
-  const showEditProfileBox = () => {
-    setShowDelete(false);
-    setShowNew(false);
-
-    setEditName(selectedProfile);
-    setShowEdit(true);
-  }
-
-  const showDeleteProfileBox = () => {
-    setShowNew(false);
-    setShowEdit(false);
-    setShowDelete(true);
-  }
+  useEffect(() => {
+    setSelectedProfile(profile);
+    setGlobalProfile(profile);
+  }, [setGlobalProfile, profile]);
 
   const confirmAdd = () => {
     setProfiles(profiles.concat(editName));
-    setSelectedProfile(editName);
+    setProfile(editName);
+    const newProfile = {...defaultSettings};
+    newProfile.name = editName;
+    saveSettings(newProfile);
     setShowNew(false);
   }
 
   const confirmEdit = () => {
-    setProfiles(profiles.filter((e) => e !== selectedProfile).concat(editName));
-    setSelectedProfile(editName);
+    setProfiles(profiles.filter((e) => e !== profile).concat(editName));
+    setProfile(editName);
     setShowEdit(false);
   }
 
   const confirmDelete = () => {
-    setProfiles(profiles.filter((e) => e !== selectedProfile));
-    setSelectedProfile(profiles[0]);
+    const newProfiles = profiles.filter((e) => e !== profile);
+    setProfiles(newProfiles);
+    setProfile(newProfiles[0]);
+    deleteProfile(profile);
     setShowDelete(false);
   }
 
   return (
     <div className="profile-container">
       <div>Profile:</div>
-      <select name="league" className="select-league" value={selectedProfile}
-              onChange={(e) => setSelectedProfile(e.target.value)}>
+      <select name="league" className="select-league" value={profile}
+              onChange={(e) => setProfile(e.target.value)}>
         {profiles.map((profile) => {
-          return <option className="option-league" value={profile}>{profile}</option>;
+          return <option className="option-league" key={profile} value={profile}>{profile}</option>;
         })};
       </select>
-      <div className="profile-icon profile-icon-large" onClick={() => showNewProfileBox()}>+</div>
-      <div className="profile-icon" onClick={() => showEditProfileBox()}>✎</div>
-      <div className="profile-icon" onClick={() => showDeleteProfileBox()}>✕</div>
+      <div className="profile-icon profile-icon-large" onClick={() => {
+        setShowEdit(false);
+        setShowDelete(false);
+        setEditName("");
+        setShowNew(true);
+      }}>+
+      </div>
+      <div className="profile-icon" onClick={() => {
+        setShowDelete(false);
+        setShowNew(false);
+        setEditName(profile);
+        setShowEdit(true);
+      }}>✎
+      </div>
+      <div className="profile-icon" onClick={() => {
+        setShowNew(false);
+        setShowEdit(false);
+        setShowDelete(true);
+      }}>✕
+      </div>
 
       {showNew &&
-          <div className="new-profile-box">
-              <div className="profile-header">Create new profile</div>
-              <div className="profile-input-area">
-                  Profile name: <input type="text" value={editName} onChange={(e) => setEditName(e.target.value)}/>
-              </div>
-              <div className="profile-button-area">
-                  <button className="reset-button" onClick={() => {
-                    setShowNew(false);
-                  }}> Cancel
-                  </button>
-                  <button className="copy-button" onClick={() => {
-                    confirmAdd()
-                  }}> Save
-                  </button>
-              </div>
-          </div>
+          <ProfileEditBox
+              header={"Create new profile"}
+              editValue={editName}
+              setEditValue={setEditName}
+              show={setShowNew}
+              confirm={confirmAdd}
+              warning={warning}
+          />
       }
-
       {showEdit &&
-          <div className="new-profile-box">
-              <div className="profile-header">Edit profile name</div>
-              <div className="profile-input-area">
-                  Profile name: <input type="text" value={editName} onChange={(e) => setEditName(e.target.value)}/>
-              </div>
-              <div className="profile-button-area">
-                  <button className="reset-button" onClick={() => {
-                    setShowEdit(false);
-                  }}> Cancel
-                  </button>
-                  <button className="copy-button" onClick={() => {
-                    confirmEdit();
-                  }}> Save
-                  </button>
-              </div>
-          </div>
+          <ProfileEditBox
+              header={"Edit profile name"}
+              editValue={editName}
+              setEditValue={setEditName}
+              show={setShowEdit}
+              confirm={confirmEdit}
+              warning={warning}
+          />
       }
       {showDelete &&
-          <div className="new-profile-box">
-              <div className="profile-header">Delete profile: {selectedProfile}</div>
-              <div className="profile-button-area">
-                  <button className="reset-button" onClick={() => {
-                    setShowDelete(false);
-                  }}> Cancel
-                  </button>
-                  <button className="copy-button" onClick={() => {
-                    confirmDelete();
-                  }}> Confirm
-                  </button>
-              </div>
-          </div>
+          <ProfileEditBox
+              header={`Delete profile`}
+              editValue={""}
+              show={setShowDelete}
+              confirm={confirmDelete}
+              warning={warning}
+              saveText={"Confirm"}
+          />
       }
     </div>
   )

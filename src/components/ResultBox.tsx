@@ -38,16 +38,16 @@ const ResultBox = (props: ResultBoxProps) => {
       <div className="col-align-right">
         <div className="result-action">
           <div className="row">
-            <button className="reset-button" onClick={() => {
-              reset()
-            }}>
-              Reset
-            </button>
             <button className="copy-button" onClick={() => {
               setCopied(result);
               navigator.clipboard.writeText(result);
             }}>
               Copy
+            </button>
+            <button className="reset-button" onClick={() => {
+              reset()
+            }}>
+              Reset
             </button>
           </div>
           <div className="row">

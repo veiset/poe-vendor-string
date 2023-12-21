@@ -7,7 +7,7 @@ import HeistContractSelect, {changeVal} from "./HeistContractSelect";
 import {Checkbox} from "../vendor/Vendor";
 import {addExpression} from "../../utils/OutputString";
 import {defaultSettings, SavedSettings} from "../../utils/SavedSettings";
-import {loadSettings, saveSettings} from "../../utils/LocalStorage";
+import {loadCurrentProfile, loadSettings, saveSettings} from "../../utils/LocalStorage";
 
 
 export interface ContractLevel {
@@ -70,7 +70,7 @@ const generateHeistStr = (contractLevels: ContractLevel[], targetValue: number, 
 }
 
 const Heist = () => {
-  const savedSettings: SavedSettings = loadSettings();
+  const savedSettings: SavedSettings = loadCurrentProfile();
   const [contractLevels, setContractLevels] = useState<ContractLevel[]>(savedSettings.heist.contractLevels);
   const [targetValue, setTargetValue] = useState<number>(savedSettings.heist.targetValue);
   const [requireCoinValue, setRequireCoinValue] = useState(savedSettings.heist.requireCoinValue);

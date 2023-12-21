@@ -11,18 +11,57 @@ export function merge(a: any, b: any): any {
     {});
 }
 
-export const loadSettings = (): SavedSettings => {
-  const loaded = JSON.parse(localStorage.getItem("settings") ?? "{}");
-  return merge(defaultSettings, loaded) as SavedSettings;
+interface SavedProfiles {
+  [key: string]: SavedSettings
+}
+
+export const loadProfiles = (): SavedProfiles => {
+  return safeLoad("profiles");
+}
+
+export const loadProfileNames = (): string[] => {
+  return Object.keys(loadProfiles());
+}
+
+export const loadProfile = (profile: string): SavedSettings => {
+  return loadSettings(profile);
+}
+
+export const deleteProfile = (profile: string): void => {
+  const profiles = loadProfiles();
+  delete profiles[profile];
+  localStorage.setItem("profiles", JSON.stringify(profiles));
+}
+export const loadCurrentProfile = (): SavedSettings => {
+  return loadSettings(selectedProfile());
+}
+export const loadSettings = (profile: string): SavedSettings => {
+  const settings = loadProfiles()[profile] ?? {};
+  return merge(defaultSettings, settings);
+}
+
+export const selectedProfile = (): string =>
+  localStorage.getItem("selectedProfile") ?? "default";
+
+export const setSelectedProfile = (name: string): void => {
+  localStorage.setItem("selectedProfile", name);
 }
 
 export const saveSettings = (settings: SavedSettings): void => {
-  localStorage.setItem("settings", JSON.stringify(settings));
+  localStorage.setItem("selectedProfile", settings.name);
+  const profiles = loadProfiles();
+  profiles[settings.name] = settings;
+  localStorage.setItem("profiles", JSON.stringify(profiles));
 }
 
-export const hasKey = (savedSettings: any, key: string): boolean => {
-  return savedSettings !== undefined && savedSettings.hasOwnProperty(key)
+const safeLoad = (key: string): any => {
+  try {
+    return JSON.parse(localStorage.getItem(key) ?? "{}") ?? {};
+  } catch (e) {
+    return {};
+  }
 }
+
 
 export const valueFromKeyMap = (savedSettings: any, key: string): any | undefined => {
   const props = key.split(".");

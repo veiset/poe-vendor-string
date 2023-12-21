@@ -7,11 +7,11 @@ import MapModList from "../../components/MapModList";
 import {Checkbox} from "../vendor/Vendor";
 import {getGradientColor} from "../../utils/ColorGradient";
 import Header from "../../components/Header";
-import {hasKey, loadSettings, saveSettings} from "../../utils/LocalStorage";
+import {loadCurrentProfile, loadSettings, saveSettings} from "../../utils/LocalStorage";
 import {defaultSettings, SavedSettings} from "../../utils/SavedSettings";
 
 const Maps = () => {
-  const savedSettings: SavedSettings = loadSettings();
+  const savedSettings: SavedSettings = loadCurrentProfile();
 
   const mods = Array.from(Object.keys(mapModifiers));
   const kiracModList = Array.from(Object.keys(kiracModifier));

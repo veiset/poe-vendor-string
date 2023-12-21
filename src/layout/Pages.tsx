@@ -5,19 +5,32 @@ import Maps from "../pages/maps/Maps";
 import Flasks from "../pages/flasks/Flasks";
 import Expedition from "../pages/expedition/Expedition";
 import Beast from "../pages/beast/Beast";
+import {ProfileContext} from "../components/profile/Profile";
+import {useEffect, useState} from "react";
+import {loadCurrentProfile, loadProfile, selectedProfile} from "../utils/LocalStorage";
 
 const Pages = () => {
-    return (
-        <Routes>
-            <Route path="/" element={<Vendor/>}/>
-            <Route path="/vendor" element={<Vendor/>}/>
-            <Route path="/maps" element={<Maps/>}/>
-            <Route path="/flasks" element={<Flasks/>}/>
-            <Route path="/heist" element={<Heist/>}/>
-            <Route path="/expedition" element={<Expedition/>}/>
-            <Route path="/beast" element={<Beast/>}/>
-        </Routes>
-    );
+  const [globalProfile, setGlobalProfile] = useState(selectedProfile());
+  const [profile, setProfile] = useState(loadCurrentProfile());
+
+  useEffect(() => {
+    let savedSettings = loadProfile(globalProfile);
+    setProfile(savedSettings);
+  }, [globalProfile]);
+
+  return (
+    <ProfileContext.Provider value={{globalProfile, setGlobalProfile}}>
+      <Routes>
+        <Route path="/" element={<Vendor profile={profile} key={"vendor-" + profile.name}/>}/>
+        <Route path="/vendor" element={<Vendor profile={profile} key={"vendor-" + profile.name}/>}/>
+        <Route path="/maps" element={<Maps key={"map-" + profile.name}/>}/>
+        <Route path="/flasks" element={<Flasks key={"flask-" + profile.name}/>}/>
+        <Route path="/heist" element={<Heist key={"heist-" + profile.name}/>}/>
+        <Route path="/expedition" element={<Expedition key={"expedition-" + profile.name}/>}/>
+        <Route path="/beast" element={<Beast key={"beast-" + profile.name}/>}/>
+      </Routes>
+    </ProfileContext.Provider>
+  );
 }
 
 export default Pages;

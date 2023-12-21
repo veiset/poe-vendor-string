@@ -7,7 +7,7 @@ import "./Beast.css";
 import Collapsable from "../../components/collapsable/Collapsable";
 import {dateTextFromString} from "../expedition/ExpeditionUtils";
 import {Checkbox} from "../vendor/Vendor";
-import {loadSettings, saveSettings} from "../../utils/LocalStorage";
+import {loadCurrentProfile, loadSettings, saveSettings} from "../../utils/LocalStorage";
 import {defaultSettings, SavedSettings} from "../../utils/SavedSettings";
 
 export interface PoeNinjaBeast {
@@ -57,7 +57,7 @@ const generateRegex = (
 }
 
 const Beast = () => {
-  const savedSettings: SavedSettings = loadSettings();
+  const savedSettings: SavedSettings = loadCurrentProfile();
   const [minChaosValue, setMinChaosValue] = useState<string>(savedSettings.beast.minChaosValue);
   const [maxChaosValue, setMaxChaosValue] = useState<string>(savedSettings.beast.maxChaosValue);
   const [includeHarvest, setIncludeHarvest] = React.useState(savedSettings.beast.includeHarvest);
