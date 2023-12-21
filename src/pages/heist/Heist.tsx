@@ -69,17 +69,21 @@ const generateHeistStr = (contractLevels: ContractLevel[], targetValue: number, 
   }
 }
 
-const Heist = () => {
-  const savedSettings: SavedSettings = loadCurrentProfile();
-  const [contractLevels, setContractLevels] = useState<ContractLevel[]>(savedSettings.heist.contractLevels);
-  const [targetValue, setTargetValue] = useState<number>(savedSettings.heist.targetValue);
-  const [requireCoinValue, setRequireCoinValue] = useState(savedSettings.heist.requireCoinValue);
+interface HeistProps {
+  profile: SavedSettings
+}
+
+const Heist = (props: HeistProps) => {
+  const {profile} = props;
+  const [contractLevels, setContractLevels] = useState<ContractLevel[]>(profile.heist.contractLevels);
+  const [targetValue, setTargetValue] = useState<number>(profile.heist.targetValue);
+  const [requireCoinValue, setRequireCoinValue] = useState(profile.heist.requireCoinValue);
   const [result, setResult] = useState("");
 
   useEffect(() => {
     setResult(generateHeistStr(contractLevels, targetValue, requireCoinValue));
     saveSettings({
-      ...savedSettings,
+      ...profile,
       heist: {
         contractLevels,
         targetValue,

@@ -1,17 +1,21 @@
 import React, {useEffect} from "react";
 import './Maps.css';
 import ResultBox from "../../components/ResultBox";
-import {MapMod, mapModifiers, kiracModifier} from "../../generated/GeneratedMapMods";
+import {kiracModifier, MapMod, mapModifiers} from "../../generated/GeneratedMapMods";
 import {generateMapModStr, MapModSettings} from "../../utils/MapOutput";
 import MapModList from "../../components/MapModList";
 import {Checkbox} from "../vendor/Vendor";
 import {getGradientColor} from "../../utils/ColorGradient";
 import Header from "../../components/Header";
-import {loadCurrentProfile, loadSettings, saveSettings} from "../../utils/LocalStorage";
+import {saveSettings} from "../../utils/LocalStorage";
 import {defaultSettings, SavedSettings} from "../../utils/SavedSettings";
 
-const Maps = () => {
-  const savedSettings: SavedSettings = loadCurrentProfile();
+interface MapProps {
+  profile: SavedSettings
+}
+
+const Maps = (props: MapProps) => {
+  const {profile} = props;
 
   const mods = Array.from(Object.keys(mapModifiers));
   const kiracModList = Array.from(Object.keys(kiracModifier));
@@ -25,14 +29,14 @@ const Maps = () => {
     .map((m) => ({...kiracModifier[m], value: m}))
     .sort((a, b) => b.scary - a.scary);
 
-  const [selectedBadMods, setSelectedBadMods] = React.useState<string[]>(savedSettings.map.badMods.filter((v: string) => mods.includes(v)));
-  const [selectedGoodMods, setSelectedGoodMods] = React.useState<string[]>(savedSettings.map.goodMods.filter((v: string) => mods.includes(v)));
-  const [selectedKirac, setSelectedKirac] = React.useState<string[]>(savedSettings.map.kirac.filter((v: string) => kiracModList.includes(v)));
-  const [modGrouping, setModGrouping] = React.useState(savedSettings.map.allGoodMods);
-  const [quantity, setQuantity] = React.useState(savedSettings.map.quantity);
-  const [packsize, setPacksize] = React.useState(savedSettings.map.quantity);
-  const [optimizeQuant, setOptimizeQuant] = React.useState(savedSettings.map.optimizeQuant);
-  const [optimizePacksize, setOptimizePacksize] = React.useState(savedSettings.map.optimizePacksize);
+  const [selectedBadMods, setSelectedBadMods] = React.useState<string[]>(profile.map.badMods.filter((v: string) => mods.includes(v)));
+  const [selectedGoodMods, setSelectedGoodMods] = React.useState<string[]>(profile.map.goodMods.filter((v: string) => mods.includes(v)));
+  const [selectedKirac, setSelectedKirac] = React.useState<string[]>(profile.map.kirac.filter((v: string) => kiracModList.includes(v)));
+  const [modGrouping, setModGrouping] = React.useState(profile.map.allGoodMods);
+  const [quantity, setQuantity] = React.useState(profile.map.quantity);
+  const [packsize, setPacksize] = React.useState(profile.map.quantity);
+  const [optimizeQuant, setOptimizeQuant] = React.useState(profile.map.optimizeQuant);
+  const [optimizePacksize, setOptimizePacksize] = React.useState(profile.map.optimizePacksize);
 
   const [result, setResult] = React.useState("");
 
@@ -49,7 +53,7 @@ const Maps = () => {
     };
     let search = generateMapModStr(settings);
     saveSettings({
-      ...savedSettings,
+      ...profile,
       map: {
         badMods: selectedBadMods,
         goodMods: selectedGoodMods,

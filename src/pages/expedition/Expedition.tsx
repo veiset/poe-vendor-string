@@ -25,7 +25,7 @@ import {
 } from "./ExpeditionUtils";
 import {ExpeditionHelp} from "./ExpeditionHelp";
 import {defaultSettings, SavedSettings} from "../../utils/SavedSettings";
-import {loadCurrentProfile, loadSettings, saveSettings} from "../../utils/LocalStorage";
+import {loadCurrentProfile, saveSettings} from "../../utils/LocalStorage";
 
 dayjs.extend(relativeTime);
 
@@ -48,8 +48,12 @@ const fetchLeaguePricing = (league: string, type: string): Promise<PoeNinjaData>
     .then((r) => r.json());
 }
 
-const Expedition = () => {
-  const savedSettings: SavedSettings = loadCurrentProfile();
+interface ExpeditionProps {
+  profile: SavedSettings
+}
+
+const Expedition = (props: ExpeditionProps) => {
+  const {profile} = props;
 
   const allItems = allItemsFromGeneratedItems(baseTypeRegex);
 
@@ -59,11 +63,11 @@ const Expedition = () => {
   const [fillerBases, setFillerBases] = useState<PricedBaseType[]>([]);
 
   // Settings
-  const [selectedBaseTypes, setSelectedBaseTypes] = useState<string[]>(savedSettings.expedition.selectedBaseTypes);
-  const [league, setLeague] = useState(savedSettings.expedition.league);
-  const [addFillerItems, setAddFillerItems] = useState<boolean>(savedSettings.expedition.addFillerItems);
-  const [minValueToDisplay, setMinValueToDisplay] = useState<number>(savedSettings.expedition.minValueToDisplay);
-  const [minAddValue, setMinAddValue] = useState<number>(savedSettings.expedition.minAddValue);
+  const [selectedBaseTypes, setSelectedBaseTypes] = useState<string[]>(profile.expedition.selectedBaseTypes);
+  const [league, setLeague] = useState(profile.expedition.league);
+  const [addFillerItems, setAddFillerItems] = useState<boolean>(profile.expedition.addFillerItems);
+  const [minValueToDisplay, setMinValueToDisplay] = useState<number>(profile.expedition.minValueToDisplay);
+  const [minAddValue, setMinAddValue] = useState<number>(profile.expedition.minAddValue);
 
   // Temporary settings
   const [itemSearch, setItemSearch] = useState("");
@@ -122,7 +126,7 @@ const Expedition = () => {
 
   useEffect(() => {
     saveSettings({
-      ...savedSettings,
+      ...profile,
       expedition: {
         selectedBaseTypes,
         league,
@@ -131,7 +135,7 @@ const Expedition = () => {
         minAddValue,
       },
     });
-  }, [savedSettings, selectedBaseTypes, league, minValueToDisplay, addFillerItems, minAddValue]);
+  }, [profile, selectedBaseTypes, league, minValueToDisplay, addFillerItems, minAddValue]);
 
   if (priceData === undefined) {
     return <div>Loading...</div>;

@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
+import React, {Dispatch, SetStateAction, useEffect} from 'react';
 import './Vendor.css';
 import socketRed from '../../img/red-socket.png';
 import socketGreen from '../../img/green-socket.png';
@@ -6,10 +6,10 @@ import socketBlue from '../../img/blue-socket.png';
 import socketAny from '../../img/any-socket.png';
 import socketLink from '../../img/link.png';
 
-import {generateResultString, generateWarnings, PoeStringSettings} from "../../utils/OutputString";
+import {generateResultString, generateWarnings} from "../../utils/OutputString";
 import ResultBox from "../../components/ResultBox";
 import Header from "../../components/Header";
-import {hasNKey, hasNumberKey, loadCurrentProfile, loadSettings, saveSettings} from "../../utils/LocalStorage";
+import {saveSettings} from "../../utils/LocalStorage";
 import {SavedSettings, VendorSettings} from "../../utils/SavedSettings";
 
 

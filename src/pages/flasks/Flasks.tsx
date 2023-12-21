@@ -4,21 +4,26 @@ import ResultBox from "../../components/ResultBox";
 import React, {useEffect} from "react";
 import FlaskModList from "../../components/FlaskModList";
 import {flaskPrefix, flaskSuffix} from "../../generated/GeneratedFlaskMods";
-import {loadCurrentProfile, loadSettings, saveSettings} from "../../utils/LocalStorage";
+import {saveSettings} from "../../utils/LocalStorage";
 import {Checkbox} from "../vendor/Vendor";
 import {generateFlaskOutput, minItemLevel} from "../../utils/FlaskOuput";
 import {defaultSettings, FlaskSettings, SavedSettings} from "../../utils/SavedSettings";
 
-const Flasks = () => {
-  const savedSettings: SavedSettings = loadCurrentProfile();
+
+interface FlaskProps {
+  profile: SavedSettings
+}
+
+const Flasks = (props: FlaskProps) => {
+  const {profile} = props;
   const modGroups = flaskPrefix.concat(flaskSuffix).map((modGroup) => modGroup.description);
-  const [selectedPrefix, setSelectedPrefix] = React.useState<string[]>(savedSettings.flask.selectedPrefix.filter((v: string) => modGroups.includes(v)));
-  const [selectedSuffix, setSelectedSuffix] = React.useState<string[]>(savedSettings.flask.selectedSuffix.filter((v: string) => modGroups.includes(v)));
-  const [ilevel, setIlevel] = React.useState<string>(savedSettings.flask.ilevel);
-  const [onlyMaxPrefixTierMod, setOnlyMaxPrefixTierMod] = React.useState(savedSettings.flask.onlyMaxPrefixTierMod);
-  const [onlyMaxSuffixTierMod, setOnlyMaxSuffixTierMod] = React.useState(savedSettings.flask.onlyMaxPrefixTierMod);
-  const [matchBothPrefixAndSuffix, setMatchBothPrefixAndSuffix] = React.useState(savedSettings.flask.matchBothPrefixAndSuffix);
-  const [ignoreEffectTiers, setIgnoreEffectTiers] = React.useState(savedSettings.flask.ignoreEffectTiers);
+  const [selectedPrefix, setSelectedPrefix] = React.useState<string[]>(profile.flask.selectedPrefix.filter((v: string) => modGroups.includes(v)));
+  const [selectedSuffix, setSelectedSuffix] = React.useState<string[]>(profile.flask.selectedSuffix.filter((v: string) => modGroups.includes(v)));
+  const [ilevel, setIlevel] = React.useState<string>(profile.flask.ilevel);
+  const [onlyMaxPrefixTierMod, setOnlyMaxPrefixTierMod] = React.useState(profile.flask.onlyMaxPrefixTierMod);
+  const [onlyMaxSuffixTierMod, setOnlyMaxSuffixTierMod] = React.useState(profile.flask.onlyMaxPrefixTierMod);
+  const [matchBothPrefixAndSuffix, setMatchBothPrefixAndSuffix] = React.useState(profile.flask.matchBothPrefixAndSuffix);
+  const [ignoreEffectTiers, setIgnoreEffectTiers] = React.useState(profile.flask.ignoreEffectTiers);
 
   let [minIlevel, setMinIlevel] = React.useState<string | undefined>(undefined);
   let [result, setResult] = React.useState("");
@@ -36,7 +41,7 @@ const Flasks = () => {
     let allMods = flaskPrefix.concat(flaskSuffix);
     let search = generateFlaskOutput(allMods, settings);
     saveSettings({
-      ...savedSettings,
+      ...profile,
       flask: settings,
     });
     setResult(search);

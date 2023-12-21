@@ -2,7 +2,7 @@ import './Profile.css';
 import React, {createContext, useContext, useEffect, useState} from "react";
 import ProfileEditBox from "./ProfileEditBox";
 import {
-  deleteProfile,
+  deleteProfile, loadProfile,
   loadProfileNames,
   saveSettings,
   selectedProfile,
@@ -72,8 +72,12 @@ const Profile = () => {
   }
 
   const confirmEdit = () => {
+    const oldProfile = profile;
+    const profileSettings = loadProfile(oldProfile);
+    saveSettings({...profileSettings, name: editName});
     setProfiles(profiles.filter((e) => e !== profile).concat(editName));
     setProfile(editName);
+    deleteProfile(oldProfile);
     setShowEdit(false);
   }
 

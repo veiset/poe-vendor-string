@@ -7,7 +7,7 @@ import "./Beast.css";
 import Collapsable from "../../components/collapsable/Collapsable";
 import {dateTextFromString} from "../expedition/ExpeditionUtils";
 import {Checkbox} from "../vendor/Vendor";
-import {loadCurrentProfile, loadSettings, saveSettings} from "../../utils/LocalStorage";
+import {loadCurrentProfile, saveSettings} from "../../utils/LocalStorage";
 import {defaultSettings, SavedSettings} from "../../utils/SavedSettings";
 
 export interface PoeNinjaBeast {
@@ -56,11 +56,15 @@ const generateRegex = (
   return `${regex.substring(1)}`;
 }
 
-const Beast = () => {
-  const savedSettings: SavedSettings = loadCurrentProfile();
-  const [minChaosValue, setMinChaosValue] = useState<string>(savedSettings.beast.minChaosValue);
-  const [maxChaosValue, setMaxChaosValue] = useState<string>(savedSettings.beast.maxChaosValue);
-  const [includeHarvest, setIncludeHarvest] = React.useState(savedSettings.beast.includeHarvest);
+interface BeastProps {
+  profile: SavedSettings
+}
+
+const Beast = (props: BeastProps) => {
+  const {profile} = props;
+  const [minChaosValue, setMinChaosValue] = useState<string>(profile.beast.minChaosValue);
+  const [maxChaosValue, setMaxChaosValue] = useState<string>(profile.beast.maxChaosValue);
+  const [includeHarvest, setIncludeHarvest] = React.useState(profile.beast.includeHarvest);
 
   const [beastPrices, setBeastPrices] = useState<BeastPriceRegex[]>([]);
   const [lastUpdated, setLastUpdated] = useState("Outdated prices. Check back in a few mins...");
@@ -95,7 +99,7 @@ const Beast = () => {
 
   useEffect(() => {
     saveSettings({
-      ...savedSettings,
+      ...profile,
       beast: {
         includeHarvest,
         minChaosValue,

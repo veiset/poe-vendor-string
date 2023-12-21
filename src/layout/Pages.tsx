@@ -23,11 +23,11 @@ const Pages = () => {
       <Routes>
         <Route path="/" element={<Vendor profile={profile} key={"vendor-" + profile.name}/>}/>
         <Route path="/vendor" element={<Vendor profile={profile} key={"vendor-" + profile.name}/>}/>
-        <Route path="/maps" element={<Maps key={"map-" + profile.name}/>}/>
-        <Route path="/flasks" element={<Flasks key={"flask-" + profile.name}/>}/>
-        <Route path="/heist" element={<Heist key={"heist-" + profile.name}/>}/>
-        <Route path="/expedition" element={<Expedition key={"expedition-" + profile.name}/>}/>
-        <Route path="/beast" element={<Beast key={"beast-" + profile.name}/>}/>
+        <Route path="/maps" element={<Maps profile={profile} key={"map-" + profile.name}/>}/>
+        <Route path="/flasks" element={<Flasks profile={profile} key={"flask-" + profile.name}/>}/>
+        <Route path="/heist" element={<Heist profile={profile} key={"heist-" + profile.name}/>}/>
+        <Route path="/expedition" element={<Expedition profile={profile} key={"expedition-" + profile.name}/>}/>
+        <Route path="/beast" element={<Beast profile={profile} key={"beast-" + profile.name}/>}/>
       </Routes>
     </ProfileContext.Provider>
   );
