@@ -12,6 +12,7 @@ export interface SavedSettings {
   expedition: ExpeditionSettings
   map: MapSettings
   vendor: VendorSettings
+  mapNames: MapNameSettings
 }
 
 export interface BeastSettings {
@@ -53,6 +54,10 @@ export interface MapSettings {
   packsize: string
   optimizeQuant: boolean
   optimizePacksize: boolean
+}
+
+export interface MapNameSettings {
+  selected: string[]
 }
 
 export interface VendorSettings {
@@ -170,6 +175,9 @@ export const defaultSettings: SavedSettings = {
     packsize: "",
     optimizeQuant: true,
     optimizePacksize: true,
+  },
+  mapNames: {
+    selected: [],
   },
   vendor: {
     anyThreeLink: false,
