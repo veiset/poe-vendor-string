@@ -1,0 +1,7 @@
+.map-list {
+    cursor: pointer;
+    padding: 15px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 33% 33% 33%;
+}
