@@ -49,11 +49,16 @@ export interface MapSettings {
   badMods: string[]
   goodMods: string[]
   kirac: string[]
-  allGoodMods: string
+  allGoodMods: boolean
   quantity: string
   packsize: string
   optimizeQuant: boolean
   optimizePacksize: boolean
+  rarity: {
+    normal: boolean
+    magic: boolean
+    rare: boolean
+  }
 }
 
 export interface MapNameSettings {
@@ -170,11 +175,16 @@ export const defaultSettings: SavedSettings = {
     badMods: [],
     goodMods: [],
     kirac: [],
-    allGoodMods: "any",
+    allGoodMods: true,
     quantity: "",
     packsize: "",
     optimizeQuant: true,
     optimizePacksize: true,
+    rarity: {
+      normal: true,
+      magic: true,
+      rare: true,
+    },
   },
   mapNames: {
     selected: [],
