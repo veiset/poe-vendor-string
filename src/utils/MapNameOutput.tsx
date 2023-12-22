@@ -30,15 +30,4 @@ function generateMaps(settings: MapNameSettings): string {
     .join("|")
     .replaceAll('"', "");
   return `"${modStr}"`;
-
-  // if (true) {
-  //     return maps.map((m) => {
-  //         return mapNames[m].matchSafe;
-  //     }).join(" ");
-  // } else {
-  //     const modStr = maps.map((m) => {
-  //         return mapNames[m].matchSafe;
-  //     }).join("|").replaceAll("\"", "")
-  //     return `"${modStr}"`
-  // }
 }

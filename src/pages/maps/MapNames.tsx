@@ -38,7 +38,7 @@ const Maps = () => {
 
   return (
     <>
-      <Header text={"Map Modifiers"} />
+      <Header text={"Map Names"} />
       <ResultBox
         result={result}
         warning={undefined}

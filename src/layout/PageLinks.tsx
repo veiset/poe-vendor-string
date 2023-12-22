@@ -50,7 +50,7 @@ const PageLinks = () => {
     <div className="page-links">
       <PageLink text="Vendor" icon={vendorIcon} route={"/"} currentPage={currentPage}/>
       <PageLink text="Map modifiers" icon={mapIcon} route={"/maps"} currentPage={currentPage}/>
-      <PageLink text="Map Name" icon={mapIcon} route={"/mapnames"} currentPage={currentPage}/>
+      <PageLink text="Map Names" icon={mapIcon} route={"/mapnames"} currentPage={currentPage}/>
       <PageLink text="Expedition" icon={expeditionIcon} route={"/expedition"} currentPage={currentPage}/>
       <PageLink text="Heist" icon={heistIcon} route={"/heist"} currentPage={currentPage}/>
       <PageLink text="Flasks" icon={flaskIcon} route={"/flasks"} currentPage={currentPage}/>
