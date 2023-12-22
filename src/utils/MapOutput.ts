@@ -20,9 +20,11 @@ function addRarityRegex(normal: boolean, magic: boolean, rare: boolean): string 
   const normalRegex = normal ? "normal" : "";
   const magicRegex = magic ? "magic" : "";
   const rareRegex = rare ? "rare" : "";
-  return [normalRegex, magicRegex, rareRegex]
+  const result = [normalRegex, magicRegex, rareRegex]
     .filter((e) => e.length > 0)
     .join("|");
+
+  return result.includes("|") ? `"${result}"` : result;
 }
 
 function addQuantifier(prefix: string, string: string) {
