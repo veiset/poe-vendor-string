@@ -56,7 +56,7 @@ const PageLinks = () => {
       <PageLink text="Bestiary" icon={beastIcon} route={"/beast"} currentPage={currentPage}/>
       <p className="support-coffee">
         <img src={coffeeIcon} alt="buy me a coffee" className="coffee-icon"/>
-        <a className="source-link" target="_blank" href="https://www.buymeacoffee.com/veiset">Buy me a coffee</a>
+        <a className="source-link" target="_blank" href="https://www.buymeacoffee.com/veiset" rel="noreferrer">Support the webpage</a>
       </p>
     </div>
   </div>)

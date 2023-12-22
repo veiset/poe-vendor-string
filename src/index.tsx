@@ -3,12 +3,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/layout.css';
 import './styles/global.css';
-import linkGraphic from './img/pagegfx/chain_icon.png';
 import PageLinks from "./layout/PageLinks";
 import {HashRouter} from "react-router-dom";
 import Pages from "./layout/Pages";
 import About from "./components/About";
-import CoffeeBanner from "./components/banner/CoffeeBanner";
+import {migrateSavedSettings_V1} from "./utils/LocalStorageMigration";
+
+migrateSavedSettings_V1();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

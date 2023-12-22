@@ -1,23 +1,37 @@
 import Heist from "../pages/heist/Heist";
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 import Vendor from "../pages/vendor/Vendor";
 import Maps from "../pages/maps/Maps";
 import Flasks from "../pages/flasks/Flasks";
 import Expedition from "../pages/expedition/Expedition";
 import Beast from "../pages/beast/Beast";
+import {useEffect, useState} from "react";
+import {loadSettings, selectedProfile} from "../utils/LocalStorage";
+import {ProfileContext} from "../components/profile/ProfileContext";
 
 const Pages = () => {
-    return (
-        <Routes>
-            <Route path="/" element={<Vendor/>}/>
-            <Route path="/vendor" element={<Vendor/>}/>
-            <Route path="/maps" element={<Maps/>}/>
-            <Route path="/flasks" element={<Flasks/>}/>
-            <Route path="/heist" element={<Heist/>}/>
-            <Route path="/expedition" element={<Expedition/>}/>
-            <Route path="/beast" element={<Beast/>}/>
-        </Routes>
-    );
+  const [globalProfile, setGlobalProfile] = useState(selectedProfile());
+  const [profile, setProfile] = useState(loadSettings(globalProfile));
+
+  useEffect(() => {
+    console.log(`Loading profile: ${globalProfile}`)
+    let savedSettings = loadSettings(globalProfile);
+    setProfile(savedSettings);
+  }, [globalProfile]);
+
+  return (
+    <ProfileContext.Provider value={{globalProfile, setGlobalProfile}}>
+      <Routes>
+        <Route path="/" element={<Vendor key={"vendor-" + profile.name}/>}/>
+        <Route path="/vendor" element={<Vendor key={"vendor-" + profile.name}/>}/>
+        <Route path="/maps" element={<Maps key={"map-" + profile.name}/>}/>
+        <Route path="/flasks" element={<Flasks key={"flask-" + profile.name}/>}/>
+        <Route path="/heist" element={<Heist key={"heist-" + profile.name}/>}/>
+        <Route path="/expedition" element={<Expedition key={"expedition-" + profile.name}/>}/>
+        <Route path="/beast" element={<Beast key={"beast-" + profile.name}/>}/>
+      </Routes>
+    </ProfileContext.Provider>
+  );
 }
 
 export default Pages;

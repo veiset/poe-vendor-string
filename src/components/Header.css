@@ -1,5 +1,19 @@
+.page-header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
 .page-header {
     font-size: 26px;
+    padding: 6px;
+    margin: 4px;
+}
+
+.page-header-profile {
+    font-size: 20px;
     padding: 6px;
     margin: 4px;
 }
