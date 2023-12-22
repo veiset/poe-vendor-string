@@ -28,7 +28,7 @@ const Pages = () => {
         <Route path="/flasks" element={<Flasks key={"flask-" + profile.name}/>}/>
         <Route path="/heist" element={<Heist key={"heist-" + profile.name}/>}/>
         <Route path="/expedition" element={<Expedition key={"expedition-" + profile.name}/>}/>
-        <Route path="/beast" element={<Beast profile={profile} key={"beast-" + profile.name}/>}/>
+        <Route path="/beast" element={<Beast key={"beast-" + profile.name}/>}/>
       </Routes>
     </ProfileContext.Provider>
   );

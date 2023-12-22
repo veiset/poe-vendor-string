@@ -1,14 +1,15 @@
 import Header from "../../components/Header";
 import ResultBox from "../../components/ResultBox";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {beastRegex} from "../../generated/GeneratedBeastRegex";
 import {leagueName} from "../expedition/Expedition";
 import "./Beast.css";
 import Collapsable from "../../components/collapsable/Collapsable";
 import {dateTextFromString} from "../expedition/ExpeditionUtils";
 import {Checkbox} from "../vendor/Vendor";
-import {saveSettings} from "../../utils/LocalStorage";
+import {loadSettings, saveSettings} from "../../utils/LocalStorage";
 import {defaultSettings, SavedSettings} from "../../utils/SavedSettings";
+import {ProfileContext} from "../../components/profile/ProfileContext";
 
 export interface PoeNinjaBeast {
   name: string
@@ -56,12 +57,9 @@ const generateRegex = (
   return `${regex.substring(1)}`;
 }
 
-interface BeastProps {
-  profile: SavedSettings
-}
-
-const Beast = (props: BeastProps) => {
-  const {profile} = props;
+const Beast = () => {
+  const {globalProfile} = useContext(ProfileContext);
+  const profile = loadSettings(globalProfile);
   const [minChaosValue, setMinChaosValue] = useState<string>(profile.beast.minChaosValue);
   const [maxChaosValue, setMaxChaosValue] = useState<string>(profile.beast.maxChaosValue);
   const [includeHarvest, setIncludeHarvest] = React.useState(profile.beast.includeHarvest);
