@@ -10,15 +10,15 @@ import Header from "../../components/Header";
 import { hasKey } from "../../utils/LocalStorage";
 
 const Maps = () => {
-  const mods = Array.from(Object.keys(mapNames));
+  const maps = Array.from(Object.keys(mapNames));
   
-  const goodMods = mods
-    .map((m) => ({ ...mapNames[m], value: m }));
+  const names = maps
+    .map((m) => ({ ...mapNames[m], name: m }));
   
-  const savedSettings = JSON.parse(localStorage.getItem("mapSearch") ?? "{}");
+  const savedSettings = JSON.parse(localStorage.getItem("mapNameSearch") ?? "{}");
   const [selectedMaps, setSelectedMaps] = React.useState<string[]>(
-    hasKey(savedSettings, "goodMods")
-      ? savedSettings.goodMods.filter((v: string) => mods.includes(v))
+    hasKey(savedSettings, "maps")
+      ? savedSettings.maps.filter((v: string) => maps.includes(v))
       : []
   );
 
@@ -29,7 +29,7 @@ const Maps = () => {
       maps: selectedMaps,
     };
     let search = generateMapNameStr(settings);
-    localStorage.setItem("mapSearch", JSON.stringify(settings));
+    localStorage.setItem("mapNameSearch", JSON.stringify(settings));
     setResult(search);
   }, [
     result,
@@ -54,7 +54,7 @@ const Maps = () => {
       <div className="full-size">
         <MapNameList
           id="maps"
-          mods={goodMods}
+          names={names}
           selected={selectedMaps}
           setSelected={setSelectedMaps}
         />

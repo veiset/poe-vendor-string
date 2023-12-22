@@ -4,39 +4,39 @@ import ModSearchBox from "./ModSearchBox";
 
 export interface MapNameListProps {
     id: string
-    mods: MapName[]
+    names: MapName[]
     selected: string[]
     setSelected: Dispatch<SetStateAction<string[]>>
-    colorFun?: (mapMod: MapName) => string
+    // colorFun?: (mapMod: MapName) => string
     disableSearch?: boolean
 }
 
 const MapNameList = (props: MapNameListProps) => {
-    const {id, mods, selected, setSelected, disableSearch} = props;
+    const {id, names, selected, setSelected, disableSearch} = props;
     const [search, setSearch] = React.useState("");
 
     useEffect(() => { }, [selected]);
 
-    const mapMods = mods.filter(v => {
-        return !search || search.toLowerCase().trim().split(" ").every(q => v.value.toLowerCase().includes(q));
+    const mapNames = names.filter(v => {
+        return !search || search.toLowerCase().trim().split(" ").every(q => v.name.toLowerCase().includes(q));
     });
 
     return (
         <>
-            {!disableSearch && <ModSearchBox id={id} search={search} setSearch={setSearch} />}
+            {!disableSearch && <ModSearchBox id={id} search={search} setSearch={setSearch} placeholder={"Search for a Map..."}/>}
             <div className="map-list">
-                {mapMods.map((v) => {
-                    const isSelected = selected.includes(v.value);
+                {mapNames.map((v) => {
+                    const isSelected = selected.includes(v.name);
                     return (
-                        <div key={v.value}
+                        <div key={v.name}
                              className={isSelected ? "selectable-item selected-mod" : "selectable-item"}
                              onClick={() => {
                                  isSelected
-                                     ? setSelected(selected.filter(m => m !== v.value))
-                                     : setSelected(selected.concat(v.value));
+                                     ? setSelected(selected.filter(m => m !== v.name))
+                                     : setSelected(selected.concat(v.name));
                              }}
                         >
-                            {v.value.replaceAll("|", " ")}
+                            {v.name.replaceAll("|", " ")}
                         </div>
                     );
                 })}

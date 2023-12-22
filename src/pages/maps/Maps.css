@@ -31,7 +31,8 @@
     cursor: pointer;
     padding: 15px;
     display: grid;
-    grid-template-columns: 50% 50%;
+    gap: 10px;
+    grid-template-columns: 33% 33% 33%;
 }
 .map-column-text {
     font-size: 28px;
