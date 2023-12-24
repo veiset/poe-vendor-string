@@ -32,7 +32,7 @@ const Maps = () => {
   const [selectedKirac, setSelectedKirac] = React.useState<string[]>(profile.map.kirac.filter((v: string) => kiracModList.includes(v)));
   const [modGrouping, setModGrouping] = React.useState(profile.map.allGoodMods);
   const [quantity, setQuantity] = React.useState(profile.map.quantity);
-  const [packsize, setPacksize] = React.useState(profile.map.quantity);
+  const [packsize, setPacksize] = React.useState(profile.map.packsize);
   const [optimizeQuant, setOptimizeQuant] = React.useState(profile.map.optimizeQuant);
   const [optimizePacksize, setOptimizePacksize] = React.useState(profile.map.optimizePacksize);
   const [rarity, setRarity] = React.useState(profile.map.rarity);
