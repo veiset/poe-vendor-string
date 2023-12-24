@@ -72,6 +72,7 @@ const Maps = () => {
         setModGrouping(defaultSettings.map.allGoodMods)
         setQuantity(defaultSettings.map.quantity);
         setPacksize(defaultSettings.map.packsize);
+        setRarity(defaultSettings.map.rarity);
       }}/>
       <div className="break"/>
       <div className="full-size generic-top-element">
@@ -93,6 +94,17 @@ const Maps = () => {
                     onChange={(e) => setRarity({...rarity, magic: !!e})}/>
           <Checkbox label="Rare Maps" value={rarity.rare}
                     onChange={(e) => setRarity({...rarity, rare: !!e})}/>
+          <div className="radio-button-modgroup">
+            <input type="radio" className="radio-button-map" id="maps-include" name="map-include"
+                   defaultChecked={rarity.include}
+                   checked={rarity.include}
+                   onChange={v => setRarity({...rarity, include: true})}/>
+            <label htmlFor="maps-include" className="radio-button-map radio-first-ele">Include</label>
+            <input type="radio" id="maps-exclude" name="map-include" defaultChecked={!rarity.include}
+                   checked={!rarity.include}
+                   onChange={v => setRarity({...rarity, include: false})}/>
+            <label htmlFor="maps-exclude" className="radio-button-map">Exclude</label>
+          </div>
         </div>
       </div>
       <div className="eq-col-2 box-small-padding">
@@ -104,10 +116,11 @@ const Maps = () => {
           <input type="radio" className="radio-button-map" id="mods-any" name="mods" value="any"
                  checked={!modGrouping}
                  onChange={v => setModGrouping(!v.target.checked)}/>
-          <label htmlFor="mods-any">I want <b>any</b> of the modifiers</label>
+          <label htmlFor="mods-any" className="radio-button-map radio-first-ele">I want <b>any</b> of the
+            modifiers</label>
           <input type="radio" id="mods-all" name="mods" value="all" checked={modGrouping}
                  onChange={v => setModGrouping(v.target.checked)}/>
-          <label htmlFor="mods-all">I want <b>all</b> of the modifiers</label>
+          <label htmlFor="mods-all" className="radio-button-map">I want <b>all</b> of the modifiers</label>
         </div>
       </div>
       <div className="break"/>

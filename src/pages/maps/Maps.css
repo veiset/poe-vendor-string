@@ -50,3 +50,11 @@
     display: flex;
     gap: 20px;
 }
+
+.radio-button-map {
+    cursor: pointer;
+}
+
+.radio-first-ele {
+    padding-right: 10px;
+}

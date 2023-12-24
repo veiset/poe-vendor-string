@@ -58,6 +58,7 @@ export interface MapSettings {
     normal: boolean
     magic: boolean
     rare: boolean
+    include: boolean
   }
 }
 
@@ -184,6 +185,7 @@ export const defaultSettings: SavedSettings = {
       normal: true,
       magic: true,
       rare: true,
+      include: true,
     },
   },
   mapNames: {

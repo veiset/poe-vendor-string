@@ -13,7 +13,7 @@ describe('testing quantity and quality regex number matching', () => {
     optimizeQuant: optimize,
     quantity: quant,
     packsize: "",
-    rarity: {normal: true, magic: true, rare: true}
+    rarity: {normal: true, magic: true, rare: true, include: true}
   })
 
   test('Should match correct quantities without optimization', () => {

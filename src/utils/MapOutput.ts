@@ -8,23 +8,29 @@ export function generateMapModStr(settings: MapSettings): string {
   const kirac = generateKirac(settings);
   const quantity = addQuantifier("m q.*", generateNumberRegex(settings.quantity, settings.optimizeQuant));
   const packsize = addQuantifier("iz.*", generateNumberRegex(settings.packsize, settings.optimizePacksize));
-  const rarity = addRarityRegex(settings.rarity.normal, settings.rarity.magic, settings.rarity.rare);
+  const rarity = addRarityRegex(settings.rarity.normal, settings.rarity.magic, settings.rarity.rare, settings.rarity.include);
 
   const result = `${exclusions} ${inclusions} ${quantity} ${packsize} ${rarity} ${kirac}`
     .trim().replaceAll(/\s{2,}/g, ' ');
   return optimize(result);
 }
 
-function addRarityRegex(normal: boolean, magic: boolean, rare: boolean): string {
-  if (normal && magic && rare) return "";
-  const normalRegex = normal ? "normal" : "";
-  const magicRegex = magic ? "magic" : "";
-  const rareRegex = rare ? "rare" : "";
+function addRarityRegex(normal: boolean, magic: boolean, rare: boolean, include: boolean): string {
+  if (normal && magic && rare) {
+    return include ? "" : `"!y: (n|m|r)"`;
+  }
+  const normalRegex = normal ? "n" : "";
+  const magicRegex = magic ? "m" : "";
+  const rareRegex = rare ? "r" : "";
   const result = [normalRegex, magicRegex, rareRegex]
     .filter((e) => e.length > 0)
     .join("|");
 
-  return result.includes("|") ? `"${result}"` : result;
+  const excludePrefix = include ? "" : "!";
+  if (result.length === 0) return "";
+  if (result.length === 1) return `"${excludePrefix}y: ${result}"`;
+  if (result.length > 1) return `"${excludePrefix}y: (${result})"`;
+  return "";
 }
 
 function addQuantifier(prefix: string, string: string) {
