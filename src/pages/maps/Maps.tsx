@@ -2,13 +2,13 @@ import React, {useContext, useEffect} from "react";
 import './Maps.css';
 import ResultBox from "../../components/ResultBox";
 import {kiracModifier, MapMod, mapModifiers} from "../../generated/GeneratedMapMods";
-import {generateMapModStr, MapModSettings} from "../../utils/MapOutput";
+import {generateMapModStr} from "../../utils/MapOutput";
 import MapModList from "../../components/MapModList";
 import {Checkbox} from "../vendor/Vendor";
 import {getGradientColor} from "../../utils/ColorGradient";
 import Header from "../../components/Header";
 import {loadSettings, saveSettings} from "../../utils/LocalStorage";
-import {defaultSettings} from "../../utils/SavedSettings";
+import {defaultSettings, MapSettings} from "../../utils/SavedSettings";
 import {ProfileContext} from "../../components/profile/ProfileContext";
 
 const Maps = () => {
@@ -35,36 +35,29 @@ const Maps = () => {
   const [packsize, setPacksize] = React.useState(profile.map.quantity);
   const [optimizeQuant, setOptimizeQuant] = React.useState(profile.map.optimizeQuant);
   const [optimizePacksize, setOptimizePacksize] = React.useState(profile.map.optimizePacksize);
+  const [rarity, setRarity] = React.useState(profile.map.rarity);
 
   const [result, setResult] = React.useState("");
 
   useEffect(() => {
-    let settings: MapModSettings = {
+    let settings: MapSettings = {
       badMods: selectedBadMods,
       goodMods: selectedGoodMods,
       kirac: selectedKirac,
-      allGoodMods: modGrouping === "all",
+      allGoodMods: modGrouping,
       quantity,
       packsize,
       optimizeQuant,
       optimizePacksize,
+      rarity
     };
     let search = generateMapModStr(settings);
     saveSettings({
       ...profile,
-      map: {
-        badMods: selectedBadMods,
-        goodMods: selectedGoodMods,
-        kirac: selectedKirac,
-        allGoodMods: modGrouping,
-        quantity,
-        packsize,
-        optimizeQuant,
-        optimizePacksize,
-      },
+      map: {...settings},
     });
     setResult(search);
-  }, [result, selectedBadMods, selectedGoodMods, selectedKirac, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize]);
+  }, [result, rarity, selectedBadMods, selectedGoodMods, selectedKirac, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize]);
 
 
   return (
@@ -79,6 +72,7 @@ const Maps = () => {
         setModGrouping(defaultSettings.map.allGoodMods)
         setQuantity(defaultSettings.map.quantity);
         setPacksize(defaultSettings.map.packsize);
+        setRarity(defaultSettings.map.rarity);
       }}/>
       <div className="break"/>
       <div className="full-size generic-top-element">
@@ -93,6 +87,25 @@ const Maps = () => {
                   onChange={setOptimizeQuant}/>
         <Checkbox label="Optimize Pack Size value" value={optimizePacksize}
                   onChange={setOptimizePacksize}/>
+        <div className="rarity-select">
+          <Checkbox label="Normal Maps" value={rarity.normal}
+                    onChange={(e) => setRarity({...rarity, normal: !!e})}/>
+          <Checkbox label="Magic Maps" value={rarity.magic}
+                    onChange={(e) => setRarity({...rarity, magic: !!e})}/>
+          <Checkbox label="Rare Maps" value={rarity.rare}
+                    onChange={(e) => setRarity({...rarity, rare: !!e})}/>
+          <div className="radio-button-modgroup">
+            <input type="radio" className="radio-button-map" id="maps-include" name="map-include"
+                   defaultChecked={rarity.include}
+                   checked={rarity.include}
+                   onChange={v => setRarity({...rarity, include: true})}/>
+            <label htmlFor="maps-include" className="radio-button-map radio-first-ele">Include</label>
+            <input type="radio" id="maps-exclude" name="map-include" defaultChecked={!rarity.include}
+                   checked={!rarity.include}
+                   onChange={v => setRarity({...rarity, include: false})}/>
+            <label htmlFor="maps-exclude" className="radio-button-map">Exclude</label>
+          </div>
+        </div>
       </div>
       <div className="eq-col-2 box-small-padding">
         <div className="column-header map-column-text">I don't want any of these mods</div>
@@ -101,12 +114,13 @@ const Maps = () => {
         <div className="column-header map-column-text">I want these mods</div>
         <div className="radio-button-modgroup">
           <input type="radio" className="radio-button-map" id="mods-any" name="mods" value="any"
-                 checked={modGrouping === "any"}
-                 onChange={v => setModGrouping(v.target.value)}/>
-          <label htmlFor="mods-any">I want <b>any</b> of the modifiers</label>
-          <input type="radio" id="mods-all" name="mods" value="all" checked={modGrouping === "all"}
-                 onChange={v => setModGrouping(v.target.value)}/>
-          <label htmlFor="mods-all">I want <b>all</b> of the modifiers</label>
+                 checked={!modGrouping}
+                 onChange={v => setModGrouping(!v.target.checked)}/>
+          <label htmlFor="mods-any" className="radio-button-map radio-first-ele">I want <b>any</b> of the
+            modifiers</label>
+          <input type="radio" id="mods-all" name="mods" value="all" checked={modGrouping}
+                 onChange={v => setModGrouping(v.target.checked)}/>
+          <label htmlFor="mods-all" className="radio-button-map">I want <b>all</b> of the modifiers</label>
         </div>
       </div>
       <div className="break"/>
