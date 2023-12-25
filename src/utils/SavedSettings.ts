@@ -13,6 +13,7 @@ export interface SavedSettings {
   map: MapSettings
   vendor: VendorSettings
   mapNames: MapNameSettings
+  compass: CompassSettings
 }
 
 export interface BeastSettings {
@@ -63,6 +64,10 @@ export interface MapSettings {
 }
 
 export interface MapNameSettings {
+  selected: string[]
+}
+
+export interface CompassSettings {
   selected: string[]
 }
 
@@ -189,6 +194,9 @@ export const defaultSettings: SavedSettings = {
     },
   },
   mapNames: {
+    selected: [],
+  },
+  compass: {
     selected: [],
   },
   vendor: {

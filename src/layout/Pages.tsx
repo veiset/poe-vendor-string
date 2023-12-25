@@ -1,5 +1,5 @@
 import Heist from "../pages/heist/Heist";
-import {Route, Routes, useLocation} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import Vendor from "../pages/vendor/Vendor";
 import Maps from "../pages/maps/Maps";
 import Flasks from "../pages/flasks/Flasks";
@@ -9,6 +9,7 @@ import React, {useEffect, useState} from "react";
 import {loadSettings, selectedProfile} from "../utils/LocalStorage";
 import {ProfileContext} from "../components/profile/ProfileContext";
 import MapNames from "../pages/mapnames/MapNames";
+import CompassRegex from "../pages/compass/CompassRegex";
 
 const Pages = () => {
   const [globalProfile, setGlobalProfile] = useState(selectedProfile());
@@ -30,6 +31,7 @@ const Pages = () => {
         <Route path="/flasks" element={<Flasks key={"flask-" + profile.name}/>}/>
         <Route path="/heist" element={<Heist key={"heist-" + profile.name}/>}/>
         <Route path="/expedition" element={<Expedition key={"expedition-" + profile.name}/>}/>
+        <Route path="/compass" element={<CompassRegex key={"expedition-" + profile.name}/>}/>
         <Route path="/beast" element={<Beast key={"beast-" + profile.name}/>}/>
       </Routes>
     </ProfileContext.Provider>
