@@ -148,13 +148,9 @@ export const compasses: { [key: string]: Compass } = {
    mod: "Breaches in your Maps belong to Chayula\nBreaches in your Maps contain # additional Clasped Hands",
    matchSafe: "yu",
  },
- "Your Maps contain an additional Abyss\nYour Maps can contain Abysses": {
-   mod: "Your Maps contain an additional Abyss\nYour Maps can contain Abysses",
-   matchSafe: "\"n additional a\"",
- },
  "Your Maps contain # additional Abysses\nYour Maps can contain Abysses": {
    mod: "Your Maps contain # additional Abysses\nYour Maps can contain Abysses",
-   matchSafe: "\"l abysse\"",
+   matchSafe: "aby",
  },
  "Your Maps contain an additional Gloom Shrine": {
    mod: "Your Maps contain an additional Gloom Shrine",
