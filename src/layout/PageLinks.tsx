@@ -7,6 +7,7 @@ import heistIcon from '../img/linkicons/blueprint.png';
 import expeditionIcon from '../img/linkicons/expeidition_reroll.png';
 import beastIcon from '../img/BestiaryOrbFull.png';
 import coffeeIcon from '../img/bmc-logo-no-background.png';
+import compassIcon from '../img/linkicons/compass.png';
 import {Link, useLocation} from 'react-router-dom';
 
 
@@ -52,6 +53,7 @@ const PageLinks = () => {
       <PageLink text="Vendor" icon={vendorIcon} route={"/"} currentPage={currentPage}/>
       <PageLink text="Map modifiers" icon={mapIcon} route={"/maps"} currentPage={currentPage}/>
       <PageLink text="Map names" icon={mapNameIcon} route={"/mapnames"} currentPage={currentPage}/>
+      <PageLink text="Compass" icon={compassIcon} route={"/compass"} currentPage={currentPage}/>
       <PageLink text="Expedition" icon={expeditionIcon} route={"/expedition"} currentPage={currentPage}/>
       <PageLink text="Heist" icon={heistIcon} route={"/heist"} currentPage={currentPage}/>
       <PageLink text="Flasks" icon={flaskIcon} route={"/flasks"} currentPage={currentPage}/>
