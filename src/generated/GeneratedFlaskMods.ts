@@ -117,7 +117,7 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 3,
    description: "#% increased Charge Recovery",
-   regex: "rpe|ml|endl|nu|onst",
+   regex: "rpe|ml|endl|nu|const",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 83,
@@ -143,7 +143,7 @@ export const flaskPrefix: FlaskModGroup[] = [
      level: 3,
      name: "Constant",
      value: "(16-20)% increased Charge Recovery",
-     regex: "onst"
+     regex: "const"
    }]
  },
  {
@@ -483,7 +483,7 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 63,
    description: "Gain # Charges when you are Hit by an Enemy",
-   regex: "s wh",
+   regex: "s whe",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 63,
@@ -633,7 +633,7 @@ export const flaskSuffix: FlaskModGroup[] = [
      level: 61,
      name: "of the Beluga",
      value: "(46-50)% chance to Avoid being Chilled during Effect (46-50)% chance to Avoid being Frozen during Effect",
-     regex: "bel"
+     regex: "elu"
    },   {
      level: 42,
      name: "of the Narwhal",
@@ -1052,7 +1052,7 @@ export const flaskSuffix: FlaskModGroup[] = [
  {
    minLevel: 12,
    description: "#% reduced Mana Cost of Skills during Effect",
-   regex: "ls",
+   regex: "cos",
    tag: { name: "life", sort: 100, color: "#fab4bb" },
    mods: [   {
      level: 80,
@@ -1369,7 +1369,7 @@ export const flaskSuffix: FlaskModGroup[] = [
  {
    minLevel: 30,
    description: "Hinders nearby Enemies with #% reduced Movement Speed if used while not on Full Mana",
-   regex: "l m",
+   regex: "l ma",
    tag: { name: "life", sort: 100, color: "#fab4bb" },
    mods: [   {
      level: 84,
