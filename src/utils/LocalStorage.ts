@@ -41,7 +41,6 @@ export const setSelectedProfile = (name: string): void => {
 }
 
 export const saveSettings = (settings: SavedSettings): void => {
-  console.log({settings});
   localStorage.setItem("selectedProfile", settings.name);
   const profiles = loadProfiles();
   profiles[settings.name] = settings;

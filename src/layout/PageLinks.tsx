@@ -9,6 +9,7 @@ import beastIcon from '../img/BestiaryOrbFull.png';
 import coffeeIcon from '../img/bmc-logo-no-background.png';
 import compassIcon from '../img/linkicons/compass.png';
 import {Link, useLocation} from 'react-router-dom';
+import {useEffect, useState} from "react";
 
 
 export interface PageLinkProps {
@@ -46,6 +47,14 @@ const ExternalLink = (props: PageLinkProps) => {
 const PageLinks = () => {
   const location = useLocation();
   const currentPage = location.pathname;
+  const [hasRun, setHasRun] = useState(false);
+
+  useEffect(() => {
+    if (hasRun && (window as any).plausible !== undefined) {
+      (window as any).plausible("click " + location.pathname);
+    }
+    setHasRun(true);
+  }, [location]);
 
   return (<div className="page-link-wrapper">
     <div className="page-link-header">Path of Regex</div>
