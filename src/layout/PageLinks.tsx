@@ -51,7 +51,7 @@ const PageLinks = () => {
 
   useEffect(() => {
     if (hasRun && (window as any).plausible !== undefined) {
-      (window as any).plausible("click " + location.pathname);
+      (window as any).plausible("click+" + location.pathname);
     }
     setHasRun(true);
   }, [location]);
