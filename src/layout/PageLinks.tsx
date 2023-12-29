@@ -47,14 +47,6 @@ const ExternalLink = (props: PageLinkProps) => {
 const PageLinks = () => {
   const location = useLocation();
   const currentPage = location.pathname;
-  const [hasRun, setHasRun] = useState(false);
-
-  useEffect(() => {
-    if (hasRun && (window as any).plausible !== undefined) {
-      (window as any).plausible("pageview");
-    }
-    setHasRun(true);
-  }, [location]);
 
   return (<div className="page-link-wrapper">
     <div className="page-link-header">Path of Regex</div>
