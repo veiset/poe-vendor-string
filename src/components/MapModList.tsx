@@ -29,7 +29,7 @@ const MapModList = (props: ModListProps) => {
       const sanitized = regex.toLowerCase()
         .split("\" ")
         .join("|")
-        .replace(/(?:m q|iz).*%/, "")
+        .replace(/\\"(?:m q|iz).*%/, "")
         .replaceAll("\"", "")
         .replaceAll("!", "")
         .trim();
