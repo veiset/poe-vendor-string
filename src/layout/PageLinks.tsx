@@ -6,10 +6,12 @@ import flaskIcon from '../img/linkicons/glassblower.png';
 import heistIcon from '../img/linkicons/blueprint.png';
 import expeditionIcon from '../img/linkicons/expeidition_reroll.png';
 import beastIcon from '../img/BestiaryOrbFull.png';
-import coffeeIcon from '../img/bmc-logo-no-background.png';
 import compassIcon from '../img/linkicons/compass.png';
+import patreonIcon from '../img/PATREON_SYMBOL_1_WHITE_RGB.png';
+import coffeeIcon from '../img/bmc-logo-no-background.png';
+import githubIcon from '../img/github-mark-white.png';
+import plausibleIcon from '../img/plausible_logo_sm.png';
 import {Link, useLocation} from 'react-router-dom';
-import {useEffect, useState} from "react";
 
 
 export interface PageLinkProps {
@@ -32,18 +34,6 @@ const PageLink = (props: PageLinkProps) => {
   );
 }
 
-const ExternalLink = (props: PageLinkProps) => {
-  const {text, icon, route} = props;
-  return (
-    <div className="page-link">
-      <a href={route}>
-        <img alt={text + "-icon"} className="page-link-icon" src={icon}/>
-        {text}
-      </a>
-    </div>
-  );
-}
-
 const PageLinks = () => {
   const location = useLocation();
   const currentPage = location.pathname;
@@ -59,10 +49,27 @@ const PageLinks = () => {
       <PageLink text="Heist" icon={heistIcon} route={"/heist"} currentPage={currentPage}/>
       <PageLink text="Flasks" icon={flaskIcon} route={"/flasks"} currentPage={currentPage}/>
       <PageLink text="Bestiary" icon={beastIcon} route={"/beast"} currentPage={currentPage}/>
-      <p className="support-coffee">
-        <img src={coffeeIcon} alt="buy me a coffee" className="coffee-icon"/>
-        <a className="source-link" target="_blank" href="https://www.buymeacoffee.com/veiset" rel="noreferrer">Support
-          the webpage</a>
+      <p className="support-link">
+        <img src={githubIcon} alt="issue tracker" className="support-icon"/>
+        <a className="source-link" href="https://github.com/veiset/poe-vendor-string/issues"
+           rel="noreferrer">
+          Report issue
+        </a>
+      </p>
+      <p className="support-link">
+        <img src={patreonIcon} alt="patreon" className="support-icon"/>
+        <a className="source-link" href="https://www.patreon.com/veiset" rel="noreferrer">
+          Support me on Patreon</a>
+      </p>
+      <p className="support-link">
+        <img src={coffeeIcon} alt="buy me a coffee" className="support-icon"/>
+        <a className="source-link" href="https://www.buymeacoffee.com/veiset" rel="noreferrer">
+          Buy me a coffee</a>
+      </p>
+      <p className="support-link">
+        <img src={plausibleIcon} alt="website stats" className="support-icon"/>
+        <a className="source-link" href="https://plausible.vz.is/poe.re" rel="noreferrer">
+          Website stats</a>
       </p>
     </div>
   </div>)

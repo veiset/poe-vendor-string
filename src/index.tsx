@@ -6,7 +6,6 @@ import './styles/global.css';
 import PageLinks from "./layout/PageLinks";
 import {HashRouter} from "react-router-dom";
 import Pages from "./layout/Pages";
-import About from "./components/About";
 import {migrateSavedSettings_V1} from "./utils/LocalStorageMigration";
 
 migrateSavedSettings_V1();
@@ -27,7 +26,6 @@ root.render(
             <div className="content-main-area">
               <div className="page-content">
                 <Pages/>
-                <About/>
               </div>
             </div>
             <div className="content-right-gfx"/>

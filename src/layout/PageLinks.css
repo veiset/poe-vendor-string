@@ -6,12 +6,13 @@
     color: #ffffff;
 }
 
-.support-coffee {
+.support-link {
     margin-top: 0;
+    margin-bottom: 2px;
     padding-left: 5px;
 }
 
-.coffee-icon {
+.support-icon {
     padding-top: 10px;
     padding-left: 10px;
     padding-right: 4px;
@@ -79,4 +80,16 @@ a:hover {
         flex-direction: row;
         flex-wrap: wrap;
     }
+}
+
+.about-info {
+    padding: 100px 8px 20px;
+    font-size: 16px;
+    align-content: flex-end;
+    flex-grow: 1;
+    height: 100%;
+}
+
+.source-link {
+    color: var(--color-text-link);
 }
