@@ -7,7 +7,6 @@ import heistIcon from '../img/linkicons/blueprint.png';
 import expeditionIcon from '../img/linkicons/expeidition_reroll.png';
 import beastIcon from '../img/BestiaryOrbFull.png';
 import compassIcon from '../img/linkicons/compass.png';
-import patreonIcon from '../img/PATREON_SYMBOL_1_WHITE_RGB.png';
 import coffeeIcon from '../img/bmc-logo-no-background.png';
 import githubIcon from '../img/github-mark-white.png';
 import plausibleIcon from '../img/plausible_logo_sm.png';
@@ -55,11 +54,6 @@ const PageLinks = () => {
            rel="noreferrer">
           Report issue
         </a>
-      </p>
-      <p className="support-link">
-        <img src={patreonIcon} alt="patreon" className="support-icon"/>
-        <a className="source-link" href="https://www.patreon.com/veiset" rel="noreferrer">
-          Support me on Patreon</a>
       </p>
       <p className="support-link">
         <img src={coffeeIcon} alt="buy me a coffee" className="support-icon"/>
