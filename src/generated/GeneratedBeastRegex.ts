@@ -90,7 +90,7 @@ export const beastRegex: BeastRegex[] = [
   { beast: "Farrul, First of the Plains", recipe: "Craft an Aspect Skill onto an Item - Aspect of the Cat skill", regex: "ul, f", harvest: false},
   { beast: "Fenumal Devourer", recipe: "Create a Talisman - Hexclaw Talisman", regex: "mal d", harvest: false},
   { beast: "Fenumal Hybrid Arachnid", recipe: "Open a Portal - to Fenumus' Lair", regex: "l hy", harvest: false},
-  { beast: "Fenumal Plagued Arachnid", recipe: "Create a Talisman - Avian Twins Talisman (Fire)", regex: "l pla", harvest: false},
+  { beast: "Fenumal Plagued Arachnid", recipe: "Split Rare item into two items", regex: "l pla", harvest: false},
   { beast: "Fenumal Queen", recipe: "Create a Talisman - Wereclaw Talisman", regex: "l q", harvest: false},
   { beast: "Fenumal Scorpion", recipe: "Convert this Unique Item - Into Another Random Unique Item", regex: "l sco", harvest: false},
   { beast: "Fenumal Scrabbler", recipe: "Create a Talisman - Three Hands Talisman", regex: "l scr", harvest: false},
