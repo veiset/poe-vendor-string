@@ -40,8 +40,13 @@ export function generateFlaskOutput(modGroups: FlaskModGroup[], settings: FlaskS
     onlyMaxPrefixTierMod,
     onlyMaxSuffixTierMod,
     matchBothPrefixAndSuffix,
-    ignoreEffectTiers
+    ignoreEffectTiers,
+    matchOpenPrefixSuffix,
   } = settings;
+
+  const openPrefix = "^[a-z]+ F";
+  const openSuffix = "ask$";
+
   const ilevelNumber = isNaN(Number(ilevel)) ? 85 : Number(ilevel);
 
   const prefixRegex = selectedPrefix.map((p => {
@@ -58,7 +63,11 @@ export function generateFlaskOutput(modGroups: FlaskModGroup[], settings: FlaskS
 
   if (filteredPrefixRegex.length > 0 && suffixRegex.length > 0) {
     if (matchBothPrefixAndSuffix) {
-      return `"${filteredPrefixRegex}" "${suffixRegex}"`;
+      if (matchOpenPrefixSuffix) {
+        return `"${openPrefix}|${filteredPrefixRegex}" "${openSuffix}|${suffixRegex}"`;
+      } else {
+        return `"${filteredPrefixRegex}" "${suffixRegex}"`;
+      }
     } else {
       return `"${filteredPrefixRegex}|${suffixRegex}"`;
     }

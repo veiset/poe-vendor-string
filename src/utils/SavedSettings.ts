@@ -37,6 +37,7 @@ export interface FlaskSettings {
   onlyMaxSuffixTierMod: boolean
   matchBothPrefixAndSuffix: boolean
   ignoreEffectTiers: boolean
+  matchOpenPrefixSuffix: boolean
 }
 
 export interface ExpeditionSettings {
@@ -169,8 +170,9 @@ export const defaultSettings: SavedSettings = {
     ilevel: "85",
     onlyMaxPrefixTierMod: false,
     onlyMaxSuffixTierMod: false,
-    matchBothPrefixAndSuffix: false,
+    matchBothPrefixAndSuffix: true,
     ignoreEffectTiers: false,
+    matchOpenPrefixSuffix: true,
   },
   expedition: {
     selectedBaseTypes: [],
