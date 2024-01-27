@@ -20,6 +20,7 @@ export interface BeastSettings {
   includeHarvest: boolean
   minChaosValue: string
   maxChaosValue: string
+  menagerieLimit: boolean
 }
 
 export interface HeistSettings {
@@ -152,6 +153,7 @@ export const defaultSettings: SavedSettings = {
     includeHarvest: true,
     minChaosValue: '',
     maxChaosValue: '',
+    menagerieLimit: true,
   },
   heist: {
     targetValue: 0,

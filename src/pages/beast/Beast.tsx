@@ -36,7 +36,8 @@ const generateRegex = (
   prices: BeastPriceRegex[],
   includeHarvest: boolean,
   minValue: number | undefined,
-  maxValue: number | undefined
+  maxValue: number | undefined,
+  menagerieLimit: boolean,
 ): string => {
   let done = false;
   const regex = prices.filter((e) => e.chaosValue > 0).reduce((acc: string, el: BeastPriceRegex) => {
@@ -46,7 +47,7 @@ const generateRegex = (
     if (!includeHarvest && el.harvest) {
       return acc;
     }
-    if (acc.length + el.regex.length + 1 > 50) {
+    if (acc.length + el.regex.length + 1 > (menagerieLimit ? 100 : 50)) {
       done = true;
       return acc;
     }
@@ -63,6 +64,7 @@ const Beast = () => {
   const [minChaosValue, setMinChaosValue] = useState<string>(profile.beast.minChaosValue);
   const [maxChaosValue, setMaxChaosValue] = useState<string>(profile.beast.maxChaosValue);
   const [includeHarvest, setIncludeHarvest] = React.useState(profile.beast.includeHarvest);
+  const [menagerieLimit, setMenagerieLimit] = useState(profile.beast.menagerieLimit);
 
   const [beastPrices, setBeastPrices] = useState<BeastPriceRegex[]>([]);
   const [lastUpdated, setLastUpdated] = useState("Outdated prices. Check back in a few mins...");
@@ -102,20 +104,22 @@ const Beast = () => {
         includeHarvest,
         minChaosValue,
         maxChaosValue,
+        menagerieLimit,
       }
     });
     const minChaosN = minChaosValue ? minChaosValue as unknown as number : undefined;
     const maxChaosN = maxChaosValue ? maxChaosValue as unknown as number : undefined;
-    setResult(generateRegex(beastPrices, includeHarvest, minChaosN, maxChaosN));
-  }, [includeHarvest, minChaosValue, maxChaosValue, beastPrices]);
+    setResult(generateRegex(beastPrices, includeHarvest, minChaosN, maxChaosN, menagerieLimit));
+  }, [includeHarvest, minChaosValue, maxChaosValue, beastPrices, menagerieLimit]);
 
   return (
     <>
       <Header text={"Bestiary"}/>
-      <ResultBox result={result} warning={""} reset={() => {
+      <ResultBox result={result} warning={""} maxLength={(menagerieLimit ? 100 : 50)} reset={() => {
         setIncludeHarvest(defaultSettings.beast.includeHarvest);
         setMinChaosValue(defaultSettings.beast.minChaosValue);
         setMaxChaosValue(defaultSettings.beast.maxChaosValue);
+        setMenagerieLimit(defaultSettings.beast.menagerieLimit);
       }}/>
       <p className="beast-price-info">Using price data from {leagueName}. Last updated: {lastUpdated}</p>
       <div className="row beast-options">
@@ -142,6 +146,7 @@ const Beast = () => {
       </div>
       <div className="row beast-options">
         <Checkbox label="Include harvest beasts" value={includeHarvest} onChange={setIncludeHarvest}/>
+        <Checkbox label="Use menagerie regex character limit (100)" value={menagerieLimit} onChange={setMenagerieLimit}/>
       </div>
       <div className="row">
         <Collapsable header={"Price data"} isOpenByDefault={true}>
