@@ -28,6 +28,7 @@ interface BeastPriceRegex {
   regex: string
   numberOfBeasts: number
   harvest: boolean
+  redBeast: boolean
 }
 
 const sortByChaosValue = (e1: BeastPriceRegex, e2: BeastPriceRegex) => e2.chaosValue - e1.chaosValue;
@@ -38,23 +39,27 @@ const generateRegex = (
   minValue: number | undefined,
   maxValue: number | undefined,
   menagerieLimit: boolean,
+  redBeastOnly: boolean,
 ): string => {
   let done = false;
-  const regex = prices.filter((e) => e.chaosValue > 0).reduce((acc: string, el: BeastPriceRegex) => {
-    if (done) {
-      return acc;
-    }
-    if (!includeHarvest && el.harvest) {
-      return acc;
-    }
-    if (acc.length + el.regex.length + 1 > (menagerieLimit ? 100 : 50)) {
-      done = true;
-      return acc;
-    }
-    if (el.chaosValue > (maxValue ?? 9999999)) return acc;
-    if (el.chaosValue < (minValue ?? 0)) return acc;
-    return acc + "|" + el.regex;
-  }, "");
+  const regex = prices
+    .filter((e) => redBeastOnly ? e.redBeast : true)
+    .filter((e) => e.chaosValue > 0)
+    .reduce((acc: string, el: BeastPriceRegex) => {
+      if (done) {
+        return acc;
+      }
+      if (!includeHarvest && el.harvest) {
+        return acc;
+      }
+      if (acc.length + el.regex.length + 1 > (menagerieLimit ? 100 : 50)) {
+        done = true;
+        return acc;
+      }
+      if (el.chaosValue > (maxValue ?? 9999999)) return acc;
+      if (el.chaosValue < (minValue ?? 0)) return acc;
+      return acc + "|" + el.regex;
+    }, "");
   return `${regex.substring(1)}`;
 }
 
@@ -65,6 +70,7 @@ const Beast = () => {
   const [maxChaosValue, setMaxChaosValue] = useState<string>(profile.beast.maxChaosValue);
   const [includeHarvest, setIncludeHarvest] = React.useState(profile.beast.includeHarvest);
   const [menagerieLimit, setMenagerieLimit] = useState(profile.beast.menagerieLimit);
+  const [redBeastsOnly, setRedBeastsOnly] = useState(profile.beast.redBeastsOnly);
 
   const [beastPrices, setBeastPrices] = useState<BeastPriceRegex[]>([]);
   const [lastUpdated, setLastUpdated] = useState("Outdated prices. Check back in a few mins...");
@@ -90,9 +96,12 @@ const Beast = () => {
           regex: b.regex,
           numberOfBeasts: lookup.get(b.beast)?.listingCount ?? 0,
           harvest: b.harvest,
+          redBeast: b.red,
         })
-      ).filter((e) => e.numberOfBeasts > 5); // filter price fixing, or very low amount of beasts
-      pricedRegex.sort(sortByChaosValue)
+      )
+        .filter((e) => e.numberOfBeasts > 5); // filter price fixing, or very low amount of beasts
+      pricedRegex.sort(sortByChaosValue);
+
       setBeastPrices(pricedRegex);
     });
   }, []);
@@ -105,12 +114,13 @@ const Beast = () => {
         minChaosValue,
         maxChaosValue,
         menagerieLimit,
+        redBeastsOnly,
       }
     });
     const minChaosN = minChaosValue ? minChaosValue as unknown as number : undefined;
     const maxChaosN = maxChaosValue ? maxChaosValue as unknown as number : undefined;
-    setResult(generateRegex(beastPrices, includeHarvest, minChaosN, maxChaosN, menagerieLimit));
-  }, [includeHarvest, minChaosValue, maxChaosValue, beastPrices, menagerieLimit]);
+    setResult(generateRegex(beastPrices, includeHarvest, minChaosN, maxChaosN, menagerieLimit, redBeastsOnly));
+  }, [includeHarvest, minChaosValue, maxChaosValue, beastPrices, menagerieLimit, redBeastsOnly]);
 
   return (
     <>
@@ -147,6 +157,7 @@ const Beast = () => {
       <div className="row beast-options">
         <Checkbox label="Include harvest beasts" value={includeHarvest} onChange={setIncludeHarvest}/>
         <Checkbox label="Use menagerie regex character limit (100)" value={menagerieLimit} onChange={setMenagerieLimit}/>
+        <Checkbox label="Show red beasts only" value={redBeastsOnly} onChange={setRedBeastsOnly}/>
       </div>
       <div className="row">
         <Collapsable header={"Price data"} isOpenByDefault={true}>
@@ -156,7 +167,7 @@ const Beast = () => {
             <div className="beast-value-cell">Chaos</div>
             <div className="beast-recipe-cell">Recipe</div>
           </div>
-          {beastPrices.sort(sortByChaosValue).map((e) => {
+          {beastPrices.filter((e) => redBeastsOnly ? e.redBeast : true).sort(sortByChaosValue).map((e) => {
             const highlighted = result.includes(e.regex);
             const hiddenHarvest = !includeHarvest && e.harvest ? "hidden-beast" : "";
             const highlightedCss = highlighted && !hiddenHarvest ? "beast-highlighted" : "";

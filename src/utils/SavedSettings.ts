@@ -21,6 +21,7 @@ export interface BeastSettings {
   minChaosValue: string
   maxChaosValue: string
   menagerieLimit: boolean
+  redBeastsOnly: boolean
 }
 
 export interface HeistSettings {
@@ -155,6 +156,7 @@ export const defaultSettings: SavedSettings = {
     minChaosValue: '',
     maxChaosValue: '',
     menagerieLimit: true,
+    redBeastsOnly: true,
   },
   heist: {
     targetValue: 0,
