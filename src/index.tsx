@@ -24,6 +24,12 @@ root.render(
           <div className="content-main">
             <div className="content-left-gfx"/>
             <div className="content-main-area">
+              <ins className="adsbygoogle"
+                   style={{display: "block"}}
+                   data-ad-client="ca-pub-3293934477815502"
+                   data-ad-format="auto"
+              >
+              </ins>
               <div className="page-content">
                 <Pages/>
               </div>
