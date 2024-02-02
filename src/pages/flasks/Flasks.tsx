@@ -7,7 +7,7 @@ import {flaskPrefix, flaskSuffix} from "../../generated/GeneratedFlaskMods";
 import {loadSettings, saveSettings} from "../../utils/LocalStorage";
 import {Checkbox} from "../vendor/Vendor";
 import {generateFlaskOutput, minItemLevel} from "../../utils/FlaskOuput";
-import {defaultSettings, FlaskSettings, SavedSettings} from "../../utils/SavedSettings";
+import {defaultSettings, FlaskSettings} from "../../utils/SavedSettings";
 import {ProfileContext} from "../../components/profile/ProfileContext";
 
 
@@ -22,6 +22,7 @@ const Flasks = () => {
   const [onlyMaxSuffixTierMod, setOnlyMaxSuffixTierMod] = React.useState(profile.flask.onlyMaxPrefixTierMod);
   const [matchBothPrefixAndSuffix, setMatchBothPrefixAndSuffix] = React.useState(profile.flask.matchBothPrefixAndSuffix);
   const [ignoreEffectTiers, setIgnoreEffectTiers] = React.useState(profile.flask.ignoreEffectTiers);
+  const [matchOpenPrefixSuffix, setMatchOpenPrefixSuffix] = React.useState(profile.flask.matchOpenPrefixSuffix);
 
   let [minIlevel, setMinIlevel] = React.useState<string | undefined>(undefined);
   let [result, setResult] = React.useState("");
@@ -35,6 +36,7 @@ const Flasks = () => {
       onlyMaxSuffixTierMod,
       matchBothPrefixAndSuffix,
       ignoreEffectTiers,
+      matchOpenPrefixSuffix,
     }
     let allMods = flaskPrefix.concat(flaskSuffix);
     let search = generateFlaskOutput(allMods, settings);
@@ -44,7 +46,7 @@ const Flasks = () => {
     });
     setResult(search);
     setMinIlevel(minItemLevel(allMods, settings));
-  }, [result, selectedPrefix, selectedSuffix, ilevel, onlyMaxPrefixTierMod, onlyMaxSuffixTierMod, matchBothPrefixAndSuffix, ignoreEffectTiers]);
+  }, [result, selectedPrefix, selectedSuffix, ilevel, onlyMaxPrefixTierMod, onlyMaxSuffixTierMod, matchBothPrefixAndSuffix, ignoreEffectTiers, matchOpenPrefixSuffix]);
 
   return (
     <>
@@ -57,6 +59,7 @@ const Flasks = () => {
         setOnlyMaxSuffixTierMod(defaultSettings.flask.onlyMaxSuffixTierMod);
         setMatchBothPrefixAndSuffix(defaultSettings.flask.matchBothPrefixAndSuffix);
         setIgnoreEffectTiers(defaultSettings.flask.ignoreEffectTiers);
+        setMatchOpenPrefixSuffix(defaultSettings.flask.matchOpenPrefixSuffix);
       }}/>
       <div className="break"/>
       <div className="full-size generic-top-element">
@@ -66,6 +69,8 @@ const Flasks = () => {
                onChange={v => setIlevel(v.target.value)}/>
         <Checkbox label="Require that both prefix and suffix matches" value={matchBothPrefixAndSuffix}
                   onChange={setMatchBothPrefixAndSuffix}/>
+        <Checkbox label="Match open prefix or open suffix" value={matchOpenPrefixSuffix}
+                  onChange={setMatchOpenPrefixSuffix}/>
         <Checkbox label="Ignore tier for increased effect flasks (useful when rolling flasks for Mageblood)"
                   value={ignoreEffectTiers}
                   onChange={setIgnoreEffectTiers}/>

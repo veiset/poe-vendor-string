@@ -20,6 +20,8 @@ export interface BeastSettings {
   includeHarvest: boolean
   minChaosValue: string
   maxChaosValue: string
+  menagerieLimit: boolean
+  redBeastsOnly: boolean
 }
 
 export interface HeistSettings {
@@ -36,6 +38,7 @@ export interface FlaskSettings {
   onlyMaxSuffixTierMod: boolean
   matchBothPrefixAndSuffix: boolean
   ignoreEffectTiers: boolean
+  matchOpenPrefixSuffix: boolean
 }
 
 export interface ExpeditionSettings {
@@ -152,6 +155,8 @@ export const defaultSettings: SavedSettings = {
     includeHarvest: true,
     minChaosValue: '',
     maxChaosValue: '',
+    menagerieLimit: true,
+    redBeastsOnly: true,
   },
   heist: {
     targetValue: 0,
@@ -167,8 +172,9 @@ export const defaultSettings: SavedSettings = {
     ilevel: "85",
     onlyMaxPrefixTierMod: false,
     onlyMaxSuffixTierMod: false,
-    matchBothPrefixAndSuffix: false,
+    matchBothPrefixAndSuffix: true,
     ignoreEffectTiers: false,
+    matchOpenPrefixSuffix: true,
   },
   expedition: {
     selectedBaseTypes: [],

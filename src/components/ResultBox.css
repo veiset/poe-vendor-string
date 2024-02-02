@@ -15,7 +15,6 @@
     padding: 30px;
     height: 62px;
     text-wrap: none;
-    white-space: nowrap;
     flex-shrink: 10;
     flex-grow: 0;
     overflow: hidden;

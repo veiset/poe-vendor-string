@@ -6,12 +6,13 @@ export interface ResultBoxProps {
   warning?: string
   error?: string
   reset: () => any
+  maxLength?: number;
 }
 
-const maxLength = 50;
 
 const ResultBox = (props: ResultBoxProps) => {
   const {result, warning, error, reset} = props;
+  const maxLength = props.maxLength || 50;
 
   const [copied, setCopied] = React.useState<string | undefined>(undefined);
   const [autoCopy, setAutoCopy] = React.useState(false);
@@ -31,7 +32,7 @@ const ResultBox = (props: ResultBoxProps) => {
             <div className="error">Error: {result.length} / 50 characters used - PoE client has a max limit of 50
                 characters</div>}
         {!error && result.length <= maxLength && result.length > 0 &&
-            <div className="size-info">length: {result.length} / 50</div>}
+            <div className="size-info">length: {result.length} / {maxLength}</div>}
         {error && <div className="error">Error: {error}</div>}
         {warning && <div className="warning">{warning}</div>}
       </div>
