@@ -53,8 +53,7 @@ function generateBadMods(settings: MapSettings): string {
   }
 
   const modStr = badMods.map((m) => {
-    const regex = mapModifiers[m].matchSafe;
-    return regex.replaceAll("\"", "");
+    return mapModifiers[m].matchSafe;
   }).join("|");
   return `"!${modStr}"`;
 }
@@ -68,13 +67,14 @@ function generateGoodMods(settings: MapSettings): string {
 
   if (allGoodMods) {
     return goodMods.map((m) => {
-      return mapModifiers[m].matchSafe;
+      let matchSafe = mapModifiers[m].matchSafe;
+      return matchSafe.includes(" ") ? `"${matchSafe}"` : matchSafe;
     }).join(" ");
   } else {
-    const modStr = goodMods.map((m) => {
+    const regex = goodMods.map((m) => {
       return mapModifiers[m].matchSafe;
-    }).join("|").replaceAll("\"", "")
-    return `"${modStr}"`
+    }).join("|");
+    return `"${regex}"`;
   }
 }
 

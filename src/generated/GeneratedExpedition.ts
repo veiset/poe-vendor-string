@@ -38,7 +38,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
  },
  "Amethyst Ring": {
    baseType: "Amethyst Ring", regex: "thy",
-   items: [{ id: "391", name: "Death Rush", baseType: "Amethyst Ring", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQW1ldGh5c3RSaW5nVW5pcXVlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/1ade97e0ac/AmethystRingUnique.png" },{ id: "819", name: "Ming's Heart", baseType: "Amethyst Ring", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvTWluZ3NIZWFydCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/7395d98bba/MingsHeart.png" }],
+   items: [{ id: "391", name: "Death Rush", baseType: "Amethyst Ring", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQmxvb2RSSW5nIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/fbac4290bb/BloodRIng.png" },{ id: "819", name: "Ming's Heart", baseType: "Amethyst Ring", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvTWluZ3NIZWFydCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/7395d98bba/MingsHeart.png" }],
  },
  "Ancient Greaves": {
    baseType: "Ancient Greaves", regex: "\"t gr\"",
@@ -110,7 +110,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
  },
  "Bastard Sword": {
    baseType: "Bastard Sword", regex: "bast",
-   items: [{ id: "1273", name: "Shiversting", baseType: "Bastard Sword", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL1R3b0hhbmRTd29yZDZVbmlxdWUiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/084a248453/TwoHandSword6Unique.png" }],
+   items: [{ id: "1273", name: "Shiversting", baseType: "Bastard Sword", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL1NoaXZlcnN0aW5nQWx0IiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/47e563b944/ShiverstingAlt.png" }],
  },
  "Blazing Arrow Quiver": {
    baseType: "Blazing Arrow Quiver", regex: "zi",
@@ -142,7 +142,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
  },
  "Boot Knife": {
    baseType: "Boot Knife", regex: "\"ot k\"",
-   items: [{ id: "1746", name: "Ungil's Gauche", baseType: "Boot Knife", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL0RhZ2dlcjN1bmlxdWUiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/ec0e6a82fb/Dagger3unique.png" }],
+   items: [{ id: "1746", name: "Ungil's Gauche", baseType: "Boot Knife", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL1VuZ2lsc0dhdWNoZUFsdCIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/11d0e2e09a/UngilsGaucheAlt.png" }],
  },
  "Branded Kite Shield": {
    baseType: "Branded Kite Shield", regex: "rand",
@@ -242,7 +242,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
  },
  "Cloth Belt": {
    baseType: "Cloth Belt", regex: "clot",
-   items: [{ id: "106538", name: "Bound Fate", baseType: "Cloth Belt", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvSGluZWtvcmFCZWx0IiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/0ffa60853d/HinekoraBelt.png" },{ id: "103414", name: "Ceinture of Benevolence", baseType: "Cloth Belt", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvTGlua21hc3RlcnNDb2lsIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/19af94314e/LinkmastersCoil.png" },{ id: "923", name: "Perandus Blazon", baseType: "Cloth Belt", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQnVja2xlZEJlbHRVbmlxdWUyIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/b67e6fa4a9/BuckledBeltUnique2.png" },{ id: "2189", name: "Soul Tether", baseType: "Cloth Belt", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvU291bFRldGhlciIsInciOjIsImgiOjEsInNjYWxlIjoxfV0/a2b7447a4a/SoulTether.png" },{ id: "1336", name: "Soulthirst", baseType: "Cloth Belt", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvU291bHRoaXJzdCIsInciOjIsImgiOjEsInNjYWxlIjoxfV0/ee53d9c1ef/Soulthirst.png" },{ id: "1381", name: "Sunblast", baseType: "Cloth Belt", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQmVsdDgiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/c50a807f09/Belt8.png" },{ id: "44073", name: "The Druggery", baseType: "Cloth Belt", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvVGhlRHJ1Z2dlcnkiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/136b59f839/TheDruggery.png" }],
+   items: [{ id: "106538", name: "Bound Fate", baseType: "Cloth Belt", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvSGluZWtvcmFCZWx0IiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/0ffa60853d/HinekoraBelt.png" },{ id: "103414", name: "Ceinture of Benevolence", baseType: "Cloth Belt", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvTGlua21hc3RlcnNDb2lsIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/19af94314e/LinkmastersCoil.png" },{ id: "923", name: "Perandus Blazon", baseType: "Cloth Belt", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQnVja2xlZEJlbHRVbmlxdWUyIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/b67e6fa4a9/BuckledBeltUnique2.png" },{ id: "2189", name: "Soul Tether", baseType: "Cloth Belt", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvU291bFRldGhlciIsInciOjIsImgiOjEsInNjYWxlIjoxfV0/a2b7447a4a/SoulTether.png" },{ id: "1336", name: "Soulthirst", baseType: "Cloth Belt", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvU291bHRoaXJzdEFMVCIsInciOjIsImgiOjEsInNjYWxlIjoxfV0/3fa90b2cd1/SoulthirstALT.png" },{ id: "1381", name: "Sunblast", baseType: "Cloth Belt", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQmVsdDgiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/c50a807f09/Belt8.png" },{ id: "44073", name: "The Druggery", baseType: "Cloth Belt", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvVGhlRHJ1Z2dlcnkiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/136b59f839/TheDruggery.png" }],
  },
  "Clutching Talisman": {
    baseType: "Clutching Talisman", regex: "hin",
@@ -282,7 +282,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
  },
  "Coral Ring": {
    baseType: "Coral Ring", regex: "\"ral r\"",
-   items: [{ id: "708", name: "Kaom's Sign", baseType: "Coral Ring", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUmluZzJVbmlxdWUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/15ce180809/Ring2Unique.png" },{ id: "1303", name: "Sibyl's Lament", baseType: "Coral Ring", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvU2lieWxzTGFtZW50IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/73ccf7d7c4/SibylsLament.png" }],
+   items: [{ id: "708", name: "Kaom's Sign", baseType: "Coral Ring", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvS2FvbXNTaWduQWx0IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/975d5744cd/KaomsSignAlt.png" },{ id: "1303", name: "Sibyl's Lament", baseType: "Coral Ring", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvU2lieWxzTGFtZW50IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/73ccf7d7c4/SibylsLament.png" }],
  },
  "Corrugated Buckler": {
    baseType: "Corrugated Buckler", regex: "rru",
@@ -454,7 +454,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
  },
  "Exquisite Leather": {
    baseType: "Exquisite Leather", regex: "\"te l\"",
-   items: [{ id: "719", name: "Kintsugi", baseType: "Exquisite Leather", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9LaW50c3VnaSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/8fcd7ea593/Kintsugi.png" },{ id: "4781", name: "Yriel's Fostering", baseType: "Exquisite Leather", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9QYWxlQ291bmNpbEFybW91ciIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/f3c31cf6b4/PaleCouncilArmour.png" }],
+   items: [{ id: "719", name: "Kintsugi", baseType: "Exquisite Leather", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9LaW50c3VnaSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/8fcd7ea593/Kintsugi.png" },{ id: "4755", name: "Yriel's Fostering", baseType: "Exquisite Leather", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9QYWxlQ291bmNpbEFybW91ciIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/f3c31cf6b4/PaleCouncilArmour.png" }],
  },
  "Ezomyte Axe": {
    baseType: "Ezomyte Axe", regex: "\"yte a\"",
@@ -526,7 +526,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
  },
  "Gnarled Branch": {
    baseType: "Gnarled Branch", regex: "nch",
-   items: [{ id: "524", name: "Fencoil", baseType: "Gnarled Branch", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvU3RhZmYxdW5pcXVlIiwidyI6MSwiaCI6NCwic2NhbGUiOjF9XQ/cff9022931/Staff1unique.png" },{ id: "1437", name: "The Blood Thorn", baseType: "Gnarled Branch", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvVGhlQmxvb2RUaG9ybiIsInciOjEsImgiOjQsInNjYWxlIjoxfV0/3dac5ee34b/TheBloodThorn.png" }],
+   items: [{ id: "524", name: "Fencoil", baseType: "Gnarled Branch", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvU3RhZmYxdW5pcXVlIiwidyI6MSwiaCI6NCwic2NhbGUiOjF9XQ/cff9022931/Staff1unique.png" },{ id: "1437", name: "The Blood Thorn", baseType: "Gnarled Branch", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvVGhlQmxvb2RUaG9ybkFMVCIsInciOjEsImgiOjQsInNjYWxlIjoxfV0/dbd4b6484a/TheBloodThornALT.png" }],
  },
  "Goat's Horn": {
    baseType: "Goat's Horn", regex: "goat'",
@@ -634,7 +634,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
  },
  "Imbued Wand": {
    baseType: "Imbued Wand", regex: "bue",
-   items: [{ id: "826", name: "Moonsorrow", baseType: "Imbued Wand", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9XYW5kVW5pcXVlMiIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/7a5458ab50/WandUnique2.png" },{ id: "880", name: "Obliteration", baseType: "Imbued Wand", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9NYWxlZGljdCIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/2ddc131782/Maledict.png" },{ id: "103527", name: "Piscator's Vigil", baseType: "Imbued Wand", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9QaXNjYXRvcnNWaWdpbCIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/332f80f7ac/PiscatorsVigil.png" }],
+   items: [{ id: "826", name: "Moonsorrow", baseType: "Imbued Wand", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9XYW5kVW5pcXVlMiIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/7a5458ab50/WandUnique2.png" },{ id: "103533", name: "Obliteration", baseType: "Imbued Wand", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9NYWxlZGljdCIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/2ddc131782/Maledict.png" },{ id: "103527", name: "Piscator's Vigil", baseType: "Imbued Wand", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9QaXNjYXRvcnNWaWdpbCIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/332f80f7ac/PiscatorsVigil.png" }],
  },
  "Imperial Bow": {
    baseType: "Imperial Bow", regex: "\"ial bo\"",
@@ -690,7 +690,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
  },
  "Ironscale Boots": {
    baseType: "Ironscale Boots", regex: "\"ronscale b\"",
-   items: [{ id: "458", name: "Dusktoe", baseType: "Ironscale Boots", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9Cb290c1N0ckRleFVuaXF1ZTMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/39b842cf85/BootsStrDexUnique3.png" }],
+   items: [{ id: "459", name: "Dusktoe", baseType: "Ironscale Boots", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9Cb290c1N0ckRleFVuaXF1ZTMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/39b842cf85/BootsStrDexUnique3.png" }],
  },
  "Ironscale Gauntlets": {
    baseType: "Ironscale Gauntlets", regex: "\"ronscale g\"",
@@ -746,7 +746,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
  },
  "Lacewood Spirit Shield": {
    baseType: "Lacewood Spirit Shield", regex: "cew",
-   items: [{ id: "98335", name: "Manastorm", baseType: "Lacewood Spirit Shield", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL01hbmFzdG9ybSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/d816fe3053/Manastorm.png" }],
+   items: [{ id: "25350", name: "Manastorm", baseType: "Lacewood Spirit Shield", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL01hbmFzdG9ybSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/d816fe3053/Manastorm.png" }],
  },
  "Lacquered Buckler": {
    baseType: "Lacquered Buckler", regex: "\"uered b\"",
@@ -810,7 +810,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
  },
  "Long Bow": {
    baseType: "Long Bow", regex: "\"g b\"",
-   items: [{ id: "1368", name: "Storm Cloud", baseType: "Long Bow", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL1N0b3JtY2xvdWQiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/003957da0c/Stormcloud.png" }],
+   items: [{ id: "1368", name: "Storm Cloud", baseType: "Long Bow", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL1N0b3JtY2xvdWRBbHQiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/3a76413d3e/StormcloudAlt.png" }],
  },
  "Long Staff": {
    baseType: "Long Staff", regex: "\"ong s\"",
@@ -902,7 +902,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
  },
  "Omen Wand": {
    baseType: "Omen Wand", regex: "ome",
-   items: [{ id: "66", name: "Apep's Rage", baseType: "Omen Wand", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9BcGVwc1JhZ2UiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/074c66dadc/ApepsRage.png" }],
+   items: [{ id: "103547", name: "Apep's Rage", baseType: "Omen Wand", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9BcGVwc1JhZ2UiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/074c66dadc/ApepsRage.png" }],
  },
  "Onyx Amulet": {
    baseType: "Onyx Amulet", regex: "yx",
@@ -942,7 +942,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
  },
  "Paua Amulet": {
    baseType: "Paua Amulet", regex: "\"a a\"",
-   items: [{ id: "123", name: "Atziri's Foible", baseType: "Paua Amulet", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9RdWlkIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/00c2b3a588/Quid.png" },{ id: "107337", name: "Defiance of Destiny", baseType: "Paua Amulet", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9IaW5la29yYUFtdWxldCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/d26f80f9c7/HinekoraAmulet.png" },{ id: "1304", name: "Sidhebreath", baseType: "Paua Amulet", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9BbXVsZXQxVW5pcXVlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/2a0f1c86cc/Amulet1Unique.png" }],
+   items: [{ id: "123", name: "Atziri's Foible", baseType: "Paua Amulet", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9BdHppcmlzRm9pYmxlQWx0IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/8fdd8f1735/AtzirisFoibleAlt.png" },{ id: "107337", name: "Defiance of Destiny", baseType: "Paua Amulet", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9IaW5la29yYUFtdWxldCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/d26f80f9c7/HinekoraAmulet.png" },{ id: "1304", name: "Sidhebreath", baseType: "Paua Amulet", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9BbXVsZXQxVW5pcXVlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/2a0f1c86cc/Amulet1Unique.png" }],
  },
  "Paua Ring": {
    baseType: "Paua Ring", regex: "\"ua r\"",
@@ -1110,7 +1110,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
  },
  "Sabre": {
    baseType: "Sabre", regex: "sab",
-   items: [{ id: "1575", name: "The Princess", baseType: "Sabre", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL09uZUhhbmRTd29yZDNVbmlxdWUiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/2ffa300730/OneHandSword3Unique.png" }],
+   items: [{ id: "1575", name: "The Princess", baseType: "Sabre", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL1RoZVByaW5jZXNzQWx0IiwidyI6MSwiaCI6Mywic2NhbGUiOjF9XQ/78f61a7df5/ThePrincessAlt.png" }],
  },
  "Sadist Garb": {
    baseType: "Sadist Garb", regex: "dis",
@@ -1142,7 +1142,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
  },
  "Sapphire Ring": {
    baseType: "Sapphire Ring", regex: "sap",
-   items: [{ id: "445", name: "Dream Fragments", baseType: "Sapphire Ring", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUmluZzZVbmlxdWUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/0c74ddd77c/Ring6Unique.png" },{ id: "984", name: "Pyre", baseType: "Sapphire Ring", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQ2hlcnVmZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/08c38718a4/Cherufe.png" },{ id: "1326", name: "Snakepit", baseType: "Sapphire Ring", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvU2VycGVudHNlZWQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/634a5c8913/Serpentseed.png" },{ id: "1393", name: "Tasalio's Sign", baseType: "Sapphire Ring", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVGFzYWxpb3NTaWduIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/1e73f81099/TasaliosSign.png" }],
+   items: [{ id: "445", name: "Dream Fragments", baseType: "Sapphire Ring", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUmluZzZVbmlxdWUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/0c74ddd77c/Ring6Unique.png" },{ id: "984", name: "Pyre", baseType: "Sapphire Ring", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQ2hlcnVmZTIiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/963f26800d/Cherufe2.png" },{ id: "1326", name: "Snakepit", baseType: "Sapphire Ring", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvU2VycGVudHNlZWQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/634a5c8913/Serpentseed.png" },{ id: "1393", name: "Tasalio's Sign", baseType: "Sapphire Ring", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVGFzYWxpb3NTaWduIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/1e73f81099/TasaliosSign.png" }],
  },
  "Satin Gloves": {
    baseType: "Satin Gloves", regex: "\"tin g\"",
@@ -1338,7 +1338,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
  },
  "Sun Leather": {
    baseType: "Sun Leather", regex: "\"n l\"",
-   items: [{ id: "201", name: "Briskwrap", baseType: "Sun Leather", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Ccmlza3dyYXAiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/4a3c7d71e6/Briskwrap.png" }],
+   items: [{ id: "98216", name: "Briskwrap", baseType: "Sun Leather", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Ccmlza3dyYXAiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/4a3c7d71e6/Briskwrap.png" }],
  },
  "Supreme Spiked Shield": {
    baseType: "Supreme Spiked Shield", regex: "upr",
@@ -1402,7 +1402,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
  },
  "Tricorne": {
    baseType: "Tricorne", regex: "Tricorne",
-   items: [{ id: "515", name: "Fairgraves' Tricorne", baseType: "Tricorne", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0ZhaXJncmF2ZXNUcmljb3JuZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/6a828c8150/FairgravesTricorne.png" }],
+   items: [{ id: "515", name: "Fairgraves' Tricorne", baseType: "Tricorne", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0ZhaXJncmF2ZXNUcmljb3JuZUFsdCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/4745e16a84/FairgravesTricorneAlt.png" }],
  },
  "Triumphant Lamellar": {
    baseType: "Triumphant Lamellar", regex: "ump",
@@ -1454,7 +1454,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
  },
  "Vaal Claw": {
    baseType: "Vaal Claw", regex: "\"aal c\"",
-   items: [{ id: "45", name: "Allure", baseType: "Vaal Claw", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9BbGx1cmUiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/ff5311676c/Allure.png" },{ id: "2085", name: "Essentia Sanguis", baseType: "Vaal Claw", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9DbGF3NVVuaXF1ZTIiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/8041876a9e/Claw5Unique2.png" }],
+   items: [{ id: "45", name: "Allure", baseType: "Vaal Claw", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9BbGx1cmUiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/ff5311676c/Allure.png" },{ id: "498", name: "Essentia Sanguis", baseType: "Vaal Claw", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9DbGF3NVVuaXF1ZTIiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/8041876a9e/Claw5Unique2.png" }],
  },
  "Vaal Gauntlets": {
    baseType: "Vaal Gauntlets", regex: "\"al ga\"",
@@ -1574,7 +1574,7 @@ export const baseTypeRegex: { [key: string]: BaseTypeRegex } = {
  },
  "Zealot Gloves": {
    baseType: "Zealot Gloves", regex: "\"ot g\"",
-   items: [{ id: "4750", name: "Volkuur's Guidance", baseType: "Zealot Gloves", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvUGFsZUNvdW5jaWxHbG92ZXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/3271f5441a/PaleCouncilGloves.png" }],
+   items: [{ id: "2252", name: "Volkuur's Guidance", baseType: "Zealot Gloves", icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvUGFsZUNvdW5jaWxHbG92ZXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/3271f5441a/PaleCouncilGloves.png" }],
  },
  "Zealot Helmet": {
    baseType: "Zealot Helmet", regex: "\"ot h\"",

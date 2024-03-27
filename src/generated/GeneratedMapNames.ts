@@ -3,7 +3,6 @@ export interface MapName {
   isUnique: boolean
   matchSafe: string
 }
- 
 export const mapNames: { [key: string]: MapName } = {
  "Academy Map": {
    name: "Academy Map",
@@ -23,7 +22,7 @@ export const mapNames: { [key: string]: MapName } = {
  "Ancient City Map": {
    name: "Ancient City Map",
    isUnique: false,
-   matchSafe: "\"t cit\"",
+   matchSafe: "t cit",
  },
  "Arachnid Nest Map": {
    name: "Arachnid Nest Map",
@@ -48,12 +47,12 @@ export const mapNames: { [key: string]: MapName } = {
  "Arid Lake Map": {
    name: "Arid Lake Map",
    isUnique: false,
-   matchSafe: "\"d lake m\"",
+   matchSafe: "d la",
  },
  "Armoury Map": {
    name: "Armoury Map",
    isUnique: false,
-   matchSafe: "\"ury m\"",
+   matchSafe: "ury",
  },
  "Arsenal Map": {
    name: "Arsenal Map",
@@ -73,27 +72,27 @@ export const mapNames: { [key: string]: MapName } = {
  "Barrows Map": {
    name: "Barrows Map",
    isUnique: false,
-   matchSafe: "\"ws ma\"",
+   matchSafe: "arro",
  },
  "Basilica Map": {
    name: "Basilica Map",
    isUnique: false,
-   matchSafe: "basi",
+   matchSafe: "asil",
  },
  "Bazaar Map": {
    name: "Bazaar Map",
    isUnique: false,
-   matchSafe: "baz",
+   matchSafe: "aar",
  },
  "Beach Map": {
    name: "Beach Map",
    isUnique: false,
-   matchSafe: "\"ch m\"",
+   matchSafe: "bea",
  },
  "Belfry Map": {
    name: "Belfry Map",
    isUnique: false,
-   matchSafe: "\"fry m\"",
+   matchSafe: "elf",
  },
  "Bog Map": {
    name: "Bog Map",
@@ -118,7 +117,7 @@ export const mapNames: { [key: string]: MapName } = {
  "Cage Map": {
    name: "Cage Map",
    isUnique: false,
-   matchSafe: "\"age ma\"",
+   matchSafe: "age ma",
  },
  "Caldera Map": {
    name: "Caldera Map",
@@ -143,7 +142,7 @@ export const mapNames: { [key: string]: MapName } = {
  "Cells Map": {
    name: "Cells Map",
    isUnique: false,
-   matchSafe: "\"lls ma\"",
+   matchSafe: "cel",
  },
  "Cemetery Map": {
    name: "Cemetery Map",
@@ -158,17 +157,17 @@ export const mapNames: { [key: string]: MapName } = {
  "Chateau Map": {
    name: "Chateau Map",
    isUnique: false,
-   matchSafe: "\"hateau m\"",
+   matchSafe: "chat",
  },
  "City Square Map": {
    name: "City Square Map",
    isUnique: false,
-   matchSafe: "\"ty s\"",
+   matchSafe: "ty s",
  },
  "Cold River Map": {
    name: "Cold River Map",
    isUnique: false,
-   matchSafe: "\"ld r\"",
+   matchSafe: "ld ",
  },
  "Colonnade Map": {
    name: "Colonnade Map",
@@ -178,12 +177,12 @@ export const mapNames: { [key: string]: MapName } = {
  "Colosseum Map": {
    name: "Colosseum Map",
    isUnique: false,
-   matchSafe: "olos",
+   matchSafe: "loss",
  },
  "Conservatory Map": {
    name: "Conservatory Map",
    isUnique: false,
-   matchSafe: "\"vatory m\"",
+   matchSafe: "nser",
  },
  "Coral Ruins Map": {
    name: "Coral Ruins Map",
@@ -193,7 +192,7 @@ export const mapNames: { [key: string]: MapName } = {
  "Core Map": {
    name: "Core Map",
    isUnique: false,
-   matchSafe: "\"core ma\"",
+   matchSafe: "core ma",
  },
  "Courthouse Map": {
    name: "Courthouse Map",
@@ -218,52 +217,52 @@ export const mapNames: { [key: string]: MapName } = {
  "Crimson Temple Map": {
    name: "Crimson Temple Map",
    isUnique: false,
-   matchSafe: "\"son te\"",
+   matchSafe: "son te",
  },
  "Crimson Township Map": {
    name: "Crimson Township Map",
    isUnique: false,
-   matchSafe: "wns",
+   matchSafe: "nsh",
  },
  "Crystal Ore Map": {
    name: "Crystal Ore Map",
    isUnique: false,
-   matchSafe: "\" ore m\"",
+   matchSafe: "rys",
  },
  "Cursed Crypt Map": {
    name: "Cursed Crypt Map",
    isUnique: false,
-   matchSafe: "\"d cry\"",
+   matchSafe: "d cry",
  },
  "Dark Forest Map": {
    name: "Dark Forest Map",
    isUnique: false,
-   matchSafe: "\"k fore\"",
+   matchSafe: "k fore",
  },
  "Defiled Cathedral Map": {
    name: "Defiled Cathedral Map",
    isUnique: false,
-   matchSafe: "def",
+   matchSafe: "cat",
  },
  "Desert Map": {
    name: "Desert Map",
    isUnique: false,
-   matchSafe: "\"ert m\"",
+   matchSafe: "ert m",
  },
  "Desert Spring Map": {
    name: "Desert Spring Map",
    isUnique: false,
-   matchSafe: "\"ng ma\"",
+   matchSafe: "spr",
  },
  "Dig Map": {
    name: "Dig Map",
    isUnique: false,
-   matchSafe: "\"ig m\"",
+   matchSafe: "ig ",
  },
  "Dry Sea Map": {
    name: "Dry Sea Map",
    isUnique: false,
-   matchSafe: "\"dry s\"",
+   matchSafe: "ry s",
  },
  "Dunes Map": {
    name: "Dunes Map",
@@ -283,7 +282,7 @@ export const mapNames: { [key: string]: MapName } = {
  "Excavation Map": {
    name: "Excavation Map",
    isUnique: false,
-   matchSafe: "\"vation m\"",
+   matchSafe: "xc",
  },
  "Factory Map": {
    name: "Factory Map",
@@ -293,12 +292,12 @@ export const mapNames: { [key: string]: MapName } = {
  "Fields Map": {
    name: "Fields Map",
    isUnique: false,
-   matchSafe: "\"lds m\"",
+   matchSafe: "elds",
  },
  "Flooded Mine Map": {
    name: "Flooded Mine Map",
    isUnique: false,
-   matchSafe: "\"mine m\"",
+   matchSafe: "flo",
  },
  "Forbidden Woods Map": {
    name: "Forbidden Woods Map",
@@ -308,7 +307,7 @@ export const mapNames: { [key: string]: MapName } = {
  "Forge of the Phoenix Map": {
    name: "Forge of the Phoenix Map",
    isUnique: false,
-   matchSafe: "oe",
+   matchSafe: "ix",
  },
  "Forking River Map": {
    name: "Forking River Map",
@@ -328,17 +327,17 @@ export const mapNames: { [key: string]: MapName } = {
  "Fungal Hollow Map": {
    name: "Fungal Hollow Map",
    isUnique: false,
-   matchSafe: "\"ow m\"",
+   matchSafe: "gal",
  },
  "Gardens Map": {
    name: "Gardens Map",
    isUnique: false,
-   matchSafe: "gar",
+   matchSafe: "ens",
  },
  "Geode Map": {
    name: "Geode Map",
    isUnique: false,
-   matchSafe: "\"eode m\"",
+   matchSafe: "eod",
  },
  "Ghetto Map": {
    name: "Ghetto Map",
@@ -358,7 +357,7 @@ export const mapNames: { [key: string]: MapName } = {
  "Graveyard Map": {
    name: "Graveyard Map",
    isUnique: false,
-   matchSafe: "vey",
+   matchSafe: "eya",
  },
  "Grotto Map": {
    name: "Grotto Map",
@@ -388,17 +387,17 @@ export const mapNames: { [key: string]: MapName } = {
  "Jungle Valley Map": {
    name: "Jungle Valley Map",
    isUnique: false,
-   matchSafe: "\"gle valley m\"",
+   matchSafe: "ju",
  },
  "Laboratory Map": {
    name: "Laboratory Map",
    isUnique: false,
-   matchSafe: "lab",
+   matchSafe: "bor",
  },
  "Lair Map": {
    name: "Lair Map",
    isUnique: false,
-   matchSafe: "\"Lair Map\"",
+   matchSafe: "^Lair Map",
  },
  "Lair of the Hydra Map": {
    name: "Lair of the Hydra Map",
@@ -408,12 +407,12 @@ export const mapNames: { [key: string]: MapName } = {
  "Lava Chamber Map": {
    name: "Lava Chamber Map",
    isUnique: false,
-   matchSafe: "\"va c\"",
+   matchSafe: "va c",
  },
  "Lava Lake Map": {
    name: "Lava Lake Map",
    isUnique: false,
-   matchSafe: "\"va l\"",
+   matchSafe: "a la",
  },
  "Leyline Map": {
    name: "Leyline Map",
@@ -423,32 +422,32 @@ export const mapNames: { [key: string]: MapName } = {
  "Lighthouse Map": {
    name: "Lighthouse Map",
    isUnique: false,
-   matchSafe: "\"hthouse map\"",
+   matchSafe: "hth",
  },
  "Lookout Map": {
    name: "Lookout Map",
    isUnique: false,
-   matchSafe: "ok",
+   matchSafe: "ko",
  },
  "Malformation Map": {
    name: "Malformation Map",
    isUnique: false,
-   matchSafe: "\"mation map\"",
+   matchSafe: "alf",
  },
  "Marshes Map": {
    name: "Marshes Map",
    isUnique: false,
-   matchSafe: "\"shes m\"",
+   matchSafe: "rsh",
  },
  "Mausoleum Map": {
    name: "Mausoleum Map",
    isUnique: false,
-   matchSafe: "mau",
+   matchSafe: "leu",
  },
  "Maze Map": {
    name: "Maze Map",
    isUnique: false,
-   matchSafe: "\"ze m\"",
+   matchSafe: "ze m",
  },
  "Maze of the Minotaur Map": {
    name: "Maze of the Minotaur Map",
@@ -473,7 +472,7 @@ export const mapNames: { [key: string]: MapName } = {
  "Mud Geyser Map": {
    name: "Mud Geyser Map",
    isUnique: false,
-   matchSafe: "mud",
+   matchSafe: "eys",
  },
  "Museum Map": {
    name: "Museum Map",
@@ -483,7 +482,7 @@ export const mapNames: { [key: string]: MapName } = {
  "Necropolis Map": {
    name: "Necropolis Map",
    isUnique: false,
-   matchSafe: "nec",
+   matchSafe: "cro",
  },
  "Orchard Map": {
    name: "Orchard Map",
@@ -493,17 +492,17 @@ export const mapNames: { [key: string]: MapName } = {
  "Overgrown Ruin Map": {
    name: "Overgrown Ruin Map",
    isUnique: false,
-   matchSafe: "\"wn ru\"",
+   matchSafe: "uin ",
  },
  "Overgrown Shrine Map": {
    name: "Overgrown Shrine Map",
    isUnique: false,
-   matchSafe: "\"wn s\"",
+   matchSafe: "wn s",
  },
  "Palace Map": {
    name: "Palace Map",
    isUnique: false,
-   matchSafe: "pala",
+   matchSafe: "alac",
  },
  "Park Map": {
    name: "Park Map",
@@ -513,17 +512,17 @@ export const mapNames: { [key: string]: MapName } = {
  "Pen Map": {
    name: "Pen Map",
    isUnique: false,
-   matchSafe: "\"pen m\"",
+   matchSafe: "en ma",
  },
  "Peninsula Map": {
    name: "Peninsula Map",
    isUnique: false,
-   matchSafe: "peni",
+   matchSafe: "enin",
  },
  "Phantasmagoria Map": {
    name: "Phantasmagoria Map",
    isUnique: false,
-   matchSafe: "pha",
+   matchSafe: "asm",
  },
  "Pier Map": {
    name: "Pier Map",
@@ -533,7 +532,7 @@ export const mapNames: { [key: string]: MapName } = {
  "Pit Map": {
    name: "Pit Map",
    isUnique: false,
-   matchSafe: "\"pit ma\"",
+   matchSafe: "pit ma",
  },
  "Pit of the Chimera Map": {
    name: "Pit of the Chimera Map",
@@ -553,7 +552,7 @@ export const mapNames: { [key: string]: MapName } = {
  "Port Map": {
    name: "Port Map",
    isUnique: false,
-   matchSafe: "\"ort m\"",
+   matchSafe: "ort ",
  },
  "Primordial Blocks Map": {
    name: "Primordial Blocks Map",
@@ -563,7 +562,7 @@ export const mapNames: { [key: string]: MapName } = {
  "Primordial Pool Map": {
    name: "Primordial Pool Map",
    isUnique: false,
-   matchSafe: "\"ial p\"",
+   matchSafe: "ial p",
  },
  "Promenade Map": {
    name: "Promenade Map",
@@ -573,12 +572,12 @@ export const mapNames: { [key: string]: MapName } = {
  "Racecourse Map": {
    name: "Racecourse Map",
    isUnique: false,
-   matchSafe: "\"rse m\"",
+   matchSafe: "cec",
  },
  "Ramparts Map": {
    name: "Ramparts Map",
    isUnique: false,
-   matchSafe: "\"rts m\"",
+   matchSafe: "rts",
  },
  "Reef Map": {
    name: "Reef Map",
@@ -588,7 +587,7 @@ export const mapNames: { [key: string]: MapName } = {
  "Relic Chambers Map": {
    name: "Relic Chambers Map",
    isUnique: false,
-   matchSafe: "\"c chambers ma\"",
+   matchSafe: "eli",
  },
  "Residence Map": {
    name: "Residence Map",
@@ -598,12 +597,12 @@ export const mapNames: { [key: string]: MapName } = {
  "Scriptorium Map": {
    name: "Scriptorium Map",
    isUnique: false,
-   matchSafe: "\"ium m\"",
+   matchSafe: "ipt",
  },
  "Sepulchre Map": {
    name: "Sepulchre Map",
    isUnique: false,
-   matchSafe: "\"hre ma\"",
+   matchSafe: "hre ma",
  },
  "Shipyard Map": {
    name: "Shipyard Map",
@@ -618,12 +617,12 @@ export const mapNames: { [key: string]: MapName } = {
  "Shrine Map": {
    name: "Shrine Map",
    isUnique: false,
-   matchSafe: "\"Shrine Map\"",
+   matchSafe: "^Shrine Map",
  },
  "Siege Map": {
    name: "Siege Map",
    isUnique: false,
-   matchSafe: "\"ege m\"",
+   matchSafe: "ieg",
  },
  "Silo Map": {
    name: "Silo Map",
@@ -633,22 +632,22 @@ export const mapNames: { [key: string]: MapName } = {
  "Spider Forest Map": {
    name: "Spider Forest Map",
    isUnique: false,
-   matchSafe: "\"ider f\"",
+   matchSafe: "ider f",
  },
  "Spider Lair Map": {
    name: "Spider Lair Map",
    isUnique: false,
-   matchSafe: "\"r la\"",
+   matchSafe: "r la",
  },
  "Stagnation Map": {
    name: "Stagnation Map",
    isUnique: false,
-   matchSafe: "\"nation m\"",
+   matchSafe: "agn",
  },
  "Strand Map": {
    name: "Strand Map",
    isUnique: false,
-   matchSafe: "stran",
+   matchSafe: "rand",
  },
  "Sulphur Vents Map": {
    name: "Sulphur Vents Map",
@@ -658,17 +657,17 @@ export const mapNames: { [key: string]: MapName } = {
  "Summit Map": {
    name: "Summit Map",
    isUnique: false,
-   matchSafe: "sum",
+   matchSafe: "mit",
  },
  "Sunken City Map": {
    name: "Sunken City Map",
    isUnique: false,
-   matchSafe: "sun",
+   matchSafe: "nke",
  },
  "Temple Map": {
    name: "Temple Map",
    isUnique: false,
-   matchSafe: "\"Temple Map\"",
+   matchSafe: "^Temple Map",
  },
  "Terrace Map": {
    name: "Terrace Map",
@@ -683,27 +682,27 @@ export const mapNames: { [key: string]: MapName } = {
  "Tower Map": {
    name: "Tower Map",
    isUnique: false,
-   matchSafe: "\"ower m\"",
+   matchSafe: "ower m",
  },
  "Toxic Sewer Map": {
    name: "Toxic Sewer Map",
    isUnique: false,
-   matchSafe: "tox",
+   matchSafe: "ewe",
  },
  "Tropical Island Map": {
    name: "Tropical Island Map",
    isUnique: false,
-   matchSafe: "\"sland m\"",
+   matchSafe: "isl",
  },
  "Underground River Map": {
    name: "Underground River Map",
    isUnique: false,
-   matchSafe: "\"und r\"",
+   matchSafe: "nd ri",
  },
  "Underground Sea Map": {
    name: "Underground Sea Map",
    isUnique: false,
-   matchSafe: "\"und s\"",
+   matchSafe: "d sea",
  },
  "Vaal Pyramid Map": {
    name: "Vaal Pyramid Map",
@@ -713,12 +712,12 @@ export const mapNames: { [key: string]: MapName } = {
  "Vaal Temple Map": {
    name: "Vaal Temple Map",
    isUnique: false,
-   matchSafe: "\"aal t\"",
+   matchSafe: "aal t",
  },
  "Vault Map": {
    name: "Vault Map",
    isUnique: false,
-   matchSafe: "\"lt ma\"",
+   matchSafe: "lt ma",
  },
  "Villa Map": {
    name: "Villa Map",
@@ -728,27 +727,27 @@ export const mapNames: { [key: string]: MapName } = {
  "Volcano Map": {
    name: "Volcano Map",
    isUnique: false,
-   matchSafe: "vol",
+   matchSafe: "lca",
  },
  "Waste Pool Map": {
    name: "Waste Pool Map",
    isUnique: false,
-   matchSafe: "\"e pool m\"",
+   matchSafe: "e poo",
  },
  "Wasteland Map": {
    name: "Wasteland Map",
    isUnique: false,
-   matchSafe: "tel",
+   matchSafe: "ela",
  },
  "Waterways Map": {
    name: "Waterways Map",
    isUnique: false,
-   matchSafe: "wat",
+   matchSafe: "rwa",
  },
  "Wharf Map": {
    name: "Wharf Map",
    isUnique: false,
-   matchSafe: "\"Wharf Map\"",
+   matchSafe: "rf",
  },
  "Acton's Nightmare": {
    name: "Acton's Nightmare",
@@ -763,7 +762,7 @@ export const mapNames: { [key: string]: MapName } = {
  "Death and Taxes": {
    name: "Death and Taxes",
    isUnique: true,
-   matchSafe: "xe",
+   matchSafe: "axe",
  },
  "Doryani's Machinarium": {
    name: "Doryani's Machinarium",
@@ -773,7 +772,7 @@ export const mapNames: { [key: string]: MapName } = {
  "Hallowed Ground": {
    name: "Hallowed Ground",
    isUnique: true,
-   matchSafe: "wed",
+   matchSafe: "hal",
  },
  "Maelström of Chaos": {
    name: "Maelström of Chaos",
@@ -788,12 +787,12 @@ export const mapNames: { [key: string]: MapName } = {
  "Pillars of Arun": {
    name: "Pillars of Arun",
    isUnique: true,
-   matchSafe: "\"Pillars of Arun\"",
+   matchSafe: "aru",
  },
  "Poorjoy's Asylum": {
    name: "Poorjoy's Asylum",
    isUnique: true,
-   matchSafe: "\"Poorjoy's Asylum\"",
+   matchSafe: "jo",
  },
  "The Coward's Trial": {
    name: "The Coward's Trial",
@@ -823,6 +822,6 @@ export const mapNames: { [key: string]: MapName } = {
  "Whakawairua Tuahu": {
    name: "Whakawairua Tuahu",
    isUnique: true,
-   matchSafe: "ka",
+   matchSafe: "ah",
  },
 };

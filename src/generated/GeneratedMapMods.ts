@@ -3,17 +3,16 @@ export interface MapMod {
   scary: number
   matchSafe: string
 }
- 
 export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters reflect #% of Elemental Damage": {
    value: "Monsters reflect #% of Elemental Damage",
    scary: 0,
-   matchSafe: "\"tal d\"",
+   matchSafe: "tal d",
  },
  "Monsters reflect #% of Physical Damage": {
    value: "Monsters reflect #% of Physical Damage",
    scary: 1,
-   matchSafe: "\"f ph\"",
+   matchSafe: "f ph",
  },
  "Players cannot Regenerate Life, Mana or Energy Shield": {
    value: "Players cannot Regenerate Life, Mana or Energy Shield",
@@ -28,17 +27,17 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Players are Cursed with Temporal Chains": {
    value: "Players are Cursed with Temporal Chains",
    scary: 100,
-   matchSafe: "\"h tem\"",
+   matchSafe: "h tem",
  },
  "-#% maximum Player Resistances": {
    value: "-#% maximum Player Resistances",
    scary: 101,
-   matchSafe: "\"% ma\"",
+   matchSafe: "% ma",
  },
  "Players have #% less Recovery Rate of Life and Energy Shield": {
    value: "Players have #% less Recovery Rate of Life and Energy Shield",
    scary: 102,
-   matchSafe: "\"s rec\"",
+   matchSafe: "s rec",
  },
  "Monsters deal #% extra Physical Damage as Chaos|Monsters Inflict Withered for 2 seconds on Hit": {
    value: "Monsters deal #% extra Physical Damage as Chaos|Monsters Inflict Withered for 2 seconds on Hit",
@@ -48,7 +47,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters are Hexproof": {
    value: "Monsters are Hexproof",
    scary: 200,
-   matchSafe: "\"re he\"",
+   matchSafe: "re he",
  },
  "Unique Bosses are Possessed": {
    value: "Unique Bosses are Possessed",
@@ -63,7 +62,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Players are Cursed with Enfeeble": {
    value: "Players are Cursed with Enfeeble",
    scary: 204,
-   matchSafe: "\"h en\"",
+   matchSafe: "h en",
  },
  "Monsters have #% increased Critical Strike Chance|+#% to Monster Critical Strike Multiplier": {
    value: "Monsters have #% increased Critical Strike Chance|+#% to Monster Critical Strike Multiplier",
@@ -73,27 +72,27 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Unique Boss deals #% increased Damage|Unique Boss has #% increased Attack and Cast Speed": {
    value: "Unique Boss deals #% increased Damage|Unique Boss has #% increased Attack and Cast Speed",
    scary: 206,
-   matchSafe: "\"ls \\d+\"",
+   matchSafe: "d at",
  },
  "#% increased Monster Damage": {
    value: "#% increased Monster Damage",
    scary: 207,
-   matchSafe: "\"d monster d\"",
+   matchSafe: "d monster d",
  },
  "Monsters deal #% extra Physical Damage as Cold": {
    value: "Monsters deal #% extra Physical Damage as Cold",
    scary: 208,
-   matchSafe: "\"as co\"",
+   matchSafe: "s col",
  },
  "Monsters deal #% extra Physical Damage as Fire": {
    value: "Monsters deal #% extra Physical Damage as Fire",
    scary: 209,
-   matchSafe: "\" as f\"",
+   matchSafe: "as fi",
  },
  "Monsters deal #% extra Physical Damage as Lightning": {
    value: "Monsters deal #% extra Physical Damage as Lightning",
    scary: 210,
-   matchSafe: "\"as l\"",
+   matchSafe: "as l",
  },
  "Area has patches of Shocked Ground which increase Damage taken by #%": {
    value: "Area has patches of Shocked Ground which increase Damage taken by #%",
@@ -113,7 +112,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "#% increased Monster Movement Speed|#% increased Monster Attack Speed|#% increased Monster Cast Speed": {
    value: "#% increased Monster Movement Speed|#% increased Monster Attack Speed|#% increased Monster Cast Speed",
    scary: 214,
-   matchSafe: "\"r at\"",
+   matchSafe: "r at",
  },
  "Monsters have a #% chance to cause Elemental Ailments on Hit": {
    value: "Monsters have a #% chance to cause Elemental Ailments on Hit",
@@ -123,7 +122,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters Poison on Hit": {
    value: "Monsters Poison on Hit",
    scary: 216,
-   matchSafe: "\"son o\"",
+   matchSafe: "son o",
  },
  "Monsters' Action Speed cannot be modified to below base value|Monsters cannot be Taunted": {
    value: "Monsters' Action Speed cannot be modified to below base value|Monsters cannot be Taunted",
@@ -133,12 +132,12 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters have #% chance to Impale with Attacks": {
    value: "Monsters have #% chance to Impale with Attacks",
    scary: 218,
-   matchSafe: "\"o im\"",
+   matchSafe: "o im",
  },
  "Monsters have #% increased Area of Effect": {
    value: "Monsters have #% increased Area of Effect",
    scary: 219,
-   matchSafe: "\"e \\d+% increased ar\"",
+   matchSafe: "e \\d+% increased ar",
  },
  "Area has patches of Consecrated Ground": {
    value: "Area has patches of Consecrated Ground",
@@ -148,22 +147,22 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters gain #% of Maximum Life as Extra Maximum Energy Shield": {
    value: "Monsters gain #% of Maximum Life as Extra Maximum Energy Shield",
    scary: 301,
-   matchSafe: "\"m li\"",
+   matchSafe: "m li",
  },
  "Unique Boss has #% increased Life|Unique Boss has #% increased Area of Effect": {
    value: "Unique Boss has #% increased Life|Unique Boss has #% increased Area of Effect",
    scary: 302,
-   matchSafe: "\"d li\"",
+   matchSafe: "d li",
  },
  "#% more Monster Life": {
    value: "#% more Monster Life",
    scary: 303,
-   matchSafe: "\"r li\"",
+   matchSafe: "r li",
  },
  "Players cannot inflict Exposure": {
    value: "Players cannot inflict Exposure",
    scary: 304,
-   matchSafe: "\"ot i\"",
+   matchSafe: "ot i",
  },
  "+#% Monster Physical Damage Reduction": {
    value: "+#% Monster Physical Damage Reduction",
@@ -173,7 +172,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "+#% Monster Chaos Resistance|+#% Monster Elemental Resistances": {
    value: "+#% Monster Chaos Resistance|+#% Monster Elemental Resistances",
    scary: 306,
-   matchSafe: "\"r el\"",
+   matchSafe: "r el",
  },
  "#% less effect of Curses on Monsters": {
    value: "#% less effect of Curses on Monsters",
@@ -183,12 +182,12 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters have +#% chance to Suppress Spell Damage": {
    value: "Monsters have +#% chance to Suppress Spell Damage",
    scary: 308,
-   matchSafe: "\"o su\"",
+   matchSafe: "o su",
  },
  "Players have #% reduced Chance to Block|Players have #% less Armour": {
    value: "Players have #% reduced Chance to Block|Players have #% less Armour",
    scary: 309,
-   matchSafe: "\"o bl\"",
+   matchSafe: "o bl",
  },
  "Players have -#% to amount of Suppressed Spell Damage Prevented|Monsters have #% increased Accuracy Rating": {
    value: "Players have -#% to amount of Suppressed Spell Damage Prevented|Monsters have #% increased Accuracy Rating",
@@ -198,7 +197,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters have #% chance to Avoid Elemental Ailments": {
    value: "Monsters have #% chance to Avoid Elemental Ailments",
    scary: 311,
-   matchSafe: "\"d el\"",
+   matchSafe: "d el",
  },
  "Monsters take #% reduced Extra Damage from Critical Strikes": {
    value: "Monsters take #% reduced Extra Damage from Critical Strikes",
@@ -218,7 +217,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Players have #% less Area of Effect": {
    value: "Players have #% less Area of Effect",
    scary: 402,
-   matchSafe: "\"ss are\"",
+   matchSafe: "ss are",
  },
  "Players have #% less Cooldown Recovery Rate": {
    value: "Players have #% less Cooldown Recovery Rate",
@@ -228,17 +227,17 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Players have #% less Accuracy Rating": {
    value: "Players have #% less Accuracy Rating",
    scary: 404,
-   matchSafe: "\"s ac\"",
+   matchSafe: "s ac",
  },
  "Players are Cursed with Vulnerability": {
    value: "Players are Cursed with Vulnerability",
    scary: 405,
-   matchSafe: "\"h vu\"",
+   matchSafe: "h vu",
  },
  "Players are Cursed with Elemental Weakness": {
    value: "Players are Cursed with Elemental Weakness",
    scary: 406,
-   matchSafe: "\"h el\"",
+   matchSafe: "h el",
  },
  "Monsters' skills Chain 2 additional times": {
    value: "Monsters' skills Chain 2 additional times",
@@ -258,22 +257,22 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters gain an Endurance Charge on Hit": {
    value: "Monsters gain an Endurance Charge on Hit",
    scary: 410,
-   matchSafe: "\"n en\"",
+   matchSafe: "an en",
  },
  "Monsters gain a Frenzy Charge on Hit": {
    value: "Monsters gain a Frenzy Charge on Hit",
    scary: 411,
-   matchSafe: "\" a f\"",
+   matchSafe: "zy c",
  },
  "Monsters gain a Power Charge on Hit": {
    value: "Monsters gain a Power Charge on Hit",
    scary: 412,
-   matchSafe: "\" a po\"",
+   matchSafe: "a pow",
  },
  "Monsters Blind on Hit": {
    value: "Monsters Blind on Hit",
    scary: 413,
-   matchSafe: "\"s bli\"",
+   matchSafe: "s bli",
  },
  "Monsters Maim on Hit with Attacks": {
    value: "Monsters Maim on Hit with Attacks",
@@ -293,7 +292,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Area has patches of Burning Ground": {
    value: "Area has patches of Burning Ground",
    scary: 417,
-   matchSafe: "\"f bur\"",
+   matchSafe: "f bur",
  },
  "Area has patches of Chilled Ground": {
    value: "Area has patches of Chilled Ground",
@@ -303,7 +302,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Area has patches of desecrated ground": {
    value: "Area has patches of desecrated ground",
    scary: 419,
-   matchSafe: "\"es of d\"",
+   matchSafe: "s of d",
  },
  "Area is inhabited by Abominations": {
    value: "Area is inhabited by Abominations",
@@ -368,7 +367,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Area is inhabited by Undead": {
    value: "Area is inhabited by Undead",
    scary: 499,
-   matchSafe: "\"by un\"",
+   matchSafe: "by un",
  },
  "Area has increased monster variety": {
    value: "Area has increased monster variety",
@@ -403,7 +402,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "#% more Magic Monsters": {
    value: "#% more Magic Monsters",
    scary: 810,
-   matchSafe: "\"e mag\"",
+   matchSafe: "e mag",
  },
  "Slaying Enemies close together has a #% chance to attract monsters from Beyond": {
    value: "Slaying Enemies close together has a #% chance to attract monsters from Beyond",
@@ -445,7 +444,7 @@ export const kiracModifier: { [key: string]: MapMod } = {
  "Area contains # additional Abysses": {
    value: "Area contains # additional Abysses",
    scary: 894,
-   matchSafe: "ses",
+   matchSafe: "ysse",
  },
  "Area contains # additional Breaches": {
    value: "Area contains # additional Breaches",
@@ -460,7 +459,7 @@ export const kiracModifier: { [key: string]: MapMod } = {
  "Area contains # additional Essences": {
    value: "Area contains # additional Essences",
    scary: 891,
-   matchSafe: "esse",
+   matchSafe: "ssen",
  },
  "Area contains # additional Strongboxes": {
    value: "Area contains # additional Strongboxes",
@@ -486,5 +485,12 @@ export const kiracModifier: { [key: string]: MapMod } = {
    value: "Area is inhabited by Cultists of Kitava",
    scary: 886,
    matchSafe: "cul",
+ },
+};
+export const t17Mods: { [key: string]: MapMod } = {
+ "Monsters have +1 to Maximum Power Charges": {
+   value: "Monsters have +1 to Maximum Power Charges",
+   scary: 100,
+   matchSafe: "o max",
  },
 };

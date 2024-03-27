@@ -16,7 +16,6 @@ export interface FlaskModGroup {
   tag: FlaskTag
   mods: FlaskMod[]
 }
- 
 export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 8,
@@ -117,7 +116,7 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 3,
    description: "#% increased Charge Recovery",
-   regex: "rpe|ml|endl|nu|const",
+   regex: "rpe|ml|ndl|nu|const",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 83,
@@ -133,7 +132,7 @@ export const flaskPrefix: FlaskModGroup[] = [
      level: 43,
      name: "Endless",
      value: "(26-30)% increased Charge Recovery",
-     regex: "endl"
+     regex: "ndl"
    },   {
      level: 23,
      name: "Continuous",
@@ -149,7 +148,7 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 20,
    description: "#% increased Charge Recovery #% reduced effect",
-   regex: "y \\d+% reduced e",
+   regex: "e recovery \\d+",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 84,
@@ -373,13 +372,13 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 14,
    description: "#% reduced Charges per use",
-   regex: "Chemist's|we|pra|sch|e'",
+   regex: "^Chemist's|we|pra|sch|e'",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 82,
      name: "Chemist's",
      value: "(28-26)% reduced Charges per use",
-     regex: "Chemist's"
+     regex: "^Chemist's"
    },   {
      level: 65,
      name: "Brewer's",
@@ -459,7 +458,7 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 16,
    description: "Effect is not removed when Unreserved Mana is Filled Effect does not Queue #% reduced Amount Recovered",
-   regex: "nr",
+   regex: "endu",
    tag: { name: "life", sort: 100, color: "#fab4bb" },
    mods: [   {
      level: 16,
@@ -470,22 +469,15 @@ export const flaskPrefix: FlaskModGroup[] = [
  },
  {
    minLevel: 29,
-   description: "Gain # Charge when you are Hit by an Enemy",
-   regex: "sg",
+   description: "Gain # Charges when you are Hit by an Enemy",
+   regex: "u a",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 29,
      name: "Transgressor's",
      value: "Gain 1 Charge when you are Hit by an Enemy",
      regex: "sg"
-   }]
- },
- {
-   minLevel: 63,
-   description: "Gain # Charges when you are Hit by an Enemy",
-   regex: "s whe",
-   tag: { name: "default", sort: 0, color: "#fff" },
-   mods: [   {
+   },   {
      level: 63,
      name: "Masochist's",
      value: "Gain 2 Charges when you are Hit by an Enemy",
@@ -622,7 +614,7 @@ export const flaskSuffix: FlaskModGroup[] = [
  {
    minLevel: 4,
    description: "#% chance to Avoid being Chilled during Effect #% chance to Avoid being Frozen during Effect",
-   regex: "g fr",
+   regex: "g ch",
    tag: { name: "avoidailment", sort: 60, color: "#c2ffe3" },
    mods: [   {
      level: 80,
@@ -654,7 +646,7 @@ export const flaskSuffix: FlaskModGroup[] = [
  {
    minLevel: 6,
    description: "#% chance to Avoid being Ignited during Effect",
-   regex: "g ig",
+   regex: "g i",
    tag: { name: "avoidailment", sort: 60, color: "#c2ffe3" },
    mods: [   {
      level: 82,
@@ -907,7 +899,7 @@ export const flaskSuffix: FlaskModGroup[] = [
  {
    minLevel: 5,
    description: "#% increased Movement Speed during Effect",
-   regex: "ah|nx|hare",
+   regex: "nt speed d",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 85,
@@ -954,9 +946,73 @@ export const flaskSuffix: FlaskModGroup[] = [
    }]
  },
  {
+   minLevel: 10,
+   description: "#% of Attack Damage Leeched as Life during Effect",
+   regex: "f at",
+   tag: { name: "leech", sort: 30, color: "#eeffe3" },
+   mods: [   {
+     level: 80,
+     name: "of Bloodletting",
+     value: "0.8% of Attack Damage Leeched as Life during Effect",
+     regex: "odl"
+   },   {
+     level: 60,
+     name: "of Butchery",
+     value: "0.7% of Attack Damage Leeched as Life during Effect",
+     regex: "tc"
+   },   {
+     level: 40,
+     name: "of Carnage",
+     value: "0.6% of Attack Damage Leeched as Life during Effect",
+     regex: "arn"
+   },   {
+     level: 20,
+     name: "of Gore",
+     value: "0.5% of Attack Damage Leeched as Life during Effect",
+     regex: "gor"
+   },   {
+     level: 10,
+     name: "of Bloodshed",
+     value: "0.4% of Attack Damage Leeched as Life during Effect",
+     regex: "ods"
+   }]
+ },
+ {
+   minLevel: 10,
+   description: "#% of Spell Damage Leeched as Energy Shield during Effect",
+   regex: "erg",
+   tag: { name: "leech", sort: 30, color: "#eeffe3" },
+   mods: [   {
+     level: 80,
+     name: "of Draining",
+     value: "0.8% of Spell Damage Leeched as Energy Shield during Effect",
+     regex: "dra"
+   },   {
+     level: 60,
+     name: "of Siphoning",
+     value: "0.7% of Spell Damage Leeched as Energy Shield during Effect",
+     regex: "sip"
+   },   {
+     level: 40,
+     name: "of Tapping",
+     value: "0.6% of Spell Damage Leeched as Energy Shield during Effect",
+     regex: "tap"
+   },   {
+     level: 20,
+     name: "of Depletion",
+     value: "0.5% of Spell Damage Leeched as Energy Shield during Effect",
+     regex: "etio"
+   },   {
+     level: 10,
+     name: "of Diverting",
+     value: "0.4% of Spell Damage Leeched as Energy Shield during Effect",
+     regex: "div"
+   }]
+ },
+ {
    minLevel: 4,
    description: "#% reduced Effect of Chill on you during Effect #% reduced Freeze Duration on you during Effect",
-   regex: "f ch",
+   regex: "l o",
    tag: { name: "avoidailment", sort: 60, color: "#c2ffe3" },
    mods: [   {
      level: 80,
@@ -977,7 +1033,7 @@ export const flaskSuffix: FlaskModGroup[] = [
      level: 23,
      name: "of the Cat",
      value: "(47-42)% reduced Effect of Chill on you during Effect (47-42)% reduced Freeze Duration on you during Effect",
-     regex: "of the Cat"
+     regex: "of the Cat$"
    },   {
      level: 4,
      name: "of the Rabbit",
@@ -1020,7 +1076,7 @@ export const flaskSuffix: FlaskModGroup[] = [
  {
    minLevel: 6,
    description: "#% reduced Effect of Shock on you during Effect",
-   regex: "f sh",
+   regex: "k o",
    tag: { name: "avoidailment", sort: 60, color: "#c2ffe3" },
    mods: [   {
      level: 82,
@@ -1068,7 +1124,7 @@ export const flaskSuffix: FlaskModGroup[] = [
      level: 46,
      name: "of the Mage",
      value: "(21-19)% reduced Mana Cost of Skills during Effect",
-     regex: " mag"
+     regex: "he ma"
    },   {
      level: 29,
      name: "of the Initiate",
@@ -1083,97 +1139,33 @@ export const flaskSuffix: FlaskModGroup[] = [
  },
  {
    minLevel: 10,
-   description: "#.#% of Attack Damage Leeched as Life during Effect",
-   regex: "f at",
-   tag: { name: "leech", sort: 30, color: "#eeffe3" },
-   mods: [   {
-     level: 80,
-     name: "of Bloodletting",
-     value: "0.8% of Attack Damage Leeched as Life during Effect",
-     regex: "odl"
-   },   {
-     level: 60,
-     name: "of Butchery",
-     value: "0.7% of Attack Damage Leeched as Life during Effect",
-     regex: "tc"
-   },   {
-     level: 40,
-     name: "of Carnage",
-     value: "0.6% of Attack Damage Leeched as Life during Effect",
-     regex: "arn"
-   },   {
-     level: 20,
-     name: "of Gore",
-     value: "0.5% of Attack Damage Leeched as Life during Effect",
-     regex: "gor"
-   },   {
-     level: 10,
-     name: "of Bloodshed",
-     value: "0.4% of Attack Damage Leeched as Life during Effect",
-     regex: "ods"
-   }]
- },
- {
-   minLevel: 10,
-   description: "#.#% of Spell Damage Leeched as Energy Shield during Effect",
-   regex: "erg",
-   tag: { name: "leech", sort: 30, color: "#eeffe3" },
-   mods: [   {
-     level: 80,
-     name: "of Draining",
-     value: "0.8% of Spell Damage Leeched as Energy Shield during Effect",
-     regex: "dra"
-   },   {
-     level: 60,
-     name: "of Siphoning",
-     value: "0.7% of Spell Damage Leeched as Energy Shield during Effect",
-     regex: "sip"
-   },   {
-     level: 40,
-     name: "of Tapping",
-     value: "0.6% of Spell Damage Leeched as Energy Shield during Effect",
-     regex: "tap"
-   },   {
-     level: 20,
-     name: "of Depletion",
-     value: "0.5% of Spell Damage Leeched as Energy Shield during Effect",
-     regex: "etio"
-   },   {
-     level: 10,
-     name: "of Diverting",
-     value: "0.4% of Spell Damage Leeched as Energy Shield during Effect",
-     regex: "div"
-   }]
- },
- {
-   minLevel: 10,
    description: "Grants #% of Life Recovery to Minions",
    regex: "nio",
    tag: { name: "life", sort: 100, color: "#fab4bb" },
    mods: [   {
      level: 82,
      name: "of the Necromancer",
-     value: "Grants (75-80)% of Life Recovery to Minions",
+     value: "Grants (180-200)% of Life Recovery to Minions",
      regex: "nec"
    },   {
      level: 64,
      name: "of the Conjurer",
-     value: "Grants (69-74)% of Life Recovery to Minions",
+     value: "Grants (160-179)% of Life Recovery to Minions",
      regex: "nj"
    },   {
      level: 46,
      name: "of the Summoner",
-     value: "Grants (63-68)% of Life Recovery to Minions",
+     value: "Grants (140-159)% of Life Recovery to Minions",
      regex: "mmo"
    },   {
      level: 28,
      name: "of the Acolyte",
-     value: "Grants (57-62)% of Life Recovery to Minions",
+     value: "Grants (120-139)% of Life Recovery to Minions",
      regex: "yt"
    },   {
      level: 10,
      name: "of the Novice",
-     value: "Grants (51-56)% of Life Recovery to Minions",
+     value: "Grants (100-119)% of Life Recovery to Minions",
      regex: "nov"
    }]
  },
@@ -1261,7 +1253,7 @@ export const flaskSuffix: FlaskModGroup[] = [
  {
    minLevel: 6,
    description: "Grants Immunity to Ignite for # seconds if used while Ignited Removes all Burning when used",
-   regex: "g w",
+   regex: "l b",
    tag: { name: "eleilment", sort: 45, color: "#c2ffe3" },
    mods: [   {
      level: 54,
@@ -1342,7 +1334,7 @@ export const flaskSuffix: FlaskModGroup[] = [
  {
    minLevel: 30,
    description: "Hinders nearby Enemies with #% reduced Movement Speed if used while not on Full Life",
-   regex: "estr|ccl|ob|erf",
+   regex: "d if used while not on full l",
    tag: { name: "life", sort: 100, color: "#fab4bb" },
    mods: [   {
      level: 84,
@@ -1440,7 +1432,7 @@ export const flaskSuffix: FlaskModGroup[] = [
  {
    minLevel: 6,
    description: "Immunity to Ignite during Effect Removes Burning on use #% less Duration",
-   regex: "ct r",
+   regex: "s b",
    tag: { name: "eleilment", sort: 45, color: "#c2ffe3" },
    mods: [   {
      level: 74,

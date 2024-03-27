@@ -30,7 +30,7 @@ import {ProfileContext} from "../../components/profile/ProfileContext";
 
 dayjs.extend(relativeTime);
 
-export const leagueName = "Affliction";
+export const leagueName = "Necropolis";
 
 const allItemsFromGeneratedItems = (baseTypeRegex: { [key: string]: BaseTypeRegex }): Item[] => {
   const baseTypes: string[] = Array.from(Object.keys(baseTypeRegex));

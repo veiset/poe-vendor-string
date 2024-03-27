@@ -1,7 +1,7 @@
 import {ContractLevel} from "../pages/heist/Heist";
 import {heistContractTypes} from "../generated/GeneratedHeist";
 
-export const leagueName = "Affliction";
+export const leagueName = "Necropolis";
 
 export interface SavedSettings {
   name: string
@@ -13,7 +13,6 @@ export interface SavedSettings {
   map: MapSettings
   vendor: VendorSettings
   mapNames: MapNameSettings
-  compass: CompassSettings
 }
 
 export interface BeastSettings {
@@ -67,10 +66,6 @@ export interface MapSettings {
 }
 
 export interface MapNameSettings {
-  selected: string[]
-}
-
-export interface CompassSettings {
   selected: string[]
 }
 
@@ -200,9 +195,6 @@ export const defaultSettings: SavedSettings = {
     },
   },
   mapNames: {
-    selected: [],
-  },
-  compass: {
     selected: [],
   },
   vendor: {
