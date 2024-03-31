@@ -29,10 +29,10 @@ export const mapModifiers: { [key: string]: MapMod } = {
    scary: 100,
    matchSafe: "h tem",
  },
- "-#% maximum Player Resistances": {
-   value: "-#% maximum Player Resistances",
+ "Players have -#% to all maximum Resistances": {
+   value: "Players have -#% to all maximum Resistances",
    scary: 101,
-   matchSafe: "% ma",
+   matchSafe: "o al",
  },
  "Players have #% less Recovery Rate of Life and Energy Shield": {
    value: "Players have #% less Recovery Rate of Life and Energy Shield",
