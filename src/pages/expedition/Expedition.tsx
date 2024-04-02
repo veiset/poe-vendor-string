@@ -52,6 +52,7 @@ const fetchLeaguePricing = (league: string, type: string): Promise<PoeNinjaData>
 const Expedition = () => {
   const {globalProfile} = useContext(ProfileContext);
   const profile = loadSettings(globalProfile);
+  const allBasesTypes = Array.from(Object.keys(baseTypeRegex));
 
   const allItems = allItemsFromGeneratedItems(baseTypeRegex);
 
@@ -61,7 +62,9 @@ const Expedition = () => {
   const [fillerBases, setFillerBases] = useState<PricedBaseType[]>([]);
 
   // Settings
-  const [selectedBaseTypes, setSelectedBaseTypes] = useState<string[]>(profile.expedition.selectedBaseTypes);
+  const [selectedBaseTypes, setSelectedBaseTypes] = useState<string[]>(profile.expedition.selectedBaseTypes
+    .filter((e) => allBasesTypes.includes(e))
+  );
   const [league, setLeague] = useState(profile.expedition.league);
   const [addFillerItems, setAddFillerItems] = useState<boolean>(profile.expedition.addFillerItems);
   const [minValueToDisplay, setMinValueToDisplay] = useState<number>(profile.expedition.minValueToDisplay);
