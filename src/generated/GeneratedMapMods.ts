@@ -287,7 +287,7 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters steal Power, Frenzy and Endurance charges on Hit": {
    value: "Monsters steal Power, Frenzy and Endurance charges on Hit",
    scary: 416,
-   matchSafe: "r,",
+   matchSafe: "er,",
  },
  "Area has patches of Burning Ground": {
    value: "Area has patches of Burning Ground",
