@@ -67,6 +67,7 @@ export interface MapSettings {
 
 export interface MapNameSettings {
   selected: string[]
+  mapTabSearch: boolean
 }
 
 export interface VendorSettings {
@@ -196,6 +197,7 @@ export const defaultSettings: SavedSettings = {
   },
   mapNames: {
     selected: [],
+    mapTabSearch: false,
   },
   vendor: {
     anyThreeLink: false,

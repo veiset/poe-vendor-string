@@ -21,5 +21,7 @@ function generateMaps(settings: MapNameSettings): string {
     })
     .join("|")
     .replaceAll('"', "");
-  return `"${modStr}"`;
+
+  if (settings.mapTabSearch) return modStr;
+  else return `"${modStr}"`;
 }
