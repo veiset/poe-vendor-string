@@ -48,9 +48,8 @@ const MapsT17 = () => {
         magic: false,
         normal: false,
         include: false,
-      }
-
-    });
+      },
+    }, t17Mods);
     saveSettings({
       ...profile,
       mapT17: {...settings},

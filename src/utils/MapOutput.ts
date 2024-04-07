@@ -1,12 +1,10 @@
-import {mapModifiers, kiracModifier, t17Mods} from "../generated/GeneratedMapMods";
+import {mapModifiers, kiracModifier, t17Mods, MapMod} from "../generated/GeneratedMapMods";
 import {MapSettings} from "./SavedSettings";
 
 
-const allMods = {...mapModifiers, ...t17Mods}
-
-export function generateMapModStr(settings: MapSettings): string {
-  const exclusions = generateBadMods(settings);
-  const inclusions = generateGoodMods(settings);
+export function generateMapModStr(settings: MapSettings, mapMods: { [key: string]: MapMod }): string {
+  const exclusions = generateBadMods(settings, mapMods);
+  const inclusions = generateGoodMods(settings, mapMods);
   const kirac = generateKirac(settings);
   const quantity = addQuantifier("m q.*", generateNumberRegex(settings.quantity, settings.optimizeQuant));
   const packsize = addQuantifier("iz.*", generateNumberRegex(settings.packsize, settings.optimizePacksize));
@@ -48,19 +46,19 @@ function optimize(string: string): string {
     .replaceAll("[9-9]", "9");
 }
 
-function generateBadMods(settings: MapSettings): string {
+function generateBadMods(settings: MapSettings, mapMods: { [key: string]: MapMod }): string {
   const {badMods} = settings;
   if (badMods.length === 0) {
     return "";
   }
 
   const modStr = badMods.map((m) => {
-    return allMods[m].matchSafe;
+    return mapMods[m].matchSafe;
   }).join("|");
   return `"!${modStr}"`;
 }
 
-function generateGoodMods(settings: MapSettings): string {
+function generateGoodMods(settings: MapSettings, mapMods: { [key: string]: MapMod }): string {
   const {goodMods, allGoodMods} = settings;
 
   if (goodMods.length === 0) {
@@ -69,12 +67,12 @@ function generateGoodMods(settings: MapSettings): string {
 
   if (allGoodMods) {
     return goodMods.map((m) => {
-      let matchSafe = allMods[m].matchSafe;
+      let matchSafe = mapMods[m].matchSafe;
       return matchSafe.includes(" ") ? `"${matchSafe}"` : matchSafe;
     }).join(" ");
   } else {
     const regex = goodMods.map((m) => {
-      return allMods[m].matchSafe;
+      return mapMods[m].matchSafe;
     }).join("|");
     return `"${regex}"`;
   }

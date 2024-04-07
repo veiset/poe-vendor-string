@@ -1,5 +1,6 @@
 import {generateMapModStr} from './MapOutput';
 import {MapSettings} from "./SavedSettings";
+import {mapModifiers} from "../generated/GeneratedMapMods";
 
 describe('testing quantity and quality regex number matching', () => {
   const sampleSize = 199;
@@ -21,7 +22,7 @@ describe('testing quantity and quality regex number matching', () => {
       const shouldNotMatch = arrayRange(selectedValue);
       const shouldMatch = arrayRange(sampleSize - selectedValue + 1).map(i => selectedValue + i);
       shouldNotMatch.map(noMatch => {
-        const regex = generateMapModStr(settings(`${selectedValue}`, false)).replaceAll("\"", "");
+        const regex = generateMapModStr(settings(`${selectedValue}`, false), mapModifiers).replaceAll("\"", "");
         const r = new RegExp(regex);
         const mapText = `map quantity: ${noMatch}%`;
         // console.log(`r: ${r}, map: "${mapText}" matching: ${noMatch} -> selected: ${selectedValue}`);
@@ -29,7 +30,7 @@ describe('testing quantity and quality regex number matching', () => {
       });
 
       shouldMatch.map(match => {
-        const regex = generateMapModStr(settings(`${selectedValue}`, false)).replaceAll("\"", "");
+        const regex = generateMapModStr(settings(`${selectedValue}`, false), mapModifiers).replaceAll("\"", "");
         const r = new RegExp(regex);
         const mapText = `map quantity: ${match}%`;
         // console.log(`r: ${r}, map: "${mapText}" matching: ${match} -> selected: ${selectedValue}`);
@@ -44,13 +45,13 @@ describe('testing quantity and quality regex number matching', () => {
       const shouldNotMatch = arrayRange(selectedValue);
       const shouldMatch = arrayRange(sampleSize - selectedValue + 1).map(i => selectedValue + i);
       shouldNotMatch.map(noMatch => {
-        const regex = generateMapModStr(settings(`${selectedValue}`, true)).replaceAll("\"", "");
+        const regex = generateMapModStr(settings(`${selectedValue}`, true), mapModifiers).replaceAll("\"", "");
         const r = new RegExp(regex);
         expect(r.test(`map quantity: ${noMatch}%`)).toBe(false);
       });
 
       shouldMatch.map(match => {
-        const regex = generateMapModStr(settings(`${selectedValue}`, true)).replaceAll("\"", "");
+        const regex = generateMapModStr(settings(`${selectedValue}`, true), mapModifiers).replaceAll("\"", "");
         const r = new RegExp(regex);
         expect(r.test(`map quantity: ${match}%`)).toBe(true);
       });

@@ -51,7 +51,7 @@ const Maps = () => {
       optimizePacksize,
       rarity
     };
-    let search = generateMapModStr(settings);
+    let search = generateMapModStr(settings, mapModifiers);
     saveSettings({
       ...profile,
       map: {...settings},
