@@ -1,6 +1,8 @@
-import {mapModifiers, kiracModifier} from "../generated/GeneratedMapMods";
+import {mapModifiers, kiracModifier, t17Mods} from "../generated/GeneratedMapMods";
 import {MapSettings} from "./SavedSettings";
 
+
+const allMods = {...mapModifiers, ...t17Mods}
 
 export function generateMapModStr(settings: MapSettings): string {
   const exclusions = generateBadMods(settings);
@@ -53,7 +55,7 @@ function generateBadMods(settings: MapSettings): string {
   }
 
   const modStr = badMods.map((m) => {
-    return mapModifiers[m].matchSafe;
+    return allMods[m].matchSafe;
   }).join("|");
   return `"!${modStr}"`;
 }
@@ -67,12 +69,12 @@ function generateGoodMods(settings: MapSettings): string {
 
   if (allGoodMods) {
     return goodMods.map((m) => {
-      let matchSafe = mapModifiers[m].matchSafe;
+      let matchSafe = allMods[m].matchSafe;
       return matchSafe.includes(" ") ? `"${matchSafe}"` : matchSafe;
     }).join(" ");
   } else {
     const regex = goodMods.map((m) => {
-      return mapModifiers[m].matchSafe;
+      return allMods[m].matchSafe;
     }).join("|");
     return `"${regex}"`;
   }

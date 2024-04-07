@@ -488,9 +488,314 @@ export const kiracModifier: { [key: string]: MapMod } = {
  },
 };
 export const t17Mods: { [key: string]: MapMod } = {
- "Monsters have +1 to Maximum Power Charges": {
-   value: "Monsters have +1 to Maximum Power Charges",
-   scary: 100,
-   matchSafe: "o max",
+ "Monsters' skills Chain # additional times|Monsters' Projectiles can Chain when colliding with Terrain": {
+   value: "Monsters' skills Chain # additional times|Monsters' Projectiles can Chain when colliding with Terrain",
+   scary: 1100,
+   matchSafe: "lid",
+ },
+ "Players and their Minions deal no damage for # out of every # seconds": {
+   value: "Players and their Minions deal no damage for # out of every # seconds",
+   scary: 1100,
+   matchSafe: "ever",
+ },
+ "Monsters have #% increased Area of Effect|Monsters fire # additional Projectiles": {
+   value: "Monsters have #% increased Area of Effect|Monsters fire # additional Projectiles",
+   scary: 1100,
+   matchSafe: "fir",
+ },
+ "#% increased Monster Damage": {
+   value: "#% increased Monster Damage",
+   scary: 1100,
+   matchSafe: "d monster d",
+ },
+ "Monsters gain #% of Maximum Life as Extra Maximum Energy Shield": {
+   value: "Monsters gain #% of Maximum Life as Extra Maximum Energy Shield",
+   scary: 1100,
+   matchSafe: "m li",
+ },
+ "Unique Bosses are Possessed": {
+   value: "Unique Bosses are Possessed",
+   scary: 1100,
+   matchSafe: "poss",
+ },
+ "Monsters have +#% chance to Suppress Spell Damage": {
+   value: "Monsters have +#% chance to Suppress Spell Damage",
+   scary: 1100,
+   matchSafe: "o su",
+ },
+ "Monsters have +#% Chance to Block Attack Damage": {
+   value: "Monsters have +#% Chance to Block Attack Damage",
+   scary: 1100,
+   matchSafe: "o bl",
+ },
+ "Monsters reflect #% of Physical Damage|Monsters reflect #% of Elemental Damage": {
+   value: "Monsters reflect #% of Physical Damage|Monsters reflect #% of Elemental Damage",
+   scary: 1100,
+   matchSafe: "f ph",
+ },
+ "#% more Monster Life": {
+   value: "#% more Monster Life",
+   scary: 1100,
+   matchSafe: "r li",
+ },
+ "#% increased number of Rare Monsters|Rare Monsters each have # additional Modifiers": {
+   value: "#% increased number of Rare Monsters|Rare Monsters each have # additional Modifiers",
+   scary: 1100,
+   matchSafe: "d nu",
+ },
+ "Monsters inflict # Grasping Vines on Hit": {
+   value: "Monsters inflict # Grasping Vines on Hit",
+   scary: 1100,
+   matchSafe: "vines",
+ },
+ "Rare Monsters have Volatile Cores": {
+   value: "Rare Monsters have Volatile Cores",
+   scary: 1100,
+   matchSafe: "cores",
+ },
+ "Monsters gain #% of their Physical Damage as Extra Damage of a random Element": {
+   value: "Monsters gain #% of their Physical Damage as Extra Damage of a random Element",
+   scary: 1100,
+   matchSafe: "om e",
+ },
+ "Monsters gain #% of their Physical Damage as Extra Chaos Damage": {
+   value: "Monsters gain #% of their Physical Damage as Extra Chaos Damage",
+   scary: 1100,
+   matchSafe: "ra c",
+ },
+ "#% increased Monster Movement Speed|#% increased Monster Attack Speed|#% increased Monster Cast Speed": {
+   value: "#% increased Monster Movement Speed|#% increased Monster Attack Speed|#% increased Monster Cast Speed",
+   scary: 1100,
+   matchSafe: "r at",
+ },
+ "Players are assaulted by Bloodstained Sawblades": {
+   value: "Players are assaulted by Bloodstained Sawblades",
+   scary: 1100,
+   matchSafe: "wb",
+ },
+ "Area contains Drowning Orbs": {
+   value: "Area contains Drowning Orbs",
+   scary: 1100,
+   matchSafe: "wni",
+ },
+ "#% reduced Effect of Curses on Monsters": {
+   value: "#% reduced Effect of Curses on Monsters",
+   scary: 1100,
+   matchSafe: "ses o",
+ },
+ "+#% Monster Physical Damage Reduction|+#% Monster Chaos Resistance|+#% Monster Elemental Resistances": {
+   value: "+#% Monster Physical Damage Reduction|+#% Monster Chaos Resistance|+#% Monster Elemental Resistances",
+   scary: 1100,
+   matchSafe: "uct",
+ },
+ "All Monster Damage can Ignite, Freeze and Shock|Monsters Ignite, Freeze and Shock on Hit": {
+   value: "All Monster Damage can Ignite, Freeze and Shock|Monsters Ignite, Freeze and Shock on Hit",
+   scary: 1100,
+   matchSafe: "ign",
+ },
+ "Players are Marked for Death for # seconds after killing a Rare or Unique monster": {
+   value: "Players are Marked for Death for # seconds after killing a Rare or Unique monster",
+   scary: 1100,
+   matchSafe: "rke",
+ },
+ "Rare and Unique Monsters remove #% of Life, Mana and Energy Shield on hit": {
+   value: "Rare and Unique Monsters remove #% of Life, Mana and Energy Shield on hit",
+   scary: 1100,
+   matchSafe: "fe,",
+ },
+ "Monsters' Attacks Impale on Hit|When a fifth Impale is inflicted on a Player, Impales are removed to Reflect thier Physical Damage multiplied by their remaining Hits to that Player and their Allies within #.# metres": {
+   value: "Monsters' Attacks Impale on Hit|When a fifth Impale is inflicted on a Player, Impales are removed to Reflect thier Physical Damage multiplied by their remaining Hits to that Player and their Allies within #.# metres",
+   scary: 1100,
+   matchSafe: "ale",
+ },
+ "Rare monsters in area are Shaper-Touched": {
+   value: "Rare monsters in area are Shaper-Touched",
+   scary: 1100,
+   matchSafe: "hap",
+ },
+ "Players have -# to maximum number of Summoned Totems": {
+   value: "Players have -# to maximum number of Summoned Totems",
+   scary: 1100,
+   matchSafe: "moned",
+ },
+ "Player Skills which Throw Mines throw # fewer Mine|Player Skills which Throw Traps throw # fewer Trap": {
+   value: "Player Skills which Throw Mines throw # fewer Mine|Player Skills which Throw Traps throw # fewer Trap",
+   scary: 1100,
+   matchSafe: "whi",
+ },
+ "#% of Damage Players' Totems take from Hits is taken from their Summoner's Life instead": {
+   value: "#% of Damage Players' Totems take from Hits is taken from their Summoner's Life instead",
+   scary: 1100,
+   matchSafe: "oner",
+ },
+ "Players in Area take #% increased Damage per nearby Ally": {
+   value: "Players in Area take #% increased Damage per nearby Ally",
+   scary: 1100,
+   matchSafe: "nea",
+ },
+ "Map Boss is accompanied by a Synthesis Boss": {
+   value: "Map Boss is accompanied by a Synthesis Boss",
+   scary: 1100,
+   matchSafe: "cc",
+ },
+ "Area contains Runes of the Searing Exarch": {
+   value: "Area contains Runes of the Searing Exarch",
+   scary: 1100,
+   matchSafe: "rune",
+ },
+ "All Magic and Normal Monsters in Area are in a Union of Souls": {
+   value: "All Magic and Normal Monsters in Area are in a Union of Souls",
+   scary: 1100,
+   matchSafe: "sou",
+ },
+ "Monsters have +# to Maximum Power Charges|Monsters gain a Power Charge on Hit": {
+   value: "Monsters have +# to Maximum Power Charges|Monsters gain a Power Charge on Hit",
+   scary: 1100,
+   matchSafe: "mum p",
+ },
+ "Monsters have +# to Maximum Frenzy Charges|Monsters gain a Frenzy Charge on Hit": {
+   value: "Monsters have +# to Maximum Frenzy Charges|Monsters gain a Frenzy Charge on Hit",
+   scary: 1100,
+   matchSafe: "mum f",
+ },
+ "Monsters have +# to Maximum Endurance Charges|Monsters gain an Endurance Charge when hit": {
+   value: "Monsters have +# to Maximum Endurance Charges|Monsters gain an Endurance Charge when hit",
+   scary: 1100,
+   matchSafe: "m end",
+ },
+ "Players have -#% to all maximum Resistances": {
+   value: "Players have -#% to all maximum Resistances",
+   scary: 1100,
+   matchSafe: "o al",
+ },
+ "Monsters have #% increased Critical Strike Chance|+#% to Monster Critical Strike Multiplier": {
+   value: "Monsters have #% increased Critical Strike Chance|+#% to Monster Critical Strike Multiplier",
+   scary: 1100,
+   matchSafe: "lier",
+ },
+ "Monsters Poison on Hit|All Damage from Monsters' Hits can Poison": {
+   value: "Monsters Poison on Hit|All Damage from Monsters' Hits can Poison",
+   scary: 1100,
+   matchSafe: "iso",
+ },
+ "Monsters cannot be Leeched from": {
+   value: "Monsters cannot be Leeched from",
+   scary: 1100,
+   matchSafe: "eec",
+ },
+ "Players are Cursed with Vulnerability": {
+   value: "Players are Cursed with Vulnerability",
+   scary: 1100,
+   matchSafe: "h vu",
+ },
+ "Players have #% less Area of Effect": {
+   value: "Players have #% less Area of Effect",
+   scary: 1100,
+   matchSafe: "ss are",
+ },
+ "Monsters take #% reduced Extra Damage from Critical Strikes": {
+   value: "Monsters take #% reduced Extra Damage from Critical Strikes",
+   scary: 1100,
+   matchSafe: "kes",
+ },
+ "Unique Monsters have a random Shrine Buff": {
+   value: "Unique Monsters have a random Shrine Buff",
+   scary: 1100,
+   matchSafe: "ve a",
+ },
+ "Area contains Petrification Statues": {
+   value: "Area contains Petrification Statues",
+   scary: 1100,
+   matchSafe: "atu",
+ },
+ "Area contains # additional Clusters of Highly Volatile Barrels": {
+   value: "Area contains # additional Clusters of Highly Volatile Barrels",
+   scary: 1100,
+   matchSafe: "hl",
+ },
+ "Players cannot gain Endurance Charges|Players cannot gain Frenzy Charges|Players cannot gain Power Charges": {
+   value: "Players cannot gain Endurance Charges|Players cannot gain Frenzy Charges|Players cannot gain Power Charges",
+   scary: 1100,
+   matchSafe: "ot g",
+ },
+ "Monsters cannot be Stunned|Monsters' Action Speed cannot be modified to below Base Value|Monsters' Movement Speed cannot be modified to below Base Value": {
+   value: "Monsters cannot be Stunned|Monsters' Action Speed cannot be modified to below Base Value|Monsters' Movement Speed cannot be modified to below Base Value",
+   scary: 1100,
+   matchSafe: "tun",
+ },
+ "Players are targeted by a Meteor when they use a Flask": {
+   value: "Players are targeted by a Meteor when they use a Flask",
+   scary: 1100,
+   matchSafe: "get",
+ },
+ "Players have #% less Defences": {
+   value: "Players have #% less Defences",
+   scary: 1100,
+   matchSafe: "efe",
+ },
+ "Players cannot Recharge Energy Shield": {
+   value: "Players cannot Recharge Energy Shield",
+   scary: 1100,
+   matchSafe: "rech",
+ },
+ "Players cannot Block|Players cannot Suppress Spell Damage": {
+   value: "Players cannot Block|Players cannot Suppress Spell Damage",
+   scary: 1100,
+   matchSafe: "ot s",
+ },
+ "Players have #% reduced effect of Non-Curse Auras from Skills": {
+   value: "Players have #% reduced effect of Non-Curse Auras from Skills",
+   scary: 1100,
+   matchSafe: "non",
+ },
+ "Players have #% less Recovery Rate of Life and Energy Shield": {
+   value: "Players have #% less Recovery Rate of Life and Energy Shield",
+   scary: 1100,
+   matchSafe: "reco",
+ },
+ "Buffs on Players expire #% faster": {
+   value: "Buffs on Players expire #% faster",
+   scary: 1100,
+   matchSafe: "n pl",
+ },
+ "Monster Damage Penetrates #% Elemental Resistances": {
+   value: "Monster Damage Penetrates #% Elemental Resistances",
+   scary: 1100,
+   matchSafe: "tes",
+ },
+ "Players have #% reduced Action Speed for each time they've used a Skill Recently": {
+   value: "Players have #% reduced Action Speed for each time they've used a Skill Recently",
+   scary: 1100,
+   matchSafe: "'v",
+ },
+ "Area contains Unstable Tentacle Fiends": {
+   value: "Area contains Unstable Tentacle Fiends",
+   scary: 1100,
+   matchSafe: "uns",
+ },
+ "Area has patches of Awakeners' Desolation": {
+   value: "Area has patches of Awakeners' Desolation",
+   scary: 1100,
+   matchSafe: "tc",
+ },
+ "Rare and Unique monsters spawn a Tormented Spirit on reaching Low Life": {
+   value: "Rare and Unique monsters spawn a Tormented Spirit on reaching Low Life",
+   scary: 1100,
+   matchSafe: "eachi",
+ },
+ "Players' Minions have #% less Attack Speed|Players' Minions have #% less Cast Speed|Players' Minions have #% less Movement Speed": {
+   value: "Players' Minions have #% less Attack Speed|Players' Minions have #% less Cast Speed|Players' Minions have #% less Movement Speed",
+   scary: 1100,
+   matchSafe: "' mi",
+ },
+ "Debuffs on Monsters expire #% faster": {
+   value: "Debuffs on Monsters expire #% faster",
+   scary: 1100,
+   matchSafe: "deb",
+ },
+ "The Maven interferes with Players": {
+   value: "The Maven interferes with Players",
+   scary: 1100,
+   matchSafe: "mav",
  },
 };

@@ -9,6 +9,7 @@ import React, {useEffect, useState} from "react";
 import {loadSettings, selectedProfile} from "../utils/LocalStorage";
 import {ProfileContext} from "../components/profile/ProfileContext";
 import MapNames from "../pages/mapnames/MapNames";
+import MapsT17 from "../pages/mapsT17/MapsT17";
 
 const Pages = () => {
   const [globalProfile, setGlobalProfile] = useState(selectedProfile());
@@ -26,6 +27,7 @@ const Pages = () => {
         <Route path="/" element={<Vendor key={"vendor-" + profile.name}/>}/>
         <Route path="/vendor" element={<Vendor key={"vendor-" + profile.name}/>}/>
         <Route path="/maps" element={<Maps key={"map-" + profile.name}/>}/>
+        <Route path="/mapst17" element={<MapsT17 key={"mapt17-" + profile.name}/>}/>
         <Route path="/mapnames" element={<MapNames key={"mapnames-" + profile.name}/>}/>
         <Route path="/flasks" element={<Flasks key={"flask-" + profile.name}/>}/>
         <Route path="/heist" element={<Heist key={"heist-" + profile.name}/>}/>

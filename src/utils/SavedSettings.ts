@@ -11,6 +11,7 @@ export interface SavedSettings {
   flask: FlaskSettings
   expedition: ExpeditionSettings
   map: MapSettings
+  mapT17: MapT17Settings
   vendor: VendorSettings
   mapNames: MapNameSettings
 }
@@ -63,6 +64,14 @@ export interface MapSettings {
     rare: boolean
     include: boolean
   }
+}
+
+export interface MapT17Settings {
+  mods: string[]
+  quantity: string
+  packsize: string
+  optimizeQuant: boolean
+  optimizePacksize: boolean
 }
 
 export interface MapNameSettings {
@@ -194,6 +203,13 @@ export const defaultSettings: SavedSettings = {
       rare: true,
       include: true,
     },
+  },
+  mapT17: {
+    mods: [],
+    quantity: "",
+    packsize: "",
+    optimizeQuant: true,
+    optimizePacksize: true,
   },
   mapNames: {
     selected: [],
