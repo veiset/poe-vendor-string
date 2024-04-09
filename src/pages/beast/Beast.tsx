@@ -131,7 +131,7 @@ const Beast = () => {
         setMaxChaosValue(defaultSettings.beast.maxChaosValue);
         setMenagerieLimit(defaultSettings.beast.menagerieLimit);
       }}/>
-      <p className="beast-price-info">Using price data from {leagueName}. Last updated: {lastUpdated}</p>
+      <p className="beast-price-info">Using price data from the {leagueName} League. Last updated: {lastUpdated}</p>
       <div className="row beast-options">
         <div>
           <span className="expedition-option-text">Min chaos value:</span>
@@ -156,7 +156,8 @@ const Beast = () => {
       </div>
       <div className="row beast-options">
         <Checkbox label="Include harvest beasts" value={includeHarvest} onChange={setIncludeHarvest}/>
-        <Checkbox label="Use menagerie regex character limit (100)" value={menagerieLimit} onChange={setMenagerieLimit}/>
+        <Checkbox label="Use menagerie regex character limit (100)" value={menagerieLimit}
+                  onChange={setMenagerieLimit}/>
         <Checkbox label="Show red beasts only" value={redBeastsOnly} onChange={setRedBeastsOnly}/>
       </div>
       <div className="row">

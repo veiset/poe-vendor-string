@@ -76,7 +76,7 @@ const Scarabs = () => {
         }}
       />
       <div className="break"/>
-      <p className="beast-price-info">Using price data from {leagueName}. Last updated: {lastUpdated}</p>
+      <p className="beast-price-info">Using price data from the {leagueName} League. Last updated: {lastUpdated}</p>
       <div className="full-size generic-top-element">
         <div className="scarab-options-row">
           <button className="scarab-action-button" onClick={() => {
