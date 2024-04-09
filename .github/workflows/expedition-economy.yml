@@ -130,7 +130,7 @@ jobs:
 
       # Scarab Economy
       - uses: suisei-cn/actions-download-file@v1.3.0
-        id: beasts
+        id: scarabs
         with:
           url: "https://poe.ninja/api/data/itemoverview?league=${{ env.LEAGUE }}&type=Scarab&language=en"
           target: beast/
