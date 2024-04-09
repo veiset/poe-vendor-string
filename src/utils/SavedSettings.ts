@@ -14,6 +14,7 @@ export interface SavedSettings {
   mapT17: MapT17Settings
   vendor: VendorSettings
   mapNames: MapNameSettings
+  scarab: ScarabSettings
 }
 
 export interface BeastSettings {
@@ -77,6 +78,12 @@ export interface MapT17Settings {
 export interface MapNameSettings {
   selected: string[]
   mapTabSearch: boolean
+}
+
+export interface ScarabSettings {
+  selected: string[]
+  maxPrice: string
+  minPrice: string
 }
 
 export interface VendorSettings {
@@ -287,5 +294,10 @@ export const defaultSettings: SavedSettings = {
       staff: false,
       wand: false,
     }
+  },
+  scarab: {
+    selected: [],
+    maxPrice: "0.81",
+    minPrice: "0.00"
   }
 }

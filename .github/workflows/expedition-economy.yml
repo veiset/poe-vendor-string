@@ -2,137 +2,144 @@ name: Economy
 on:
   workflow_dispatch:
   schedule:
-    - cron:  '0 */4 * * *' 
+    - cron: '0 */4 * * *'
 
 env:
   LEAGUE: Necropolis
-  
+
 jobs:
   build:
     name: Update unique items economy files
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-      with:
-        ref: 'gh-pages'
+      - uses: actions/checkout@v3
+        with:
+          ref: 'gh-pages'
 
-    # Standard Economy
-    - uses: suisei-cn/actions-download-file@v1.3.0
-      id: standard_jewel 
-      with:
-        url: "https://poe.ninja/api/data/itemoverview?league=Standard&type=UniqueJewel"
-        target: expedition/
-        filename: eco_Standard_UniqueJewel.json
-    - uses: suisei-cn/actions-download-file@v1.3.0
-      id: standard_weapon 
-      with:
-        url: "https://poe.ninja/api/data/itemoverview?league=Standard&type=UniqueWeapon"
-        target: expedition/
-        filename: eco_Standard_UniqueWeapon.json
-    - uses: suisei-cn/actions-download-file@v1.3.0
-      id: standard_armour
-      with:
-        url: "https://poe.ninja/api/data/itemoverview?league=Standard&type=UniqueArmour"
-        target: expedition/
-        filename: eco_Standard_UniqueArmour.json
-    - uses: suisei-cn/actions-download-file@v1.3.0
-      id: standard_accessory
-      with:
-        url: "https://poe.ninja/api/data/itemoverview?league=Standard&type=UniqueAccessory"
-        target: expedition/
-        filename: eco_Standard_UniqueAccessory.json
-        
-    # Standard Hardcore Economy
-    - uses: suisei-cn/actions-download-file@v1.3.0
-      id: standard_hardcore_jewel 
-      with:
-        url: "https://poe.ninja/api/data/itemoverview?league=Hardcore&type=UniqueJewel"
-        target: expedition/
-        filename: eco_Hardcore_UniqueJewel.json
-    - uses: suisei-cn/actions-download-file@v1.3.0
-      id: standard_hardcore_weapon 
-      with:
-        url: "https://poe.ninja/api/data/itemoverview?league=Hardcore&type=UniqueWeapon"
-        target: expedition/
-        filename: eco_Hardcore_UniqueWeapon.json
-    - uses: suisei-cn/actions-download-file@v1.3.0
-      id: standard_hardcore_armour
-      with:
-        url: "https://poe.ninja/api/data/itemoverview?league=Hardcore&type=UniqueArmour"
-        target: expedition/
-        filename: eco_Hardcore_UniqueArmour.json
-    - uses: suisei-cn/actions-download-file@v1.3.0
-      id: standard_hardcore_accessory
-      with:
-        url: "https://poe.ninja/api/data/itemoverview?league=Hardcore&type=UniqueAccessory"
-        target: expedition/
-        filename: eco_Hardcore_UniqueAccessory.json
-        
-    # League Economy
-    - uses: suisei-cn/actions-download-file@v1.3.0
-      id: league_jewel 
-      with:
-        url: "https://poe.ninja/api/data/itemoverview?league=${{ env.LEAGUE }}&type=UniqueJewel"
-        target: expedition/
-        filename: "eco_${{ env.LEAGUE }}_UniqueJewel.json"
-    - uses: suisei-cn/actions-download-file@v1.3.0
-      id: league_weapon 
-      with:
-        url: "https://poe.ninja/api/data/itemoverview?league=${{ env.LEAGUE }}&type=UniqueWeapon"
-        target: expedition/
-        filename: "eco_${{ env.LEAGUE }}_UniqueWeapon.json"
-    - uses: suisei-cn/actions-download-file@v1.3.0
-      id: league_armour
-      with:
-        url: "https://poe.ninja/api/data/itemoverview?league=${{ env.LEAGUE }}&type=UniqueArmour"
-        target: expedition/
-        filename: "eco_${{ env.LEAGUE }}_UniqueArmour.json"
-    - uses: suisei-cn/actions-download-file@v1.3.0
-      id: league_accessory
-      with:
-        url: "https://poe.ninja/api/data/itemoverview?league=${{ env.LEAGUE }}&type=UniqueAccessory"
-        target: expedition/
-        filename: "eco_${{ env.LEAGUE }}_UniqueAccessory.json"
-        
-    # League Hardcore Economy
-    - uses: suisei-cn/actions-download-file@v1.3.0
-      id: league_hardcore_jewel 
-      with:
-        url: "https://poe.ninja/api/data/itemoverview?league=Hardcore ${{ env.LEAGUE }}&type=UniqueJewel"
-        target: expedition/
-        filename: "eco_Hardcore ${{ env.LEAGUE }}_UniqueJewel.json"
-    - uses: suisei-cn/actions-download-file@v1.3.0
-      id: league_hardcore_weapon 
-      with:
-        url: "https://poe.ninja/api/data/itemoverview?league=Hardcore ${{ env.LEAGUE }}&type=UniqueWeapon"
-        target: expedition/
-        filename: "eco_Hardcore ${{ env.LEAGUE }}_UniqueWeapon.json"
-    - uses: suisei-cn/actions-download-file@v1.3.0
-      id: league_hardcore_armour
-      with:
-        url: "https://poe.ninja/api/data/itemoverview?league=Hardcore ${{ env.LEAGUE }}&type=UniqueArmour"
-        target: expedition/
-        filename: "eco_Hardcore ${{ env.LEAGUE }}_UniqueArmour.json"
-    - uses: suisei-cn/actions-download-file@v1.3.0
-      id: league_hardcore_accessory
-      with:
-        url: "https://poe.ninja/api/data/itemoverview?league=Hardcore ${{ env.LEAGUE }}&type=UniqueAccessory"
-        target: expedition/
-        filename: "eco_Hardcore ${{ env.LEAGUE }}_UniqueAccessory.json"
+      # Standard Economy
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: standard_jewel
+        with:
+          url: "https://poe.ninja/api/data/itemoverview?league=Standard&type=UniqueJewel"
+          target: expedition/
+          filename: eco_Standard_UniqueJewel.json
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: standard_weapon
+        with:
+          url: "https://poe.ninja/api/data/itemoverview?league=Standard&type=UniqueWeapon"
+          target: expedition/
+          filename: eco_Standard_UniqueWeapon.json
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: standard_armour
+        with:
+          url: "https://poe.ninja/api/data/itemoverview?league=Standard&type=UniqueArmour"
+          target: expedition/
+          filename: eco_Standard_UniqueArmour.json
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: standard_accessory
+        with:
+          url: "https://poe.ninja/api/data/itemoverview?league=Standard&type=UniqueAccessory"
+          target: expedition/
+          filename: eco_Standard_UniqueAccessory.json
 
-    # Beast Economy
-    - uses: suisei-cn/actions-download-file@v1.3.0
-      id: beasts
-      with:
-        url: "https://poe.ninja/api/data/itemoverview?league=${{ env.LEAGUE }}&type=Beast&language=en"
-        target: beast/
-        filename: "beast_poe_ninja.json"
+      # Standard Hardcore Economy
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: standard_hardcore_jewel
+        with:
+          url: "https://poe.ninja/api/data/itemoverview?league=Hardcore&type=UniqueJewel"
+          target: expedition/
+          filename: eco_Hardcore_UniqueJewel.json
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: standard_hardcore_weapon
+        with:
+          url: "https://poe.ninja/api/data/itemoverview?league=Hardcore&type=UniqueWeapon"
+          target: expedition/
+          filename: eco_Hardcore_UniqueWeapon.json
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: standard_hardcore_armour
+        with:
+          url: "https://poe.ninja/api/data/itemoverview?league=Hardcore&type=UniqueArmour"
+          target: expedition/
+          filename: eco_Hardcore_UniqueArmour.json
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: standard_hardcore_accessory
+        with:
+          url: "https://poe.ninja/api/data/itemoverview?league=Hardcore&type=UniqueAccessory"
+          target: expedition/
+          filename: eco_Hardcore_UniqueAccessory.json
 
-        
-    - run: |
-       date > generated.txt
-       git config user.name github-actions
-       git config user.email github-actions@github.com
-       git add .
-       git commit -m "generated"
-       git push
+      # League Economy
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: league_jewel
+        with:
+          url: "https://poe.ninja/api/data/itemoverview?league=${{ env.LEAGUE }}&type=UniqueJewel"
+          target: expedition/
+          filename: "eco_${{ env.LEAGUE }}_UniqueJewel.json"
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: league_weapon
+        with:
+          url: "https://poe.ninja/api/data/itemoverview?league=${{ env.LEAGUE }}&type=UniqueWeapon"
+          target: expedition/
+          filename: "eco_${{ env.LEAGUE }}_UniqueWeapon.json"
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: league_armour
+        with:
+          url: "https://poe.ninja/api/data/itemoverview?league=${{ env.LEAGUE }}&type=UniqueArmour"
+          target: expedition/
+          filename: "eco_${{ env.LEAGUE }}_UniqueArmour.json"
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: league_accessory
+        with:
+          url: "https://poe.ninja/api/data/itemoverview?league=${{ env.LEAGUE }}&type=UniqueAccessory"
+          target: expedition/
+          filename: "eco_${{ env.LEAGUE }}_UniqueAccessory.json"
+
+      # League Hardcore Economy
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: league_hardcore_jewel
+        with:
+          url: "https://poe.ninja/api/data/itemoverview?league=Hardcore ${{ env.LEAGUE }}&type=UniqueJewel"
+          target: expedition/
+          filename: "eco_Hardcore ${{ env.LEAGUE }}_UniqueJewel.json"
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: league_hardcore_weapon
+        with:
+          url: "https://poe.ninja/api/data/itemoverview?league=Hardcore ${{ env.LEAGUE }}&type=UniqueWeapon"
+          target: expedition/
+          filename: "eco_Hardcore ${{ env.LEAGUE }}_UniqueWeapon.json"
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: league_hardcore_armour
+        with:
+          url: "https://poe.ninja/api/data/itemoverview?league=Hardcore ${{ env.LEAGUE }}&type=UniqueArmour"
+          target: expedition/
+          filename: "eco_Hardcore ${{ env.LEAGUE }}_UniqueArmour.json"
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: league_hardcore_accessory
+        with:
+          url: "https://poe.ninja/api/data/itemoverview?league=Hardcore ${{ env.LEAGUE }}&type=UniqueAccessory"
+          target: expedition/
+          filename: "eco_Hardcore ${{ env.LEAGUE }}_UniqueAccessory.json"
+
+      # Beast Economy
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: beasts
+        with:
+          url: "https://poe.ninja/api/data/itemoverview?league=${{ env.LEAGUE }}&type=Beast&language=en"
+          target: beast/
+          filename: "beast_poe_ninja.json"
+
+      # Scarab Economy
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: beasts
+        with:
+          url: "https://poe.ninja/api/data/itemoverview?league=${{ env.LEAGUE }}&type=Scarab&language=en"
+          target: beast/
+          filename: "scarab_poe_ninja.json"
+
+      - run: |
+          date > generated.txt
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "generated"
+          git push

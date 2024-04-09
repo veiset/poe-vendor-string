@@ -1,0 +1,90 @@
+.scarab-options-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.scarab-auto-add-items {
+    padding-top: 10px;
+}
+
+.scarab-element {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    padding: 5px;
+    column-gap: 15px;
+}
+
+.scarab-element-selected {
+    color: #000000;
+    background-color: #c0ecfa;
+    text-underline: white;
+}
+
+.scarab-img {
+    max-height: 30px;
+    max-width: 30px;
+}
+
+.scarab-item-tooltip {
+    position: relative;
+}
+
+.scarab-item-hover {
+    position: absolute;
+    z-index: 1;
+    visibility: hidden;
+    overflow: hidden;
+    background-color: rgb(0, 0, 0);
+    color: #d2d0cf;
+    font-weight: bold;
+    border-radius: 6px;
+    margin: 5px;
+    padding: 10px;
+    left: 10px;
+    top: -50px;
+    white-space: nowrap;
+    max-width: 600px;
+    text-overflow: ellipsis;
+}
+
+.scarab-item-tooltip:hover .scarab-item-hover {
+    visibility: visible;
+}
+
+.scarab-price {
+    padding-left: 14px;
+    color: #ea8269;
+}
+
+.scarab-list {
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 49% 49%;
+}
+
+.scarab-chaos {
+    padding-right: 2px;
+    position: relative;
+    top: 4px;
+    height: 18px;
+    width: 18px;
+}
+
+.scarab-action-button {
+    transition-duration: 0.2s;
+    background-color: #71baee;
+    border: 1px solid #050101;
+    cursor: pointer;
+    padding: 8px;
+    margin: 10px;
+    font-size: 18px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 1);
+    border-radius: 2px;
+
+}
+
+.scarab-action-button:hover {
+    background-color: #b9ddf1;
+}
