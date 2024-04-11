@@ -61,6 +61,10 @@ const MapsT17 = () => {
   return (
     <>
       <Header text={"Map Modifiers T17"}/>
+      <p className="warning-banner">
+        Unreliable after the 3.24.1 patch which makes regular mod pool a part of T17. I will fix this as soon as
+        possible.
+      </p>
       <ResultBox result={result} warning={undefined} reset={() => {
         setSelectedMods(defaultSettings.mapT17.mods)
         setOptimizePacksize(defaultSettings.mapT17.optimizePacksize);

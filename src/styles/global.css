@@ -134,3 +134,10 @@ input[type="radio"] {
     padding-top: 16px;
     padding-bottom: 16px;
 }
+
+.warning-banner {
+    padding: 10px;
+    font-size: 18px;
+    color: #000000;
+    background-color: #ff8976;
+}
