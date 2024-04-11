@@ -14,6 +14,7 @@ describe('testing quantity and quality regex number matching', () => {
     optimizeQuant: optimize,
     quantity: quant,
     packsize: "",
+    t17: false,
     rarity: {normal: true, magic: true, rare: true, include: true}
   })
 

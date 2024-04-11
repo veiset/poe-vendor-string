@@ -59,6 +59,7 @@ export interface MapSettings {
   packsize: string
   optimizeQuant: boolean
   optimizePacksize: boolean
+  t17: boolean
   rarity: {
     normal: boolean
     magic: boolean
@@ -204,6 +205,7 @@ export const defaultSettings: SavedSettings = {
     packsize: "",
     optimizeQuant: true,
     optimizePacksize: true,
+    t17: false,
     rarity: {
       normal: true,
       magic: true,

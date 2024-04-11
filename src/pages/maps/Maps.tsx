@@ -36,6 +36,7 @@ const Maps = () => {
   const [optimizeQuant, setOptimizeQuant] = React.useState(profile.map.optimizeQuant);
   const [optimizePacksize, setOptimizePacksize] = React.useState(profile.map.optimizePacksize);
   const [rarity, setRarity] = React.useState(profile.map.rarity);
+  const [t17, setT17] = React.useState(profile.map.t17);
 
   const [result, setResult] = React.useState("");
 
@@ -49,7 +50,8 @@ const Maps = () => {
       packsize,
       optimizeQuant,
       optimizePacksize,
-      rarity
+      rarity,
+      t17,
     };
     let search = generateMapModStr(settings, mapModifiers);
     saveSettings({
@@ -57,7 +59,7 @@ const Maps = () => {
       map: {...settings},
     });
     setResult(search);
-  }, [result, rarity, selectedBadMods, selectedGoodMods, selectedKirac, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize]);
+  }, [result, rarity, selectedBadMods, selectedGoodMods, selectedKirac, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, t17]);
 
 
   return (
@@ -73,6 +75,7 @@ const Maps = () => {
         setQuantity(defaultSettings.map.quantity);
         setPacksize(defaultSettings.map.packsize);
         setRarity(defaultSettings.map.rarity);
+        setT17(defaultSettings.map.t17);
       }}/>
       <div className="break"/>
       <div className="full-size generic-top-element">
@@ -106,6 +109,9 @@ const Maps = () => {
             <label htmlFor="maps-exclude" className="radio-button-map">Exclude</label>
           </div>
         </div>
+        <div className="break spacer-top"/>
+        <Checkbox label="Tier 17 Map Modifiers" className="tier17-color" value={t17}
+                  onChange={setT17}/>
       </div>
       <div className="eq-col-2 box-small-padding">
         <div className="column-header map-column-text">I don't want any of these mods</div>
@@ -125,12 +131,20 @@ const Maps = () => {
       </div>
       <div className="break"/>
       <div className="eq-col-2">
-        <MapModList id="bad-mods" colorFun={badMapColor} mods={badMods} selected={selectedBadMods}
-                    setSelected={setSelectedBadMods}/>
+        <MapModList id="bad-mods"
+                    colorFun={badMapColor}
+                    mods={badMods.filter((e) => t17 || !e.isTier17)}
+                    selected={selectedBadMods}
+                    setSelected={setSelectedBadMods}
+        />
       </div>
       <div className="eq-col-2">
-        <MapModList id="good-mods" colorFun={goodMapColor} mods={goodMods} selected={selectedGoodMods}
-                    setSelected={setSelectedGoodMods}/>
+        <MapModList id="good-mods"
+                    colorFun={goodMapColor}
+                    mods={goodMods.filter((e) => t17 || !e.isTier17)}
+                    selected={selectedGoodMods}
+                    setSelected={setSelectedGoodMods}
+        />
       </div>
       <div className="eq-col-2"></div>
       <div className="eq-col-2">
@@ -143,6 +157,9 @@ const Maps = () => {
 }
 
 function badMapColor(m: MapMod): string {
+  if (m.scary < 50) {
+    return "#eab7fc";
+  }
   if (m.scary > 480) {
     return "#ffffff";
   } else {
@@ -151,6 +168,9 @@ function badMapColor(m: MapMod): string {
 }
 
 function goodMapColor(m: MapMod): string {
+  if (m.scary < 50) {
+    return "#eab7fc";
+  }
   if (m.scary < 500) {
     return "#ffffff";
   } else {

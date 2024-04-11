@@ -135,6 +135,10 @@ html, body {
     height: 0;
 }
 
+.spacer-top {
+    padding-top: 14px;
+}
+
 .col-align-right {
     margin-left: auto;
 }

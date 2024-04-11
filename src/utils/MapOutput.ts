@@ -1,4 +1,4 @@
-import {mapModifiers, kiracModifier, t17Mods, MapMod} from "../generated/GeneratedMapMods";
+import {kiracModifier, MapMod} from "../generated/GeneratedMapMods";
 import {MapSettings} from "./SavedSettings";
 
 
@@ -46,34 +46,51 @@ function optimize(string: string): string {
     .replaceAll("[9-9]", "9");
 }
 
+function onlyUnique(value: string, index: number, array: string[]) {
+  return array.indexOf(value) === index;
+}
+
 function generateBadMods(settings: MapSettings, mapMods: { [key: string]: MapMod }): string {
   const {badMods} = settings;
-  if (badMods.length === 0) {
+  const selectedMods = badMods
+    .map((e) => mapMods[e])
+    .filter((e) => settings.t17 ? true : !e.isTier17)
+
+  if (selectedMods.length === 0) {
     return "";
   }
 
-  const modStr = badMods.map((m) => {
-    return mapMods[m].matchSafe;
-  }).join("|");
+  const modStr = selectedMods
+    .map((m) => settings.t17 ? m.regexT17 : m.regex)
+    .filter(onlyUnique)
+    .join("|");
   return `"!${modStr}"`;
 }
 
 function generateGoodMods(settings: MapSettings, mapMods: { [key: string]: MapMod }): string {
   const {goodMods, allGoodMods} = settings;
 
-  if (goodMods.length === 0) {
+  const selectedMods = goodMods
+    .map((e) => mapMods[e])
+    .filter((e) => settings.t17 ? true : !e.isTier17);
+
+  if (selectedMods.length === 0) {
     return "";
   }
 
   if (allGoodMods) {
-    return goodMods.map((m) => {
-      let matchSafe = mapMods[m].matchSafe;
-      return matchSafe.includes(" ") ? `"${matchSafe}"` : matchSafe;
-    }).join(" ");
+    return selectedMods
+      .map((m) => {
+        const matchSafe = settings.t17 ? m.regexT17 : m.regex
+        return matchSafe.includes(" ") ? `"${matchSafe}"` : matchSafe;
+      })
+      .filter(onlyUnique)
+      .join(" ");
   } else {
-    const regex = goodMods.map((m) => {
-      return mapMods[m].matchSafe;
-    }).join("|");
+    const regex = selectedMods
+      .map((m) => m.regex)
+      .filter(onlyUnique)
+      .join("|");
     return `"${regex}"`;
   }
 }
@@ -86,7 +103,7 @@ function generateKirac(settings: MapSettings): string {
   }
 
   const selectedKirac = kirac.map((m) => {
-    return kiracModifier[m].matchSafe
+    return kiracModifier[m].regex
   }).join("|");
 
   return `"(${selectedKirac}).*ici"`;
