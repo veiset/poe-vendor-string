@@ -116,7 +116,7 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 3,
    description: "#% increased Charge Recovery",
-   regex: "rpe|ml|ndl|nu|const",
+   regex: "ge r",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 83,
@@ -180,7 +180,7 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 20,
    description: "#% increased Duration",
-   regex: "xp|clin|xa|anal|inv",
+   regex: "sed du",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 84,
@@ -276,7 +276,7 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 1,
    description: "#% increased Recovery rate",
-   regex: "ata|ens|isc|hic|ilu",
+   regex: "sed re",
    tag: { name: "life", sort: 100, color: "#fab4bb" },
    mods: [   {
      level: 81,
@@ -372,13 +372,13 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 14,
    description: "#% reduced Charges per use",
-   regex: "^Chemist's|we|pra|sch|e'",
+   regex: "ced c",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 82,
      name: "Chemist's",
      value: "(28-26)% reduced Charges per use",
-     regex: "^Chemist's"
+     regex: "hem"
    },   {
      level: 65,
      name: "Brewer's",
@@ -426,7 +426,7 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 2,
    description: "+# to Maximum Charges",
-   regex: "wid|lenti|unti|dant|ampl",
+   regex: "ax",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 2,
@@ -470,7 +470,7 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 29,
    description: "Gain # Charges when you are Hit by an Enemy",
-   regex: "u a",
+   regex: "s whe",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 29,
@@ -587,27 +587,17 @@ export const flaskSuffix: FlaskModGroup[] = [
    mods: [   {
      level: 81,
      name: "of the Rainbow",
-     value: "(37-40)% additional Elemental Resistances during Effect",
+     value: "(18-20)% additional Elemental Resistances during Effect",
      regex: "nb"
-   },   {
-     level: 61,
-     name: "of Variegation",
-     value: "(33-36)% additional Elemental Resistances during Effect",
-     regex: "var"
    },   {
      level: 41,
      name: "of the Kaleidoscope",
-     value: "(29-32)% additional Elemental Resistances during Effect",
+     value: "(15-17)% additional Elemental Resistances during Effect",
      regex: "kal"
-   },   {
-     level: 21,
-     name: "of the Prism",
-     value: "(25-28)% additional Elemental Resistances during Effect",
-     regex: "pri"
    },   {
      level: 1,
      name: "of the Crystal",
-     value: "(21-24)% additional Elemental Resistances during Effect",
+     value: "(12-14)% additional Elemental Resistances during Effect",
      regex: "cry"
    }]
  },
@@ -640,7 +630,7 @@ export const flaskSuffix: FlaskModGroup[] = [
      level: 4,
      name: "of the Orca",
      value: "(31-35)% chance to Avoid being Chilled during Effect (31-35)% chance to Avoid being Frozen during Effect",
-     regex: "orca"
+     regex: "orc"
    }]
  },
  {
@@ -942,7 +932,7 @@ export const flaskSuffix: FlaskModGroup[] = [
      level: 12,
      name: "of Runegleaming",
      value: "(19-21)% increased Ward during Effect",
-     regex: "neg"
+     regex: "eg"
    }]
  },
  {
@@ -1033,7 +1023,7 @@ export const flaskSuffix: FlaskModGroup[] = [
      level: 23,
      name: "of the Cat",
      value: "(47-42)% reduced Effect of Chill on you during Effect (47-42)% reduced Freeze Duration on you during Effect",
-     regex: "of the Cat$"
+     regex: "e cat"
    },   {
      level: 4,
      name: "of the Rabbit",
@@ -1103,38 +1093,6 @@ export const flaskSuffix: FlaskModGroup[] = [
      name: "of the Plover",
      value: "(41-36)% reduced Effect of Shock on you during Effect",
      regex: "plo"
-   }]
- },
- {
-   minLevel: 12,
-   description: "#% reduced Mana Cost of Skills during Effect",
-   regex: "cos",
-   tag: { name: "life", sort: 100, color: "#fab4bb" },
-   mods: [   {
-     level: 80,
-     name: "of the Sorcerer",
-     value: "(29-26)% reduced Mana Cost of Skills during Effect",
-     regex: "rce"
-   },   {
-     level: 63,
-     name: "of the Arcanist",
-     value: "(25-22)% reduced Mana Cost of Skills during Effect",
-     regex: "arc"
-   },   {
-     level: 46,
-     name: "of the Mage",
-     value: "(21-19)% reduced Mana Cost of Skills during Effect",
-     regex: "he ma"
-   },   {
-     level: 29,
-     name: "of the Initiate",
-     value: "(18-15)% reduced Mana Cost of Skills during Effect",
-     regex: "niti"
-   },   {
-     level: 12,
-     name: "of the Pupil",
-     value: "(14-11)% reduced Mana Cost of Skills during Effect",
-     regex: "pu"
    }]
  },
  {
