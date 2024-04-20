@@ -1066,7 +1066,7 @@ export const flaskSuffix: FlaskModGroup[] = [
  {
    minLevel: 6,
    description: "#% reduced Effect of Shock on you during Effect",
-   regex: "k o",
+   regex: "f sh",
    tag: { name: "avoidailment", sort: 60, color: "#c2ffe3" },
    mods: [   {
      level: 82,
