@@ -141,3 +141,11 @@ input[type="radio"] {
     color: #000000;
     background-color: #ff8976;
 }
+
+.warning-soft {
+    margin: 10px;
+    margin-left: 20px;
+    font-size: 18px;
+    color: #f3a575;
+    background-color: #000000;
+}

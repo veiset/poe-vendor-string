@@ -5,6 +5,7 @@ import mapNameIcon from '../img/linkicons/chateau_map.png';
 import flaskIcon from '../img/linkicons/glassblower.png';
 import heistIcon from '../img/linkicons/blueprint.png';
 import expeditionIcon from '../img/linkicons/expeidition_reroll.png';
+import jewelIcon from '../img/linkicons/cobalt.png';
 import beastIcon from '../img/BestiaryOrbFull.png';
 import scarabIcon from '../img/scarab.png';
 import coffeeIcon from '../img/bmc-logo-no-background.png';
@@ -48,6 +49,8 @@ const PageLinks = () => {
       <PageLink text="Flasks" icon={flaskIcon} route={"/flasks"} currentPage={currentPage}/>
       <PageLink text="Bestiary" icon={beastIcon} route={"/beast"} currentPage={currentPage}/>
       <PageLink text="Scarab" icon={scarabIcon} route={"/scarab"} currentPage={currentPage}/>
+      <PageLink text="Jewel" icon={jewelIcon} route={"/jewel"} currentPage={currentPage}/>
+      <p></p>
       <p className="support-link">
         <img src={githubIcon} alt="issue tracker" className="support-icon"/>
         <a className="source-link" href="https://github.com/veiset/poe-vendor-string/issues"

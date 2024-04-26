@@ -1,5 +1,6 @@
 import {ContractLevel} from "../pages/heist/Heist";
 import {heistContractTypes} from "../generated/GeneratedHeist";
+import {useState} from "react";
 
 export const leagueName = "Necropolis";
 
@@ -15,6 +16,7 @@ export interface SavedSettings {
   vendor: VendorSettings
   mapNames: MapNameSettings
   scarab: ScarabSettings
+  jewel: JewelSettings
 }
 
 export interface BeastSettings {
@@ -85,6 +87,16 @@ export interface ScarabSettings {
   selected: string[]
   maxPrice: string
   minPrice: string
+}
+
+export interface JewelSettings {
+  allMatch: boolean
+  magicOnly: boolean
+  abyssJewel: boolean
+  selectedRegular: string[]
+  selectedAbyss: string[]
+  matchBothPrefixAndSuffix: boolean
+  matchOpenPrefixSuffix: boolean
 }
 
 export interface VendorSettings {
@@ -301,5 +313,14 @@ export const defaultSettings: SavedSettings = {
     selected: [],
     maxPrice: "0.81",
     minPrice: "0.00"
+  },
+  jewel: {
+    allMatch: false,
+    magicOnly: true,
+    abyssJewel: false,
+    matchBothPrefixAndSuffix: true,
+    matchOpenPrefixSuffix: true,
+    selectedRegular: [],
+    selectedAbyss: [],
   }
 }

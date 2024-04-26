@@ -80,7 +80,6 @@ const Scarabs = () => {
       <div className="full-size generic-top-element">
         <div className="scarab-options-row">
           <button className="scarab-action-button" onClick={() => {
-            console.log(Number(maxPrice));
             const itemsToAdd = scarabList
               .filter((scarab) => {
                 const priceOfScarab = priceLookup.get(scarab.name);

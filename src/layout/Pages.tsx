@@ -11,6 +11,7 @@ import {ProfileContext} from "../components/profile/ProfileContext";
 import MapNames from "../pages/mapnames/MapNames";
 import MapsT17 from "../pages/mapsT17/MapsT17";
 import Scarabs from "../pages/scarab/Scarabs";
+import Jewel from "../pages/jewel/Jewel";
 
 const Pages = () => {
   const [globalProfile, setGlobalProfile] = useState(selectedProfile());
@@ -35,6 +36,7 @@ const Pages = () => {
         <Route path="/expedition" element={<Expedition key={"expedition-" + profile.name}/>}/>
         <Route path="/beast" element={<Beast key={"beast-" + profile.name}/>}/>
         <Route path="/scarab" element={<Scarabs key={"scarab-" + profile.name}/>}/>
+        <Route path="/jewel" element={<Jewel key={"jewel-" + profile.name}/>}/>
       </Routes>
     </ProfileContext.Provider>
   );
