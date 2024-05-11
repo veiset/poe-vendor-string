@@ -160,11 +160,11 @@ export const mapModifiers: { [key: string]: MapMod } = {
    regexT17: "r at",
    isTier17: false,
  },
- "Monsters have a #% chance to cause Elemental Ailments on Hit": {
-   value: "Monsters have a #% chance to cause Elemental Ailments on Hit",
+ "Monsters have a #% chance to Ignite, Freeze and Shock on Hit": {
+   value: "Monsters have a #% chance to Ignite, Freeze and Shock on Hit",
    scary: 215,
-   regex: "cau",
-   regexT17: "cau",
+   regex: "te,",
+   regexT17: "te,",
    isTier17: false,
  },
  "Monsters Poison on Hit": {
@@ -998,6 +998,13 @@ export const mapModifiers: { [key: string]: MapMod } = {
    scary: 11,
    regex: "mav",
    regexT17: "mav",
+   isTier17: true,
+ },
+  "(T17) Monsters Ignite, Freeze and Shock on Hit|All Monster Damage can Ignite, Freeze and Shock": {
+   value: "(T17) Monsters Ignite, Freeze and Shock on Hit|All Monster Damage can Ignite, Freeze and Shock",
+   scary: 11,
+   regex: "te,",
+   regexT17: "te,",
    isTier17: true,
  },
 };
