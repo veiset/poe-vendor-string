@@ -751,8 +751,8 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "(T17) Players in Area take #% increased Damage per nearby Ally": {
    value: "(T17) Players in Area take #% increased Damage per nearby Ally",
    scary: 1111,
-   regex: "nea",
-   regexT17: "nea",
+   regex: "rby",
+   regexT17: "rby",
    isTier17: true,
  },
  "(T17) Map Boss is accompanied by a Synthesis Boss": {
