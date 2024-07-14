@@ -19,13 +19,13 @@ const Maps = () => {
   const kiracModList = Array.from(Object.keys(kiracModifier));
   const badMods = mods
     .map((m) => ({...mapModifiers[m], value: m}))
-    .sort((a, b) => a.scary - b.scary);
+    .sort((a, b) => b.scary - a.scary);
   const goodMods = mods
     .map((m) => ({...mapModifiers[m], value: m}))
-    .sort((a, b) => b.scary - a.scary);
+    .sort((a, b) => a.scary - b.scary);
   const kiracMods = kiracModList
     .map((m) => ({...kiracModifier[m], value: m}))
-    .sort((a, b) => b.scary - a.scary);
+    .sort((a, b) => a.scary - b.scary);
 
   const [selectedBadMods, setSelectedBadMods] = React.useState<string[]>(profile.map.badMods.filter((v: string) => mods.includes(v)));
   const [selectedGoodMods, setSelectedGoodMods] = React.useState<string[]>(profile.map.goodMods.filter((v: string) => mods.includes(v)));
@@ -132,7 +132,7 @@ const Maps = () => {
       <div className="break"/>
       <div className="eq-col-2">
         <MapModList id="bad-mods"
-                    colorFun={badMapColor}
+                    colorFun={mapDangerColor}
                     mods={badMods.filter((e) => t17 || !e.isTier17)}
                     selected={selectedBadMods}
                     setSelected={setSelectedBadMods}
@@ -140,7 +140,7 @@ const Maps = () => {
       </div>
       <div className="eq-col-2">
         <MapModList id="good-mods"
-                    colorFun={goodMapColor}
+                    colorFun={mapDangerColor}
                     mods={goodMods.filter((e) => t17 || !e.isTier17)}
                     selected={selectedGoodMods}
                     setSelected={setSelectedGoodMods}
@@ -149,32 +149,21 @@ const Maps = () => {
       <div className="eq-col-2"></div>
       <div className="eq-col-2">
         <h2>Kirac missions</h2>
-        <MapModList id="kirac" disableSearch={true} colorFun={goodMapColor} mods={kiracMods} selected={selectedKirac}
+        <MapModList id="kirac" disableSearch={true} colorFun={mapDangerColor} mods={kiracMods} selected={selectedKirac}
                     setSelected={setSelectedKirac}/>
       </div>
     </>
   );
 }
 
-function badMapColor(m: MapMod): string {
-  if (m.scary < 50) {
-    return "#eab7fc";
-  }
-  if (m.scary > 480) {
+function mapDangerColor(m: MapMod): string {
+  if (m.scary < 100) {
     return "#ffffff";
-  } else {
-    return getGradientColor("#FC9090", "#ffffff", (m.scary) / 800);
   }
-}
-
-function goodMapColor(m: MapMod): string {
-  if (m.scary < 50) {
+  if (m.scary > 1100) {
     return "#eab7fc";
-  }
-  if (m.scary < 500) {
-    return "#ffffff";
   } else {
-    return getGradientColor("#ffffff", "#8afdb7", (m.scary - 100) / 1000);
+    return getGradientColor("#FC9090", "#ffffff", (1100 - m.scary) / 1100);
   }
 }
 
