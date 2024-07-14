@@ -61,7 +61,7 @@ export const jewelRegular: JewelRegex[] = [
  },
   {
    mod: "(10-14)% increased Global Accuracy Rating",
-   regex: "l accuracy rating$",
+   regex: "l ac",
    regexAffix: "eci",
    isPrefix: false,
  },
@@ -73,14 +73,14 @@ export const jewelRegular: JewelRegex[] = [
  },
   {
    mod: "(10-14)% increased Stun Duration on Enemies",
-   regex: "ies$",
+   regex: "un d",
    regexAffix: "tunni",
    isPrefix: false,
  },
   {
    mod: "(12-14)% increased Attack Damage while Dual Wielding",
    regex: "d attack damage while d",
-   regexAffix: "^gl",
+   regexAffix: "^(S.+)?gl",
    isPrefix: true,
  },
   {
@@ -128,19 +128,19 @@ export const jewelRegular: JewelRegex[] = [
   {
    mod: "(14-16)% increased Cold Damage",
    regex: "ed co",
-   regexAffix: "^chi",
+   regexAffix: "^(S.+)?chi",
    isPrefix: true,
  },
   {
    mod: "(14-16)% increased Damage with Axes",
    regex: "e with a",
-   regexAffix: "^si",
+   regexAffix: "^(S.+)?si",
    isPrefix: true,
  },
   {
    mod: "(14-16)% increased Damage with Bows",
    regex: "e with bo",
-   regexAffix: "^fi",
+   regexAffix: "^(S.+)?fi",
    isPrefix: true,
  },
   {
@@ -158,7 +158,7 @@ export const jewelRegular: JewelRegex[] = [
   {
    mod: "(14-16)% increased Damage with Maces or Sceptres",
    regex: "e with m",
-   regexAffix: "^br",
+   regexAffix: "^(S.+)?br",
    isPrefix: true,
  },
   {
@@ -224,7 +224,7 @@ export const jewelRegular: JewelRegex[] = [
   {
    mod: "(14-16)% increased Trap Damage",
    regex: "p d",
-   regexAffix: "^tr",
+   regexAffix: "^(S.+)?tr",
    isPrefix: true,
  },
   {
@@ -242,13 +242,13 @@ export const jewelRegular: JewelRegex[] = [
   {
    mod: "(14-18)% increased Critical Strike Chance with Cold Skills",
    regex: "ce with c",
-   regexAffix: "^av",
+   regexAffix: "^(S.+)?av",
    isPrefix: true,
  },
   {
    mod: "(14-18)% increased Critical Strike Chance with Fire Skills",
    regex: "e with f",
-   regexAffix: "^inc",
+   regexAffix: "^(S.+)?inc",
    isPrefix: true,
  },
   {
@@ -272,7 +272,7 @@ export const jewelRegular: JewelRegex[] = [
   {
    mod: "(14-18)% increased Evasion Rating",
    regex: "asio",
-   regexAffix: "^ev",
+   regexAffix: "^(S.+)?ev",
    isPrefix: true,
  },
   {
@@ -344,7 +344,7 @@ export const jewelRegular: JewelRegex[] = [
   {
    mod: "(3-5)% increased Cast Speed while holding a Shield",
    regex: "t speed while h",
-   regexAffix: "^ward",
+   regexAffix: "^(S.+)?ward",
    isPrefix: true,
  },
   {
@@ -368,7 +368,7 @@ export const jewelRegular: JewelRegex[] = [
   {
    mod: "(3-5)% increased Cast Speed with Lightning Skills",
    regex: "d with l",
-   regexAffix: "^el",
+   regexAffix: "^(S.+)?el",
    isPrefix: true,
  },
   {
@@ -410,7 +410,7 @@ export const jewelRegular: JewelRegex[] = [
   {
    mod: "(4-6)% faster start of Energy Shield Recharge",
    regex: "tar",
-   regexAffix: "^ser",
+   regexAffix: "^(S.+)?ser",
    isPrefix: true,
  },
   {
@@ -476,19 +476,19 @@ export const jewelRegular: JewelRegex[] = [
   {
    mod: "(6-8)% increased Attack Speed with Axes",
    regex: "d with a",
-   regexAffix: "^cl",
+   regexAffix: "^(S.+)?cl",
    isPrefix: true,
  },
   {
    mod: "(6-8)% increased Attack Speed with Bows",
    regex: "d with b",
-   regexAffix: "^vo",
+   regexAffix: "^(S.+)?vo",
    isPrefix: true,
  },
   {
    mod: "(6-8)% increased Attack Speed with Claws",
    regex: "d with cl",
-   regexAffix: "^ri",
+   regexAffix: "^(S.+)?ri",
    isPrefix: true,
  },
   {
@@ -500,7 +500,7 @@ export const jewelRegular: JewelRegex[] = [
   {
    mod: "(6-8)% increased Attack Speed with Maces or Sceptres",
    regex: "d with m",
-   regexAffix: "^be",
+   regexAffix: "^(S.+)?be",
    isPrefix: true,
  },
   {
@@ -512,7 +512,7 @@ export const jewelRegular: JewelRegex[] = [
   {
    mod: "(6-8)% increased Attack Speed with Swords",
    regex: "d with sw",
-   regexAffix: "^fen",
+   regexAffix: "^(S.+)?fen",
    isPrefix: true,
  },
   {
@@ -536,7 +536,7 @@ export const jewelRegular: JewelRegex[] = [
   {
    mod: "(6-8)% increased Mine Throwing Speed",
    regex: "ne t",
-   regexAffix: "^armi",
+   regexAffix: "^(S.+)?armi",
    isPrefix: true,
  },
   {
@@ -554,7 +554,7 @@ export const jewelRegular: JewelRegex[] = [
   {
    mod: "(6-8)% increased Trap Throwing Speed",
    regex: "p t",
-   regexAffix: "^ho",
+   regexAffix: "^(S.+)?ho",
    isPrefix: true,
  },
   {
@@ -577,14 +577,14 @@ export const jewelRegular: JewelRegex[] = [
  },
   {
    mod: "(8-12)% increased Global Critical Strike Chance",
-   regex: "^\\d+% increased global c",
+   regex: "d global c",
    regexAffix: "nac",
    isPrefix: false,
  },
   {
    mod: "(8-12)% increased Totem Life",
    regex: "em li",
-   regexAffix: "^ca",
+   regexAffix: "^(S.+)?ca",
    isPrefix: true,
  },
   {
@@ -692,13 +692,13 @@ export const jewelRegular: JewelRegex[] = [
   {
    mod: "+(15-18)% to Critical Strike Multiplier with One Handed Melee Weapons",
    regex: "r with o",
-   regexAffix: "^pi",
+   regexAffix: "^(S.+)?pi",
    isPrefix: true,
  },
   {
    mod: "+(15-18)% to Critical Strike Multiplier with Two Handed Melee Weapons",
    regex: "r with t",
-   regexAffix: "^ru",
+   regexAffix: "^(S.+)?ru",
    isPrefix: true,
  },
   {
@@ -776,25 +776,25 @@ export const jewelRegular: JewelRegex[] = [
   {
    mod: "+1% Chance to Block Attack Damage while Dual Wielding",
    regex: "k attack damage while d",
-   regexAffix: "^pa",
+   regexAffix: "^(S.+)?pa",
    isPrefix: true,
  },
   {
    mod: "+1% Chance to Block Attack Damage while holding a Shield",
    regex: "k attack damage while h",
-   regexAffix: "^shie",
+   regexAffix: "^(S.+)?shie",
    isPrefix: true,
  },
   {
    mod: "+1% Chance to Block Attack Damage while wielding a Staff",
    regex: "k damage while w",
-   regexAffix: "^def",
+   regexAffix: "^(S.+)?def",
    isPrefix: true,
  },
   {
    mod: "+1% Chance to Block Spell Damage while Dual Wielding",
    regex: "k spell damage while d",
-   regexAffix: "^di",
+   regexAffix: "^(S.+)?di",
    isPrefix: true,
  },
   {
@@ -806,7 +806,7 @@ export const jewelRegular: JewelRegex[] = [
   {
    mod: "+1% Chance to Block Spell Damage while wielding a Staff",
    regex: "k spell damage while w",
-   regexAffix: "^hal",
+   regexAffix: "^(S.+)?hal",
    isPrefix: true,
  },
   {
@@ -848,7 +848,7 @@ export const jewelRegular: JewelRegex[] = [
   {
    mod: "Minions have (8-12)% increased maximum Life",
    regex: "e \\d+% i",
-   regexAffix: "^ma",
+   regexAffix: "^(S.+)?ma",
    isPrefix: true,
  },
   {
@@ -868,19 +868,19 @@ export const jewelAbyss: JewelRegex[] = [
   {
    mod: "(1-6) to (43-51) Added Spell Lightning Damage while Dual Wielding",
    regex: "g damage while d",
-   regexAffix: "^el",
+   regexAffix: "^(S.+)?el",
    isPrefix: true,
  },
   {
    mod: "(1-6) to (43-51) Added Spell Lightning Damage while holding a Shield",
    regex: "g damage while h",
-   regexAffix: "^el",
+   regexAffix: "^(S.+)?el",
    isPrefix: true,
  },
   {
    mod: "(1-6) to (43-51) Added Spell Lightning Damage while wielding a Two Handed Weapon",
    regex: "g damage while w",
-   regexAffix: "^el",
+   regexAffix: "^(S.+)?el",
    isPrefix: true,
  },
   {
@@ -1126,49 +1126,49 @@ export const jewelAbyss: JewelRegex[] = [
   {
    mod: "(2-5) to (48-50) Added Lightning Damage with Axe Attacks",
    regex: "g damage with a",
-   regexAffix: "^el",
+   regexAffix: "^(S.+)?el",
    isPrefix: true,
  },
   {
    mod: "(2-5) to (48-50) Added Lightning Damage with Bow Attacks",
    regex: "g damage with b",
-   regexAffix: "^el",
+   regexAffix: "^(S.+)?el",
    isPrefix: true,
  },
   {
    mod: "(2-5) to (48-50) Added Lightning Damage with Claw Attacks",
    regex: "g damage with c",
-   regexAffix: "^el",
+   regexAffix: "^(S.+)?el",
    isPrefix: true,
  },
   {
    mod: "(2-5) to (48-50) Added Lightning Damage with Dagger Attacks",
    regex: "g damage with d",
-   regexAffix: "^el",
+   regexAffix: "^(S.+)?el",
    isPrefix: true,
  },
   {
    mod: "(2-5) to (48-50) Added Lightning Damage with Mace or Sceptre Attacks",
    regex: "g damage with m",
-   regexAffix: "^el",
+   regexAffix: "^(S.+)?el",
    isPrefix: true,
  },
   {
    mod: "(2-5) to (48-50) Added Lightning Damage with Staff Attacks",
    regex: "g damage with st",
-   regexAffix: "^el",
+   regexAffix: "^(S.+)?el",
    isPrefix: true,
  },
   {
    mod: "(2-5) to (48-50) Added Lightning Damage with Sword Attacks",
    regex: "g damage with sw",
-   regexAffix: "^el",
+   regexAffix: "^(S.+)?el",
    isPrefix: true,
  },
   {
    mod: "(2-5) to (48-50) Added Lightning Damage with Wand Attacks",
    regex: "g damage with w",
-   regexAffix: "^el",
+   regexAffix: "^(S.+)?el",
    isPrefix: true,
  },
   {
@@ -1209,7 +1209,7 @@ export const jewelAbyss: JewelRegex[] = [
  },
   {
    mod: "(3-5)% increased Attack Speed",
-   regex: "k speed$",
+   regex: "^\\d+% increased attack speed$",
    regexAffix: "ser",
    isPrefix: false,
  },
@@ -1270,7 +1270,7 @@ export const jewelAbyss: JewelRegex[] = [
   {
    mod: "(5-6)% increased Impale Effect",
    regex: "pal",
-   regexAffix: "^lan",
+   regexAffix: "^(S.+)?lan",
    isPrefix: true,
  },
   {
@@ -1312,49 +1312,49 @@ export const jewelAbyss: JewelRegex[] = [
   {
    mod: "(7-8) to (9-10) Added Physical Damage with Axe Attacks",
    regex: "l damage with a",
-   regexAffix: "^ac",
+   regexAffix: "^(S.+)?ac",
    isPrefix: true,
  },
   {
    mod: "(7-8) to (9-10) Added Physical Damage with Bow Attacks",
    regex: "l damage with b",
-   regexAffix: "^ac",
+   regexAffix: "^(S.+)?ac",
    isPrefix: true,
  },
   {
    mod: "(7-8) to (9-10) Added Physical Damage with Claw Attacks",
    regex: "l damage with c",
-   regexAffix: "^ac",
+   regexAffix: "^(S.+)?ac",
    isPrefix: true,
  },
   {
    mod: "(7-8) to (9-10) Added Physical Damage with Dagger Attacks",
    regex: "l damage with d",
-   regexAffix: "^ac",
+   regexAffix: "^(S.+)?ac",
    isPrefix: true,
  },
   {
    mod: "(7-8) to (9-10) Added Physical Damage with Mace or Sceptre Attacks",
    regex: "l damage with m",
-   regexAffix: "^ac",
+   regexAffix: "^(S.+)?ac",
    isPrefix: true,
  },
   {
    mod: "(7-8) to (9-10) Added Physical Damage with Staff Attacks",
    regex: "l damage with st",
-   regexAffix: "^ac",
+   regexAffix: "^(S.+)?ac",
    isPrefix: true,
  },
   {
    mod: "(7-8) to (9-10) Added Physical Damage with Sword Attacks",
    regex: "l damage with sw",
-   regexAffix: "^ac",
+   regexAffix: "^(S.+)?ac",
    isPrefix: true,
  },
   {
    mod: "(7-8) to (9-10) Added Physical Damage with Wand Attacks",
    regex: "l damage with w",
-   regexAffix: "^ac",
+   regexAffix: "^(S.+)?ac",
    isPrefix: true,
  },
   {
@@ -1426,7 +1426,7 @@ export const jewelAbyss: JewelRegex[] = [
   {
    mod: "+(181-250) to Armour",
    regex: "mour$",
-   regexAffix: "^enc",
+   regexAffix: "^(S.+)?enc",
    isPrefix: true,
  },
   {
@@ -1534,7 +1534,7 @@ export const jewelAbyss: JewelRegex[] = [
   {
    mod: "3% of Damage taken Recouped as Mana",
    regex: "s mana$",
-   regexAffix: "^mo",
+   regexAffix: "^(S.+)?mo",
    isPrefix: true,
  },
   {
@@ -1660,7 +1660,7 @@ export const jewelAbyss: JewelRegex[] = [
   {
    mod: "Minions deal (1-6) to (65-77) additional Lightning Damage",
    regex: "nal l",
-   regexAffix: "^el",
+   regexAffix: "^(S.+)?el",
    isPrefix: true,
  },
   {
@@ -1786,7 +1786,7 @@ export const jewelAbyss: JewelRegex[] = [
   {
    mod: "Regenerate (17-20) Life per second",
    regex: "^regenerate \\d+ l",
-   regexAffix: "^viv",
+   regexAffix: "^(S.+)?viv",
    isPrefix: true,
  },
   {
