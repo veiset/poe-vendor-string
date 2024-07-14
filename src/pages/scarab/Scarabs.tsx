@@ -56,7 +56,7 @@ const Scarabs = () => {
     data.then((d) => {
       setPriceLookup(new Map(d.lines.map((b) => [b.name, b.chaosValue])));
     })
-  });
+  }, []);
 
   useEffect(() => {
     const settings: ScarabSettings = {minPrice, maxPrice, selected,};
