@@ -469,15 +469,22 @@ export const flaskPrefix: FlaskModGroup[] = [
  },
  {
    minLevel: 29,
-   description: "Gain # Charges when you are Hit by an Enemy",
-   regex: "s whe",
+   description: "Gain # Charge when you are Hit by an Enemy",
+   regex: "sg",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 29,
      name: "Transgressor's",
      value: "Gain 1 Charge when you are Hit by an Enemy",
      regex: "sg"
-   },   {
+   }]
+ },
+ {
+   minLevel: 63,
+   description: "Gain # Charges when you are Hit by an Enemy",
+   regex: "s whe",
+   tag: { name: "default", sort: 0, color: "#fff" },
+   mods: [   {
      level: 63,
      name: "Masochist's",
      value: "Gain 2 Charges when you are Hit by an Enemy",
