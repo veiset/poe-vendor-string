@@ -116,7 +116,7 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 3,
    description: "#% increased Charge Recovery",
-   regex: "ge r",
+   regex: "^\\d+% increased charge recovery$",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 83,
@@ -148,7 +148,7 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 20,
    description: "#% increased Charge Recovery #% reduced effect",
-   regex: "e recovery \\d+",
+   regex: "ced effect$",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 84,
@@ -180,7 +180,7 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 20,
    description: "#% increased Duration",
-   regex: "sed du",
+   regex: "^\\d+% increased d",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 84,
@@ -276,7 +276,7 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 1,
    description: "#% increased Recovery rate",
-   regex: "sed re",
+   regex: "^\\d+% increased r",
    tag: { name: "life", sort: 100, color: "#fab4bb" },
    mods: [   {
      level: 81,
@@ -372,13 +372,13 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 14,
    description: "#% reduced Charges per use",
-   regex: "ced c",
+   regex: "^\\d+% reduced c",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 82,
      name: "Chemist's",
      value: "(28-26)% reduced Charges per use",
-     regex: "hem"
+     regex: "^Chemist's"
    },   {
      level: 65,
      name: "Brewer's",
@@ -410,7 +410,7 @@ export const flaskPrefix: FlaskModGroup[] = [
      level: 80,
      name: "Alchemist's",
      value: "(27-23)% reduced Duration 25% increased effect",
-     regex: "lch"
+     regex: "lc"
    },   {
      level: 50,
      name: "Dabbler's",
@@ -426,7 +426,7 @@ export const flaskPrefix: FlaskModGroup[] = [
  {
    minLevel: 2,
    description: "+# to Maximum Charges",
-   regex: "ax",
+   regex: "wid|lenti|unti|dant|ampl",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 2,
@@ -752,28 +752,6 @@ export const flaskSuffix: FlaskModGroup[] = [
    }]
  },
  {
-   minLevel: 12,
-   description: "#% increased Attack Speed during Effect",
-   regex: "k s",
-   tag: { name: "default", sort: 0, color: "#fff" },
-   mods: [   {
-     level: 82,
-     name: "of the Dove",
-     value: "(15-17)% increased Attack Speed during Effect",
-     regex: "dov"
-   },   {
-     level: 62,
-     name: "of the Eagle",
-     value: "(12-14)% increased Attack Speed during Effect",
-     regex: "eag"
-   },   {
-     level: 12,
-     name: "of the Falcon",
-     value: "(9-11)% increased Attack Speed during Effect",
-     regex: "fa"
-   }]
- },
- {
    minLevel: 1,
    description: "#% increased Block and Stun Recovery during Effect",
    regex: "y d",
@@ -803,28 +781,6 @@ export const flaskSuffix: FlaskModGroup[] = [
      name: "of Stiffness",
      value: "(51-56)% increased Block and Stun Recovery during Effect",
      regex: "fn"
-   }]
- },
- {
-   minLevel: 12,
-   description: "#% increased Cast Speed during Effect",
-   regex: "cas",
-   tag: { name: "default", sort: 0, color: "#fff" },
-   mods: [   {
-     level: 82,
-     name: "of the Horsefly",
-     value: "(15-17)% increased Cast Speed during Effect",
-     regex: "hor"
-   },   {
-     level: 62,
-     name: "of the Hummingbird",
-     value: "(12-14)% increased Cast Speed during Effect",
-     regex: "hum"
-   },   {
-     level: 12,
-     name: "of the Albatross",
-     value: "(9-11)% increased Cast Speed during Effect",
-     regex: "lb"
    }]
  },
  {
@@ -889,7 +845,7 @@ export const flaskSuffix: FlaskModGroup[] = [
  {
    minLevel: 5,
    description: "#% increased Movement Speed during Effect",
-   regex: "nt speed d",
+   regex: "eed d",
    tag: { name: "default", sort: 0, color: "#fff" },
    mods: [   {
      level: 85,
@@ -938,7 +894,7 @@ export const flaskSuffix: FlaskModGroup[] = [
  {
    minLevel: 10,
    description: "#% of Attack Damage Leeched as Life during Effect",
-   regex: "f at",
+   regex: "att",
    tag: { name: "leech", sort: 30, color: "#eeffe3" },
    mods: [   {
      level: 80,
@@ -1023,7 +979,7 @@ export const flaskSuffix: FlaskModGroup[] = [
      level: 23,
      name: "of the Cat",
      value: "(47-42)% reduced Effect of Chill on you during Effect (47-42)% reduced Freeze Duration on you during Effect",
-     regex: "e cat"
+     regex: "of the Cat$"
    },   {
      level: 4,
      name: "of the Rabbit",
@@ -1055,7 +1011,7 @@ export const flaskSuffix: FlaskModGroup[] = [
      level: 27,
      name: "of the Mockingbird",
      value: "(47-42)% reduced Effect of Curses on you during Effect",
-     regex: "moc"
+     regex: "gb"
    },   {
      level: 8,
      name: "of the Petrel",
@@ -1114,7 +1070,7 @@ export const flaskSuffix: FlaskModGroup[] = [
      level: 46,
      name: "of the Summoner",
      value: "Grants (140-159)% of Life Recovery to Minions",
-     regex: "mmo"
+     regex: "umm"
    },   {
      level: 28,
      name: "of the Acolyte",
@@ -1163,7 +1119,7 @@ export const flaskSuffix: FlaskModGroup[] = [
      level: 52,
      name: "of Entropy",
      value: "Grants Immunity to Chill for (12-14) seconds if used while Chilled Grants Immunity to Freeze for (12-14) seconds if used while Frozen",
-     regex: "rop"
+     regex: "tro"
    },   {
      level: 76,
      name: "of Thawing",
@@ -1319,7 +1275,7 @@ export const flaskSuffix: FlaskModGroup[] = [
  {
    minLevel: 30,
    description: "Hinders nearby Enemies with #% reduced Movement Speed if used while not on Full Mana",
-   regex: "l ma",
+   regex: "mana$",
    tag: { name: "life", sort: 100, color: "#fab4bb" },
    mods: [   {
      level: 84,
@@ -1456,7 +1412,7 @@ export const flaskSuffix: FlaskModGroup[] = [
  {
    minLevel: 25,
    description: "Recover an additional #% of Flask's Life Recovery Amount over # seconds if used while not on Full Life",
-   regex: "r a",
+   regex: "^rec",
    tag: { name: "life", sort: 100, color: "#fab4bb" },
    mods: [   {
      level: 81,

@@ -48,12 +48,6 @@ export const jewelRegular: JewelRegex[] = [
    isPrefix: false,
  },
   {
-   mod: "(10-14)% increased Critical Strike Chance for Spells",
-   regex: "ells",
-   regexAffix: "ih",
-   isPrefix: false,
- },
-  {
    mod: "(10-14)% increased Critical Strike Chance with Elemental Skills",
    regex: "e with e",
    regexAffix: "ps",
@@ -69,6 +63,12 @@ export const jewelRegular: JewelRegex[] = [
    mod: "(10-14)% increased Melee Critical Strike Chance",
    regex: "d melee c",
    regexAffix: "wei",
+   isPrefix: false,
+ },
+  {
+   mod: "(10-14)% increased Spell Critical Strike Chance",
+   regex: "ll c",
+   regexAffix: "ih",
    isPrefix: false,
  },
   {
@@ -314,7 +314,7 @@ export const jewelRegular: JewelRegex[] = [
   {
    mod: "(22-26)% increased Minion Accuracy Rating",
    regex: "on a",
-   regexAffix: "trai",
+   regexAffix: "rai",
    isPrefix: false,
  },
   {
@@ -436,12 +436,6 @@ export const jewelRegular: JewelRegex[] = [
    regex: "d with t",
    regexAffix: "rri",
    isPrefix: true,
- },
-  {
-   mod: "(4-6)% increased Rarity of Items found",
-   regex: "fou",
-   regexAffix: "aid",
-   isPrefix: false,
  },
   {
    mod: "(4-6)% of Damage taken Recouped as Life",
@@ -594,6 +588,24 @@ export const jewelRegular: JewelRegex[] = [
    isPrefix: true,
  },
   {
+   mod: "+(1-2)% to maximum Cold Resistance",
+   regex: "um c",
+   regexAffix: "kr",
+   isPrefix: false,
+ },
+  {
+   mod: "+(1-2)% to maximum Fire Resistance",
+   regex: "m f",
+   regexAffix: "oe",
+   isPrefix: false,
+ },
+  {
+   mod: "+(1-2)% to maximum Lightning Resistance",
+   regex: "m lig",
+   regexAffix: "evi",
+   isPrefix: false,
+ },
+  {
    mod: "+(10-12)% to Cold and Lightning Resistances",
    regex: "d an",
    regexAffix: "she",
@@ -619,7 +631,7 @@ export const jewelRegular: JewelRegex[] = [
  },
   {
    mod: "+(12-15)% to Critical Strike Multiplier for Spell Damage",
-   regex: "r f",
+   regex: "for",
    regexAffix: "nm",
    isPrefix: false,
  },
@@ -631,7 +643,7 @@ export const jewelRegular: JewelRegex[] = [
  },
   {
    mod: "+(12-15)% to Fire Resistance",
-   regex: "re r",
+   regex: "o fire r",
    regexAffix: "dr",
    isPrefix: false,
  },
@@ -643,7 +655,7 @@ export const jewelRegular: JewelRegex[] = [
  },
   {
    mod: "+(12-15)% to Melee Critical Strike Multiplier",
-   regex: "o m",
+   regex: "o me",
    regexAffix: "dem",
    isPrefix: false,
  },
@@ -699,6 +711,42 @@ export const jewelRegular: JewelRegex[] = [
    mod: "+(15-18)% to Critical Strike Multiplier with Two Handed Melee Weapons",
    regex: "r with t",
    regexAffix: "^(S.+)?ru",
+   isPrefix: true,
+ },
+  {
+   mod: "+(2-3)% Chance to Block Attack Damage while Dual Wielding",
+   regex: "k attack damage while d",
+   regexAffix: "^(S.+)?pa",
+   isPrefix: true,
+ },
+  {
+   mod: "+(2-3)% Chance to Block Attack Damage while holding a Shield",
+   regex: "k attack damage while h",
+   regexAffix: "^(S.+)?shie",
+   isPrefix: true,
+ },
+  {
+   mod: "+(2-3)% Chance to Block Attack Damage while wielding a Staff",
+   regex: "k damage while w",
+   regexAffix: "^(S.+)?def",
+   isPrefix: true,
+ },
+  {
+   mod: "+(2-3)% Chance to Block Spell Damage while Dual Wielding",
+   regex: "k spell damage while d",
+   regexAffix: "^(S.+)?di",
+   isPrefix: true,
+ },
+  {
+   mod: "+(2-3)% Chance to Block Spell Damage while holding a Shield",
+   regex: "k spell damage while h",
+   regexAffix: "hw",
+   isPrefix: true,
+ },
+  {
+   mod: "+(2-3)% Chance to Block Spell Damage while wielding a Staff",
+   regex: "k spell damage while w",
+   regexAffix: "^(S.+)?hal",
    isPrefix: true,
  },
   {
@@ -772,42 +820,6 @@ export const jewelRegular: JewelRegex[] = [
    regex: "o g",
    regexAffix: "pot",
    isPrefix: false,
- },
-  {
-   mod: "+1% Chance to Block Attack Damage while Dual Wielding",
-   regex: "k attack damage while d",
-   regexAffix: "^(S.+)?pa",
-   isPrefix: true,
- },
-  {
-   mod: "+1% Chance to Block Attack Damage while holding a Shield",
-   regex: "k attack damage while h",
-   regexAffix: "^(S.+)?shie",
-   isPrefix: true,
- },
-  {
-   mod: "+1% Chance to Block Attack Damage while wielding a Staff",
-   regex: "k damage while w",
-   regexAffix: "^(S.+)?def",
-   isPrefix: true,
- },
-  {
-   mod: "+1% Chance to Block Spell Damage while Dual Wielding",
-   regex: "k spell damage while d",
-   regexAffix: "^(S.+)?di",
-   isPrefix: true,
- },
-  {
-   mod: "+1% Chance to Block Spell Damage while holding a Shield",
-   regex: "k spell damage while h",
-   regexAffix: "hw",
-   isPrefix: true,
- },
-  {
-   mod: "+1% Chance to Block Spell Damage while wielding a Staff",
-   regex: "k spell damage while w",
-   regexAffix: "^(S.+)?hal",
-   isPrefix: true,
  },
   {
    mod: "Attacks have (3-5)% chance to cause Bleeding|(12-16)% increased Bleeding Duration",
@@ -1442,6 +1454,18 @@ export const jewelAbyss: JewelRegex[] = [
    isPrefix: false,
  },
   {
+   mod: "+(3-4)% Chance to Block Attack Damage if you were Damaged by a Hit Recently",
+   regex: "k a",
+   regexAffix: "f gu",
+   isPrefix: false,
+ },
+  {
+   mod: "+(3-4)% Chance to Block Spell Damage if you were Damaged by a Hit Recently",
+   regex: "ll d",
+   regexAffix: "nsti",
+   isPrefix: false,
+ },
+  {
    mod: "+(36-40) to maximum Energy Shield",
    regex: "m e",
    regexAffix: "esp",
@@ -1505,18 +1529,6 @@ export const jewelAbyss: JewelRegex[] = [
    mod: "+(9-12)% to Global Critical Strike Multiplier",
    regex: "lier$",
    regexAffix: "pot",
-   isPrefix: false,
- },
-  {
-   mod: "+2% Chance to Block Attack Damage if you were Damaged by a Hit Recently",
-   regex: "k a",
-   regexAffix: "f gu",
-   isPrefix: false,
- },
-  {
-   mod: "+2% Chance to Block Spell Damage if you were Damaged by a Hit Recently",
-   regex: "ll d",
-   regexAffix: "nsti",
    isPrefix: false,
  },
   {

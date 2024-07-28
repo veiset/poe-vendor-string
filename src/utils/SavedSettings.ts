@@ -2,7 +2,7 @@ import {ContractLevel} from "../pages/heist/Heist";
 import {heistContractTypes} from "../generated/GeneratedHeist";
 import {useState} from "react";
 
-export const leagueName = "Necropolis";
+export const leagueName = "Settlers";
 
 export interface SavedSettings {
   name: string

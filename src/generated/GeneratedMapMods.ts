@@ -545,11 +545,11 @@ export const mapModifiers: { [key: string]: MapMod } = {
    regexT17: "nu",
    isTier17: false,
  },
- "#% more Magic Monsters": {
-   value: "#% more Magic Monsters",
-   scary: 1,
-   regex: "e mag",
-   regexT17: "e mag",
+ "#% increased Magic Monsters": {
+   value: "#% increased Magic Monsters",
+   scary: 0,
+   regex: "d mag",
+   regexT17: "d mag",
    isTier17: false,
  },
  "(T17) Monsters' skills Chain 3 additional times|Monsters' Projectiles can Chain when colliding with Terrain": {
