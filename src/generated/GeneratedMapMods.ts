@@ -86,8 +86,8 @@ export const mapModifiers: { [key: string]: MapMod } = {
  "Monsters gain #% of their Physical Damage as Extra Chaos Damage|Monsters Inflict Withered for 2 seconds on Hit": {
    value: "Monsters gain #% of their Physical Damage as Extra Chaos Damage|Monsters Inflict Withered for 2 seconds on Hit",
    scary: 450,
-   regex: "withe",
-   regexT17: "withe",
+   regex: "hered",
+   regexT17: "hered",
    isTier17: false,
  },
  "Monsters fire 2 additional Projectiles": {
