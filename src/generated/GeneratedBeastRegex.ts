@@ -20,7 +20,7 @@ export const beastRegex: BeastRegex[] = [
   { beast: "Bearded Devil", recipe: "", regex: "ded d", harvest: false, red: false},
   { beast: "Bearded Shaman", recipe: "", regex: "ed sh", harvest: false, red: false},
   { beast: "Bearded Skycaller", recipe: "", regex: "d sky", harvest: false, red: false},
-  { beast: "Black Mórrigan", recipe: "Apply a Hinekora's Lock - To a Magic Item", regex: "k m", harvest: false, red: false},
+  { beast: "Black Mórrigan", recipe: "Apply a Hinekora's Lock - To a Magic Item", regex: "k m", harvest: false, red: true},
   { beast: "Black Scorpion", recipe: "", regex: "k sc", harvest: false, red: false},
   { beast: "Bleached Crawler", recipe: "", regex: "ached c", harvest: false, red: false},
   { beast: "Blood Ape", recipe: "", regex: "od a", harvest: false, red: false},
