@@ -1,0 +1,11 @@
+.selectable-search-layout {
+    padding: 2px;
+}
+
+.selectable-search-input {
+    padding: 8px;
+    width: 85%;
+    margin-left: 6px;
+    font-size: 16px;
+    font-family: monospace;
+}

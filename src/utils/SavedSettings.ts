@@ -53,20 +53,24 @@ export interface ExpeditionSettings {
 }
 
 export interface MapSettings {
-  badMods: string[]
-  goodMods: string[]
-  kirac: string[]
+  badIds: number[]
+  goodIds: number[]
   allGoodMods: boolean
   quantity: string
   packsize: string
   optimizeQuant: boolean
   optimizePacksize: boolean
+  optimizeQuality: boolean
   t17: boolean
   rarity: {
     normal: boolean
     magic: boolean
     rare: boolean
     include: boolean
+  },
+  quality: {
+    value: string,
+    type: string,
   }
 }
 
@@ -209,14 +213,14 @@ export const defaultSettings: SavedSettings = {
     minAddValue: 0,
   },
   map: {
-    badMods: [],
-    goodMods: [],
-    kirac: [],
+    goodIds: [],
+    badIds: [],
     allGoodMods: true,
     quantity: "",
     packsize: "",
     optimizeQuant: true,
     optimizePacksize: true,
+    optimizeQuality: true,
     t17: false,
     rarity: {
       normal: true,
@@ -224,6 +228,10 @@ export const defaultSettings: SavedSettings = {
       rare: true,
       include: true,
     },
+    quality: {
+      value: "",
+      type: "regular",
+    }
   },
   mapT17: {
     mods: [],

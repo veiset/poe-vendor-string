@@ -1,7 +1,6 @@
 import Heist from "../pages/heist/Heist";
 import {Route, Routes} from "react-router-dom";
 import Vendor from "../pages/vendor/Vendor";
-import Maps from "../pages/maps/Maps";
 import Flasks from "../pages/flasks/Flasks";
 import Expedition from "../pages/expedition/Expedition";
 import Beast from "../pages/beast/Beast";
@@ -9,9 +8,9 @@ import React, {useEffect, useState} from "react";
 import {loadSettings, selectedProfile} from "../utils/LocalStorage";
 import {ProfileContext} from "../components/profile/ProfileContext";
 import MapNames from "../pages/mapnames/MapNames";
-import MapsT17 from "../pages/mapsT17/MapsT17";
 import Scarabs from "../pages/scarab/Scarabs";
 import Jewel from "../pages/jewel/Jewel";
+import OptimizedMapMods from "../pages/maps/OptimizedMapMods";
 
 const Pages = () => {
   const [globalProfile, setGlobalProfile] = useState(selectedProfile());
@@ -28,8 +27,7 @@ const Pages = () => {
       <Routes>
         <Route path="/" element={<Vendor key={"vendor-" + profile.name}/>}/>
         <Route path="/vendor" element={<Vendor key={"vendor-" + profile.name}/>}/>
-        <Route path="/maps" element={<Maps key={"map-" + profile.name}/>}/>
-        <Route path="/mapst17" element={<MapsT17 key={"mapt17-" + profile.name}/>}/>
+        <Route path="/maps" element={<OptimizedMapMods key={"map-" + profile.name}/>}/>
         <Route path="/mapnames" element={<MapNames key={"mapnames-" + profile.name}/>}/>
         <Route path="/flasks" element={<Flasks key={"flask-" + profile.name}/>}/>
         <Route path="/heist" element={<Heist key={"heist-" + profile.name}/>}/>

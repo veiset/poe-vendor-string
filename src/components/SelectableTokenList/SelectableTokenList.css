@@ -1,0 +1,17 @@
+.selectable-token-list-mod-list {
+    cursor: pointer;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+.selectable-token-list-selected {
+    color: #000000;
+    background-color: #c0ecfa;
+    text-underline: white;
+}
+
+.selectable-token-list-selectable {
+    font-size: 16px;
+    padding: 5px;
+    margin: 1px;
+}

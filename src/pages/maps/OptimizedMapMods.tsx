@@ -1,95 +1,104 @@
-import React, {useContext, useEffect} from "react";
-import './Maps.css';
-import ResultBox from "../../components/ResultBox";
-import {kiracModifier, MapMod, mapModifiers} from "../../generated/GeneratedMapMods";
-import {generateMapModStr} from "../../utils/MapOutput";
-import MapModList from "../../components/MapModList";
-import {Checkbox} from "../vendor/Vendor";
-import {getGradientColor} from "../../utils/ColorGradient";
-import Header from "../../components/Header";
-import {loadSettings, saveSettings} from "../../utils/LocalStorage";
-import {defaultSettings, MapSettings} from "../../utils/SavedSettings";
+import React, {useContext, useEffect, useState} from "react";
 import {ProfileContext} from "../../components/profile/ProfileContext";
+import {loadSettings, saveSettings} from "../../utils/LocalStorage";
+import Header from "../../components/Header";
+import {regexMapModifiersRegular} from "../../generated/GeneratedMapModsRegular";
+import {regexMapModifierT17} from "../../generated/GeneratedMapModsT17";
+import SelectableTokenList from "../../components/SelectableTokenList/SelectableTokenList";
+import ResultBox from "../../components/ResultBox";
+import {getGradientColor} from "../../utils/ColorGradient";
+import {defaultSettings, MapSettings} from "../../utils/SavedSettings";
+import {Checkbox} from "../vendor/Vendor";
+import {generateMapModRegex} from "./OptimizedMapOutput";
+import Dropdown from "../../components/dropdown/Dropdown";
+import "./OptimizedMapMods.css";
 
-const Maps = () => {
+const regexT17 = regexMapModifierT17;
+const regexRegular = regexMapModifiersRegular;
+
+const OptimizedMapMods = () => {
   const {globalProfile} = useContext(ProfileContext);
   const profile = loadSettings(globalProfile);
+  const [result, setResult] = useState("");
+  const [selectedBadIds, setSelectedBadIds] = useState<number[]>(profile.map.badIds);
+  const [selectedGoodIds, setSelectedGoodIds] = useState<number[]>(profile.map.goodIds);
+  const [modGrouping, setModGrouping] = useState(profile.map.allGoodMods);
+  const [quantity, setQuantity] = useState(profile.map.quantity);
+  const [packsize, setPacksize] = useState(profile.map.packsize);
+  const [optimizeQuant, setOptimizeQuant] = useState(profile.map.optimizeQuant);
+  const [optimizePacksize, setOptimizePacksize] = useState(profile.map.optimizePacksize);
+  const [optimizeQuality, setOptimizeQuality] = useState(profile.map.optimizeQuality);
+  const [rarity, setRarity] = useState(profile.map.rarity);
+  const [quality, setQuality] = useState(profile.map.quality);
+  const [t17, setT17] = useState(profile.map.t17);
+  const [regex, setRegex] = useState(t17 ? regexT17 : regexRegular);
 
-  const mods = Array.from(Object.keys(mapModifiers));
-  const kiracModList = Array.from(Object.keys(kiracModifier));
-  const badMods = mods
-    .map((m) => ({...mapModifiers[m], value: m}))
-    .sort((a, b) => b.scary - a.scary);
-  const goodMods = mods
-    .map((m) => ({...mapModifiers[m], value: m}))
-    .sort((a, b) => a.scary - b.scary);
-  const kiracMods = kiracModList
-    .map((m) => ({...kiracModifier[m], value: m}))
-    .sort((a, b) => a.scary - b.scary);
-
-  const [selectedBadMods, setSelectedBadMods] = React.useState<string[]>(profile.map.badMods.filter((v: string) => mods.includes(v)));
-  const [selectedGoodMods, setSelectedGoodMods] = React.useState<string[]>(profile.map.goodMods.filter((v: string) => mods.includes(v)));
-  const [selectedKirac, setSelectedKirac] = React.useState<string[]>(profile.map.kirac.filter((v: string) => kiracModList.includes(v)));
-  const [modGrouping, setModGrouping] = React.useState(profile.map.allGoodMods);
-  const [quantity, setQuantity] = React.useState(profile.map.quantity);
-  const [packsize, setPacksize] = React.useState(profile.map.packsize);
-  const [optimizeQuant, setOptimizeQuant] = React.useState(profile.map.optimizeQuant);
-  const [optimizePacksize, setOptimizePacksize] = React.useState(profile.map.optimizePacksize);
-  const [rarity, setRarity] = React.useState(profile.map.rarity);
-  const [t17, setT17] = React.useState(profile.map.t17);
-
-  const [result, setResult] = React.useState("");
+  useEffect(() => {
+    setRegex(t17 ? regexT17 : regexRegular);
+  }, [t17]);
 
   useEffect(() => {
     let settings: MapSettings = {
-      badMods: selectedBadMods,
-      goodMods: selectedGoodMods,
-      kirac: selectedKirac,
+      badIds: selectedBadIds,
+      goodIds: selectedGoodIds,
       allGoodMods: modGrouping,
       quantity,
       packsize,
       optimizeQuant,
       optimizePacksize,
+      optimizeQuality,
       rarity,
+      quality,
       t17,
     };
-    let search = generateMapModStr(settings, mapModifiers);
     saveSettings({
       ...profile,
       map: {...settings},
     });
-    setResult(search);
-  }, [result, rarity, selectedBadMods, selectedGoodMods, selectedKirac, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, t17]);
-
+    setResult(generateMapModRegex(settings, regex));
+  }, [result, rarity, quality, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, regex]);
 
   return (
     <>
-      <Header text={"Map Modifiers"}/>
+      <Header text={"Optimized Map Modifiers"}/>
       <ResultBox result={result} warning={undefined} reset={() => {
-        setSelectedGoodMods(defaultSettings.map.goodMods);
-        setSelectedBadMods(defaultSettings.map.badMods);
-        setSelectedKirac(defaultSettings.map.kirac);
+        setSelectedBadIds(defaultSettings.map.badIds);
+        setSelectedGoodIds(defaultSettings.map.goodIds);
         setOptimizePacksize(defaultSettings.map.optimizePacksize);
         setOptimizeQuant(defaultSettings.map.optimizeQuant);
         setModGrouping(defaultSettings.map.allGoodMods)
         setQuantity(defaultSettings.map.quantity);
         setPacksize(defaultSettings.map.packsize);
         setRarity(defaultSettings.map.rarity);
-        setT17(defaultSettings.map.t17);
+        setQuality(defaultSettings.map.quality);
       }}/>
       <div className="break"/>
       <div className="full-size generic-top-element">
         <label className="modifier-search-label" htmlFor="quantity">Quantity of at least</label>
         <input type="search" className="modifier-quantity-box" id="quantity" name="search-mod" value={quantity}
                onChange={v => setQuantity(v.target.value)}/>
+
         <label className="modifier-search-label" htmlFor="pack-size">Pack Size of at least</label>
         <input type="search" className="modifier-quantity-box" id="pack-size" name="search-mod" value={packsize}
                onChange={v => setPacksize(v.target.value)}/>
+
+        <label className="modifier-search-label" htmlFor="quality">Map Quality of at least</label>
+        <input type="search" className="modifier-quantity-box" id="quality" name="search-mod" value={quality.value}
+               onChange={v => setQuality({...quality, value: v.target.value})}/>
+        <Dropdown
+          elements={["regular", "scarabs", "maps", "currency"]}
+          selected={quality.type}
+          setSelected={(selected) => setQuality({...quality, type: selected})}
+        />
+
         <Checkbox label="Optimize Quantity value (round down to nearest 10, saves a lot of query space)"
                   value={optimizeQuant}
                   onChange={setOptimizeQuant}/>
         <Checkbox label="Optimize Pack Size value" value={optimizePacksize}
                   onChange={setOptimizePacksize}/>
+        <Checkbox label="Optimize Map Quality value" value={optimizeQuality}
+                  onChange={setOptimizeQuality}/>
+
         <div className="rarity-select">
           <Checkbox label="Normal Maps" value={rarity.normal}
                     onChange={(e) => setRarity({...rarity, normal: !!e})}/>
@@ -131,40 +140,40 @@ const Maps = () => {
       </div>
       <div className="break"/>
       <div className="eq-col-2">
-        <MapModList id="bad-mods"
-                    colorFun={mapDangerColor}
-                    mods={badMods.filter((e) => t17 || !e.isTier17)}
-                    selected={selectedBadMods}
-                    setSelected={setSelectedBadMods}
+        <SelectableTokenList
+          sortFn={(a, b) => {
+            return b.options.scary - a.options.scary
+          }}
+          colorFun={(isSelected, token) => {
+            if (isSelected) return "#ffffff";
+            if (token.options.scary < 100) return "#ffffff";
+            if (token.options.scary > 1100) return "#eab7fc";
+            return getGradientColor("#FC9090", "#ffffff", (1100 - token.options.scary) / 1100);
+          }}
+          elements={regex.tokens}
+          setSelected={setSelectedBadIds}
+          selected={selectedBadIds}
         />
       </div>
       <div className="eq-col-2">
-        <MapModList id="good-mods"
-                    colorFun={mapDangerColor}
-                    mods={goodMods.filter((e) => t17 || !e.isTier17)}
-                    selected={selectedGoodMods}
-                    setSelected={setSelectedGoodMods}
+        <SelectableTokenList
+          sortFn={(a, b) => {
+            return a.options.scary - b.options.scary
+          }}
+          colorFun={(isSelected, token) => {
+            if (isSelected) return "#ffffff";
+            if (token.options.scary < 100) return "#ffffff";
+            if (token.options.scary > 1100) return "#eab7fc";
+            return getGradientColor("#FC9090", "#ffffff", (1100 - token.options.scary) / 1100);
+          }}
+          elements={regex.tokens}
+          setSelected={setSelectedGoodIds}
+          selected={selectedGoodIds}
         />
-      </div>
-      <div className="eq-col-2"></div>
-      <div className="eq-col-2">
-        <h2>Kirac missions</h2>
-        <MapModList id="kirac" disableSearch={true} colorFun={mapDangerColor} mods={kiracMods} selected={selectedKirac}
-                    setSelected={setSelectedKirac}/>
       </div>
     </>
-  );
+  )
 }
 
-function mapDangerColor(m: MapMod): string {
-  if (m.scary < 100) {
-    return "#ffffff";
-  }
-  if (m.scary > 1100) {
-    return "#eab7fc";
-  } else {
-    return getGradientColor("#FC9090", "#ffffff", (1100 - m.scary) / 1100);
-  }
-}
 
-export default Maps;
+export default OptimizedMapMods;
