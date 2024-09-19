@@ -68,6 +68,10 @@ export interface MapSettings {
     rare: boolean
     include: boolean
   },
+  corrupted: {
+    enabled: boolean,
+    include: boolean,
+  }
   quality: {
     value: string,
     type: string,
@@ -226,6 +230,10 @@ export const defaultSettings: SavedSettings = {
       normal: true,
       magic: true,
       rare: true,
+      include: true,
+    },
+    corrupted: {
+      enabled: false,
       include: true,
     },
     quality: {

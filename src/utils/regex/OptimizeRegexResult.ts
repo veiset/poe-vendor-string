@@ -38,11 +38,11 @@ function optimizedRegexTokens(selectedIds: number[], regex: Regex<any>): string[
 }
 
 function optimizationSize(numberOfElements: number) {
-  if (numberOfElements < 15) return 7;
-  if (numberOfElements < 18) return 6;
-  if (numberOfElements < 21) return 5;
-  if (numberOfElements < 28) return 4;
-  return 3;
+  if (numberOfElements < 15) return 8;
+  if (numberOfElements < 18) return 7;
+  if (numberOfElements < 21) return 6;
+  if (numberOfElements < 28) return 5;
+  return 4;
 }
 
 function generateOptimizationKeys(arr: number[], maxLength: number): string[] {

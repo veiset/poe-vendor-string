@@ -1,6 +1,5 @@
 import {mapNames} from "../generated/GeneratedMapNames";
 import {MapNameSettings} from "./SavedSettings";
-import {mapModifiers} from "../generated/GeneratedMapMods";
 
 
 export function generateMapNameStr(settings: MapNameSettings): string {

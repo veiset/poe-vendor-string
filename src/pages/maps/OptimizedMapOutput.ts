@@ -11,8 +11,9 @@ export function generateMapModRegex(settings: MapSettings, regex: Regex<any>): s
   const packsize = addQuantifier("iz.*", generateNumberRegex(settings.packsize, settings.optimizePacksize));
   const quality = addQuantifier(qualityQualifier(settings), generateNumberRegex(settings.quality.value, settings.optimizeQuality));
   const rarity = addRarityRegex(settings.rarity.normal, settings.rarity.magic, settings.rarity.rare, settings.rarity.include);
+  const corrupted = corruptedMapCheck(settings);
 
-  const result = `${exclusions} ${inclusions} ${quantity} ${packsize} ${quality} ${rarity}`
+  const result = `${exclusions} ${inclusions} ${quantity} ${packsize} ${quality} ${rarity} ${corrupted}`
     .trim().replaceAll(/\s{2,}/g, ' ');
 
   const end = window.performance.now();
@@ -20,12 +21,21 @@ export function generateMapModRegex(settings: MapSettings, regex: Regex<any>): s
   return optimize(result);
 }
 
+function corruptedMapCheck(settings: MapSettings) {
+  if (settings.corrupted.enabled) {
+    return settings.corrupted.include ? "pte" : "!pte";
+  }
+  return "";
+}
+
 function qualityQualifier(settings: MapSettings) {
   const type = settings.quality.type;
-  if (type === "regular") return "ity.*";
-  if (type === "scarabs") return "abs.*";
-  if (type === "maps") return "ps:.*";
+  if (type === "regular") return "lity:.*";
   if (type === "currency") return "urr.*";
+  if (type === "divination") return "div.*";
+  if (type === "rarity") return "ty\\).*";
+  if (type === "pack size") return "ze\\).*";
+  if (type === "scarab") return "sca.*";
   return ""
 }
 

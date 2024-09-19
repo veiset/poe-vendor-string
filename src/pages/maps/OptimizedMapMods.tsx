@@ -29,6 +29,7 @@ const OptimizedMapMods = () => {
   const [optimizePacksize, setOptimizePacksize] = useState(profile.map.optimizePacksize);
   const [optimizeQuality, setOptimizeQuality] = useState(profile.map.optimizeQuality);
   const [rarity, setRarity] = useState(profile.map.rarity);
+  const [corrupted, setCorrupted] = useState(profile.map.corrupted);
   const [quality, setQuality] = useState(profile.map.quality);
   const [t17, setT17] = useState(profile.map.t17);
   const [regex, setRegex] = useState(t17 ? regexT17 : regexRegular);
@@ -48,6 +49,7 @@ const OptimizedMapMods = () => {
       optimizePacksize,
       optimizeQuality,
       rarity,
+      corrupted,
       quality,
       t17,
     };
@@ -56,7 +58,7 @@ const OptimizedMapMods = () => {
       map: {...settings},
     });
     setResult(generateMapModRegex(settings, regex));
-  }, [result, rarity, quality, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, regex]);
+  }, [result, rarity, corrupted, quality, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, regex]);
 
   return (
     <>
@@ -70,6 +72,7 @@ const OptimizedMapMods = () => {
         setQuantity(defaultSettings.map.quantity);
         setPacksize(defaultSettings.map.packsize);
         setRarity(defaultSettings.map.rarity);
+        setCorrupted(defaultSettings.map.corrupted);
         setQuality(defaultSettings.map.quality);
       }}/>
       <div className="break"/>
@@ -86,7 +89,7 @@ const OptimizedMapMods = () => {
         <input type="search" className="modifier-quantity-box" id="quality" name="search-mod" value={quality.value}
                onChange={v => setQuality({...quality, value: v.target.value})}/>
         <Dropdown
-          elements={["regular", "scarabs", "maps", "currency"]}
+          elements={["regular", "currency", "divination", "rarity", "pack size", "scarab"]}
           selected={quality.type}
           setSelected={(selected) => setQuality({...quality, type: selected})}
         />
@@ -116,6 +119,21 @@ const OptimizedMapMods = () => {
                    checked={!rarity.include}
                    onChange={v => setRarity({...rarity, include: false})}/>
             <label htmlFor="maps-exclude" className="radio-button-map">Exclude</label>
+          </div>
+        </div>
+        <div className="rarity-select">
+          <Checkbox label="Corrupted Map" value={corrupted.enabled}
+                    onChange={(e) => setCorrupted({...corrupted, enabled: !corrupted.enabled})}/>
+          <div className="radio-button-modgroup">
+            <input type="radio" className="radio-button-map" id="corrupted-include" name="corrupted-include"
+                   defaultChecked={corrupted.include}
+                   checked={corrupted.include}
+                   onChange={v => setCorrupted({...corrupted, include: true})}/>
+            <label htmlFor="corrupted-include" className="radio-button-map radio-first-ele">Include</label>
+            <input type="radio" id="corrupted-exclude" name="corrupted-exclude" defaultChecked={!corrupted.include}
+                   checked={!corrupted.include}
+                   onChange={v => setCorrupted({...corrupted, include: false})}/>
+            <label htmlFor="corrupted-exclude" className="radio-button-map">Exclude</label>
           </div>
         </div>
         <div className="break spacer-top"/>

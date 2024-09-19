@@ -11,13 +11,15 @@ export interface SelectableTokenListProps {
   setSelected: Dispatch<SetStateAction<number[]>>
   sortFn?: (a: Token<any>, b: Token<any>) => number
   colorFun?: (isSelected: boolean, token: Token<any>) => string
+  displayFun?: (v: string) => string
 }
 
 const SelectableTokenList= (props: SelectableTokenListProps) => {
-  const {elements, selected, setSelected, sortFn, colorFun} = props;
+  const {elements, selected, setSelected, sortFn, colorFun, displayFun} = props;
   const [search, setSearch] = React.useState("");
   const sorting = sortFn ?? defaultSort;
   const colorFunction = colorFun ?? defaultColorFun;
+  const displayValue = displayFun ?? defaultDisplayFun;
   return (
     <>
       <SelectableSearch search={search} setSearch={setSearch}/>
@@ -48,7 +50,9 @@ const SelectableTokenList= (props: SelectableTokenListProps) => {
                        : setSelected(selected.concat(token.id).sort((n1, n2) => n1 - n2));
                    }}
               >
-                {token.rawText.replaceAll("|", " · ")}
+                {displayValue(
+                  token.rawText.replaceAll("|", " · ")
+                )}
               </div>
             )
           })}
@@ -63,5 +67,7 @@ const defaultSort = (a: Token<any>, b: Token<any>): number => {
 }
 
 const defaultColorFun = (isSelected: boolean, t: Token<any>): string => "";
+
+const defaultDisplayFun = (v: string) => v;
 
 export default SelectableTokenList;
