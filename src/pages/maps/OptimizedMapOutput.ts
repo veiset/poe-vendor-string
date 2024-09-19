@@ -41,7 +41,7 @@ function generateBadMods(settings: MapSettings, regex: Regex<any>): string {
     return "";
   }
   const tokens = optimizeRegexFromIds(settings.badIds, regex)
-  return `"!${tokens.join("|")}"`.replaceAll("#", "\\d+");
+  return `"!${tokens.join("|")}"`;
 }
 
 function generateGoodMods(settings: MapSettings, regex: Regex<any>): string {
