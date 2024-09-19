@@ -9,11 +9,13 @@ const Dropdown = (props: DropdownProps) => {
   const {elements, selected, setSelected} = props;
 
   return (
-    <select className="dropdown-select" name="cars" id="cars" onChange={v => {
+    <select className="dropdown-select" id="dropdown"
+            value={selected}
+            onChange={v => {
       setSelected(v.target.value);
     }}>
       {elements.map((ele) => {
-        return (<option value={ele} selected={ele === selected}>{ele}</option>)
+        return (<option key={ele} value={ele}>{ele}</option>)
       })}
     </select>
   )

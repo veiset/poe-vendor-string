@@ -89,6 +89,8 @@ const OptimizedMapMods = () => {
           setRarity(defaultSettings.map.rarity);
           setCorrupted(defaultSettings.map.corrupted);
           setQuality(defaultSettings.map.quality);
+          setEnableCustomText(defaultSettings.map.customText.enabled);
+          setCustomTextStr(defaultSettings.map.customText.value);
         }}
       />
       <div className="break"/>
@@ -127,11 +129,10 @@ const OptimizedMapMods = () => {
                     onChange={(e) => setRarity({...rarity, rare: !!e})}/>
           <div className="radio-button-modgroup">
             <input type="radio" className="radio-button-map" id="maps-include" name="map-include"
-                   defaultChecked={rarity.include}
                    checked={rarity.include}
                    onChange={v => setRarity({...rarity, include: true})}/>
             <label htmlFor="maps-include" className="radio-button-map radio-first-ele">Include</label>
-            <input type="radio" id="maps-exclude" name="map-include" defaultChecked={!rarity.include}
+            <input type="radio" id="maps-exclude" name="map-include"
                    checked={!rarity.include}
                    onChange={v => setRarity({...rarity, include: false})}/>
             <label htmlFor="maps-exclude" className="radio-button-map">Exclude</label>
@@ -140,13 +141,12 @@ const OptimizedMapMods = () => {
         <div className="rarity-select">
           <Checkbox label="Corrupted Map" value={corrupted.enabled}
                     onChange={(e) => setCorrupted({...corrupted, enabled: !corrupted.enabled})}/>
-          <div className="radio-button-modgroup">
+          <div className="radio-button-corrupted">
             <input type="radio" className="radio-button-map" id="corrupted-include" name="corrupted-include"
-                   defaultChecked={corrupted.include}
                    checked={corrupted.include}
                    onChange={v => setCorrupted({...corrupted, include: true})}/>
             <label htmlFor="corrupted-include" className="radio-button-map radio-first-ele">Include</label>
-            <input type="radio" id="corrupted-exclude" name="corrupted-exclude" defaultChecked={!corrupted.include}
+            <input type="radio" id="corrupted-exclude" name="corrupted-exclude"
                    checked={!corrupted.include}
                    onChange={v => setCorrupted({...corrupted, include: false})}/>
             <label htmlFor="corrupted-exclude" className="radio-button-map">Exclude</label>
