@@ -1,4 +1,4 @@
-// Generated at: 2024-09-19T15:50:05.657158200
+// Generated at: 2024-09-19T19:20:02.708560600
 // @formatter:off
 import {Regex} from "./GeneratedTypes";
 
@@ -11,7 +11,7 @@ export const regexMapModifierT17: Regex<MapModifierT17TokenOption> = {
     {id: -2106392014, regex: "o al", rawText: "Players have -20% to all maximum Resistances", generalizedText: "^players have -#% to all maximum resistances$", options: {tier17: true, scary: 2170}},
     {id: -2103899765, regex: "kes", rawText: "Monsters take (36-40)% reduced Extra Damage from Critical Strikes", generalizedText: "^monsters take #% reduced extra damage from critical strikes$", options: {tier17: false, scary: 250}},
     {id: -2068532865, regex: "'v", rawText: "Players have 3% reduced Action Speed for each time they've used a Skill Recently", generalizedText: "^players have #% reduced action speed for each time they've used a skill recently$", options: {tier17: true, scary: 1189}},
-    {id: -2066574800, regex: "ra c", rawText: "Monsters gain (80-100)% of their Physical Damage as Extra Chaos Damage", generalizedText: "^monsters gain #% of their physical damage as extra chaos damage$", options: {tier17: true, scary: 1662}},
+    {id: -2066574800, regex: "ra c", rawText: "Monsters gain (80-100)% of their Physical Damage as Extra Chaos Damage", generalizedText: "^monsters gain #% of their physical damage as extra chaos damage$", options: {tier17: true, scary: 1667}},
     {id: -2060936381, regex: "poss", rawText: "Unique Bosses are Possessed", generalizedText: "^unique bosses are possessed$", options: {tier17: true, scary: 240}},
     {id: -1994088653, regex: "r damage$", rawText: "(30-40)% increased Monster Damage", generalizedText: "^#% increased monster damage$", options: {tier17: true, scary: 1602}},
     {id: -1952553467, regex: "ks h", rawText: "Monsters' Attacks have 60% chance to Impale on Hit", generalizedText: "^monsters' attacks have #% chance to impale on hit$", options: {tier17: false, scary: 98}},
@@ -91,7 +91,7 @@ export const regexMapModifierT17: Regex<MapModifierT17TokenOption> = {
     {id: 920184875, regex: "k at", rawText: "Monsters have +50% Chance to Block Attack Damage", generalizedText: "^monsters have #% chance to block attack damage$", options: {tier17: true, scary: 1304}},
     {id: 927184680, regex: "iers$", rawText: "(35-45)% increased number of Rare Monsters|Rare Monsters each have 2 additional Modifiers", generalizedText: "^#% increased number of rare monsters$|^rare monsters each have # additional modifiers$", options: {tier17: true, scary: 1232}},
     {id: 931213255, regex: "oa", rawText: "Area is inhabited by Goatmen", generalizedText: "^area is inhabited by goatmen$", options: {tier17: false, scary: 4}},
-    {id: 1006692915, regex: "ered", rawText: "Monsters gain (31-35)% of their Physical Damage as Extra Chaos Damage|Monsters Inflict Withered for 2 seconds on Hit", generalizedText: "^monsters gain #% of their physical damage as extra chaos damage$|^monsters inflict withered for # seconds on hit$", options: {tier17: false, scary: 450}},
+    {id: 1006692915, regex: "ered", rawText: "Monsters gain (31-35)% of their Physical Damage as Extra Chaos Damage|Monsters Inflict Withered for 2 seconds on Hit", generalizedText: "^monsters gain #% of their physical damage as extra chaos damage$|^monsters inflict withered for # seconds on hit$", options: {tier17: false, scary: 455}},
     {id: 1088280684, regex: "e charge o", rawText: "Monsters gain an Endurance Charge on Hit", generalizedText: "^monsters gain an endurance charge on hit$", options: {tier17: false, scary: 80}},
     {id: 1141186022, regex: "son$", rawText: "Monsters Poison on Hit|All Damage from Monsters' Hits can Poison|Monsters have 100% increased Poison Duration", generalizedText: "^monsters poison on hit$|^all damage from monsters' hits can poison$|^monsters have #% increased poison duration$", options: {tier17: true, scary: 1606}},
     {id: 1177412437, regex: "fif", rawText: "Monsters' Attacks Impale on Hit When a fifth Impale is inflicted on a Player, Impales are removed to Reflect their Physical Damage multiplied by their remaining Hits to that Player and their Allies within 1.8 metres", generalizedText: "^monsters' attacks impale on hit when a fifth impale is inflicted on a player, impales are removed to reflect their physical damage multiplied by their remaining hits to that player and their allies within #.# metres$", options: {tier17: true, scary: 1201}},

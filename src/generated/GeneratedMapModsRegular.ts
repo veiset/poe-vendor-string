@@ -1,4 +1,4 @@
-// Generated at: 2024-09-19T15:49:43.611054900
+// Generated at: 2024-09-19T19:19:40.108845700
 // @formatter:off
 import {Regex} from "./GeneratedTypes";
 
@@ -54,7 +54,7 @@ export const regexMapModifiersRegular: Regex<MapModifiersRegularTokenOption> = {
     {id: 884783454, regex: "aim", rawText: "Monsters Maim on Hit with Attacks", generalizedText: "^monsters maim on hit with attacks$", options: {tier17: false, scary: 50}},
     {id: 894187505, regex: "o al", rawText: "Players have (-12--9)% to all maximum Resistances", generalizedText: "^players have -#% to all maximum resistances$", options: {tier17: false, scary: 980}},
     {id: 931213255, regex: "oa", rawText: "Area is inhabited by Goatmen", generalizedText: "^area is inhabited by goatmen$", options: {tier17: false, scary: 4}},
-    {id: 1006692915, regex: "hered", rawText: "Monsters gain (31-35)% of their Physical Damage as Extra Chaos Damage|Monsters Inflict Withered for 2 seconds on Hit", generalizedText: "^monsters gain #% of their physical damage as extra chaos damage$|^monsters inflict withered for # seconds on hit$", options: {tier17: false, scary: 450}},
+    {id: 1006692915, regex: "hered", rawText: "Monsters gain (31-35)% of their Physical Damage as Extra Chaos Damage|Monsters Inflict Withered for 2 seconds on Hit", generalizedText: "^monsters gain #% of their physical damage as extra chaos damage$|^monsters inflict withered for # seconds on hit$", options: {tier17: false, scary: 455}},
     {id: 1088280684, regex: "an en", rawText: "Monsters gain an Endurance Charge on Hit", generalizedText: "^monsters gain an endurance charge on hit$", options: {tier17: false, scary: 80}},
     {id: 1197254574, regex: "h el", rawText: "Players are Cursed with Elemental Weakness", generalizedText: "^players are cursed with elemental weakness$", options: {tier17: false, scary: 360}},
     {id: 1245770343, regex: "unari", rawText: "Area is inhabited by Lunaris fanatics", generalizedText: "^area is inhabited by lunaris fanatics$", options: {tier17: false, scary: 4}},

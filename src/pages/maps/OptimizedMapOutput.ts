@@ -4,7 +4,6 @@ import {optimizeRegexFromIds, idToRegex} from "../../utils/regex/OptimizeRegexRe
 import {generateNumberRegex} from "../../utils/regex/GenerateNumberRegex";
 
 export function generateMapModRegex(settings: MapSettings, regex: Regex<any>): string {
-  const start = window.performance.now();
   const exclusions = generateBadMods(settings, regex);
   const inclusions = generateGoodMods(settings, regex);
   const quantity = addQuantifier("m q.*", generateNumberRegex(settings.quantity, settings.optimizeQuant));
@@ -16,8 +15,6 @@ export function generateMapModRegex(settings: MapSettings, regex: Regex<any>): s
   const result = `${exclusions} ${inclusions} ${quantity} ${packsize} ${quality} ${rarity} ${corrupted}`
     .trim().replaceAll(/\s{2,}/g, ' ');
 
-  const end = window.performance.now();
-  console.log(`Execution of regex string optimization: ${end - start} ms`);
   return optimize(result);
 }
 
