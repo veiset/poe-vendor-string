@@ -12,6 +12,7 @@ import {Checkbox} from "../vendor/Vendor";
 import {generateMapModRegex} from "./OptimizedMapOutput";
 import Dropdown from "../../components/dropdown/Dropdown";
 import "./OptimizedMapMods.css";
+import RegexResultBox from "../../components/RegexResultBox/RegexResultBox";
 
 const regexT17 = regexMapModifierT17;
 const regexRegular = regexMapModifiersRegular;
@@ -34,6 +35,9 @@ const OptimizedMapMods = () => {
   const [t17, setT17] = useState(profile.map.t17);
   const [regex, setRegex] = useState(t17 ? regexT17 : regexRegular);
 
+  const [customTextStr, setCustomTextStr] = useState(profile.map.customText.value);
+  const [enableCustomText, setEnableCustomText] = useState(profile.map.customText.enabled);
+
   useEffect(() => {
     setRegex(t17 ? regexT17 : regexRegular);
   }, [t17]);
@@ -52,29 +56,41 @@ const OptimizedMapMods = () => {
       corrupted,
       quality,
       t17,
+      customText: {
+        value: customTextStr,
+        enabled: enableCustomText,
+      }
     };
     saveSettings({
       ...profile,
       map: {...settings},
     });
     setResult(generateMapModRegex(settings, regex));
-  }, [result, rarity, corrupted, quality, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, regex]);
+  }, [result, rarity, corrupted, quality, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex]);
 
   return (
     <>
       <Header text={"Optimized Map Modifiers"}/>
-      <ResultBox result={result} warning={undefined} reset={() => {
-        setSelectedBadIds(defaultSettings.map.badIds);
-        setSelectedGoodIds(defaultSettings.map.goodIds);
-        setOptimizePacksize(defaultSettings.map.optimizePacksize);
-        setOptimizeQuant(defaultSettings.map.optimizeQuant);
-        setModGrouping(defaultSettings.map.allGoodMods)
-        setQuantity(defaultSettings.map.quantity);
-        setPacksize(defaultSettings.map.packsize);
-        setRarity(defaultSettings.map.rarity);
-        setCorrupted(defaultSettings.map.corrupted);
-        setQuality(defaultSettings.map.quality);
-      }}/>
+      <RegexResultBox
+        result={result}
+        warning={undefined}
+        customText={customTextStr}
+        setCustomText={setCustomTextStr}
+        enableCustomText={enableCustomText}
+        setEnableCustomText={setEnableCustomText}
+        reset={() => {
+          setSelectedBadIds(defaultSettings.map.badIds);
+          setSelectedGoodIds(defaultSettings.map.goodIds);
+          setOptimizePacksize(defaultSettings.map.optimizePacksize);
+          setOptimizeQuant(defaultSettings.map.optimizeQuant);
+          setModGrouping(defaultSettings.map.allGoodMods)
+          setQuantity(defaultSettings.map.quantity);
+          setPacksize(defaultSettings.map.packsize);
+          setRarity(defaultSettings.map.rarity);
+          setCorrupted(defaultSettings.map.corrupted);
+          setQuality(defaultSettings.map.quality);
+        }}
+      />
       <div className="break"/>
       <div className="full-size generic-top-element">
         <label className="modifier-search-label" htmlFor="quantity">Quantity of at least</label>
@@ -85,7 +101,7 @@ const OptimizedMapMods = () => {
         <input type="search" className="modifier-quantity-box" id="pack-size" name="search-mod" value={packsize}
                onChange={v => setPacksize(v.target.value)}/>
 
-        <label className="modifier-search-label" htmlFor="quality">Map Quality of at least</label>
+        <label className="modifier-search-label" htmlFor="quality">Quality of at least</label>
         <input type="search" className="modifier-quantity-box" id="quality" name="search-mod" value={quality.value}
                onChange={v => setQuality({...quality, value: v.target.value})}/>
         <Dropdown

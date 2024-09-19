@@ -76,6 +76,10 @@ export interface MapSettings {
     value: string,
     type: string,
   }
+  customText: {
+    value: string,
+    enabled: boolean,
+  }
 }
 
 export interface MapT17Settings {
@@ -239,6 +243,10 @@ export const defaultSettings: SavedSettings = {
     quality: {
       value: "",
       type: "regular",
+    },
+    customText: {
+      value: "",
+      enabled: true,
     }
   },
   mapT17: {

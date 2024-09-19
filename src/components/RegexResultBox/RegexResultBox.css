@@ -1,0 +1,112 @@
+.rrb-layout {
+    font-size: 22px;
+    background-color: var(--color-area);
+    color: var(--color-text);
+    width: 100%;
+    position: sticky;
+    top: 0;
+    padding: 20px;
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+
+    @media (max-width: 900px) {
+        flex-direction: column;
+    }
+}
+.rrb-result {
+    font-family: monospace;
+    flex-shrink: 10;
+    flex-grow: 1;
+    text-overflow: clip;
+}
+.rrb-result-text {
+    min-height: 55px;
+}
+.rrb-result-info {
+    color: #b1b1b7;
+    padding-top: 10px;
+    font-size: 16px;
+}
+.rrb-actions {
+    font-family: monospace;
+    padding-top: 10px;
+    flex-shrink: 10;
+    flex-grow: 0;
+    width: 294px;
+}
+.rrb-break {
+    flex-basis: 100%;
+    height: 0;
+}
+.rrb-options {
+    background-color: var(--color-bg);
+    font-size: 20px;
+    margin-top: 20px;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+}
+.rrb-options-custom-text {
+    padding: 4px;
+}
+.rrb-copy-button {
+    background-color: var(--color-correct);
+    font-family: monospace;
+    border: none;
+    color: white;
+    padding: 12px 12px;
+    width: 90px;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 4px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+.rrb-options input[type=text] {
+    width: 200px;
+    padding: 5px;
+    margin-left: 4px;
+    margin-right: 10px;
+    font-size: 16px;
+    font-family: monospace;
+}
+
+.rrb-reset-button {
+    width: 90px;
+    background-color: var(--color-deep-error);
+    font-family: monospace;
+    border: none;
+    color: white;
+    padding: 12px 10px;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 4px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+.rrb-option-button {
+    width: 90px;
+    background-color: #444e5b;
+    font-family: monospace;
+    border: none;
+    color: white;
+    padding: 12px 10px;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 4px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+.copied-good {
+    color: var(--color-text-copied);
+}
