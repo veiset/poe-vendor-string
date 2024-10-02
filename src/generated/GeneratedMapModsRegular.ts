@@ -1,4 +1,3 @@
-// Generated at: 2024-09-20T11:52:08.019388300
 // @formatter:off
 import {Regex} from "./GeneratedTypes";
 
@@ -44,7 +43,7 @@ export const regexMapModifiersRegular: Regex<MapModifiersRegularTokenOption> = {
     {id: 493223943, regex: "rses", rawText: "60% less effect of Curses on Monsters", generalizedText: "^#% less effect of curses on monsters$", options: {tier17: false, scary: 363}},
     {id: 525934570, regex: "hil", rawText: "Area has patches of Chilled Ground", generalizedText: "^area has patches of chilled ground$", options: {tier17: false, scary: 310}},
     {id: 550943268, regex: "r at", rawText: "(25-30)% increased Monster Movement Speed|(35-45)% increased Monster Attack Speed|(35-45)% increased Monster Cast Speed", generalizedText: "^#% increased monster movement speed$|^#% increased monster attack speed$|^#% increased monster cast speed$", options: {tier17: true, scary: 607}},
-    {id: 638612957, regex: "rev", rawText: "Monsters have 50% increased Accuracy Rating|Players have -20% to amount of Suppressed Spell Damage Prevented", generalizedText: "^monsters have #% increased accuracy rating$|^players have -#% to amount of suppressed spell damage prevented$", options: {tier17: false, scary: 365}},
+    {id: 638612957, regex: "prev", rawText: "Monsters have 50% increased Accuracy Rating|Players have -20% to amount of Suppressed Spell Damage Prevented", generalizedText: "^monsters have #% increased accuracy rating$|^players have -#% to amount of suppressed spell damage prevented$", options: {tier17: false, scary: 365}},
     {id: 667938191, regex: "fs", rawText: "Buffs on Players expire 70% faster", generalizedText: "^buffs on players expire #% faster$", options: {tier17: false, scary: 96}},
     {id: 694566327, regex: "r li", rawText: "(40-49)% more Monster Life", generalizedText: "^#% more monster life$", options: {tier17: false, scary: 100}},
     {id: 719111530, regex: "a pow", rawText: "Monsters gain a Power Charge on Hit", generalizedText: "^monsters gain a power charge on hit$", options: {tier17: false, scary: 80}},
@@ -99,7 +98,7 @@ export const regexMapModifiersRegular: Regex<MapModifiersRegularTokenOption> = {
     "-2060936381:1481746664:1691639998:2043204851": {ids: [-2060936381, 1481746664, 1691639998, 2043204851], regex: "ue b", weight: 6, count: 4},
     "-1952553467:-529767307:-500015770": {ids: [-1952553467, -529767307, -500015770], regex: "s'", weight: 2, count: 3},
     "-1952553467:550943268:884783454:2043204851": {ids: [-1952553467, 550943268, 884783454, 2043204851], regex: "att", weight: 3, count: 4},
-    "-1952553467:1822260921": {ids: [-1952553467, 1822260921], regex: "ale", weight: 3, count: 2},
+    "-1952553467:1822260921": {ids: [-1952553467, 1822260921], regex: "pale", weight: 4, count: 2},
     "-1952553467:884783454": {ids: [-1952553467, 884783454], regex: "acks", weight: 4, count: 2},
     "-1952553467:-529767307": {ids: [-1952553467, -529767307], regex: "' a", weight: 5, count: 2},
     "-1952553467:-1403235912:755773474:1303025587:1652154666:1822260921": {ids: [-1952553467, -1403235912, 755773474, 1303025587, 1652154666, 1822260921], regex: "ce t", weight: 6, count: 6},

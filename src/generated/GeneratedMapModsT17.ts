@@ -1,4 +1,3 @@
-// Generated at: 2024-09-20T11:52:27.617486200
 // @formatter:off
 import {Regex} from "./GeneratedTypes";
 
@@ -77,7 +76,7 @@ export const regexMapModifierT17: Regex<MapModifierT17TokenOption> = {
     {id: 550943268, regex: "r at", rawText: "(25-30)% increased Monster Movement Speed|(35-45)% increased Monster Attack Speed|(35-45)% increased Monster Cast Speed", generalizedText: "^#% increased monster movement speed$|^#% increased monster attack speed$|^#% increased monster cast speed$", options: {tier17: true, scary: 607}},
     {id: 577057701, regex: "kes", rawText: "Monsters take (35-45)% reduced Extra Damage from Critical Strikes", generalizedText: "^monsters take #% reduced extra damage from critical strikes$", options: {tier17: true, scary: 1452}},
     {id: 581472251, regex: "tun", rawText: "Monsters cannot be Stunned|Monsters' Action Speed cannot be modified to below Base Value|Monsters' Movement Speed cannot be modified to below Base Value", generalizedText: "^monsters cannot be stunned$|^monsters' action speed cannot be modified to below base value$|^monsters' movement speed cannot be modified to below base value$", options: {tier17: true, scary: 1315}},
-    {id: 638612957, regex: "rev", rawText: "Monsters have 50% increased Accuracy Rating|Players have -20% to amount of Suppressed Spell Damage Prevented", generalizedText: "^monsters have #% increased accuracy rating$|^players have -#% to amount of suppressed spell damage prevented$", options: {tier17: false, scary: 365}},
+    {id: 638612957, regex: "prev", rawText: "Monsters have 50% increased Accuracy Rating|Players have -20% to amount of Suppressed Spell Damage Prevented", generalizedText: "^monsters have #% increased accuracy rating$|^players have -#% to amount of suppressed spell damage prevented$", options: {tier17: false, scary: 365}},
     {id: 667938191, regex: "^buf", rawText: "Buffs on Players expire 70% faster", generalizedText: "^buffs on players expire #% faster$", options: {tier17: false, scary: 96}},
     {id: 694566327, regex: "r li", rawText: "(40-49)% more Monster Life", generalizedText: "^#% more monster life$", options: {tier17: false, scary: 100}},
     {id: 719111530, regex: "a pow", rawText: "Monsters gain a Power Charge on Hit", generalizedText: "^monsters gain a power charge on hit$", options: {tier17: false, scary: 80}},
