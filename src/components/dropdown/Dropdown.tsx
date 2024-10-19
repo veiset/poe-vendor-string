@@ -4,12 +4,14 @@ interface DropdownProps {
   elements: string[]
   selected: string
   setSelected: (ele: string) => void;
+  style?: string | undefined
 }
 const Dropdown = (props: DropdownProps) => {
-  const {elements, selected, setSelected} = props;
+  const {elements, selected, setSelected, style} = props;
 
+  const className = "dropdown-select " + style ?? "";
   return (
-    <select className="dropdown-select" id="dropdown"
+    <select className={className} id="dropdown"
             value={selected}
             onChange={v => {
       setSelected(v.target.value);

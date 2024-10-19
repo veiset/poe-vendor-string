@@ -9,3 +9,7 @@
     font-size: 16px;
     font-family: monospace;
 }
+
+.selectable-search-max-width {
+    width: 98%;
+}

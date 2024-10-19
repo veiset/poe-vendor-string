@@ -1,8 +1,87 @@
 import {ContractLevel} from "../pages/heist/Heist";
 import {heistContractTypes} from "../generated/GeneratedHeist";
-import {useState} from "react";
+import {ItemCategory, MagicItemType, SelectedMod} from "../pages/magicitem/MagicItem";
 
 export const leagueName = "Settlers";
+export const categories: ItemCategory[] = [
+  {
+    name: "One Handed Weapons", itemType: [
+      {name: "Claws", modKey: "Claws"},
+      {name: "Daggers", modKey: "Daggers"},
+      {name: "Wands", modKey: "Wands"},
+      {name: "One Hand Swords", modKey: "One Hand Swords"},
+      {name: "Thrusting One Hand Swords", modKey: "Thrusting One Hand Swords"},
+      {name: "One Hand Axes", modKey: "One Hand Axes"},
+      {name: "One Hand Maces", modKey: "One Hand Maces"},
+      {name: "Sceptres", modKey: "Sceptres"},
+      {name: "Rune Daggers", modKey: "Rune Daggers"},
+    ]
+  },
+  {
+    name: "Two Handed Weapons", itemType: [
+      {name: "Bows", modKey: "Bows"},
+      {name: "Staves", modKey: "Staves"},
+      {name: "Two Hand Swords", modKey: "Two Hand Swords"},
+      {name: "Two Hand Axes", modKey: "Two Hand Axes"},
+      {name: "Two Hand Maces", modKey: "Two Hand Maces"},
+      {name: "Warstaves", modKey: "Warstaves"},
+      {name: "FIshing Rods", modKey: "Fishing Rods"},
+    ]
+  },
+  {
+    name: "Jewellery", itemType: [
+      {name: "Amulets", modKey: "Amulets"},
+      {name: "Rings", modKey: "Rings"},
+      {name: "Belts", modKey: "Belts"},
+      {name: "Trinkets", modKey: "Trinkets"},
+    ]
+  },
+  {
+    name: "Gloves", itemType: [
+      {name: "Gloves (str)", modKey: "Gloves (str)"},
+      {name: "Gloves (dex)", modKey: "Gloves (dex)"},
+      {name: "Gloves (int)", modKey: "Gloves (int)"},
+      {name: "Gloves (str / dex)", modKey: "Gloves (str, dex)"},
+      {name: "Gloves (str / int)", modKey: "Gloves (str, int)"},
+      {name: "Gloves (dex / int)", modKey: "Gloves (dex, int)"},
+    ]
+  },
+  {
+    name: "Boots", itemType: [
+      {name: "Boots (str)", modKey: "Boots (str)"},
+      {name: "Boots (dex)", modKey: "Boots (dex)"},
+      {name: "Boots (int)", modKey: "Boots (int)"},
+      {name: "Boots (str / dex)", modKey: "Boots (str, dex)"},
+      {name: "Boots (str / int)", modKey: "Boots (str, int)"},
+      {name: "Boots (dex / int)", modKey: "Boots (dex, int)"},
+    ]
+  },
+  {
+    name: "Helmets", itemType: [
+      {name: "Helmets (str)", modKey: "Helmets (str)"},
+      {name: "Helmets (dex)", modKey: "Helmets (dex)"},
+      {name: "Helmets (int)", modKey: "Helmets (int)"},
+      {name: "Helmets (str / dex)", modKey: "Helmets (str, dex)"},
+      {name: "Helmets (str / int)", modKey: "Helmets (str, int)"},
+      {name: "Helmets (dex / int)", modKey: "Helmets (dex, int)"},
+    ]
+  },
+  {
+    name: "Body Armours", itemType: [
+      {name: "Body Armours (str)", modKey: "Body Armours (str)"},
+      {name: "Body Armours (dex)", modKey: "Body Armours (dex)"},
+      {name: "Body Armours (int)", modKey: "Body Armours (int)"},
+      {name: "Body Armours (str / dex)", modKey: "Body Armours (str, dex)"},
+      {name: "Body Armours (str / int)", modKey: "Body Armours (str, int)"},
+      {name: "Body Armours (dex / int)", modKey: "Body Armours (dex, int)"},
+    ]
+  },
+  {
+    name: "Flasks", itemType: [
+      {name: "Tinctures", modKey: "Tinctures"},
+    ]
+  },
+]
 
 export interface SavedSettings {
   name: string
@@ -12,6 +91,7 @@ export interface SavedSettings {
   flask: FlaskSettings
   expedition: ExpeditionSettings
   map: MapSettings
+  item: ItemSettings
   mapT17: MapT17Settings
   vendor: VendorSettings
   mapNames: MapNameSettings
@@ -50,6 +130,16 @@ export interface ExpeditionSettings {
   addFillerItems: boolean,
   minValueToDisplay: number
   minAddValue: number
+}
+
+export interface ItemSettings {
+  category: ItemCategory
+  itemType: MagicItemType
+  selected: SelectedMod[]
+  customText: {
+    value: string,
+    enabled: boolean,
+  }
 }
 
 export interface MapSettings {
@@ -219,6 +309,15 @@ export const defaultSettings: SavedSettings = {
     addFillerItems: true,
     minValueToDisplay: 90,
     minAddValue: 0,
+  },
+  item: {
+    category: categories[0],
+    itemType: categories[0].itemType[0],
+    selected: [],
+    customText: {
+      value: "",
+      enabled: true,
+    }
   },
   map: {
     goodIds: [],

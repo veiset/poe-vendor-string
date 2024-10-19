@@ -1,0 +1,49 @@
+.grouped-token-list {
+    padding-top: 8px;
+    margin-right: 8px;
+
+    & .selected {
+        border-bottom: 1px solid black;
+        background-color: #9ed7fd;
+        color: #000000;
+    }
+}
+.grouped-token-list-group {
+    margin-left: 8px;
+}
+.grouped-token-list-group:nth-child(odd) {
+    background-color: #393a3e;
+}
+.grouped-token-list-group:nth-child(even) {
+    background-color: #27292c;
+}
+.grouped-token-list-header {
+    color: #ffffff;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.grouped-token-list-items {
+    background-color: #1a1e22;
+    & .selected {
+        background-color: #c0ecfa;
+    }
+}
+
+.grouped-token-list-item {
+    color: #dadada;
+    margin-left: 8px;
+    padding-left: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-bottom: #434343 1px dashed;
+    cursor: pointer;
+}
+.grouped-token-list-item:last-child {
+    border-bottom: 0;
+}
+.grouped-token-list-item:hover:not(.selected) {
+    background-color: #272c32;
+}
+.grouped-token-list-item:hover:not(.unselected) {
+}

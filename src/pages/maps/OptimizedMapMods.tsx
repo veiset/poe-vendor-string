@@ -43,7 +43,7 @@ const OptimizedMapMods = () => {
   }, [t17]);
 
   useEffect(() => {
-    let settings: MapSettings = {
+    const settings: MapSettings = {
       badIds: selectedBadIds,
       goodIds: selectedGoodIds,
       allGoodMods: modGrouping,

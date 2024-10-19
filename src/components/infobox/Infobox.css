@@ -1,0 +1,15 @@
+.infobox {
+    padding: 10px;
+    padding-bottom: 20px;
+    width: 100%;
+    background-color: #f3a575;
+    color: black;
+
+    & h2 {
+        color: black;
+    }
+
+    & .text {
+        padding-left: 20px;
+    }
+}
