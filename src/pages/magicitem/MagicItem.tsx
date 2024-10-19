@@ -64,10 +64,11 @@ const MagicItem = () => {
       ...profile,
       item: {...settings},
     });
-    setResult(selected
+    const s = selected
       .filter((e) => e.itemType === itemType.name)
       .map((e) => e.affix.regex)
-      .join("|"));
+      .join("|");
+    setResult(s ? `"${s}"` : "");
   }, [itemType, itemCategory, selected, itemCategory, itemType, enableCustomText, customTextStr]);
 
   function selectFn(key: string) {
