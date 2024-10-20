@@ -25,7 +25,7 @@ export const categories: ItemCategory[] = [
       {name: "Two Hand Axes", modKey: "Two Hand Axes"},
       {name: "Two Hand Maces", modKey: "Two Hand Maces"},
       {name: "Warstaves", modKey: "Warstaves"},
-      {name: "FIshing Rods", modKey: "Fishing Rods"},
+      {name: "Fishing Rods", modKey: "Fishing Rods"},
     ]
   },
   {
@@ -33,7 +33,6 @@ export const categories: ItemCategory[] = [
       {name: "Amulets", modKey: "Amulets"},
       {name: "Rings", modKey: "Rings"},
       {name: "Belts", modKey: "Belts"},
-      {name: "Trinkets", modKey: "Trinkets"},
     ]
   },
   {
@@ -133,6 +132,9 @@ export interface ExpeditionSettings {
 }
 
 export interface ItemSettings {
+  synthItem: boolean
+  matchAnyAffix: boolean
+  matchOpenAffix: boolean
   category: ItemCategory
   itemType: MagicItemType
   selected: SelectedMod[]
@@ -311,6 +313,9 @@ export const defaultSettings: SavedSettings = {
     minAddValue: 0,
   },
   item: {
+    synthItem: false,
+    matchAnyAffix: false,
+    matchOpenAffix: true,
     category: categories[0],
     itemType: categories[0].itemType[0],
     selected: [],

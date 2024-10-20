@@ -61,7 +61,7 @@ const GroupedTokenList = (props: GroupedTokenListProps) => {
         style={"selectable-search-max-width"}
       />
       <div className="grouped-token-list">
-        {displayedMods.map((group) => {
+        {displayedMods.sort((a,b) => (a.groupName > b.groupName) ? 0 : 1).map((group) => {
           const anyTokenSelected = hasSelected(group);
           const headerClassNames = "grouped-token-list-header " + (anyTokenSelected ? "selected" : "unselected");
           return (

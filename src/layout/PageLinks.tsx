@@ -44,7 +44,7 @@ const PageLinks = () => {
     <div className="page-links">
       <PageLink text="Vendor" icon={vendorIcon} route={"/"} currentPage={currentPage}/>
       <PageLink text="Map mods" icon={mapIcon} route={"/maps"} currentPage={currentPage}/>
-      {/*<PageLink text="Magic Items" icon={alterationIcon} route={"/items"} currentPage={currentPage}/>*/}
+      <PageLink text="Magic Items" icon={alterationIcon} route={"/items"} currentPage={currentPage}/>
       <PageLink text="Map names" icon={mapNameIcon} route={"/mapnames"} currentPage={currentPage}/>
       <PageLink text="Expedition" icon={expeditionIcon} route={"/expedition"} currentPage={currentPage}/>
       <PageLink text="Heist" icon={heistIcon} route={"/heist"} currentPage={currentPage}/>

@@ -5,9 +5,12 @@ import {categories, defaultSettings, ItemSettings} from "../../utils/SavedSettin
 import {ProfileContext} from "../../components/profile/ProfileContext";
 import {loadSettings, saveSettings} from "../../utils/LocalStorage";
 import Dropdown from "../../components/dropdown/Dropdown";
-import {ItemAffixRegex, magicItemGroups} from "../../generated/GeneratedMagicItem";
+import {ItemAffixRegex, magicItemGroups, problemBases} from "../../generated/GeneratedMagicItem";
 import GroupedTokenList, {GroupedTokens} from "../../components/GroupedTokenList/GroupedTokenList";
 import Infobox from "../../components/infobox/Infobox";
+import {generateMagicItemRegex} from "./MagicItemOutput";
+import {Checkbox} from "../vendor/Vendor";
+import "./MagicItem.css";
 
 export interface ItemCategory {
   name: string
@@ -33,11 +36,14 @@ const MagicItem = () => {
   const [selected, setSelected] = useState<SelectedMod[]>(profile.item.selected);
   const [modifiers, setModifiers] = useState<ItemAffixRegex[]>(magicItemGroups[profile.item.itemType.modKey]);
 
+  const [synthItem, setSynthItem] = useState(profile.item.synthItem);
+  const [matchAnyAffix, setMatchAnyAffix] = useState(profile.item.matchAnyAffix);
+  const [matchOpenAffix, setMatchOpenAffix] = useState(profile.item.matchOpenAffix);
   const [customTextStr, setCustomTextStr] = useState(profile.item.customText.value);
   const [enableCustomText, setEnableCustomText] = useState(profile.item.customText.enabled);
 
+  const [openPrefixWarning, setOpenPrefixWarning] = useState("");
   const [result, setResult] = useState("");
-
 
   useEffect(() => {
     setModifiers(magicItemGroups[itemType.modKey]);
@@ -51,7 +57,14 @@ const MagicItem = () => {
   }, [itemCategory]);
 
   useEffect(() => {
+    setOpenPrefixWarning(problemBases[itemType.modKey]?.join(", "));
+  }, [matchOpenAffix, itemType]);
+
+  useEffect(() => {
     const settings: ItemSettings = {
+      synthItem,
+      matchAnyAffix,
+      matchOpenAffix,
       category: itemCategory,
       itemType: itemType,
       selected,
@@ -64,19 +77,20 @@ const MagicItem = () => {
       ...profile,
       item: {...settings},
     });
-    const s = selected
-      .filter((e) => e.itemType === itemType.name)
-      .map((e) => e.affix.regex)
-      .join("|");
-    setResult(s ? `"${s}"` : "");
-  }, [itemType, itemCategory, selected, itemCategory, itemType, enableCustomText, customTextStr]);
+    setResult(generateMagicItemRegex(settings))
+  }, [itemType, itemCategory, selected, itemCategory, itemType, enableCustomText, customTextStr, synthItem, matchOpenAffix, matchAnyAffix]);
 
   function selectFn(key: string) {
+    // clean up selected mods that might have been updated on the backend
+    const cleanSelected = selected.filter((e) => {
+      return modifiers.map((e) => e.regex).some(regex => regex === e.affix.regex);
+    });
+
     const mod = modifiers.find((e) => e.description === key);
-    const isSelected = selected.some((e) => e.itemType === itemType.name && e.affix.description === mod?.description);
+    const isSelected = cleanSelected.some((e) => e.itemType === itemType.name && e.affix.description === mod?.description);
     isSelected
-      ? setSelected(selected.filter((e) => e.affix.description !== mod?.description))
-      : setSelected(selected.concat({itemType: itemType.name, affix: mod!!}));
+      ? setSelected(cleanSelected.filter((e) => e.affix.description !== mod?.description))
+      : setSelected(cleanSelected.concat({itemType: itemType.name, affix: mod!!}));
   }
 
   if (itemType === undefined) {
@@ -94,21 +108,20 @@ const MagicItem = () => {
       setEnableCustomText={setEnableCustomText}
       reset={() => {
         setSelected([]);
+        setSynthItem(defaultSettings.item.synthItem);
+        setMatchAnyAffix(defaultSettings.item.matchAnyAffix);
+        setMatchOpenAffix(defaultSettings.item.matchOpenAffix);
         setEnableCustomText(defaultSettings.item.customText.enabled);
         setCustomTextStr(defaultSettings.item.customText.value);
         setSelected(selected.filter((e) => e.itemType !== itemType.name))
       }}
     />
     <Infobox
-      header="Beta, incomplete features"
+      header="Beta: might contain incorrect matches"
       text="
-      Currently in early development so some features will be missing.;
-      This is not very well tested yet, some mods might not highlight / some mods might highlight incorrect stuff.;
-      Please report any issues found (@vz / #tooldev-general at the poe discord);;
-      Currently not handling:;
-      * Synth items;
-      * Influenced items;
-      * Open prefix/suffix"
+      Currently in early development so some features will be missing and it's not very well tested yet.;
+      Please report any issues found (@vz / #tooldev-general at the poe discord, or as a github issue);;
+      Currently not handling: Influenced items"
     />
     <div className="full-size generic-top-element">
       <h2>Select item base</h2>
@@ -124,6 +137,30 @@ const MagicItem = () => {
         setSelected={(selected) => setItemType(itemCategory.itemType.find((e) => e.name === selected)!!)}
         style={"dropdown-big"}
       />
+    </div>
+    <div className="full-size">
+      <Checkbox label="Item has synthesized implicit"
+                value={synthItem}
+                onChange={setSynthItem}/>
+      <Checkbox label="Match item if either prefix or suffix is found"
+                value={matchAnyAffix}
+                onChange={setMatchAnyAffix}/>
+      {matchAnyAffix && matchOpenAffix && (
+        <div className="open-affix-warning">
+          <span className="bold">Warning! </span>
+          Using this setting together with 'open prefix/suffix' will match an item as long as it has an open prefix/suffix.
+        </div>)}
+      <Checkbox label="Match item with open prefix/suffix"
+                value={matchOpenAffix}
+                onChange={setMatchOpenAffix}/>
+      {matchOpenAffix && openPrefixWarning && (
+        <div className="open-affix-warning">
+          <span className="bold">Warning! </span>
+          Cannot match open prefix/suffix on the following bases:<br/>
+          <span className="bases bold">{openPrefixWarning}</span><br/>
+          Disable this option if you're using on of those bases.
+        </div>)
+      }
     </div>
     <div className="break"/>
     <div className="eq-col-2">
