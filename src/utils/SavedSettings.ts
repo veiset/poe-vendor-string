@@ -29,6 +29,17 @@ export const categories: ItemCategory[] = [
     ]
   },
   {
+    name: "Offhand", itemType: [
+      {name: "Quivers", modKey: "Quivers"},
+      {name: "Shields (str)", modKey: "Shields (str)"},
+      {name: "Shields (dex)", modKey: "Shields (dex)"},
+      {name: "Shields (int)", modKey: "Shields (int)"},
+      {name: "Shields (str / dex)", modKey: "Shields (str, dex)"},
+      {name: "Shields (str / int)", modKey: "Shields (str, int)"},
+      {name: "Shields (dex / int)", modKey: "Shields (dex, int)"},
+    ],
+  },
+  {
     name: "Jewellery", itemType: [
       {name: "Amulets", modKey: "Amulets"},
       {name: "Rings", modKey: "Rings"},
