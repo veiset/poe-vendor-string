@@ -193,7 +193,6 @@ function modsToGroupedTokens(modifiers: ItemAffixRegex[] | undefined): GroupedTo
         acc[generalizedName] = {groupName: generalizedName, tokens: []};
       }
       acc[generalizedName].tokens.push(affix.description);
-      console.log(affix.description);
       return acc;
     }, {} as { [key: string]: GroupedTokens })
   );
