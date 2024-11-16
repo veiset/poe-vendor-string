@@ -186,18 +186,17 @@ function modsToGroupedTokens(modifiers: ItemAffixRegex[] | undefined): GroupedTo
   if (modifiers === undefined) return [];
   return Object.values(
     modifiers.reduce((acc, affix) => {
-      if (!acc[affix.family]) {
-        acc[affix.family] = {groupName: affix.family, tokens: []};
+      const generalizedName = affix.description
+        .replaceAll(/\(\d+(\.\d+)?-\d+(\.\d+)?\)+/g, "#")
+        .replaceAll(/\d+/g, "#");
+      if (!acc[generalizedName]) {
+        acc[generalizedName] = {groupName: generalizedName, tokens: []};
       }
-      acc[affix.family].tokens.push(affix.description);
+      acc[generalizedName].tokens.push(affix.description);
+      console.log(affix.description);
       return acc;
     }, {} as { [key: string]: GroupedTokens })
-  ).map((e) => {
-    const generalizedName = e.tokens[0]
-      .replaceAll(/\(\d+(\.\d+)?-\d+(\.\d+)?\)+/g, "#")
-      .replaceAll(/\d+/g, "#");
-    return {groupName: generalizedName, tokens: e.tokens}
-  });
+  );
 }
 
 export default MagicItem;
