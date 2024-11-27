@@ -26,6 +26,7 @@ export const regexMapModifiersRegular: Regex<MapModifiersRegularTokenOption> = {
     {id: -1036254613, regex: "zy c", rawText: "Monsters gain a Frenzy Charge on Hit", generalizedText: "^monsters gain a frenzy charge on hit$", options: {tier17: false, scary: 80}},
     {id: -926892006, regex: "m li", rawText: "Monsters gain (40-49)% of Maximum Life as Extra Maximum Energy Shield", generalizedText: "^monsters gain #% of maximum life as extra maximum energy shield$", options: {tier17: false, scary: 240}},
     {id: -818452956, regex: "gen", rawText: "Players cannot Regenerate Life, Mana or Energy Shield", generalizedText: "^players cannot regenerate life, mana or energy shield$", options: {tier17: false, scary: 700}},
+    {id: -807590096, regex: "fied m", rawText: "Unidentified Map", generalizedText: "^unidentified map$", options: {tier17: true, scary: 121}},
     {id: -696963131, regex: "tal d", rawText: "Monsters reflect 18% of Elemental Damage", generalizedText: "^monsters reflect #% of elemental damage$", options: {tier17: false, scary: 1000}},
     {id: -529767307, regex: "elo", rawText: "Monsters cannot be Taunted|Monsters' Action Speed cannot be modified to below Base Value|Monsters' Movement Speed cannot be modified to below Base Value", generalizedText: "^monsters cannot be taunted$|^monsters' action speed cannot be modified to below base value$|^monsters' movement speed cannot be modified to below base value$", options: {tier17: false, scary: 89}},
     {id: -500015770, regex: "tim", rawText: "Monsters' skills Chain 2 additional times", generalizedText: "^monsters' skills chain # additional times$", options: {tier17: false, scary: 380}},
@@ -85,7 +86,6 @@ export const regexMapModifiersRegular: Regex<MapModifiersRegularTokenOption> = {
     {id: 2023345436, regex: "itc", rawText: "Area is inhabited by Sea Witches and their Spawn", generalizedText: "^area is inhabited by sea witches and their spawn$", options: {tier17: false, scary: 4}},
     {id: 2042799595, regex: "ety", rawText: "Area has increased monster variety", generalizedText: "^area has increased monster variety$", options: {tier17: false, scary: 8}},
     {id: 2043204851, regex: "d at", rawText: "Unique Boss deals 25% increased Damage|Unique Boss has 30% increased Attack and Cast Speed", generalizedText: "^unique boss deals #% increased damage$|^unique boss has #% increased attack and cast speed$", options: {tier17: false, scary: 420}},
-    {id: 2084106149, regex: "ide", rawText: "Unidentified Maps", generalizedText: "^unidentified maps$", options: {tier17: false, scary: 0}},
   ],
   optimizationTable: {
     "-2103899765:-1462808973": {ids: [-2103899765, -1462808973], regex: "ik", weight: 2, count: 2},
