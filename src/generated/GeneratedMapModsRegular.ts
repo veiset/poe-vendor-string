@@ -85,6 +85,7 @@ export const regexMapModifiersRegular: Regex<MapModifiersRegularTokenOption> = {
     {id: 2023345436, regex: "itc", rawText: "Area is inhabited by Sea Witches and their Spawn", generalizedText: "^area is inhabited by sea witches and their spawn$", options: {tier17: false, scary: 4}},
     {id: 2042799595, regex: "ety", rawText: "Area has increased monster variety", generalizedText: "^area has increased monster variety$", options: {tier17: false, scary: 8}},
     {id: 2043204851, regex: "d at", rawText: "Unique Boss deals 25% increased Damage|Unique Boss has 30% increased Attack and Cast Speed", generalizedText: "^unique boss deals #% increased damage$|^unique boss has #% increased attack and cast speed$", options: {tier17: false, scary: 420}},
+    {id: 2084106149, regex: "ide", rawText: "Unidentified Maps", generalizedText: "^unidentified maps$", options: {tier17: false, scary: 0}},
   ],
   optimizationTable: {
     "-2103899765:-1462808973": {ids: [-2103899765, -1462808973], regex: "ik", weight: 2, count: 2},
