@@ -42,6 +42,11 @@ const PageLinks = () => {
   return (<div className="page-link-wrapper">
     <div className="page-link-header">Path of Regex</div>
     <div className="page-links">
+      <p className="poe2-link">
+        <a className="source-link" href="https://poe2.re" rel="noreferrer">
+          Path of Exile 2 Regex
+        </a>
+      </p>
       <PageLink text="Vendor" icon={vendorIcon} route={"/"} currentPage={currentPage}/>
       <PageLink text="Map mods" icon={mapIcon} route={"/maps"} currentPage={currentPage}/>
       <PageLink text="Magic Items" icon={alterationIcon} route={"/items"} currentPage={currentPage}/>
