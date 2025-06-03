@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.47b097cd.css",
-    "main.js": "/static/js/main.c58be730.js",
+    "main.js": "/static/js/main.ce96f44a.js",
     "static/media/bmc-logo-no-background.png": "/static/media/bmc-logo-no-background.d6e284bcf6fb5faa732f.png",
     "static/media/manrope-all-400-normal.woff": "/static/media/manrope-all-400-normal.29812aea39915b828ff1.woff",
     "static/media/chateau_map.png": "/static/media/chateau_map.6d9adf2898e74a310f15.png",
@@ -18,10 +18,10 @@
     "static/media/manrope-cyrillic-ext-400-normal.woff2": "/static/media/manrope-cyrillic-ext-400-normal.a26a46564e052e1282fa.woff2",
     "index.html": "/index.html",
     "main.47b097cd.css.map": "/static/css/main.47b097cd.css.map",
-    "main.c58be730.js.map": "/static/js/main.c58be730.js.map"
+    "main.ce96f44a.js.map": "/static/js/main.ce96f44a.js.map"
   },
   "entrypoints": [
     "static/css/main.47b097cd.css",
-    "static/js/main.c58be730.js"
+    "static/js/main.ce96f44a.js"
   ]
 }
