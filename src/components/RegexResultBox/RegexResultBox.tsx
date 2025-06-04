@@ -27,7 +27,7 @@ const RegexResultBox = (props: RegexResultBoxProps) => {
     maxLength
   } = props;
 
-  const maxLen = maxLength ?? 50;
+  const maxLen = maxLength ?? 250;
   const [showOptions, setShowOptions] = useState(false);
   const [copied, setCopied] = React.useState<string | undefined>(undefined);
   const [autoCopy, setAutoCopy] = React.useState(false);
