@@ -12,7 +12,7 @@ export interface ResultBoxProps {
 
 const ResultBox = (props: ResultBoxProps) => {
   const {result, warning, error, reset} = props;
-  const maxLength = props.maxLength || 50;
+  const maxLength = props.maxLength || 250;
 
   const [copied, setCopied] = React.useState<string | undefined>(undefined);
   const [autoCopy, setAutoCopy] = React.useState(false);
