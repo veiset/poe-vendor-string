@@ -125,7 +125,7 @@ const Beast = () => {
   return (
     <>
       <Header text={"Bestiary"}/>
-      <ResultBox result={result} warning={""} maxLength={(menagerieLimit ? 100 : 50)} reset={() => {
+      <ResultBox result={result} warning={""} maxLength={(menagerieLimit ? 100 : 250)} reset={() => {
         setIncludeHarvest(defaultSettings.beast.includeHarvest);
         setMinChaosValue(defaultSettings.beast.minChaosValue);
         setMaxChaosValue(defaultSettings.beast.maxChaosValue);
