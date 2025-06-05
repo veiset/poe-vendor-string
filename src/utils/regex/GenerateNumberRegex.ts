@@ -63,11 +63,11 @@ export function generateNumberRegex(number: string, optimize: boolean): string {
     const d0 = str[0];
     const d1 = str[1];
     if (str[1] === "0") {
-      return `([${d0}-9].|[1-9]..)`;
+      return `([${d0}-9].|\\d..)`;
     } else if (str[0] === "9") {
-      return `(${d0}[${d1}-9]|[1-9]..)`;
+      return `(${d0}[${d1}-9]|\\d..)`;
     } else {
-      return `(${d0}[${d1}-9]|[${Number(d0) + 1}-9].|[1-9]..)`;
+      return `(${d0}[${d1}-9]|[${Number(d0) + 1}-9].|\\d..)`;
     }
   }
   if (quant <= 9) {
