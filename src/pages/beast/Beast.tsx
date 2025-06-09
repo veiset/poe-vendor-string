@@ -8,7 +8,7 @@ import Collapsable from "../../components/collapsable/Collapsable";
 import {dateTextFromString} from "../expedition/ExpeditionUtils";
 import {Checkbox} from "../vendor/Vendor";
 import {loadSettings, saveSettings} from "../../utils/LocalStorage";
-import {defaultSettings, SavedSettings} from "../../utils/SavedSettings";
+import {defaultSettings} from "../../utils/SavedSettings";
 import {ProfileContext} from "../../components/profile/ProfileContext";
 
 export interface PoeNinjaBeast {
@@ -52,7 +52,7 @@ const generateRegex = (
       if (!includeHarvest && el.harvest) {
         return acc;
       }
-      if (acc.length + el.regex.length + 1 > (menagerieLimit ? 100 : 50)) {
+      if (acc.length + el.regex.length + 1 > (menagerieLimit ? 250 : 250)) {
         done = true;
         return acc;
       }
@@ -125,7 +125,7 @@ const Beast = () => {
   return (
     <>
       <Header text={"Bestiary"}/>
-      <ResultBox result={result} warning={""} maxLength={(menagerieLimit ? 100 : undefined)} reset={() => {
+      <ResultBox result={result} warning={""} maxLength={(menagerieLimit ? 250 : 250)} reset={() => {
         setIncludeHarvest(defaultSettings.beast.includeHarvest);
         setMinChaosValue(defaultSettings.beast.minChaosValue);
         setMaxChaosValue(defaultSettings.beast.maxChaosValue);

@@ -1,6 +1,6 @@
 .result-box {
     font-family: monospace;
-    font-size: 24px;
+    font-size: 18px;
     background-color: var(--color-area);
     color: var(--color-text);
     flex-wrap: nowrap;
@@ -13,7 +13,7 @@
 
 .result {
     padding: 30px;
-    height: 62px;
+    height: 70px;
     text-wrap: none;
     flex-shrink: 10;
     flex-grow: 0;

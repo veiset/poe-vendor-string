@@ -321,7 +321,7 @@ export const defaultSettings: SavedSettings = {
     league: leagueName,
     addFillerItems: true,
     minValueToDisplay: 90,
-    minAddValue: 0,
+    minAddValue: 90,
   },
   item: {
     synthItem: false,
@@ -341,9 +341,9 @@ export const defaultSettings: SavedSettings = {
     allGoodMods: true,
     quantity: "",
     packsize: "",
-    optimizeQuant: true,
-    optimizePacksize: true,
-    optimizeQuality: true,
+    optimizeQuant: false,
+    optimizePacksize: false,
+    optimizeQuality: false,
     t17: false,
     rarity: {
       normal: true,
@@ -368,8 +368,8 @@ export const defaultSettings: SavedSettings = {
     mods: [],
     quantity: "",
     packsize: "",
-    optimizeQuant: true,
-    optimizePacksize: true,
+    optimizeQuant: false,
+    optimizePacksize: false,
   },
   mapNames: {
     selected: [],

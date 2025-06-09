@@ -30,8 +30,8 @@ export const generateFillerBases = (selectedBases: string[], priceData: PriceDat
         }
         const regexAddition = "|" + baseTypeRegex[el.baseType].regex.replaceAll("\"", "");
         const newRegexSize = count + regexAddition.length;
-        if (newRegexSize > 50) {
-            count = 50;
+        if (newRegexSize > 250) {
+            count = 250;
             return acc;
         } else {
             count += regexAddition.length;

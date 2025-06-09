@@ -5,7 +5,6 @@ import Header from "../../components/Header";
 import {regexMapModifiersRegular} from "../../generated/GeneratedMapModsRegular";
 import {regexMapModifierT17} from "../../generated/GeneratedMapModsT17";
 import SelectableTokenList from "../../components/SelectableTokenList/SelectableTokenList";
-import ResultBox from "../../components/ResultBox";
 import {getGradientColor} from "../../utils/ColorGradient";
 import {defaultSettings, MapSettings} from "../../utils/SavedSettings";
 import {Checkbox} from "../vendor/Vendor";
@@ -83,6 +82,7 @@ const OptimizedMapMods = () => {
           setSelectedGoodIds(defaultSettings.map.goodIds);
           setOptimizePacksize(defaultSettings.map.optimizePacksize);
           setOptimizeQuant(defaultSettings.map.optimizeQuant);
+          setOptimizeQuality(defaultSettings.map.optimizeQuality);
           setModGrouping(defaultSettings.map.allGoodMods)
           setQuantity(defaultSettings.map.quantity);
           setPacksize(defaultSettings.map.packsize);

@@ -24,7 +24,7 @@ import {
   toggleSelectBaseType
 } from "./ExpeditionUtils";
 import {ExpeditionHelp} from "./ExpeditionHelp";
-import {defaultSettings, SavedSettings} from "../../utils/SavedSettings";
+import {defaultSettings} from "../../utils/SavedSettings";
 import {loadSettings, saveSettings} from "../../utils/LocalStorage";
 import {ProfileContext} from "../../components/profile/ProfileContext";
 

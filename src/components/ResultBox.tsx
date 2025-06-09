@@ -22,7 +22,7 @@ const ResultBox = (props: ResultBoxProps) => {
       navigator.clipboard.writeText(result);
       setCopied(result);
     }
-  }, [result, autoCopy, error]);
+  }, [result, autoCopy, error, maxLength]);
 
   return (
     <div className="row result-box">
