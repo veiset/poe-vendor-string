@@ -14,6 +14,7 @@ import {VendorSettings} from "../../utils/SavedSettings";
 import {ProfileContext} from "../../components/profile/ProfileContext";
 import {gems} from "../../generated/GeneratedGems";
 import GemNameList from './GemNameList';
+import Infobox from '../../components/infobox/Infobox';
 
 // TODO: Ideally we'd pre-filter these out of GeneratedGems before generating
 // regexes to avoid needlessly verbose regexes for every gem with a transfigured
@@ -299,6 +300,12 @@ const Vendor = () => {
 
       <div className="full-size">
         <h2>Gems</h2>
+        <Infobox
+          header="Beta: might contain incorrect matches"
+          text="
+          Not fully tested yet, might accidentally match unexpected items.;
+          Please report any issues found (@vz / #tooldev-general at the poe discord, or as a github issue);"
+        />
         <GemNameList id="gemnamelist" gemNames={SELECTABLE_GEM_NAMES} selected={selectedGems} setSelected={setSelectedGems}/>
       </div>
 
