@@ -91,7 +91,7 @@ export function generateResultString(settings: PoeStringSettings): string {
   result = addExpression(result, generateGems(settings));
   result = simplifyRBG(result);
   // fix for quoted regexes
-  if (result.match("\"")) {
+  if (result.match("\"| ")) {
     result = result.replaceAll("\"", "");
     result = `"${result}"`;
   }
