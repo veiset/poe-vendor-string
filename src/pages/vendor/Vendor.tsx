@@ -20,7 +20,7 @@ import GemNameList from './GemNameList';
 // alternative
 const SELECTABLE_GEM_NAMES = Object.values(gems).filter(g => (
   g.description &&
-  !/\[UNUSED\]|Playtest|^Vaal| of /.test(g.name) &&
+  !/\[UNUSED\]|Playtest|^New|^Vaal| of |Blinding Aura|Death Aura|Wand Teleport| Channeled$/.test(g.name) &&
   !/\[UNUSED\]/.test(g.description)
 )).map(g => g.name)
 
@@ -297,8 +297,8 @@ const Vendor = () => {
         </div>
       </div>
 
-      <div className="vendor-wrapper">
-      <div className="column-header">I want these gems:</div>
+      <div className="full-size">
+        <h2>Gems</h2>
         <GemNameList id="gemnamelist" gemNames={SELECTABLE_GEM_NAMES} selected={selectedGems} setSelected={setSelectedGems}/>
       </div>
 
