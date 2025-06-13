@@ -2,7 +2,7 @@ import {ContractLevel} from "../pages/heist/Heist";
 import {heistContractTypes} from "../generated/GeneratedHeist";
 import {ItemCategory, MagicItemType, SelectedMod} from "../pages/magicitem/MagicItem";
 
-export const leagueName = "Settlers";
+export const leagueName = "Mercenaries";
 export const categories: ItemCategory[] = [
   {
     name: "One Handed Weapons", itemType: [
