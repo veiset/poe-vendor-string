@@ -31,7 +31,7 @@ const GemNameList = (props: GemNameListProps) => {
   return (
     <>
       <div className="half-size box-small-padding">
-        <ModSearchBox id={id} className="gem-search-box" search={search} setSearch={setSearch} placeholder={"Search for a Gem..."}/>
+        <ModSearchBox id={id} search={search} setSearch={setSearch} placeholder={"Search for a Gem..."}/>
       </div>
       <div className="gem-name-list">
         {filteredGems.map((v) => {
