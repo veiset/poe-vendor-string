@@ -329,7 +329,7 @@ export function addExpression(str: string, textToAdd: string | undefined): strin
 export function movementStr(settings: PoeStringSettings): string {
   const {ten, fifteen} = settings.movement;
   let result = "";
-  if (ten) result = addExpression(result, "nne");
+  if (ten) result = addExpression(result, "Runn");
   if (fifteen) result = addExpression(result, "rint");
   return result;
 }
@@ -338,11 +338,11 @@ export function gemStr(settings: PoeStringSettings): string {
   const {lightning, chaos, cold, fire, phys, any} = settings.plusGems;
   if (any || (lightning && chaos && cold && fire && phys)) return "\"ll g\"";
   let result = "";
-  if (fire) result = addExpression(result, "Flam");
+  if (fire) result = addExpression(result, "me Sh");
   if (cold) result = addExpression(result, "singe");
   if (lightning) result = addExpression(result, "derha");
   if (chaos) result = addExpression(result, "Lord");
-  if (phys) result = addExpression(result, "itho");
+  if (phys) result = addExpression(result, "Litho");
   return result;
 }
 
