@@ -1,0 +1,12 @@
+.gem-name-list {
+    cursor: pointer;
+    padding: 8px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 33% 33% 33%;
+}
+
+.gem-r:not(.selected-mod) { color: #fab4bb; }
+.gem-g:not(.selected-mod) { color: #c2ffe3; }
+.gem-b:not(.selected-mod) { color: #8c7df0; }
+.gem-w:not(.selected-mod) { color: #ffffff; }

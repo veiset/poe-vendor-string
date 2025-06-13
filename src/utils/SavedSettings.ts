@@ -286,6 +286,7 @@ export interface VendorSettings {
     staff: boolean
     wand: boolean
   }
+  gems?: string[]
 }
 
 export const defaultSettings: SavedSettings = {

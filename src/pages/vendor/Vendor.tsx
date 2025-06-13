@@ -12,7 +12,18 @@ import Header from "../../components/Header";
 import {loadSettings, saveSettings} from "../../utils/LocalStorage";
 import {VendorSettings} from "../../utils/SavedSettings";
 import {ProfileContext} from "../../components/profile/ProfileContext";
+import {gems} from "../../generated/GeneratedGems";
+import GemNameList from './GemNameList';
+import Infobox from '../../components/infobox/Infobox';
 
+// TODO: Ideally we'd pre-filter these out of GeneratedGems before generating
+// regexes to avoid needlessly verbose regexes for every gem with a transfigured
+// alternative
+const SELECTABLE_GEM_NAMES = Object.values(gems).filter(g => (
+  g.description &&
+  !/\[UNUSED\]|Playtest|^New|^Vaal| of |Blinding Aura|Death Aura|Wand Teleport| Channeled$/.test(g.name) &&
+  !/\[UNUSED\]/.test(g.description)
+)).map(g => g.name)
 
 const Vendor = () => {
   const {globalProfile} = useContext(ProfileContext);
@@ -86,6 +97,7 @@ const Vendor = () => {
   const [weaponStaff, setWeaponStaff] = React.useState(profile.vendor.weapon.staff);
   const [weaponWand, setWeaponWand] = React.useState(profile.vendor.weapon.wand);
 
+  const [selectedGems, setSelectedGems] = React.useState(profile.vendor.gems ?? [])
 
   const listOfOptions = [
     setRrr, setGgg, setBbb,
@@ -113,6 +125,7 @@ const Vendor = () => {
     fire, cold, phys, chaos, anyGem,
     dmgPhys, fireMult, coldMult, chaosMult,
     weaponSceptre, weaponMace, weaponAxe, weaponSword, weaponBow, weaponClaw, weaponDagger, weaponStaff, weaponWand,
+    selectedGems
   ]
 
   let settings: VendorSettings = {
@@ -162,7 +175,8 @@ const Vendor = () => {
       dagger: weaponDagger,
       staff: weaponStaff,
       wand: weaponWand,
-    }
+    },
+    gems: selectedGems
   };
 
   useEffect(() => {
@@ -187,6 +201,7 @@ const Vendor = () => {
         listOfNumbers.forEach(settings => {
           settings(undefined);
         })
+        setSelectedGems([])
       }}/>
       <div className="break"/>
       <div className="vendor-wrapper">
@@ -281,6 +296,17 @@ const Vendor = () => {
                       onChange={setWeaponDagger}/>
           </div>
         </div>
+      </div>
+
+      <div className="full-size">
+        <h2>Gems</h2>
+        <Infobox
+          header="Beta: might contain incorrect matches"
+          text="
+          Not fully tested yet, might accidentally match unexpected items.;
+          Please report any issues found (@vz / #tooldev-general at the poe discord, or as a github issue);"
+        />
+        <GemNameList id="gemnamelist" gemNames={SELECTABLE_GEM_NAMES} selected={selectedGems} setSelected={setSelectedGems}/>
       </div>
 
       <div className="break"/>

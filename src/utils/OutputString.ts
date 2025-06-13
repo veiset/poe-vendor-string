@@ -1,3 +1,5 @@
+import { gems } from "../generated/GeneratedGems"
+
 export interface PoeStringSettings {
   anyThreeLink: boolean
   anyFourLink: boolean
@@ -70,6 +72,7 @@ export interface PoeStringSettings {
     staff: boolean
     wand: boolean
   }
+  gems?: string[] // GeneratedGems keys
 }
 
 export function generateResultString(settings: PoeStringSettings): string {
@@ -82,12 +85,13 @@ export function generateResultString(settings: PoeStringSettings): string {
   result = addExpression(result, simplify(generate3LinkStr(settings)));
   result = addExpression(result, generate2Link(settings));
   result = addExpression(result, movementStr(settings));
-  result = addExpression(result, gemStr(settings));
+  result = addExpression(result, plusGemsStr(settings));
   result = addExpression(result, generateWeaponDamage(settings));
   result = addExpression(result, generateWeaponType(settings));
+  result = addExpression(result, generateGems(settings));
   result = simplifyRBG(result);
   // fix for quoted regexes
-  if (result.match("\"")) {
+  if (result.match("\"| ")) {
     result = result.replaceAll("\"", "");
     result = `"${result}"`;
   }
@@ -96,8 +100,15 @@ export function generateResultString(settings: PoeStringSettings): string {
 
 export function generateWarnings(settings: PoeStringSettings): string | undefined {
   let warnings = "";
-  if (gemStr(settings) && settings.weapon.wand) {
+  if (plusGemsStr(settings) && settings.weapon.wand) {
     warnings += "All wands will be displayed [conflict: +1 wand & weapon base=wand].";
+  }
+  const usesVendorGems = !!generateGems(settings)
+  if (usesVendorGems && generateWeaponType(settings)) {
+    warnings += "Undesired gems will be displayed [conflict: weapon types & vendor gems]"
+  }
+  if (usesVendorGems && settings.damage.phys) {
+    warnings += "Heavy Strike will be displayed [conflict: phys damage & vendor gems]"
   }
   return warnings ?? undefined;
 }
@@ -329,20 +340,20 @@ export function addExpression(str: string, textToAdd: string | undefined): strin
 export function movementStr(settings: PoeStringSettings): string {
   const {ten, fifteen} = settings.movement;
   let result = "";
-  if (ten) result = addExpression(result, "nne");
+  if (ten) result = addExpression(result, "Runn");
   if (fifteen) result = addExpression(result, "rint");
   return result;
 }
 
-export function gemStr(settings: PoeStringSettings): string {
+export function plusGemsStr(settings: PoeStringSettings): string {
   const {lightning, chaos, cold, fire, phys, any} = settings.plusGems;
   if (any || (lightning && chaos && cold && fire && phys)) return "\"ll g\"";
   let result = "";
-  if (fire) result = addExpression(result, "Flam");
+  if (fire) result = addExpression(result, "me Sh");
   if (cold) result = addExpression(result, "singe");
   if (lightning) result = addExpression(result, "derha");
   if (chaos) result = addExpression(result, "Lord");
-  if (phys) result = addExpression(result, "itho");
+  if (phys) result = addExpression(result, "Litho");
   return result;
 }
 
@@ -376,4 +387,13 @@ export function generateWeaponType(settings: PoeStringSettings): string {
   } else {
     return "";
   }
+}
+
+export function generateGems(settings: PoeStringSettings): string {
+  if (!settings.gems?.length) {
+    return "";
+  }
+  return settings.gems.reduce((expr, gemKey) => 
+    addExpression(expr, gems[gemKey]?.regex)
+  )
 }
