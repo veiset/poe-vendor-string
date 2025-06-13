@@ -21,7 +21,7 @@ import Infobox from '../../components/infobox/Infobox';
 // alternative
 const SELECTABLE_GEM_NAMES = Object.values(gems).filter(g => (
   g.description &&
-  !/\[UNUSED\]|Playtest|^New|^Vaal| of |Blinding Aura|Death Aura|Wand Teleport| Channeled$/.test(g.name) &&
+  !/\[UNUSED\]|Playtest|^New|^Vaal|Blinding Aura|Death Aura|Wand Teleport| Channeled$/.test(g.name) &&
   !/\[UNUSED\]/.test(g.description)
 )).map(g => g.name)
 
