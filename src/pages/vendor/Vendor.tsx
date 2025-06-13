@@ -301,8 +301,9 @@ const Vendor = () => {
       <div className="full-size">
         <h2>Gems</h2>
         <Infobox
-          header="Beta: might contain incorrect matches"
+          header="Beta: incomplete, might contain incorrect matches"
           text="
+          Known issues: Missing support gems, should omit transfigured gems.;
           Not fully tested yet, might accidentally match unexpected items.;
           Please report any issues found (@vz / #tooldev-general at the poe discord, or as a github issue);"
         />
