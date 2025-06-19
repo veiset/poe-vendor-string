@@ -182,7 +182,8 @@ export interface MapSettings {
   customText: {
     value: string,
     enabled: boolean,
-  }
+  },
+  mapDropChance: string,
 }
 
 export interface MapT17Settings {
@@ -363,7 +364,8 @@ export const defaultSettings: SavedSettings = {
     customText: {
       value: "",
       enabled: true,
-    }
+    },
+    mapDropChance: "",
   },
   mapT17: {
     mods: [],

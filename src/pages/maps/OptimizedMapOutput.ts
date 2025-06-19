@@ -8,11 +8,12 @@ export function generateMapModRegex(settings: MapSettings, regex: Regex<any>): s
   const inclusions = generateGoodMods(settings, regex);
   const quantity = addQuantifier("m q.*", generateNumberRegex(settings.quantity, settings.optimizeQuant));
   const packsize = addQuantifier("iz.*", generateNumberRegex(settings.packsize, settings.optimizePacksize));
+  const mapDrop = addQuantifier("ap.*dro.*", generateNumberRegex(settings.mapDropChance, false));
   const quality = addQuantifier(qualityQualifier(settings), generateNumberRegex(settings.quality.value, settings.optimizeQuality));
   const rarity = addRarityRegex(settings.rarity.normal, settings.rarity.magic, settings.rarity.rare, settings.rarity.include);
   const corrupted = corruptedMapCheck(settings);
 
-  const result = `${exclusions} ${inclusions} ${quantity} ${packsize} ${quality} ${rarity} ${corrupted}`
+  const result = `${exclusions} ${inclusions} ${quantity} ${packsize} ${quality} ${rarity} ${mapDrop} ${corrupted}`
     .trim().replaceAll(/\s{2,}/g, ' ');
 
   return optimize(result);

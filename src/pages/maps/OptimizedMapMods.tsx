@@ -33,6 +33,7 @@ const OptimizedMapMods = () => {
   const [quality, setQuality] = useState(profile.map.quality);
   const [t17, setT17] = useState(profile.map.t17);
   const [regex, setRegex] = useState(t17 ? regexT17 : regexRegular);
+  const [mapDropChance, setMapDropChance] = useState(profile.map.mapDropChance);
 
   const [customTextStr, setCustomTextStr] = useState(profile.map.customText.value);
   const [enableCustomText, setEnableCustomText] = useState(profile.map.customText.enabled);
@@ -58,14 +59,15 @@ const OptimizedMapMods = () => {
       customText: {
         value: customTextStr,
         enabled: enableCustomText,
-      }
+      },
+      mapDropChance,
     };
     saveSettings({
       ...profile,
       map: {...settings},
     });
     setResult(generateMapModRegex(settings, regex));
-  }, [result, rarity, corrupted, quality, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex]);
+  }, [result, rarity, corrupted, quality, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance]);
 
   return (
     <>
@@ -91,6 +93,7 @@ const OptimizedMapMods = () => {
           setQuality(defaultSettings.map.quality);
           setEnableCustomText(defaultSettings.map.customText.enabled);
           setCustomTextStr(defaultSettings.map.customText.value);
+          setMapDropChance(defaultSettings.map.mapDropChance);
         }}
       />
       <div className="break"/>
@@ -103,6 +106,11 @@ const OptimizedMapMods = () => {
         <input type="search" className="modifier-quantity-box" id="pack-size" name="search-mod" value={packsize}
                onChange={v => setPacksize(v.target.value)}/>
 
+        <label className="modifier-search-label" htmlFor="mapdrop">Map drop chance of at least</label>
+        <input type="search" className="modifier-quantity-box" id="mapdrop" name="search-mod" value={mapDropChance}
+               onChange={v => setMapDropChance(v.target.value)}/>
+        <div className="break"/>
+
         <label className="modifier-search-label" htmlFor="quality">Quality of at least</label>
         <input type="search" className="modifier-quantity-box" id="quality" name="search-mod" value={quality.value}
                onChange={v => setQuality({...quality, value: v.target.value})}/>
@@ -111,6 +119,7 @@ const OptimizedMapMods = () => {
           selected={quality.type}
           setSelected={(selected) => setQuality({...quality, type: selected})}
         />
+
 
         <Checkbox label="Optimize Quantity value (round down to nearest 10, saves a lot of query space)"
                   value={optimizeQuant}
