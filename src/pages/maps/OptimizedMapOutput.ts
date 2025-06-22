@@ -8,7 +8,7 @@ export function generateMapModRegex(settings: MapSettings, regex: Regex<any>): s
   const inclusions = generateGoodMods(settings, regex);
   const quantity = addQuantifier("m q.*", generateNumberRegex(settings.quantity, settings.optimizeQuant));
   const packsize = addQuantifier("iz.*", generateNumberRegex(settings.packsize, settings.optimizePacksize));
-  const mapDrop = addQuantifier("ap.*dro.*", generateNumberRegex(settings.mapDropChance, false));
+  const mapDrop = addQuantifier("re maps.*", generateNumberRegex(settings.mapDropChance, false));
   const quality = addQuantifier(qualityQualifier(settings), generateNumberRegex(settings.quality.value, settings.optimizeQuality));
   const rarity = addRarityRegex(settings.rarity.normal, settings.rarity.magic, settings.rarity.rare, settings.rarity.include);
   const corrupted = corruptedMapCheck(settings);
