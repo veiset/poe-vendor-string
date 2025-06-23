@@ -1,7 +1,7 @@
 import {MapSettings} from "../../utils/SavedSettings";
 import {Regex} from "../../generated/GeneratedTypes";
 import {optimizeRegexFromIds, idToRegex} from "../../utils/regex/OptimizeRegexResult";
-import {generateNumberRegex} from "../../utils/regex/GenerateNumberRegex";
+import {generateNumberRegex, minNumberRegex} from "../../utils/regex/GenerateNumberRegex";
 
 export function generateMapModRegex(settings: MapSettings, regex: Regex<any>): string {
   const exclusions = generateBadMods(settings, regex);
