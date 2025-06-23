@@ -13,7 +13,8 @@ export function generateNumberRegex(number: string, optimize: boolean): string {
     return "";
   }
   if (quant >= 200) {
-    return `[2-9]..`;
+    const v = truncateLastDigit(truncateLastDigit(quant))
+    return `[${v}-9]..`;
   }
   if (quant >= 150) {
     const str = quant.toString();
