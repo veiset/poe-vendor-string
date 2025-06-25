@@ -1,8 +1,22 @@
 .dropdown-select {
     padding: 10px;
     font-size: 16px;
-    font-family: monospace;
+    background-color: #444e5b;
+    border: 1px solid #000000;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.dropdown-sm {
+    min-width: 120px;
+}
+.dropdown-md {
+    margin: 10px;
+    min-width: 220px;
 }
 .dropdown-big {
     min-width: 250px;
+}
+.dropdown-xl {
+    min-width: 300px;
 }

@@ -12,6 +12,7 @@ import Scarabs from "../pages/scarab/Scarabs";
 import Jewel from "../pages/jewel/Jewel";
 import OptimizedMapMods from "../pages/maps/OptimizedMapMods";
 import MagicItem from "../pages/magicitem/MagicItem";
+import Item from "../pages/item/Item";
 
 const Pages = () => {
   const [globalProfile, setGlobalProfile] = useState(selectedProfile());
@@ -30,6 +31,7 @@ const Pages = () => {
         <Route path="/vendor" element={<Vendor key={"vendor-" + profile.name}/>}/>
         <Route path="/maps" element={<OptimizedMapMods key={"map-" + profile.name}/>}/>
         <Route path="/items" element= {<MagicItem key={"items-" + profile.name}/>}/>
+        <Route path="/item" element= {<Item key={"items-" + profile.name}/>}/>
         <Route path="/mapnames" element={<MapNames key={"mapnames-" + profile.name}/>}/>
         <Route path="/flasks" element={<Flasks key={"flask-" + profile.name}/>}/>
         <Route path="/heist" element={<Heist key={"heist-" + profile.name}/>}/>
