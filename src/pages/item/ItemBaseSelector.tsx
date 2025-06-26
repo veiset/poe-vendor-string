@@ -27,7 +27,7 @@ const ItemBaseSelector = (props: ItemBaseSelectorProps) => {
   }));
 
   const rarity: Rarity[] = ["Magic", "Rare"];
-  const [selectedRarity, setSelectedRarity] = useState(itemBase?.rarity ?? "Magic");
+  const [selectedRarity, setSelectedRarity] = useState(itemBase?.rarity ?? "Rare");
 
   useEffect(() => {
     if (itemBase) {
@@ -65,14 +65,14 @@ const ItemBaseSelector = (props: ItemBaseSelectorProps) => {
         />
       </div>
       <h2>Item rarity</h2>
-        <Dropdown
-          elements={rarity}
-          selected={selectedRarity}
-          setSelected={(selected) => {
-            setSelectedRarity(selected as Rarity);
-          }}
-          style={"dropdown-sm"}
-        />
+      <Dropdown
+        elements={rarity}
+        selected={selectedRarity}
+        setSelected={(selected) => {
+          setSelectedRarity(selected as Rarity);
+        }}
+        style={"dropdown-sm"}
+      />
     </div>
   </>)
 }
