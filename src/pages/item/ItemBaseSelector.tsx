@@ -6,15 +6,15 @@ import {basetypes} from "../../generated/GeneratedItemBases";
 
 type Rarity = "Magic" | "Rare";
 
-export interface ItemBase {
+export interface Itembase {
   baseType: string,
   item: string,
   rarity: Rarity,
 }
 
 interface ItemBaseSelectorProps {
-  setItemBase: (itemBase: ItemBase) => void
-  itemBase: ItemBase | undefined
+  setItemBase: (itemBase: Itembase) => void
+  itemBase: Itembase | undefined
 }
 
 const ItemBaseSelector = (props: ItemBaseSelectorProps) => {

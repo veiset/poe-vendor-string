@@ -17,11 +17,11 @@
 }
 
 .mod-after {
-    color: #a87979;
+    color: #697865;
 }
 
-.mod-multipart {
-    color: #697865;
+.mod-on {
+    color: #5b6bb5;
 }
 
 .mod-extra-info {
@@ -40,6 +40,7 @@
 
 .rare-mod-input {
     font-size: 14px;
+    cursor: pointer;
 }
 
 .rare-mod-input input[type=number] {
@@ -48,9 +49,33 @@
     border-radius: 4px;
     margin: 4px;
     padding-left: 4px;
+    background-color: #1b1e23;
     padding-right: 4px;
-    background-color: #2e2e33;
     color: #ffffff;
     width: 70px;
     border: 1px solid rgb(65, 78, 122);
+}
+
+
+.rare-mod-input input[type=checkbox] {
+    background-color: #f3a575;
+    width: 19px;
+    height: 19px;
+}
+
+.mod-no-select-input {
+    background-color: #21303e;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.mod-no-input {
+}
+
+.mod-checkbox-input {
+    accent-color: #4d6873;
+    height: 20px;
+    width: 20px;
+    margin: 3px 10px;
+    padding-top: 20px;
 }

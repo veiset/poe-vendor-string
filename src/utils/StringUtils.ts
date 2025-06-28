@@ -14,3 +14,7 @@ export function splitOnNthOccurrence(
 
   return [beforeNth, afterNth];
 }
+
+export function countChar(str: string, char: string): number {
+  return str.split(char).length - 1;
+}

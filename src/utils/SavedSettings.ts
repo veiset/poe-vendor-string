@@ -1,6 +1,8 @@
 import {ContractLevel} from "../pages/heist/Heist";
 import {heistContractTypes} from "../generated/GeneratedHeist";
 import {ItemCategory, MagicItemType, SelectedMod} from "../pages/magicitem/MagicItem";
+import {Itembase} from "../pages/item/ItemBaseSelector";
+import {RareModSelection} from "../pages/item/RareItemSelect";
 
 export const leagueName = "Mercenaries";
 export const categories: ItemCategory[] = [
@@ -107,6 +109,7 @@ export interface SavedSettings {
   mapNames: MapNameSettings
   scarab: ScarabSettings
   jewel: JewelSettings
+  itemCrafting: ItemCraftingSettings
 }
 
 export interface BeastSettings {
@@ -153,6 +156,11 @@ export interface ItemSettings {
     value: string,
     enabled: boolean,
   }
+}
+
+export interface ItemCraftingSettings {
+  itembase: Itembase | undefined
+  selectedRareMods: { [p: string]: RareModSelection }
 }
 
 export interface MapSettings {
@@ -464,5 +472,9 @@ export const defaultSettings: SavedSettings = {
     matchOpenPrefixSuffix: true,
     selectedRegular: [],
     selectedAbyss: [],
+  },
+  itemCrafting: {
+    itembase: undefined,
+    selectedRareMods: {},
   }
 }
