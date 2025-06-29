@@ -1,0 +1,10 @@
+.bug-report {
+    font-size: 14px;
+    padding: 12px;
+    margin: 4px;
+    border-radius: 4px;
+    background-color: #70312a;
+}
+.bug-report-icon {
+    padding-right: 5px;
+}

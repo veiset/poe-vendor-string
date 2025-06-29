@@ -148,7 +148,8 @@ const MagicItem = () => {
       {matchAnyAffix && matchOpenAffix && (
         <div className="open-affix-warning">
           <span className="bold">Warning! </span>
-          Using this setting together with 'open prefix/suffix' will match an item as long as it has an open prefix/suffix.
+          Using this setting together with 'open prefix/suffix' will match an item as long as it has an open
+          prefix/suffix.
         </div>)}
       <Checkbox label="Match item with open prefix/suffix"
                 value={matchOpenAffix}

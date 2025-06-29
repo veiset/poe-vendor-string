@@ -11,10 +11,11 @@ export interface GroupedTokenListProps {
   groups: GroupedTokens[]
   selected: string[]
   setSelected: (key: string) => void
+  disableSearch?: boolean
 }
 
 const GroupedTokenList = (props: GroupedTokenListProps) => {
-  const {groups, selected, setSelected} = props;
+  const {groups, selected, setSelected, disableSearch} = props;
   const [grouping, setGrouping] = useState(groups);
   const [search, setSearch] = useState("");
   const [displayedMods, setDisplayedMods] = useState<GroupedTokens[]>(grouping);
@@ -54,14 +55,14 @@ const GroupedTokenList = (props: GroupedTokenListProps) => {
 
   return (
     <div>
-      <SelectableSearch
-        search={search}
-        setSearch={setSearch}
-        placeholder="Search for a modifier"
-        style={"selectable-search-max-width"}
-      />
+      {!disableSearch && <SelectableSearch
+          search={search}
+          setSearch={setSearch}
+          placeholder="Search for a modifier"
+          style={"selectable-search-max-width"}
+      />}
       <div className="grouped-token-list">
-        {displayedMods.sort((a,b) => (a.groupName > b.groupName) ? 0 : 1).map((group) => {
+        {displayedMods.sort((a, b) => (a.groupName > b.groupName) ? 0 : 1).map((group) => {
           const anyTokenSelected = hasSelected(group);
           const headerClassNames = "grouped-token-list-header " + (anyTokenSelected ? "selected" : "unselected");
           return (
@@ -87,7 +88,7 @@ const GroupedTokenList = (props: GroupedTokenListProps) => {
                             setSelected(token);
                           }}
                         >
-                         {token.replaceAll("|", " ")}
+                          {token.replaceAll("|", " ")}
                         </div>)
                     })}
                   </div>

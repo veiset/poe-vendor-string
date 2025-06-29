@@ -149,3 +149,16 @@ input[type="radio"] {
     color: #f3a575;
     background-color: #000000;
 }
+
+.select-dropdown {
+    min-width: 220px;
+    background-color: #444e5b;
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #000000;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: 1px;
+}

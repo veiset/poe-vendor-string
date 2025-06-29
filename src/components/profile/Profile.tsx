@@ -90,7 +90,7 @@ const Profile = () => {
   return (
     <div className="profile-container">
       <div>Profile:</div>
-      <select name="league" className="select-league" value={profile}
+      <select name="league" className="dropdown-select dropdown-md" value={profile}
               onChange={(e) => setProfile(e.target.value)}>
         {profiles.map((profile) => {
           return <option className="option-league" key={profile} value={profile}>{profile}</option>;

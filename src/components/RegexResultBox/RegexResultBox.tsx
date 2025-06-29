@@ -1,6 +1,7 @@
 import "./RegexResultBox.css";
 import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {Checkbox} from "../../pages/vendor/Vendor";
+import {BugReport} from "../bugreport/BugReport";
 
 export interface RegexResultBoxProps {
   result: string
@@ -12,6 +13,7 @@ export interface RegexResultBoxProps {
   warning?: string
   error?: string
   maxLength?: number
+  enableBug?: boolean
 }
 
 const RegexResultBox = (props: RegexResultBoxProps) => {
@@ -24,13 +26,15 @@ const RegexResultBox = (props: RegexResultBoxProps) => {
     setCustomText,
     enableCustomText,
     setEnableCustomText,
-    maxLength
+    maxLength,
+    enableBug,
   } = props;
 
   const maxLen = maxLength ?? 250;
   const [showOptions, setShowOptions] = useState(false);
   const [copied, setCopied] = React.useState<string | undefined>(undefined);
   const [autoCopy, setAutoCopy] = React.useState(false);
+  const bugButton = enableBug ?? false;
 
   const finalResult = (customText.length > 0 && enableCustomText)
     ? `${result} ${customText}`
@@ -79,6 +83,9 @@ const RegexResultBox = (props: RegexResultBoxProps) => {
         }}>
           Options
         </button>
+        {bugButton && <button className="rrb-bug">
+            <BugReport regex={result} />
+        </button> }
       </div>
       {showOptions && <div className="rrb-options">
           <Checkbox label={"Enable custom text"} value={enableCustomText} onChange={setEnableCustomText}/>

@@ -1,45 +1,49 @@
 .rrb-layout {
-    font-size: 22px;
+    font-size: 18px;
     background-color: var(--color-area);
     color: var(--color-text);
     width: 100%;
     position: sticky;
     top: 0;
-    padding: 20px;
+    padding: 14px;
+    z-index: 50;
+    border-bottom: 1px solid #000000;
 
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
-
-    @media (max-width: 900px) {
-        flex-direction: column;
-    }
+    flex-direction: column;
 }
+
 .rrb-result {
     font-family: monospace;
     flex-shrink: 10;
     flex-grow: 1;
     text-overflow: clip;
 }
+
 .rrb-result-text {
-    min-height: 55px;
+    min-height: 46px;
 }
+
 .rrb-result-info {
     color: #b1b1b7;
     padding-top: 10px;
     font-size: 16px;
 }
+
 .rrb-actions {
     font-family: monospace;
     padding-top: 10px;
     flex-shrink: 10;
     flex-grow: 0;
-    width: 294px;
+    width: 594px;
 }
+
 .rrb-break {
     flex-basis: 100%;
     height: 0;
 }
+
 .rrb-options {
     background-color: var(--color-bg);
     font-size: 20px;
@@ -51,9 +55,11 @@
     gap: 10px;
     width: 100%;
 }
+
 .rrb-options-custom-text {
     padding: 4px;
 }
+
 .rrb-copy-button {
     background-color: var(--color-correct);
     font-family: monospace;
@@ -68,6 +74,7 @@
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
 }
+
 .rrb-options input[type=text] {
     width: 200px;
     padding: 5px;
@@ -105,6 +112,13 @@
     cursor: pointer;
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
+}
+
+.rrb-bug {
+    background-color: #283036;
+    border: none;
+    margin-left: 40px;
+    width: 150px;
 }
 
 .copied-good {
