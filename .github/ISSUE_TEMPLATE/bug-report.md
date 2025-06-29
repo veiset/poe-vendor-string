@@ -19,8 +19,3 @@ A clear and concise description of what you expected to happen.
 **Screenshots / copy of item regex**
 If you can, use `ctrl+c` to copy the item description of the item in question. 
 Please explain what you expected to happen and what actually happened.
-
-**Additional context**
-Add any other context about the problem here.
-
-<regex>
