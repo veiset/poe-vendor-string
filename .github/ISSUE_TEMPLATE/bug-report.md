@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: Create a report to help improve the webpage
-title: ''
+title: 'Bug: <issue>'
 labels: bug
 assignees: veiset
 
@@ -22,3 +22,5 @@ Please explain what you expected to happen and what actually happened.
 
 **Additional context**
 Add any other context about the problem here.
+
+<regex>
