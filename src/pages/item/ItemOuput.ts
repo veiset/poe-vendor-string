@@ -61,7 +61,10 @@ export function generateRareItemRegex(
   const mods: RareModSelectionEntry[] = Object.entries(selectedMods)
     .map(([key, value]) => ({key, value, regex: affixMap[key]}));
 
-  const result = mods.filter((e) => e.value.selected)
+
+  const result = mods
+    .filter((e) => e.value.selected)
+    .filter((e) => e.key.startsWith(itemBase.baseType))
     .map((e) => {
       const rangeInRegex = e.regex.on[0];
       const hasRangeInsideRegex = rangeInRegex !== undefined
