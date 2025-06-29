@@ -1,13 +1,14 @@
-import {CategoryRegex, ItemAffixRegex, itemRegex, ItemRegex} from "../../generated/GeneratedItemMods";
-import React, {useEffect, useState} from "react";
+import {CategoryRegex, ItemAffixRegex, ItemRegex} from "../../generated/GeneratedItemMods";
 import {Itembase} from "./ItemBaseSelector";
 import classNames from "classnames";
+import {categoryOrder, cleanCategoryName, groupedCategory} from "./GroupUtils";
 
 export interface RateItemSelectProps {
   itemRegex: ItemRegex
   itembase: Itembase
   selected: { [key: string]: RareModSelection }
   setSelected: (selected: { [key: string]: RareModSelection }) => void
+  displayTiers: boolean
 }
 
 export type RareModSelection = {
@@ -20,20 +21,12 @@ export type RareModSelection = {
 
 const RareItemSelect = (props: RateItemSelectProps) => {
 
-  const {itemRegex, selected, setSelected, itembase} = props;
+  const {itemRegex, selected, setSelected, itembase, displayTiers} = props;
 
-  const filteredCategories = itemRegex.categoryRegex
+  const filteredCategories: CategoryRegex[] = itemRegex.categoryRegex
     .filter((e) => e.category !== "searing_exarch_implicit")
     .filter((e) => e.category !== "searing_exarch_implicit");
-
-  const groupedCategories = filteredCategories.reduce<Record<string, CategoryRegex[]>>((acc, category) => {
-    const key = category.category.replace(RegExp("(suffix|prefix)_?"), "");
-    if (!acc[key]) {
-      acc[key] = [];
-    }
-    acc[key].push(category);
-    return acc;
-  }, {});
+  const groupedCategories = groupedCategory(filteredCategories);
 
   return (<>
     {Object.values(groupedCategories)
@@ -48,11 +41,10 @@ const RareItemSelect = (props: RateItemSelectProps) => {
             {prefix.modifiers.map((mod) => {
               const id = itemRegex.basetype + "-" + prefix.category + "-" + mod.desc;
               return <RareMod
+                displayTiers={displayTiers}
                 itembase={itembase}
-                selected={selected[id]}
-                updateValue={(id, s) => {
-                  setSelected({...selected, [id]: s})
-                }}
+                selected={selected}
+                setSelected={setSelected}
                 id={id}
                 regexInfo={mod}/>;
             })}
@@ -62,11 +54,10 @@ const RareItemSelect = (props: RateItemSelectProps) => {
             {suffix.modifiers.map((mod) => {
               const id = itemRegex.basetype + "-" + suffix.category + "-" + mod.desc;
               return <RareMod
+                displayTiers={displayTiers}
                 itembase={itembase}
-                selected={selected[id]}
-                updateValue={(id, s) => {
-                  setSelected({...selected, [id]: s})
-                }}
+                selected={selected}
+                setSelected={setSelected}
                 id={id}
                 regexInfo={mod}/>;
             })}
@@ -77,44 +68,19 @@ const RareItemSelect = (props: RateItemSelectProps) => {
 }
 
 
-const cleanCategoryName = (category: string): string => category
-  .replace(RegExp("suffix_?"), "Suffix")
-  .replace(RegExp("prefix_?"), "Prefix")
-  .replace("adjudicator", " Warlord")
-  .replace("basilisk", " Hunter")
-  .replace("crusader", " Crusader")
-  .replace("eyrie", " Redeemer")
-  .replace("elder", " Elder")
-  .replace("shaper", " Shaper")
-
-const categoryOrder = (a: CategoryRegex, b: CategoryRegex) => {
-  const priorityMap: Record<string, number> = {
-    '': -1,
-    'shaper': 0,
-    'elder': 1,
-    'basilisk': 2,
-    'crusader': 3,
-    'eyrie': 4,
-    'adjudicator': 5,
-  };
-  const getPriority = (group: string) => {
-    const name = group.replace(RegExp("(prefix|suffix)_?"), "");
-    return priorityMap[name] ?? Infinity;
-  };
-  return getPriority(a.category) - getPriority(b.category);
-};
-
 interface RareModProps {
   id: string
   itembase: Itembase
   regexInfo: ItemAffixRegex
-  selected?: RareModSelection
-  updateValue: (key: string, selected: RareModSelection) => void
+  selected: { [key: string]: RareModSelection }
+  setSelected: (selected: { [key: string]: RareModSelection }) => void
+  displayTiers: boolean
 }
 
 
 const RareMod = (props: RareModProps) => {
-  const {regexInfo, id, selected, updateValue, itembase} = props;
+  const {regexInfo, id, selected, setSelected, itembase, displayTiers} = props;
+  const decimalRegex = /\b\d+\.\d+\b/;
   const defaultState: RareModSelection = {
     itembase: {
       baseType: "unknown",
@@ -125,20 +91,15 @@ const RareMod = (props: RareModProps) => {
     values: {}
   }
 
-  const [localSelected, setLocalSelected] = useState<RareModSelection>(selected ? {...defaultState, ...selected} : defaultState);
-
-  useEffect(() => {
-    updateValue(id, localSelected);
-  }, [localSelected]);
-
-
-  const hasRange = regexInfo.stats.find((e) => e.hasRange);
+  const hasRange = regexInfo.stats.find((e) => e.hasRange) && !decimalRegex.test(regexInfo.affixes[0].name);
+  const data = {...defaultState, ...selected[id]};
 
   return (<div
-    className={classNames("rare-mod-input", "grouped-token-list-group", {"rare-mod-selected": localSelected.selected})}
+    className={classNames("rare-mod-input", "grouped-token-list-group", {"rare-mod-selected": selected[id]?.selected ?? false})}
     key={id}
     onClick={() => {
-      setLocalSelected({...localSelected, selected: !localSelected.selected, itembase})
+      const updatedValue = {...selected[id] ?? defaultState, selected: !data.selected, itembase};
+      setSelected({...selected, [id]: updatedValue});
     }}>
     {!hasRange ? <span>{regexInfo.desc}</span> :
       regexInfo.desc.replace("|", " • ").split("#").map((e, index) => {
@@ -148,14 +109,16 @@ const RareMod = (props: RareModProps) => {
           return (
             <span key={id + index}>
               <span>{e}</span><input
+              key={"input-" + id}
               placeholder={`${range.min}-${range.max}`}
               type="number"
               onClick={(e) => e.stopPropagation()}
-              value={localSelected.values[index]}
+              value={data.values[index] ?? ""}
               onChange={(e) => {
-                const values = localSelected.values;
+                const values = data.values;
                 values[index] = e.target.value;
-                setLocalSelected({selected: true, values, itembase});
+                const updatedValue = {selected: true, values, itembase};
+                setSelected({...selected, [id]: updatedValue});
               }}/>
             </span>)
         } else if (regexInfo.disabled.includes(index)) {
@@ -167,6 +130,11 @@ const RareMod = (props: RareModProps) => {
           return <span>{e}</span>
         }
       })}
+    {data.selected && displayTiers && <div className="rare-display-affixes">
+      {[...regexInfo.affixes].reverse().map((e, i) => {
+        return <div onClick={(e) => e.stopPropagation()}><span className="mod-tier">T{i + 1}</span> {e.name}</div>
+      })}
+    </div>}
   </div>)
 }
 

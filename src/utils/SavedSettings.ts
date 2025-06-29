@@ -3,6 +3,7 @@ import {heistContractTypes} from "../generated/GeneratedHeist";
 import {ItemCategory, MagicItemType, SelectedMod} from "../pages/magicitem/MagicItem";
 import {Itembase} from "../pages/item/ItemBaseSelector";
 import {RareModSelection} from "../pages/item/RareItemSelect";
+import {SelectedMagicMod} from "../pages/item/MagicItemSelect";
 
 export const leagueName = "Mercenaries";
 export const categories: ItemCategory[] = [
@@ -161,6 +162,7 @@ export interface ItemSettings {
 export interface ItemCraftingSettings {
   itembase: Itembase | undefined
   selectedRareMods: { [p: string]: RareModSelection }
+  selectedMagicMods: SelectedMagicMod[]
 }
 
 export interface MapSettings {
@@ -476,5 +478,6 @@ export const defaultSettings: SavedSettings = {
   itemCrafting: {
     itembase: undefined,
     selectedRareMods: {},
+    selectedMagicMods: [],
   }
 }

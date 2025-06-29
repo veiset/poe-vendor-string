@@ -95,3 +95,21 @@
     margin: 3px 10px;
     padding-top: 20px;
 }
+.rare-display-affixes {
+    color: #000000;
+    cursor: default;
+    font-family: monospace;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-right: 4px;
+    padding: 2px 2px 2px 2px;
+    font-size: 12px;
+    background-color: #7ea0c3;
+}
+.mod-tier {
+    display: inline-block;
+    min-width: 25px;
+    text-align: right;
+    color: #000000;
+    padding-right: 10px;
+}

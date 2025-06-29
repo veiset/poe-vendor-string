@@ -10,6 +10,7 @@ import RareItemSelect, {RareModSelection} from "./RareItemSelect";
 import ModWarning from "./ModWarning";
 import {generateRareItemRegex} from "./ItemOuput";
 import {defaultSettings} from "../../utils/SavedSettings";
+import MagicItemSelect, {SelectedMagicMod} from "./MagicItemSelect";
 
 
 const Item = () => {
@@ -36,6 +37,7 @@ const Item = () => {
   const [selectedRareMods, setSelectedRareMods] = useState<{
     [key: string]: RareModSelection
   }>(profile.itemCrafting.selectedRareMods);
+  const [selectedMagicMods, setSelectedMagicMods] = useState<SelectedMagicMod[]>(profile.itemCrafting.selectedMagicMods);
 
 
   useEffect(() => {
@@ -45,20 +47,26 @@ const Item = () => {
   }, [itembase]);
 
   useEffect(() => {
-    setResult(generateRareItemRegex(affixMap, itembase, selectedRareMods));
+    if (itembase && itembase.rarity === "Rare") {
+      setResult(generateRareItemRegex(affixMap, itembase, selectedRareMods));
+    }
     saveSettings({
       ...profile,
-      itemCrafting: {itembase, selectedRareMods,}
+      itemCrafting: {itembase, selectedRareMods, selectedMagicMods}
     })
-  }, [selectedRareMods]);
+  }, [selectedRareMods, selectedMagicMods, itembase]);
 
   return (<>
       <Header text={"Item"}/>
       <RegexResultBox
         result={result}
         reset={() => {
-          // setItembase(defaultSettings.itemCrafting.itembase);
-          setSelectedRareMods(defaultSettings.itemCrafting.selectedRareMods);
+          if (itembase?.rarity === "Rare") {
+            setSelectedRareMods(defaultSettings.itemCrafting.selectedRareMods);
+          }
+          if (itembase?.rarity === "Magic") {
+            setSelectedMagicMods(defaultSettings.itemCrafting.selectedMagicMods);
+          }
         }}
         customText={""}
         setCustomText={() => {
@@ -73,8 +81,21 @@ const Item = () => {
       {regexMods && itembase?.rarity === "Rare" && <ModWarning itemRegex={regexMods}/>}
       <div className="break"/>
       {itembase && regexMods && itembase.rarity === "Rare" &&
-          <RareItemSelect itembase={itembase} setSelected={setSelectedRareMods} selected={selectedRareMods}
-                          itemRegex={regexMods}/>}
+          <RareItemSelect
+              itemRegex={regexMods}
+              itembase={itembase}
+              displayTiers={true}
+              setSelected={setSelectedRareMods}
+              selected={selectedRareMods}
+          />}
+      {itembase && regexMods && itembase.rarity === "Magic" &&
+          <MagicItemSelect
+              itemRegex={regexMods}
+              itembase={itembase}
+              selected={selectedMagicMods}
+              setSelected={setSelectedMagicMods}
+          />
+      }
     </>
   )
 
