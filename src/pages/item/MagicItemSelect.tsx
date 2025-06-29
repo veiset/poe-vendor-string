@@ -12,10 +12,13 @@ interface MagicItemSelectProps {
   setSelected: (selected: SelectedMagicMod[]) => void
 }
 
+type AffixType = "PREFIX" | "SUFFIX";
+
 export interface SelectedMagicMod {
   basetype: string
   category: string
   regex: Affix
+  affix: AffixType
   desc: string
 }
 
@@ -32,16 +35,17 @@ const MagicItemSelect = (props: MagicItemSelectProps) => {
     {Object.values(groupedCategories)
       .sort((a, b) => categoryOrder(a[0], b[0]))
       .map((e) => {
-        const prefix = e[0];
-        const suffix = e[1];
+        const prefix: CategoryRegex = e[0];
+        const suffix: CategoryRegex = e[1];
 
         const affixes: Affix[] = ((prefix.modifiers).concat(suffix?.modifiers ?? []).flatMap((e) => e.affixes));
 
-        const toggle = (key: string) => {
-          const mod = {
+        const toggle = (key: string, category: string, affix: AffixType) => {
+          const mod: SelectedMagicMod = {
             basetype: itemRegex.basetype,
-            category: prefix.category,
+            category: category,
             regex: affixes.find((a) => a.name === key)!!,
+            affix: affix,
             desc: key
           };
           const isSelected = selected.find((e) => e.desc === key && e.basetype === itemRegex.basetype);
@@ -58,7 +62,7 @@ const MagicItemSelect = (props: MagicItemSelectProps) => {
               disableSearch={true}
               groups={modsToGroupedTokens(prefix.modifiers)}
               selected={selected.filter((e) => e.basetype === itembase.baseType).map((e) => e.desc)}
-              setSelected={(key: string) => toggle(key)}
+              setSelected={(key: string) => toggle(key, prefix.category, "PREFIX")}
             />
           </div>
           {suffix && <div className="eq-col-2">
@@ -67,7 +71,7 @@ const MagicItemSelect = (props: MagicItemSelectProps) => {
                   disableSearch={true}
                   groups={modsToGroupedTokens(suffix.modifiers)}
                   selected={selected.filter((e) => e.basetype === itembase.baseType).map((e) => e.desc)}
-                  setSelected={(key: string) => toggle(key)}
+                  setSelected={(key: string) => toggle(key, suffix.category, "SUFFIX")}
               />
           </div>
           }

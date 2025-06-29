@@ -39,8 +39,8 @@ const Item = () => {
   }>(profile.itemCrafting.selectedRareMods);
   const [selectedMagicMods, setSelectedMagicMods] = useState<SelectedMagicMod[]>(profile.itemCrafting.selectedMagicMods);
 
-  const [matchAnyAffix, setMatchAnyAffix] = useState(profile.item.matchAnyAffix);
-  const [matchOpenAffix, setMatchOpenAffix] = useState(profile.item.matchOpenAffix);
+  const [onlyIfBothPrefixAndSuffix, setOnlyIfBothPrefixAndSuffix] = useState(profile.itemCrafting.magicSettings.onlyIfBothPrefixAndSuffix);
+  const [matchOpenAffix, setMatchOpenAffix] = useState(profile.itemCrafting.magicSettings.matchOpenAffix);
 
   useEffect(() => {
     if (itembase) {
@@ -51,7 +51,15 @@ const Item = () => {
   useEffect(() => {
     const settings = {
       ...profile,
-      itemCrafting: {itembase, selectedRareMods, selectedMagicMods}
+      itemCrafting: {
+        itembase,
+        selectedRareMods,
+        selectedMagicMods,
+        magicSettings: {
+          onlyIfBothPrefixAndSuffix,
+          matchOpenAffix,
+        }
+      }
     };
 
     if (itembase && itembase.rarity === "Rare") {
@@ -61,7 +69,7 @@ const Item = () => {
       setResult(generateMagicItemRegex(settings.itemCrafting));
     }
     saveSettings(settings)
-  }, [selectedRareMods, selectedMagicMods, itembase]);
+  }, [selectedRareMods, selectedMagicMods, itembase, onlyIfBothPrefixAndSuffix, matchOpenAffix]);
 
   return (<>
       <Header text={"Item"}/>
@@ -72,8 +80,10 @@ const Item = () => {
             setSelectedRareMods(defaultSettings.itemCrafting.selectedRareMods);
           }
           if (itembase?.rarity === "Magic") {
-            setSelectedMagicMods(defaultSettings.itemCrafting.selectedMagicMods);
-            // setSelectedMagicMods(selectedMagicMods.filter((e) => e.basetype !== itembase.baseType));
+            // setSelectedMagicMods(defaultSettings.itemCrafting.selectedMagicMods);
+            setSelectedMagicMods(selectedMagicMods.filter((e) => e.basetype !== itembase.baseType));
+            setOnlyIfBothPrefixAndSuffix(defaultSettings.itemCrafting.magicSettings.onlyIfBothPrefixAndSuffix);
+            setMatchOpenAffix(defaultSettings.itemCrafting.magicSettings.matchOpenAffix);
           }
         }}
         customText={""}
@@ -99,8 +109,8 @@ const Item = () => {
       {itembase && regexMods && itembase.rarity === "Magic" &&
           <div>
               <Checkbox label="Only match if both prefix and suffix is found"
-                        value={matchAnyAffix}
-                        onChange={setMatchAnyAffix}/>
+                        value={onlyIfBothPrefixAndSuffix}
+                        onChange={setOnlyIfBothPrefixAndSuffix}/>
               <Checkbox label="Match an open prefix or suffix"
                         value={matchOpenAffix}
                         onChange={setMatchOpenAffix}/>

@@ -163,6 +163,10 @@ export interface ItemCraftingSettings {
   itembase: Itembase | undefined
   selectedRareMods: { [p: string]: RareModSelection }
   selectedMagicMods: SelectedMagicMod[]
+  magicSettings: {
+    onlyIfBothPrefixAndSuffix: boolean,
+    matchOpenAffix: boolean,
+  }
 }
 
 export interface MapSettings {
@@ -479,5 +483,9 @@ export const defaultSettings: SavedSettings = {
     itembase: undefined,
     selectedRareMods: {},
     selectedMagicMods: [],
+    magicSettings: {
+      onlyIfBothPrefixAndSuffix: true,
+      matchOpenAffix: true,
+    },
   }
 }
