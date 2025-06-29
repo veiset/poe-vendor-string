@@ -66,13 +66,15 @@ const Item = () => {
         enableCustomText={false}
         setEnableCustomText={() => {
         }}
+        enableBug={true}
       />
       <ItemBaseSelector itemBase={itembase} setItemBase={setItembase}/>
-      {regexMods && <ModWarning itemRegex={regexMods}/>}
       {itembase && <h2>Selected: <span className={"item-" + itembase.rarity}>{itembase.item}</span></h2>}
+      {regexMods && itembase?.rarity === "Rare" && <ModWarning itemRegex={regexMods}/>}
       <div className="break"/>
       {itembase && regexMods && itembase.rarity === "Rare" &&
-          <RareItemSelect itembase={itembase} setSelected={setSelectedRareMods} selected={selectedRareMods} itemRegex={regexMods}/>}
+          <RareItemSelect itembase={itembase} setSelected={setSelectedRareMods} selected={selectedRareMods}
+                          itemRegex={regexMods}/>}
     </>
   )
 

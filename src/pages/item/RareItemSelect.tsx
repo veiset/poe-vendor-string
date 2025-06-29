@@ -1,6 +1,7 @@
-import {ItemAffixRegex, itemRegex, ItemRegex} from "../../generated/GeneratedItemMods";
+import {CategoryRegex, ItemAffixRegex, itemRegex, ItemRegex} from "../../generated/GeneratedItemMods";
 import React, {useEffect, useState} from "react";
 import {Itembase} from "./ItemBaseSelector";
+import classNames from "classnames";
 
 export interface RateItemSelectProps {
   itemRegex: ItemRegex
@@ -22,48 +23,86 @@ const RareItemSelect = (props: RateItemSelectProps) => {
   const {itemRegex, selected, setSelected, itembase} = props;
 
   const filteredCategories = itemRegex.categoryRegex
-    .filter((e) => e.category !== "corrupted")
-    .filter((e) => e.category !== "delve_suffix")
-    .filter((e) => e.category !== "delve_prefix")
     .filter((e) => e.category !== "searing_exarch_implicit")
     .filter((e) => e.category !== "searing_exarch_implicit");
 
-  const prefixCategories = filteredCategories
-    .filter((e) => e.modifiers[0].affixtype === "PREFIX");
-  const suffixCategories = filteredCategories
-    .filter((e) => e.modifiers[0].affixtype === "SUFFIX");
+  const groupedCategories = filteredCategories.reduce<Record<string, CategoryRegex[]>>((acc, category) => {
+    const key = category.category.replace(RegExp("(suffix|prefix)_?"), "");
+    if (!acc[key]) {
+      acc[key] = [];
+    }
+    acc[key].push(category);
+    return acc;
+  }, {});
 
-  return (<div className="full-size row">
-    <div className="eq-col-2">
-      <p>Prefix</p>
-      {prefixCategories.map((e) => {
-        return <div>
-          <div className="modgroup-header">{e.category}</div>
-          <div>{e.modifiers.map((mod) => {
-            const id = itemRegex.basetype + "-" + e.category + "-" + mod.desc;
-            return <RareMod
-              itembase={itembase}
-              selected={selected[id]}
-              updateValue={(id, s) => {
-                setSelected({...selected, [id]: s})
-              }}
-              id={id}
-              regexInfo={mod}/>;
-          })
-          }</div>
-        </div>
+  return (<>
+    {Object.values(groupedCategories)
+      .sort((a, b) => categoryOrder(a[0], b[0]))
+      .map((e) => {
+        const prefix = e[0];
+        const suffix = e[1];
+
+        return (<div className="rare-mod-group full-size row">
+          <div className="eq-col-2">
+            <h2>{cleanCategoryName(prefix.category)}</h2>
+            {prefix.modifiers.map((mod) => {
+              const id = itemRegex.basetype + "-" + prefix.category + "-" + mod.desc;
+              return <RareMod
+                itembase={itembase}
+                selected={selected[id]}
+                updateValue={(id, s) => {
+                  setSelected({...selected, [id]: s})
+                }}
+                id={id}
+                regexInfo={mod}/>;
+            })}
+          </div>
+          {suffix && <div className="eq-col-2">
+              <h2>{cleanCategoryName(suffix.category)}</h2>
+            {suffix.modifiers.map((mod) => {
+              const id = itemRegex.basetype + "-" + suffix.category + "-" + mod.desc;
+              return <RareMod
+                itembase={itembase}
+                selected={selected[id]}
+                updateValue={(id, s) => {
+                  setSelected({...selected, [id]: s})
+                }}
+                id={id}
+                regexInfo={mod}/>;
+            })}
+          </div>}
+        </div>)
       })}
-    </div>
-    <div className="eq-col-2">
-      <p>Suffix</p>
-      {suffixCategories.map((e) => {
-        return <div>
-          <div className="modgroup-header">{e.category}</div>
-        </div>
-      })}
-    </div>
-  </div>)
+  </>)
 }
+
+
+const cleanCategoryName = (category: string): string => category
+  .replace(RegExp("suffix_?"), "Suffix")
+  .replace(RegExp("prefix_?"), "Prefix")
+  .replace("adjudicator", " Warlord")
+  .replace("basilisk", " Hunter")
+  .replace("crusader", " Crusader")
+  .replace("eyrie", " Redeemer")
+  .replace("elder", " Elder")
+  .replace("shaper", " Shaper")
+
+const categoryOrder = (a: CategoryRegex, b: CategoryRegex) => {
+  const priorityMap: Record<string, number> = {
+    '': -1,
+    'shaper': 0,
+    'elder': 1,
+    'basilisk': 2,
+    'crusader': 3,
+    'eyrie': 4,
+    'adjudicator': 5,
+  };
+  const getPriority = (group: string) => {
+    const name = group.replace(RegExp("(prefix|suffix)_?"), "");
+    return priorityMap[name] ?? Infinity;
+  };
+  return getPriority(a.category) - getPriority(b.category);
+};
 
 interface RareModProps {
   id: string
@@ -95,10 +134,12 @@ const RareMod = (props: RareModProps) => {
 
   const hasRange = regexInfo.stats.find((e) => e.hasRange);
 
-  return (<div className={"rare-mod-input"} key={id} onClick={() => {
-    setLocalSelected({...localSelected, selected: !localSelected.selected, itembase})
-  }}>
-    <input type="checkbox" className="mod-checkbox-input" checked={localSelected.selected}/>
+  return (<div
+    className={classNames("rare-mod-input", "grouped-token-list-group", {"rare-mod-selected": localSelected.selected})}
+    key={id}
+    onClick={() => {
+      setLocalSelected({...localSelected, selected: !localSelected.selected, itembase})
+    }}>
     {!hasRange ? <span>{regexInfo.desc}</span> :
       regexInfo.desc.replace("|", " • ").split("#").map((e, index) => {
         const range = regexInfo.stats[index] ?? {id: index, min: '#', max: '#', numberIndex: index, hasRange: false}
@@ -106,7 +147,6 @@ const RareMod = (props: RareModProps) => {
         if (regexInfo.before.includes(index) || regexInfo.after.includes(index) || regexInfo.on.includes(index)) {
           return (
             <span key={id + index}>
-              {regexInfo.on.includes(index) && "YOOOO"}
               <span>{e}</span><input
               placeholder={`${range.min}-${range.max}`}
               type="number"

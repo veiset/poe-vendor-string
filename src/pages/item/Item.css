@@ -40,7 +40,22 @@
 
 .rare-mod-input {
     font-size: 14px;
+    padding: 2px 2px 2px 6px;
+    min-height: 30px;
     cursor: pointer;
+}
+
+.rare-mod-selected:nth-child(even) {
+    background-color: #9ed7fd !important;
+    color: black;
+}
+.rare-mod-selected:nth-child(odd) {
+    background-color: #90c5e6 !important;
+    color: black;
+}
+
+.rare-mod-group {
+    padding: 10px;
 }
 
 .rare-mod-input input[type=number] {
@@ -53,7 +68,7 @@
     padding-right: 4px;
     color: #ffffff;
     width: 70px;
-    border: 1px solid rgb(65, 78, 122);
+    border: 1px solid black;
 }
 
 
@@ -64,7 +79,8 @@
 }
 
 .mod-no-select-input {
-    background-color: #21303e;
+    color: #c8c8c8;
+    background-color: rgba(27, 30, 35, 0.74);
     padding: 4px;
     border-radius: 4px;
 }
