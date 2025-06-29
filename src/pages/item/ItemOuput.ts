@@ -2,6 +2,7 @@ import {Itembase} from "./ItemBaseSelector";
 import {RareModSelection} from "./RareItemSelect";
 import {ItemAffixRegex} from "../../generated/GeneratedItemMods";
 import {generateNumberRegex} from "../../utils/regex/GenerateNumberRegex";
+import {ItemCraftingSettings} from "../../utils/SavedSettings";
 
 type RareModSelectionEntry = {
   key: string;
@@ -9,11 +10,22 @@ type RareModSelectionEntry = {
   regex: ItemAffixRegex
 };
 
+export function generateMagicItemRegex(
+  settings: ItemCraftingSettings,
+) {
+  const itemBase = settings.itembase;
+  const selectedMods = settings.selectedMagicMods;
+  if (!itemBase) return "";
+
+  return JSON.stringify(selectedMods.map((e) => e.regex.desc));
+}
+
 export function generateRareItemRegex(
   affixMap: Record<string, ItemAffixRegex>,
-  itemBase: Itembase | undefined,
-  selectedMods: { [p: string]: RareModSelection }
+  settings: ItemCraftingSettings,
 ): string {
+  const itemBase = settings.itembase;
+  const selectedMods = settings.selectedRareMods;
 
   if (!itemBase) return "";
 

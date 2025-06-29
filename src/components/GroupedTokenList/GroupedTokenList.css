@@ -1,6 +1,7 @@
 .grouped-token-list {
     padding-top: 8px;
     margin-right: 8px;
+    font-size: 16px;
 
     & .selected {
         border-bottom: 1px solid black;

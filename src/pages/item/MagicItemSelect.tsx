@@ -37,20 +37,28 @@ const MagicItemSelect = (props: MagicItemSelectProps) => {
 
         const affixes: Affix[] = ((prefix.modifiers).concat(suffix?.modifiers ?? []).flatMap((e) => e.affixes));
 
+        const toggle = (key: string) => {
+          const mod = {
+            basetype: itemRegex.basetype,
+            category: prefix.category,
+            regex: affixes.find((a) => a.name === key)!!,
+            desc: key
+          };
+          const isSelected = selected.find((e) => e.desc === key && e.basetype === itemRegex.basetype);
+
+          isSelected
+          ? setSelected(selected.filter((e) => e.desc !== key || e.basetype !== itemRegex.basetype))
+          : setSelected(selected.concat(mod));
+        }
+
         return (<div className="rare-mod-group full-size row">
           <div className="eq-col-2">
             <h2>{cleanCategoryName(prefix.category)}</h2>
             <GroupedTokenList
               disableSearch={true}
               groups={modsToGroupedTokens(prefix.modifiers)}
-              selected={selected.map((e) => e.desc)}
-              setSelected={(key: string) => setSelected(
-                selected.concat({
-                  basetype: itemRegex.basetype,
-                  category: prefix.category,
-                  regex: affixes.find((a) => a.desc === key)!!,
-                  desc: key
-                }))}
+              selected={selected.filter((e) => e.basetype === itembase.baseType).map((e) => e.desc)}
+              setSelected={(key: string) => toggle(key)}
             />
           </div>
           {suffix && <div className="eq-col-2">
@@ -58,14 +66,8 @@ const MagicItemSelect = (props: MagicItemSelectProps) => {
               <GroupedTokenList
                   disableSearch={true}
                   groups={modsToGroupedTokens(suffix.modifiers)}
-                  selected={selected.map((e) => e.desc)}
-                  setSelected={(key: string) => setSelected(
-                    selected.concat({
-                      basetype: itemRegex.basetype,
-                      category: suffix.category,
-                      regex: affixes.find((a) => a.desc === key)!!,
-                      desc: key
-                    }))}
+                  selected={selected.filter((e) => e.basetype === itembase.baseType).map((e) => e.desc)}
+                  setSelected={(key: string) => toggle(key)}
               />
           </div>
           }
@@ -78,7 +80,7 @@ function modsToGroupedTokens(modifiers: ItemAffixRegex[] | undefined): GroupedTo
   if (modifiers === undefined) return [];
   return modifiers.map((mod) => ({
     groupName: mod.desc,
-    tokens: mod.affixes.map((e) => e.name)
+    tokens: mod.affixes.map((e) => e.name).reverse()
   }))
 }
 

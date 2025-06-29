@@ -8,10 +8,10 @@ import "./Item.css";
 import {ItemAffixRegex, ItemRegex, itemRegex} from "../../generated/GeneratedItemMods";
 import RareItemSelect, {RareModSelection} from "./RareItemSelect";
 import ModWarning from "./ModWarning";
-import {generateRareItemRegex} from "./ItemOuput";
+import {generateMagicItemRegex, generateRareItemRegex} from "./ItemOuput";
 import {defaultSettings} from "../../utils/SavedSettings";
 import MagicItemSelect, {SelectedMagicMod} from "./MagicItemSelect";
-
+import {Checkbox} from "../vendor/Vendor";
 
 const Item = () => {
   const {globalProfile} = useContext(ProfileContext);
@@ -39,6 +39,8 @@ const Item = () => {
   }>(profile.itemCrafting.selectedRareMods);
   const [selectedMagicMods, setSelectedMagicMods] = useState<SelectedMagicMod[]>(profile.itemCrafting.selectedMagicMods);
 
+  const [matchAnyAffix, setMatchAnyAffix] = useState(profile.item.matchAnyAffix);
+  const [matchOpenAffix, setMatchOpenAffix] = useState(profile.item.matchOpenAffix);
 
   useEffect(() => {
     if (itembase) {
@@ -47,13 +49,18 @@ const Item = () => {
   }, [itembase]);
 
   useEffect(() => {
-    if (itembase && itembase.rarity === "Rare") {
-      setResult(generateRareItemRegex(affixMap, itembase, selectedRareMods));
-    }
-    saveSettings({
+    const settings = {
       ...profile,
       itemCrafting: {itembase, selectedRareMods, selectedMagicMods}
-    })
+    };
+
+    if (itembase && itembase.rarity === "Rare") {
+      setResult(generateRareItemRegex(affixMap, settings.itemCrafting));
+    }
+    if (itembase && itembase.rarity === "Magic") {
+      setResult(generateMagicItemRegex(settings.itemCrafting));
+    }
+    saveSettings(settings)
   }, [selectedRareMods, selectedMagicMods, itembase]);
 
   return (<>
@@ -66,6 +73,7 @@ const Item = () => {
           }
           if (itembase?.rarity === "Magic") {
             setSelectedMagicMods(defaultSettings.itemCrafting.selectedMagicMods);
+            // setSelectedMagicMods(selectedMagicMods.filter((e) => e.basetype !== itembase.baseType));
           }
         }}
         customText={""}
@@ -89,12 +97,20 @@ const Item = () => {
               selected={selectedRareMods}
           />}
       {itembase && regexMods && itembase.rarity === "Magic" &&
-          <MagicItemSelect
-              itemRegex={regexMods}
-              itembase={itembase}
-              selected={selectedMagicMods}
-              setSelected={setSelectedMagicMods}
-          />
+          <div>
+              <Checkbox label="Only match if both prefix and suffix is found"
+                        value={matchAnyAffix}
+                        onChange={setMatchAnyAffix}/>
+              <Checkbox label="Match an open prefix or suffix"
+                        value={matchOpenAffix}
+                        onChange={setMatchOpenAffix}/>
+              <MagicItemSelect
+                  itemRegex={regexMods}
+                  itembase={itembase}
+                  selected={selectedMagicMods}
+                  setSelected={setSelectedMagicMods}
+              />
+          </div>
       }
     </>
   )
