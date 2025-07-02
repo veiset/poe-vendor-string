@@ -7,6 +7,7 @@ import PageLinks from "./layout/PageLinks";
 import {HashRouter} from "react-router-dom";
 import Pages from "./layout/Pages";
 import {migrateSavedSettings_V1} from "./utils/LocalStorageMigration";
+import CoffeeBanner from "./components/banner/CoffeeBanner";
 
 migrateSavedSettings_V1();
 
@@ -16,6 +17,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <HashRouter>
+      <CoffeeBanner/>
       <div className="content-height-wrapper">
         <div className="content-container">
           <div className="content-links">
