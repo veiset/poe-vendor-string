@@ -52,7 +52,7 @@ const generateRegex = (
       if (!includeHarvest && el.harvest) {
         return acc;
       }
-      if (acc.length + el.regex.length + 1 > (menagerieLimit ? 250 : 250)) {
+      if (acc.length + el.regex.length + 1 > (menagerieLimit ? 100 : 250)) {
         done = true;
         return acc;
       }
@@ -125,7 +125,7 @@ const Beast = () => {
   return (
     <>
       <Header text={"Bestiary"}/>
-      <ResultBox result={result} warning={""} maxLength={(menagerieLimit ? 250 : 250)} reset={() => {
+      <ResultBox result={result} warning={""} maxLength={(menagerieLimit ? 100 : 250)} reset={() => {
         setIncludeHarvest(defaultSettings.beast.includeHarvest);
         setMinChaosValue(defaultSettings.beast.minChaosValue);
         setMaxChaosValue(defaultSettings.beast.maxChaosValue);
