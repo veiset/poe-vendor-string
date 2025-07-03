@@ -1,7 +1,7 @@
 import {ItemSettings} from "../../utils/SavedSettings";
 import {ItemAffixRegex} from "../../generated/GeneratedMagicItem";
 
-const openSuffix = (numOfWords: number) => `^(\\w+ ){${numOfWords}}\\w+$`;
+const openSuffix = (numOfWords: number) => `^([\\w-']+ ){${numOfWords}}\\w+$`;
 const openPrefix = (numOfWords: number) => `^(\\w+.){${numOfWords}}\\sof`;
 
 export const generateMagicItemRegex = (settings: ItemSettings) => {
