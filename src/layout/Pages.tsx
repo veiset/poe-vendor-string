@@ -30,8 +30,8 @@ const Pages = () => {
         <Route path="/" element={<Vendor key={"vendor-" + profile.name}/>}/>
         <Route path="/vendor" element={<Vendor key={"vendor-" + profile.name}/>}/>
         <Route path="/maps" element={<OptimizedMapMods key={"map-" + profile.name}/>}/>
-        <Route path="/items" element= {<MagicItem key={"items-" + profile.name}/>}/>
-        <Route path="/items-beta" element= {<Item key={"items-" + profile.name}/>}/>
+        <Route path="/items-old" element= {<MagicItem key={"items-" + profile.name}/>}/>
+        <Route path="/items" element= {<Item key={"items-" + profile.name}/>}/>
         <Route path="/mapnames" element={<MapNames key={"mapnames-" + profile.name}/>}/>
         <Route path="/flasks" element={<Flasks key={"flask-" + profile.name}/>}/>
         <Route path="/heist" element={<Heist key={"heist-" + profile.name}/>}/>

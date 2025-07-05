@@ -12,6 +12,8 @@ import {generateMagicItemRegex, generateRareItemRegex} from "./ItemOuput";
 import {defaultSettings} from "../../utils/SavedSettings";
 import MagicItemSelect, {SelectedMagicMod} from "./MagicItemSelect";
 import {Checkbox} from "../vendor/Vendor";
+import Infobox from "../../components/infobox/Infobox";
+import InfoBanner from "../../components/InfoBanner/InfoBanner";
 
 const Item = () => {
   const {globalProfile} = useContext(ProfileContext);
@@ -38,6 +40,7 @@ const Item = () => {
     [key: string]: RareModSelection
   }>(profile.itemCrafting.selectedRareMods);
   const [selectedMagicMods, setSelectedMagicMods] = useState<SelectedMagicMod[]>(profile.itemCrafting.selectedMagicMods);
+  const [matchAnyMod, setMatchAnyMod] = useState(profile.itemCrafting.rareSettings.matchAnyMod);
 
   const [onlyIfBothPrefixAndSuffix, setOnlyIfBothPrefixAndSuffix] = useState(profile.itemCrafting.magicSettings.onlyIfBothPrefixAndSuffix);
   const [matchOpenAffix, setMatchOpenAffix] = useState(profile.itemCrafting.magicSettings.matchOpenAffix);
@@ -55,6 +58,9 @@ const Item = () => {
         itembase,
         selectedRareMods,
         selectedMagicMods,
+        rareSettings: {
+          matchAnyMod,
+        },
         magicSettings: {
           onlyIfBothPrefixAndSuffix,
           matchOpenAffix,
@@ -69,7 +75,7 @@ const Item = () => {
       setResult(generateMagicItemRegex(settings.itemCrafting));
     }
     saveSettings(settings)
-  }, [selectedRareMods, selectedMagicMods, itembase, onlyIfBothPrefixAndSuffix, matchOpenAffix]);
+  }, [selectedRareMods, selectedMagicMods, itembase, onlyIfBothPrefixAndSuffix, matchOpenAffix, matchAnyMod]);
 
   return (<>
       <Header text={"Item"}/>
@@ -77,6 +83,7 @@ const Item = () => {
         result={result}
         reset={() => {
           if (itembase?.rarity === "Rare") {
+            setMatchAnyMod(defaultSettings.itemCrafting.rareSettings.matchAnyMod);
             setSelectedRareMods(defaultSettings.itemCrafting.selectedRareMods);
           }
           if (itembase?.rarity === "Magic") {
@@ -94,19 +101,45 @@ const Item = () => {
         }}
         enableBug={true}
       />
+      <InfoBanner>
+        <h2>Known issues (that will get fixed over time) - <a href="/#/items-old" className="source-link">old page</a></h2>
+        <ul>
+          <li>Clusters are missing notables</li>
+          <li>Open prefix/suffix doesn't work for magic synth items</li>
+          <li>Magic items with influenced mods will match any tier of the influenced mod</li>
+          <li>Some ranges can be weird (the data is a bit weird)</li>
+        </ul>
+      </InfoBanner>
+
       <ItemBaseSelector itemBase={itembase} setItemBase={setItembase}/>
       {itembase && <h2>Selected: <span className={"item-" + itembase.rarity}>{itembase.item}</span></h2>}
       {regexMods && itembase?.rarity === "Rare" && <ModWarning itemRegex={regexMods}/>}
       <div className="break"/>
       {itembase && regexMods && itembase.rarity === "Rare" &&
-          <RareItemSelect
-              itemRegex={regexMods}
-              itembase={itembase}
-              displayTiers={true}
-              setSelected={setSelectedRareMods}
-              selected={selectedRareMods}
-          />}
-      {itembase && regexMods && itembase.rarity === "Magic" &&
+          <div>
+              <div className="radio-button-modgroup">
+                  <input type="radio" className="radio-button-map" id="rare-mods-all" name="Match any rare mod"
+                         defaultChecked={!matchAnyMod}
+                         checked={!matchAnyMod}
+                         onChange={v => setMatchAnyMod(false)}/>
+                  <label htmlFor="rare-mods-all" className="radio-button-map radio-first-ele">Match if only ALL mods are
+                      found</label>
+                  <input type="radio" id="rare-mods-any" name="Match all rare mods" defaultChecked={matchAnyMod}
+                         checked={matchAnyMod}
+                         onChange={v => setMatchAnyMod(true)}/>
+                  <label htmlFor="rare-mods-any" className="radio-button-map">Match if ANY mod is found</label>
+              </div>
+              <RareItemSelect
+                  itemRegex={regexMods}
+                  itembase={itembase}
+                  displayTiers={true}
+                  setSelected={setSelectedRareMods}
+                  selected={selectedRareMods}
+              />
+          </div>
+      }
+      {
+        itembase && regexMods && itembase.rarity === "Magic" &&
           <div>
               <Checkbox label="Only match if both prefix and suffix is found"
                         value={onlyIfBothPrefixAndSuffix}

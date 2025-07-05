@@ -117,11 +117,8 @@ const MagicItem = () => {
       }}
     />
     <Infobox
-      header="Beta: might contain incorrect matches"
-      text="
-      Currently in early development so some features will be missing and it's not very well tested yet.;
-      Please report any issues found (@vz / #tooldev-general at the poe discord, or as a github issue);;
-      Currently not handling: Influenced items"
+      header="This page is depricated. Use the new one instead."
+      text=""
     />
     <div className="full-size generic-top-element">
       <h2>Select item base</h2>

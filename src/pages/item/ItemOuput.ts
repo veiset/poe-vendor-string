@@ -94,6 +94,11 @@ export function generateRareItemRegex(
 
     })
 
-  return result.map((e) => `"${e}"`).join(" ");
+  if (settings.rareSettings.matchAnyMod) {
+    const regex = result.join("|");
+    return regex.length > 0 ? `"${regex}"` : "";
+  } else {
+    return result.map((e) => `"${e}"`).join(" ");
+  }
   // return result.join("|");
 }
