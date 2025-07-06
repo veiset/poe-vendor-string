@@ -29,7 +29,7 @@ export const regexMapModifiersRegular: Regex<MapModifiersRegularTokenOption> = {
     {id: -807590096, regex: "fied m", rawText: "Unidentified Map", generalizedText: "^unidentified map$", options: {tier17: true, scary: 121}},
     {id: -696963131, regex: "tal d", rawText: "Monsters reflect 18% of Elemental Damage", generalizedText: "^monsters reflect #% of elemental damage$", options: {tier17: false, scary: 1000}},
     {id: -529767307, regex: "elo", rawText: "Monsters cannot be Taunted|Monsters' Action Speed cannot be modified to below Base Value|Monsters' Movement Speed cannot be modified to below Base Value", generalizedText: "^monsters cannot be taunted$|^monsters' action speed cannot be modified to below base value$|^monsters' movement speed cannot be modified to below base value$", options: {tier17: false, scary: 89}},
-    {id: -500015770, regex: "tim", rawText: "Monsters' skills Chain 2 additional times", generalizedText: "^monsters' skills chain # additional times$", options: {tier17: false, scary: 380}},
+    {id: -500015770, regex: "' s", rawText: "Monsters' skills Chain 2 additional times", generalizedText: "^monsters' skills chain # additional times$", options: {tier17: false, scary: 380}},
     {id: -309278236, regex: "s bli", rawText: "Monsters Blind on Hit", generalizedText: "^monsters blind on hit$", options: {tier17: false, scary: 50}},
     {id: -208379648, regex: "tun", rawText: "(25-30)% more Monster Life|Monsters cannot be Stunned", generalizedText: "^#% more monster life$|^monsters cannot be stunned$", options: {tier17: false, scary: 100}},
     {id: -199953078, regex: "d mag", rawText: "(20-30)% increased Magic Monsters", generalizedText: "^#% increased magic monsters$", options: {tier17: false, scary: 0}},
