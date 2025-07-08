@@ -70,6 +70,10 @@ const generateHeistStr = (contractLevels: ContractLevel[], targetValue: number, 
   }
 }
 
+const generateBlueprintRegex = (): string => {
+  return `.*(3\\/3|4\\/4)`;
+}
+
 const Heist = () => {
   const {globalProfile} = useContext(ProfileContext);
   const profile = loadSettings(globalProfile);
@@ -134,6 +138,10 @@ const Heist = () => {
           });
           setContractLevels(giennaPlus1);
         }}>Gianna (+1 job items)
+        </button>
+        <button className="heist-action-button" onClick={() => {
+          setResult(generateBlueprintRegex());
+        }}>Revealed 3/3 or 4/4
         </button>
       </div>
       <h2 className="row">Minimum target coin value</h2>
