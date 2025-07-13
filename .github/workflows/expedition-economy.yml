@@ -133,7 +133,7 @@ jobs:
         id: scarabs
         with:
           url: "https://poe.ninja/api/data/itemoverview?league=${{ env.LEAGUE }}&type=Scarab&language=en"
-          target: beast/
+          target: scarab/
           filename: "scarab_poe_ninja.json"
 
       - run: |
