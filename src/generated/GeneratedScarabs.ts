@@ -24,7 +24,7 @@ export const scarabs: { [key: string]: Scarab } = {
    name: "Abyss Scarab of Multitudes",
    regex: "cea",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJBYnlzcyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/c78d645398/NormalScarabAbyss.png",
-   description: "Abysses in Area spawn 75% increased Monsters",
+   description: "Abysses in Area spawn 50% increased Monsters",
    flavourText: "They ceaselessly sprout from the murderous earth.",
  },
  "Abyss Scarab of Profound Depth": {
@@ -38,7 +38,7 @@ export const scarabs: { [key: string]: Scarab } = {
    name: "Ambush Scarab",
    regex: "u'",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9MZXNzZXJTY2FyYWJTdHJvbmdib3hlcyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/5600ee7971/LesserScarabStrongboxes.png",
-   description: "Area contains (2-5) additional Strongboxes",
+   description: "Area contains 3 additional Strongboxes",
    flavourText: "Is it still an ambush if you're expecting it?",
  },
  "Ambush Scarab of Containment": {
@@ -64,7 +64,7 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Ambush Scarab of Potency": {
    name: "Ambush Scarab of Potency",
-   regex: "sm",
+   regex: "loc",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9HcmVhdGVyU2NhcmFiU3Ryb25nYm94ZXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/8b46f6270a/GreaterScarabStrongboxes.png",
    description: "75% Increased effect of Explicit Modifiers on Strongboxes in Area",
    flavourText: "The locksmith dreams of building a better box.",
@@ -73,7 +73,7 @@ export const scarabs: { [key: string]: Scarab } = {
    name: "Anarchy Scarab",
    regex: "it'",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9MZXNzZXJTY2FyYWJBbmFyY2h5IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/89174f2e33/LesserScarabAnarchy.png",
-   description: "Area contains (2-4) additional Rogue Exiles",
+   description: "Area contains 4 additional Rogue Exiles",
    flavourText: "On Wraeclast, it's kill or be killed.",
  },
  "Anarchy Scarab of Gigantification": {
@@ -108,7 +108,7 @@ export const scarabs: { [key: string]: Scarab } = {
    name: "Bestiary Scarab of the Herd",
    regex: "ram",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJCZWFzdHMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/0f4dc83dc5/NormalScarabBeasts.png",
-   description: "Area contains (3-5) additional Red Beasts if it contains Einhar",
+   description: "Area contains 5 additional Red Beasts if it contains Einhar",
    flavourText: "The First Ones ran rampant and free in the forests of old.",
  },
  "Betrayal Scarab": {
@@ -118,19 +118,19 @@ export const scarabs: { [key: string]: Scarab } = {
    description: "Area contains Jun",
    flavourText: "The Syndicate must pay for what they have done.",
  },
- "Betrayal Scarab of Intelligence": {
-   name: "Betrayal Scarab of Intelligence",
-   regex: "^tho",
-   icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJCZXRyYXlhbCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/01b158342c/NormalScarabBetrayal.png",
-   description: "150% Increased Intelligence gained from Immortal Syndicate targets encountered in Area",
-   flavourText: "Those that can never die fear only pain.",
- },
  "Betrayal Scarab of Reinforcements": {
    name: "Betrayal Scarab of Reinforcements",
    regex: "mov",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9HcmVhdGVyU2NhcmFiQmV0cmF5YWwiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/85f51a19b8/GreaterScarabBetrayal.png",
    description: "Immortal Syndicate Members in Area have 50% increased chance to be accompanied by reinforcements",
    flavourText: "Move and countermove.",
+ },
+ "Betrayal Scarab of the Allflame": {
+   name: "Betrayal Scarab of the Allflame",
+   regex: "^tho",
+   icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJCZXRyYXlhbCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/01b158342c/NormalScarabBetrayal.png",
+   description: "75% Increased number of Monster Packs Substituted by Allflame Embers in Area",
+   flavourText: "Those that can never die fear only pain.",
  },
  "Beyond Scarab": {
    name: "Beyond Scarab",
@@ -143,14 +143,14 @@ export const scarabs: { [key: string]: Scarab } = {
    name: "Beyond Scarab of Haemophilia",
    regex: "beg",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJCZXlvbmQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/66114ee2e9/NormalScarabBeyond.png",
-   description: "Beyond Portals in Area have 30% increased Merging Radius",
+   description: "Beyond Portals in Area have 50% increased Merging Radius",
    flavourText: "Reality itself begins to bleed.",
  },
  "Beyond Scarab of Resurgence": {
    name: "Beyond Scarab of Resurgence",
    regex: "ung",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9BbHRHcmVhdGVyU2NhcmFiQmV5b25kIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/d007f87e7b/AltGreaterScarabBeyond.png",
-   description: "Beyond Bosses in Area area are enraged on low life Beyond Bosses in Area drop 100% increased Tainted Currency Beyond Portals in Area have 30% increased chance to spawn a Unique Boss Beyond Bosses in Area are enraged on low life Beyond Bosses in Area drop 100% increased Tainted Currency Beyond Portals in Area have 30% increased chance to spawn a Unique Boss",
+   description: "Beyond Bosses in Area are enraged on low life Beyond Bosses in Area drop 100% increased Tainted Currency Beyond Portals in Area have 30% increased chance to spawn a Unique Boss",
    flavourText: "They hunger.",
  },
  "Beyond Scarab of the Invasion": {
@@ -169,7 +169,7 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Blight Scarab of Blooming": {
    name: "Blight Scarab of Blooming",
-   regex: "ntu",
+   regex: "y,",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9UaWVyNFNjYXJhYkJsaWdodCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/6dde3a6e88/Tier4ScarabBlight.png",
    description: "Blight Encounters in Area have up to 3 additional Unique Bosses Unique enemies in Blight Encounters have 100% increased life Tier 14+ Blighted Maps found in Area drop as Blight-Ravaged Maps instead",
    flavourText: "Once a century, the Blight spills forth...",
@@ -192,7 +192,7 @@ export const scarabs: { [key: string]: Scarab } = {
    name: "Breach Scarab",
    regex: "er fa",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9MZXNzZXJTY2FyYWJCcmVhY2giLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/37bd40da6c/LesserScarabBreach.png",
-   description: "Area contains an additional Breach Area contains 2 additional Breaches",
+   description: "Area contains 2 additional Breaches",
    flavourText: "They are never far.",
  },
  "Breach Scarab of Lordship": {
@@ -213,7 +213,7 @@ export const scarabs: { [key: string]: Scarab } = {
    name: "Breach Scarab of Snares",
    regex: "tep",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9UaWVyNFNjYXJhYkJyZWFjaCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/0b375322d7/Tier4ScarabBreach.png",
-   description: "Breaches in Area have 5 to 10 additional Clasped Hands Clasped Hands in Area are guarded by a rare Breach Monster",
+   description: "Breaches in Area have 3 to 5 additional Clasped Hands Clasped Hands in Area are guarded by a rare Breach Monster",
    flavourText: "Care where you step.",
  },
  "Breach Scarab of Splintering": {
@@ -241,21 +241,14 @@ export const scarabs: { [key: string]: Scarab } = {
    name: "Cartography Scarab of Risk",
    regex: "efl",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJNYXBzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/0baaf413d0/NormalScarabMaps.png",
-   description: "Area has an additional random Modifier",
+   description: "Area has 2 additional random Modifiers",
    flavourText: "What we see in the mirror can only be our own reflection.",
- },
- "Cartography Scarab of Singularity": {
-   name: "Cartography Scarab of Singularity",
-   regex: "ngu",
-   icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9BbHROb3JtYWxTY2FyYWJNYXBzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/95a7a8097c/AltNormalScarabMaps.png",
-   description: "A Unique Map will drop from the Final Map Boss",
-   flavourText: "Some regions of the Atlas never change.",
  },
  "Cartography Scarab of the Multitude": {
    name: "Cartography Scarab of the Multitude",
    regex: "izo",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9BbHROb3JtYWxTY2FyYWJNYXBzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/95a7a8097c/AltNormalScarabMaps.png",
-   description: "Area contains (4-8) to (6-12) additional packs of Difficult and Rewarding Monsters which drop 300% increased Maps",
+   description: "Area contains 8 to 12 additional packs of Difficult and Rewarding Monsters which drop 300% increased Maps",
    flavourText: "There is no end, no horizon.",
  },
  "Delirium Scarab": {
@@ -288,7 +281,7 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Delirium Scarab of Paranoia": {
    name: "Delirium Scarab of Paranoia",
-   regex: "rue",
+   regex: "o g",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9HcmVhdGVyU2NhcmFiRGVsaXJpdW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/c723c51ba6/GreaterScarabDelirium.png",
    description: "Delirium Encounters in Area generate 2 additional Reward types",
    flavourText: "If it seems too good to be true...",
@@ -304,7 +297,7 @@ export const scarabs: { [key: string]: Scarab } = {
    name: "Divination Scarab of Plenty",
    regex: "usa",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJEaXZpbmF0aW9uIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/7fb7abf05a/NormalScarabDivination.png",
-   description: "Area contains 3 additional Packs of Magic Monsters that have 800% increased chance to drop Divination Cards Up to 3 Packs of Magic Monsters in Area drop additional Divination Cards Up to 3 Packs of Magic Monsters in Area have 800% increased chance to drop Divination Cards",
+   description: "Area contains 6 to 10 additional Packs of Divination Touched Magic Monsters that have 1000% increased chance to drop Divination Cards",
    flavourText: "We create a thousand futures with every action.",
  },
  "Divination Scarab of The Cloister": {
@@ -323,9 +316,9 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Domination Scarab of Apparitions": {
    name: "Domination Scarab of Apparitions",
-   regex: "adn",
+   regex: "^so",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJEb21pbmF0aW9uIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/9ef9fd8595/NormalScarabDomination.png",
-   description: "Area contains an additional Apparition Shrine Area contains 2 additional Apparition Shrines",
+   description: "Area contains 2 additional Apparition Shrines",
    flavourText: "Some paths to power lead only to madness.",
  },
  "Domination Scarab of Evolution": {
@@ -346,7 +339,7 @@ export const scarabs: { [key: string]: Scarab } = {
    name: "Essence Scarab",
    regex: "^it",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9MZXNzZXJTY2FyYWJFc3NlbmNlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/c9f153a8cf/LesserScarabEssence.png",
-   description: "Area contains an additional Imprisoned Monster Area contains 2 additional Imprisoned Monsters",
+   description: "Area contains 2 additional Imprisoned Monsters",
    flavourText: "It is perfectly safe, the creatures trapped inside couldn't possibly still be living.",
  },
  "Essence Scarab of Adaptation": {
@@ -402,21 +395,21 @@ export const scarabs: { [key: string]: Scarab } = {
    name: "Expedition Scarab of Verisium Powder",
    regex: "rl",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9HcmVhdGVyU2NhcmFiRXhwZWRpdGlvbiIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/19a2dff87d/GreaterScarabExpedition.png",
-   description: "Expedition Encounters in Area have 20% increased number of Explosives 80% increased Explosive Radius",
+   description: "Expedition Encounters in Area have 50% increased number of Explosives 80% increased Explosive Radius",
    flavourText: "A properly refined pinch makes all the difference.",
  },
  "Harbinger Scarab": {
    name: "Harbinger Scarab",
    regex: "oop",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9MZXNzZXJTY2FyYWJIYXJiaW5nZXJzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/1940157b44/LesserScarabHarbingers.png",
-   description: "Area contains 1 additional Harbinger Area contains 3 additional Harbingers",
+   description: "Area contains 3 additional Harbingers",
    flavourText: "Their troops came in numbers uncountable and from lands unknown.",
  },
  "Harbinger Scarab of Obelisks": {
    name: "Harbinger Scarab of Obelisks",
    regex: "ks$",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJIYXJiaW5nZXJzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/640ad00ede/NormalScarabHarbingers.png",
-   description: "Harbingers in Area drop a single type of currency shard Harbingers in Area spawn Empowered Obelisks Empowered Obelisks drop Currency Shards when defeated",
+   description: "Harbingers in Area spawn Empowered Obelisks Empowered Obelisks drop Currency Shards when defeated",
    flavourText: "They seek to establish an unknown pattern.",
  },
  "Harbinger Scarab of Regency": {
@@ -430,7 +423,7 @@ export const scarabs: { [key: string]: Scarab } = {
    name: "Harbinger Scarab of Warhoards",
    regex: "rh",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9UaWVyNFNjYXJhYkhhcmJpbmdlcnMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/81caefbf3f/Tier4ScarabHarbingers.png",
-   description: "Currency shards dropped by Harbingers in Area have a 25% chance to be duplicated Currency shards dropped by Harbingers in Area are duplicated",
+   description: "Currency shards dropped by Harbingers in Area are duplicated",
    flavourText: "For those who can leverage it, war can be as much a machine of profit as it is death.",
  },
  "Harvest Scarab": {
@@ -449,7 +442,7 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Harvest Scarab of Doubling": {
    name: "Harvest Scarab of Doubling",
-   regex: "ub",
+   regex: "aso",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9HcmVhdGVyU2NhcmFiSGFydmVzdCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/67ebfc1b1f/GreaterScarabHarvest.png",
    description: "Lifeforce dropped by Harvest Monsters in Area is duplicated Harvest Monsters in Area have 100% more Life",
    flavourText: "A good season brings bounty.",
@@ -472,7 +465,7 @@ export const scarabs: { [key: string]: Scarab } = {
    name: "Horned Scarab of Glittering",
    regex: "lth",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9TdXBlclNjYXJhYjYiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/0f282b3a1e/SuperScarab6.png",
-   description: "Players in Area gain increased Item Rarity and Item Quantity for each Monster slain recently, up to 200% and 100% respectively",
+   description: "Players in Area gain increased Item Rarity for each Monster slain, up to 400%, decaying over time",
    flavourText: "Wealth flows to those that shine brightest.",
  },
  "Horned Scarab of Nemeses": {
@@ -514,14 +507,14 @@ export const scarabs: { [key: string]: Scarab } = {
    name: "Incursion Scarab of Champions",
    regex: "tz",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9HcmVhdGVyU2NhcmFiSW5jdXJzaW9uIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/f6b60e9be1/GreaterScarabIncursion.png",
-   description: "Incursions in Area have a 35% chance for all Monsters to be at least Magic Incursions in Area have a 35% chance for all Monsters to be at least Magic Incursions in Area have 15% increased Pack Size",
+   description: "Incursions in Area have a 35% chance for all Monsters to be at least Magic Incursions in Area have 15% increased Pack Size",
    flavourText: "Only the best served in Atzoatl.",
  },
  "Incursion Scarab of Invasion": {
    name: "Incursion Scarab of Invasion",
    regex: "gat",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJJbmN1cnNpb24iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/992c5f7548/NormalScarabIncursion.png",
-   description: "Area contains (3-12) to (5-16) additional packs of Incursion Monsters Area contains (3-12)-(5-16) additional packs of Incursion Monsters",
+   description: "Area contains 12 to 16 additional packs of Incursion Monsters",
    flavourText: "A gate, once opened, may swing in either direction.",
  },
  "Incursion Scarab of Timelines": {
@@ -559,6 +552,27 @@ export const scarabs: { [key: string]: Scarab } = {
    description: "Adds Shaper Influence outcome to Area",
    flavourText: "A sea of stars awaits those who dare imagine.",
  },
+ "Kalguuran Scarab": {
+   name: "Kalguuran Scarab",
+   regex: "vei",
+   icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9MZXNzZXJTY2FyYWJTZXR0bGVycyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/c14c3a7ef3/LesserScarabSettlers.png",
+   description: "Area contains an additional Ore Deposit",
+   flavourText: "Rich veins run deeper still.",
+ },
+ "Kalguuran Scarab of Guarded Riches": {
+   name: "Kalguuran Scarab of Guarded Riches",
+   regex: "gg",
+   icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJTZXR0bGVycyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/0907b7281e/NormalScarabSettlers.png",
+   description: "Monsters guarding Ore Deposits in Area are at least Magic",
+   flavourText: "Digging's the easy part.",
+ },
+ "Kalguuran Scarab of Refinement": {
+   name: "Kalguuran Scarab of Refinement",
+   regex: "ne,",
+   icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9HcmVhdGVyU2NhcmFiU2V0dGxlcnMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/9b76c1fb39/GreaterScarabSettlers.png",
+   description: "Ore Deposits in Area grant Smelted Bars instead of Marking Ore",
+   flavourText: "Ore's true worth lies not in stone, but in what it becomes.",
+ },
  "Legion Scarab": {
    name: "Legion Scarab",
    regex: "arr",
@@ -584,7 +598,7 @@ export const scarabs: { [key: string]: Scarab } = {
    name: "Legion Scarab of Officers",
    regex: "^ev",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJMZWdpb24iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/0edb9242f1/NormalScarabLegion.png",
-   description: "Legion Factions in Area have (2-5) additional Sergeants",
+   description: "Legion Factions in Area have 5 additional Sergeants",
    flavourText: "Even a battlefield has middle management.",
  },
  "Ritual Scarab of Abundance": {
@@ -605,14 +619,14 @@ export const scarabs: { [key: string]: Scarab } = {
    name: "Ritual Scarab of Wisps",
    regex: "^tr",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJSaXR1YWwiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/45dba85b5a/NormalScarabRitual.png",
-   description: "Ritual Altars in Area spawn a Wildwood Wisp Wildwood Wisps grant (50-70)% increased Tribute Gained to nearby Players",
+   description: "Ritual Altars in Area spawn a Wildwood Wisp Wildwood Wisps grant 100% increased Tribute Gained to nearby Players",
    flavourText: "Trust in the Draíocht, and you shall never be alone.",
  },
  "Scarab of Adversaries": {
    name: "Scarab of Adversaries",
    regex: "dv",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9BbHRMZXNzZXJTY2FyYWJNaXNjIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/b51199868c/AltLesserScarabMisc.png",
-   description: "Area contains (2-4) additional Packs with Mirrored Rare Monsters",
+   description: "Area contains 4 additional Packs with Mirrored Rare Monsters",
    flavourText: "They stand against you with equal enmity.",
  },
  "Scarab of Bisection": {
@@ -624,10 +638,10 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Scarab of Divinity": {
    name: "Scarab of Divinity",
-   regex: "^fa",
+   regex: "r,",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJNaXNjIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/a4e827f718/NormalScarabMisc.png",
-   description: "Up to 1 additional Rare Monster in Area will be Pantheon-Touched Apparitions spawned by Pantheon-Touched Monsters deal 100% increased damage Up to 2 additional Rare Monsters in Area will be Pantheon-Touched Apparitions spawned by Pantheon-Touched Monsters deal 100% increased damage",
-   flavourText: "Faith transforms.",
+   description: "Up to 2 additional Rare Monsters in Area will be Pantheon-Touched Apparitions spawned by Pantheon-Touched Monsters deal 100% increased damage",
+   flavourText: "They chitter, they crawl, they bite... and they swarm.",
  },
  "Scarab of Hunted Traitors": {
    name: "Scarab of Hunted Traitors",
@@ -640,7 +654,7 @@ export const scarabs: { [key: string]: Scarab } = {
    name: "Scarab of Monstrous Lineage",
    regex: "eag",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9MZXNzZXJTY2FyYWJNaXNjIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/d89cac7adf/LesserScarabMisc.png",
-   description: "(25-40)% increased Magic Pack Size",
+   description: "40% increased Magic Pack Size",
    flavourText: "The bloodlines evolve faster than they can be culled.",
  },
  "Scarab of Radiant Storms": {
@@ -678,18 +692,11 @@ export const scarabs: { [key: string]: Scarab } = {
    description: "Sulphite found in Map Area releases Enraging Fumes Monsters affected by Enraging Fumes have 50% increased Item Quantity Sulphite in your maps is guarded by Monsters from the Azurite Mine",
    flavourText: "When the land itself is sick, even the very ground rots and spills forth.",
  },
- "Sulphite Scarab of Greed": {
-   name: "Sulphite Scarab of Greed",
-   regex: "'e",
-   icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJTdWxwaGl0ZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/3b6d388b91/NormalScarabSulphite.png",
-   description: "Map owner gains 150% more Sulphite",
-   flavourText: "There is no such thing as 'enough'.",
- },
  "Titanic Scarab": {
    name: "Titanic Scarab",
    regex: "nam",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9MZXNzZXJTY2FyYWJVbmlxdWUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/72516960f1/LesserScarabUnique.png",
-   description: "Unique Monsters have 2% increased Toughness, Damage, Rarity and Quantity of items dropped per 1% increased Pack Size of Area",
+   description: "Unique Monsters have 1% increased Toughness, Damage, Rarity and Quantity of items dropped per 1% increased Pack Size of Area",
    flavourText: "What power lies in a name?",
  },
  "Titanic Scarab of Legend": {
@@ -703,14 +710,14 @@ export const scarabs: { [key: string]: Scarab } = {
    name: "Titanic Scarab of Treasures",
    regex: "^gr",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJVbmlxdWUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/774d92ac8e/NormalScarabUnique.png",
-   description: "Unique Monsters in Area have 2 additional Rewards Unique Monsters in Area have 30% increased Toughness",
+   description: "Unique Monsters in Area have an additional Reward Unique Monsters in Area have 30% increased Toughness",
    flavourText: "Greed is a trap of the mind.",
  },
  "Torment Scarab": {
    name: "Torment Scarab",
    regex: "rim",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9MZXNzZXJTY2FyYWJUb3JtZW50IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/b4e843a49b/LesserScarabTorment.png",
-   description: "Area is haunted by (2-3) additional Tormented Spirits Tormented Spirits in Area have a 25% chance to be set free when Possessed Monsters are slain",
+   description: "Area is haunted by 3 additional Tormented Spirits Tormented Spirits in Area have a 25% chance to be set free when Possessed Monsters are slain",
    flavourText: "Their crimes in life haunt you in death.",
  },
  "Torment Scarab of Peculiarity": {
@@ -722,7 +729,7 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Torment Scarab of Possession": {
    name: "Torment Scarab of Possession",
-   regex: "y al",
+   regex: "ong a",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9UaWVyNFNjYXJhYlRvcm1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b809b07f2b/Tier4ScarabTorment.png",
    description: "Rare Monsters in Area have a quarter chance to be Possessed by up to 1 Tormented Spirit",
    flavourText: "The strong are never truly alone.",
