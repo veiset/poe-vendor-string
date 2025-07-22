@@ -193,9 +193,14 @@ export interface MapSettings {
     include: boolean,
   }
   quality: {
-    value: string,
-    type: string,
+    regular: string,
+    currency: string,
+    divination: string,
+    rarity: string,
+    packSize: string,
+    scarab: string,
   }
+  anyQuality: boolean,
   customText: {
     value: string,
     enabled: boolean,
@@ -375,9 +380,14 @@ export const defaultSettings: SavedSettings = {
       include: true,
     },
     quality: {
-      value: "",
-      type: "regular",
+      regular: "",
+      currency: "",
+      divination: "",
+      rarity: "",
+      packSize: "",
+      scarab: "",
     },
+    anyQuality: true,
     customText: {
       value: "",
       enabled: true,

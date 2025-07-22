@@ -1,7 +1,7 @@
 import {MapSettings} from "../../utils/SavedSettings";
 import {Regex} from "../../generated/GeneratedTypes";
-import {optimizeRegexFromIds, idToRegex} from "../../utils/regex/OptimizeRegexResult";
-import {generateNumberRegex, minNumberRegex} from "../../utils/regex/GenerateNumberRegex";
+import {idToRegex, optimizeRegexFromIds} from "../../utils/regex/OptimizeRegexResult";
+import {generateNumberRegex} from "../../utils/regex/GenerateNumberRegex";
 
 export function generateMapModRegex(settings: MapSettings, regex: Regex<any>): string {
   const exclusions = generateBadMods(settings, regex);
@@ -9,7 +9,7 @@ export function generateMapModRegex(settings: MapSettings, regex: Regex<any>): s
   const quantity = addQuantifier("m q.*", generateNumberRegex(settings.quantity, settings.optimizeQuant));
   const packsize = addQuantifier("iz.*", generateNumberRegex(settings.packsize, settings.optimizePacksize));
   const mapDrop = addQuantifier("re maps.*", generateNumberRegex(settings.mapDropChance, false));
-  const quality = addQuantifier(qualityQualifier(settings), generateNumberRegex(settings.quality.value, settings.optimizeQuality));
+  const quality = qualityQualifier(settings);
   const rarity = addRarityRegex(settings.rarity.normal, settings.rarity.magic, settings.rarity.rare, settings.rarity.include);
   const corrupted = corruptedMapCheck(settings);
 
@@ -27,14 +27,31 @@ function corruptedMapCheck(settings: MapSettings) {
 }
 
 function qualityQualifier(settings: MapSettings) {
-  const type = settings.quality.type;
-  if (type === "regular") return "lity:.*";
-  if (type === "currency") return "urr.*";
-  if (type === "divination") return "div.*";
-  if (type === "rarity") return "ty\\).*";
-  if (type === "pack size") return "ze\\).*";
-  if (type === "scarab") return "sca.*";
-  return ""
+  function qualityType(type: string) {
+    if (type === "regular") return "lity:.*";
+    if (type === "currency") return "urr.*";
+    if (type === "divination") return "div.*";
+    if (type === "rarity") return "ty\\).*";
+    if (type === "pack size") return "ze\\).*";
+    if (type === "scarab") return "sca.*";
+    return ""
+  }
+
+  const result = [
+    addQuantifier(qualityType("regular"), generateNumberRegex(settings.quality.regular, settings.optimizeQuality)),
+    addQuantifier(qualityType("currency"), generateNumberRegex(settings.quality.currency, settings.optimizeQuality)),
+    addQuantifier(qualityType("divination"), generateNumberRegex(settings.quality.divination, settings.optimizeQuality)),
+    addQuantifier(qualityType("rarity"), generateNumberRegex(settings.quality.rarity, settings.optimizeQuality)),
+    addQuantifier(qualityType("pack size"), generateNumberRegex(settings.quality.packSize, settings.optimizeQuality)),
+    addQuantifier(qualityType("scarab"), generateNumberRegex(settings.quality.scarab, settings.optimizeQuality)),
+  ].filter((e) => e !== "");
+  if (settings.anyQuality) {
+    if (result.length === 0) return "";
+    const r = result.map((e) => e.slice(1, -1)).join("|");
+    return `"${r}"`;
+  } else {
+    return result.join(" ");
+  }
 }
 
 function generateBadMods(settings: MapSettings, regex: Regex<any>): string {

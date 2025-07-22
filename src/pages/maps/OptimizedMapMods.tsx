@@ -28,6 +28,7 @@ const OptimizedMapMods = () => {
   const [optimizeQuant, setOptimizeQuant] = useState(profile.map.optimizeQuant);
   const [optimizePacksize, setOptimizePacksize] = useState(profile.map.optimizePacksize);
   const [optimizeQuality, setOptimizeQuality] = useState(profile.map.optimizeQuality);
+  const [anyQuality, setAnyQuality] = useState(profile.map.anyQuality);
   const [rarity, setRarity] = useState(profile.map.rarity);
   const [corrupted, setCorrupted] = useState(profile.map.corrupted);
   const [quality, setQuality] = useState(profile.map.quality);
@@ -56,6 +57,7 @@ const OptimizedMapMods = () => {
       corrupted,
       quality,
       t17,
+      anyQuality,
       customText: {
         value: customTextStr,
         enabled: enableCustomText,
@@ -67,7 +69,7 @@ const OptimizedMapMods = () => {
       map: {...settings},
     });
     setResult(generateMapModRegex(settings, regex));
-  }, [result, rarity, corrupted, quality, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance]);
+  }, [result, rarity, corrupted, quality, anyQuality, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance]);
 
   return (
     <>
@@ -111,15 +113,35 @@ const OptimizedMapMods = () => {
                onChange={v => setMapDropChance(v.target.value)}/>
         <div className="break"/>
 
-        <label className="modifier-search-label" htmlFor="quality">Quality of at least</label>
-        <input type="search" className="modifier-quantity-box" id="quality" name="search-mod" value={quality.value}
-               onChange={v => setQuality({...quality, value: v.target.value})}/>
-        <Dropdown
-          elements={["regular", "currency", "divination", "rarity", "pack size", "scarab"]}
-          selected={quality.type}
-          setSelected={(selected) => setQuality({...quality, type: selected})}
-        />
+        <label className="modifier-search-label" htmlFor="qregular">Quality of</label>
+        <input type="search" className="modifier-quantity-box" id="qregular" name="search-mod" value={quality.regular}
+               onChange={v => setQuality({...quality, regular: v.target.value})}/>
 
+        <label className="modifier-search-label" htmlFor="qpacksize">Pack size of</label>
+        <input type="search" className="modifier-quantity-box" id="qpacksize" name="search-mod" value={quality.packSize}
+               onChange={v => setQuality({...quality, packSize: v.target.value})}/>
+
+        <label className="modifier-search-label" htmlFor="qrarity">Rarity of</label>
+        <input type="search" className="modifier-quantity-box" id="qrarity" name="search-mod" value={quality.rarity}
+               onChange={v => setQuality({...quality, rarity: v.target.value})}/>
+
+        <label className="modifier-search-label" htmlFor="qcurrency">Currency of</label>
+        <input type="search" className="modifier-quantity-box" id="qcurrency" name="search-mod" value={quality.currency}
+               onChange={v => setQuality({...quality, currency: v.target.value})}/>
+
+        <label className="modifier-search-label" htmlFor="qdiv">Divination of</label>
+        <input type="search" className="modifier-quantity-box" id="qdiv" name="search-mod" value={quality.divination}
+               onChange={v => setQuality({...quality, divination: v.target.value})}/>
+
+        <label className="modifier-search-label" htmlFor="qscarab">Scarab of</label>
+        <input type="search" className="modifier-quantity-box" id="qscarab" name="search-mod" value={quality.scarab}
+               onChange={v => setQuality({...quality, scarab: v.target.value})}/>
+
+        <div className="break"/>
+
+        <Checkbox label="Match any of the quality types (disable this to match ALL selected quality)"
+                  value={anyQuality}
+                  onChange={setAnyQuality}/>
 
         <Checkbox label="Optimize Quantity value (round down to nearest 10, saves a lot of query space)"
                   value={optimizeQuant}
