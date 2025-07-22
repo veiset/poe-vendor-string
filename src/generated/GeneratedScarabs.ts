@@ -127,7 +127,7 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Betrayal Scarab of the Allflame": {
    name: "Betrayal Scarab of the Allflame",
-   regex: "^tho",
+   regex: "fear",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJCZXRyYXlhbCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/01b158342c/NormalScarabBetrayal.png",
    description: "75% Increased number of Monster Packs Substituted by Allflame Embers in Area",
    flavourText: "Those that can never die fear only pain.",
@@ -218,7 +218,7 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Breach Scarab of Splintering": {
    name: "Breach Scarab of Splintering",
-   regex: "^bi",
+   regex: "t by",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9BbHRHcmVhdGVyU2NhcmFiQnJlYWNoIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/e324a54cdc/AltGreaterScarabBreach.png",
    description: "Breach Monsters in Area drop 50% more Breach Splinters Clasped Hands in Area drop 50% more Breach Splinters",
    flavourText: "Bit by bit.",
@@ -232,7 +232,7 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Cartography Scarab of Escalation": {
    name: "Cartography Scarab of Escalation",
-   regex: "^op",
+   regex: "thr",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9MZXNzZXJTY2FyYWJNYXBzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/c982c28d52/LesserScarabMaps.png",
    description: "10% increased Maps found in Area for each Map Modifier affecting Area",
    flavourText: "Opportunity thrives where dreams are most perilous.",
@@ -316,7 +316,7 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Domination Scarab of Apparitions": {
    name: "Domination Scarab of Apparitions",
-   regex: "^so",
+   regex: "adn",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJEb21pbmF0aW9uIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/9ef9fd8595/NormalScarabDomination.png",
    description: "Area contains 2 additional Apparition Shrines",
    flavourText: "Some paths to power lead only to madness.",
@@ -337,7 +337,7 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Essence Scarab": {
    name: "Essence Scarab",
-   regex: "^it",
+   regex: "saf",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9MZXNzZXJTY2FyYWJFc3NlbmNlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/c9f153a8cf/LesserScarabEssence.png",
    description: "Area contains 2 additional Imprisoned Monsters",
    flavourText: "It is perfectly safe, the creatures trapped inside couldn't possibly still be living.",
@@ -407,7 +407,7 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Harbinger Scarab of Obelisks": {
    name: "Harbinger Scarab of Obelisks",
-   regex: "ks$",
+   regex: "esta",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJIYXJiaW5nZXJzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/640ad00ede/NormalScarabHarbingers.png",
    description: "Harbingers in Area spawn Empowered Obelisks Empowered Obelisks drop Currency Shards when defeated",
    flavourText: "They seek to establish an unknown pattern.",
@@ -428,7 +428,7 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Harvest Scarab": {
    name: "Harvest Scarab",
-   regex: "^hi",
+   regex: "val",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9MZXNzZXJTY2FyYWJIYXJ2ZXN0IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/0951fed47e/LesserScarabHarvest.png",
    description: "Area contains the Sacred Grove",
    flavourText: "Hidden routes lead to vales of shadow and light...",
@@ -470,14 +470,14 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Horned Scarab of Nemeses": {
    name: "Horned Scarab of Nemeses",
-   regex: "^gl",
+   regex: "tig",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9TdXBlclNjYXJhYjIiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/f4c8c526ba/SuperScarab2.png",
    description: "Rare Monsters in Area have 2 additional Modifiers",
    flavourText: "Glory draws ever tighter its own doom.",
  },
  "Horned Scarab of Pandemonium": {
    name: "Horned Scarab of Pandemonium",
-   regex: "^pu",
+   regex: "pun",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9TdXBlclNjYXJhYjciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/dd523e523b/SuperScarab7.png",
    description: "Monster packs in Area have a 15% chance to be replaced by a random Atlas Boss Modifiers to the Final Map Boss also apply to these Atlas Bosses",
    flavourText: "Punctured dreams bleed into the mind.",
@@ -526,14 +526,14 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Influencing Scarab of Conversion": {
    name: "Influencing Scarab of Conversion",
-   regex: "^me",
+   regex: "as,",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9UaWVyNFNjYXJhYlNoYXBlciIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/1c759412df/Tier4ScarabShaper.png",
    description: "Tier 14+ Maps found in Area have a chance to drop as Shaper Guardian, Elder Guardian, Conqueror or Unique Synthesised Maps instead",
    flavourText: "Memories resound in the Atlas, echoing forever.",
  },
  "Influencing Scarab of Hordes": {
    name: "Influencing Scarab of Hordes",
-   regex: "^id",
+   regex: "idea",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9HcmVhdGVyU2NhcmFiRWxkZXIiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/2bd3ed1eca/GreaterScarabElder.png",
    description: "Influenced Monster Packs in Area have 40% increased Pack Size",
    flavourText: "Ideas cannot be contained.",
@@ -596,28 +596,28 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Legion Scarab of Officers": {
    name: "Legion Scarab of Officers",
-   regex: "^ev",
+   regex: "bat",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJMZWdpb24iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/0edb9242f1/NormalScarabLegion.png",
    description: "Legion Factions in Area have 5 additional Sergeants",
    flavourText: "Even a battlefield has middle management.",
  },
  "Ritual Scarab of Abundance": {
    name: "Ritual Scarab of Abundance",
-   regex: "^he",
+   regex: "abu",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9HcmVhdGVyU2NhcmFiUml0dWFsIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/2e76a61fb9/GreaterScarabRitual.png",
    description: "Rituals in Area offer 100% increased Favours",
    flavourText: "He draws ever closer...",
  },
  "Ritual Scarab of Selectiveness": {
    name: "Ritual Scarab of Selectiveness",
-   regex: "^pi",
+   regex: "pic",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9MZXNzZXJTY2FyYWJSaXR1YWwiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/744a25b9f9/LesserScarabRitual.png",
    description: "Rerolling Favours at Ritual Altars in Area has no cost the first 2 times Ritual Altars in Area allow rerolling Favours 1 additional time",
    flavourText: "Pick and choose which sacred tenets you prefer...",
  },
  "Ritual Scarab of Wisps": {
    name: "Ritual Scarab of Wisps",
-   regex: "^tr",
+   regex: "rus",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJSaXR1YWwiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/45dba85b5a/NormalScarabRitual.png",
    description: "Ritual Altars in Area spawn a Wildwood Wisp Wildwood Wisps grant 100% increased Tribute Gained to nearby Players",
    flavourText: "Trust in the Draíocht, and you shall never be alone.",
@@ -638,10 +638,10 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Scarab of Divinity": {
    name: "Scarab of Divinity",
-   regex: "r,",
+   regex: "ini",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJNaXNjIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/a4e827f718/NormalScarabMisc.png",
    description: "Up to 2 additional Rare Monsters in Area will be Pantheon-Touched Apparitions spawned by Pantheon-Touched Monsters deal 100% increased damage",
-   flavourText: "They chitter, they crawl, they bite... and they swarm.",
+   flavourText: "Faith transforms.",
  },
  "Scarab of Hunted Traitors": {
    name: "Scarab of Hunted Traitors",
@@ -708,7 +708,7 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Titanic Scarab of Treasures": {
    name: "Titanic Scarab of Treasures",
-   regex: "^gr",
+   regex: "gree",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9Ob3JtYWxTY2FyYWJVbmlxdWUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/774d92ac8e/NormalScarabUnique.png",
    description: "Unique Monsters in Area have an additional Reward Unique Monsters in Area have 30% increased Toughness",
    flavourText: "Greed is a trap of the mind.",
@@ -757,7 +757,7 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Ultimatum Scarab of Dueling": {
    name: "Ultimatum Scarab of Dueling",
-   regex: "^v",
+   regex: "cto",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9HcmVhdGVyU2NhcmFiVWx0aW1hdHVtIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/42d067c281/GreaterScarabUltimatum.png",
    description: "Ultimatum Encounters in Area will always lead to a Unique Boss if possible",
    flavourText: "Victory is meaningless, failure will be mocked.",
