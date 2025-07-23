@@ -117,23 +117,25 @@ const OptimizedMapMods = () => {
         <input type="search" className="modifier-quantity-box" id="qregular" name="search-mod" value={quality.regular}
                onChange={v => setQuality({...quality, regular: v.target.value})}/>
 
-        <label className="modifier-search-label" htmlFor="qpacksize">Pack size of</label>
+        <label className="modifier-search-label" htmlFor="qpacksize">Quality (pack size)</label>
         <input type="search" className="modifier-quantity-box" id="qpacksize" name="search-mod" value={quality.packSize}
                onChange={v => setQuality({...quality, packSize: v.target.value})}/>
 
-        <label className="modifier-search-label" htmlFor="qrarity">Rarity of</label>
+        <label className="modifier-search-label" htmlFor="qrarity">Quality (rarity)</label>
         <input type="search" className="modifier-quantity-box" id="qrarity" name="search-mod" value={quality.rarity}
                onChange={v => setQuality({...quality, rarity: v.target.value})}/>
 
-        <label className="modifier-search-label" htmlFor="qcurrency">Currency of</label>
+        <div className="break"/>
+
+        <label className="modifier-search-label" htmlFor="qcurrency">Quality (currency)</label>
         <input type="search" className="modifier-quantity-box" id="qcurrency" name="search-mod" value={quality.currency}
                onChange={v => setQuality({...quality, currency: v.target.value})}/>
 
-        <label className="modifier-search-label" htmlFor="qdiv">Divination of</label>
+        <label className="modifier-search-label" htmlFor="qdiv">Quality (divination)</label>
         <input type="search" className="modifier-quantity-box" id="qdiv" name="search-mod" value={quality.divination}
                onChange={v => setQuality({...quality, divination: v.target.value})}/>
 
-        <label className="modifier-search-label" htmlFor="qscarab">Scarab of</label>
+        <label className="modifier-search-label" htmlFor="qscarab">Quality (scarab)</label>
         <input type="search" className="modifier-quantity-box" id="qscarab" name="search-mod" value={quality.scarab}
                onChange={v => setQuality({...quality, scarab: v.target.value})}/>
 
