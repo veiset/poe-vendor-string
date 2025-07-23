@@ -9,7 +9,6 @@ import {getGradientColor} from "../../utils/ColorGradient";
 import {defaultSettings, MapSettings} from "../../utils/SavedSettings";
 import {Checkbox} from "../vendor/Vendor";
 import {generateMapModRegex} from "./OptimizedMapOutput";
-import Dropdown from "../../components/dropdown/Dropdown";
 import "./OptimizedMapMods.css";
 import RegexResultBox from "../../components/RegexResultBox/RegexResultBox";
 
@@ -25,6 +24,7 @@ const OptimizedMapMods = () => {
   const [modGrouping, setModGrouping] = useState(profile.map.allGoodMods);
   const [quantity, setQuantity] = useState(profile.map.quantity);
   const [packsize, setPacksize] = useState(profile.map.packsize);
+  const [itemRarity, setItemRarity] = useState(profile.map.packsize);
   const [optimizeQuant, setOptimizeQuant] = useState(profile.map.optimizeQuant);
   const [optimizePacksize, setOptimizePacksize] = useState(profile.map.optimizePacksize);
   const [optimizeQuality, setOptimizeQuality] = useState(profile.map.optimizeQuality);
@@ -50,6 +50,7 @@ const OptimizedMapMods = () => {
       allGoodMods: modGrouping,
       quantity,
       packsize,
+      itemRarity,
       optimizeQuant,
       optimizePacksize,
       optimizeQuality,
@@ -69,7 +70,7 @@ const OptimizedMapMods = () => {
       map: {...settings},
     });
     setResult(generateMapModRegex(settings, regex));
-  }, [result, rarity, corrupted, quality, anyQuality, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance]);
+  }, [result, rarity, corrupted, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance]);
 
   return (
     <>
@@ -90,6 +91,7 @@ const OptimizedMapMods = () => {
           setModGrouping(defaultSettings.map.allGoodMods)
           setQuantity(defaultSettings.map.quantity);
           setPacksize(defaultSettings.map.packsize);
+          setItemRarity(defaultSettings.map.itemRarity);
           setRarity(defaultSettings.map.rarity);
           setCorrupted(defaultSettings.map.corrupted);
           setQuality(defaultSettings.map.quality);
@@ -111,6 +113,10 @@ const OptimizedMapMods = () => {
         <label className="modifier-search-label" htmlFor="mapdrop">More maps of at least</label>
         <input type="search" className="modifier-quantity-box" id="mapdrop" name="search-mod" value={mapDropChance}
                onChange={v => setMapDropChance(v.target.value)}/>
+
+        <label className="modifier-search-label" htmlFor="itemRarity">Item rairty of at least</label>
+        <input type="search" className="modifier-quantity-box" id="itemRarity" name="search-mod" value={itemRarity}
+               onChange={v => setItemRarity(v.target.value)}/>
         <div className="break"/>
 
         <label className="modifier-search-label" htmlFor="qregular">Quality of</label>

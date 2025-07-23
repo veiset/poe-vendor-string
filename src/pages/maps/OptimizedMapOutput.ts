@@ -9,11 +9,12 @@ export function generateMapModRegex(settings: MapSettings, regex: Regex<any>): s
   const quantity = addQuantifier("m q.*", generateNumberRegex(settings.quantity, settings.optimizeQuant));
   const packsize = addQuantifier("iz.*", generateNumberRegex(settings.packsize, settings.optimizePacksize));
   const mapDrop = addQuantifier("re maps.*", generateNumberRegex(settings.mapDropChance, false));
+  const itemRarity = addQuantifier("m rar.*", generateNumberRegex(settings.itemRarity, false));
   const quality = qualityQualifier(settings);
   const rarity = addRarityRegex(settings.rarity.normal, settings.rarity.magic, settings.rarity.rare, settings.rarity.include);
   const corrupted = corruptedMapCheck(settings);
 
-  const result = `${exclusions} ${inclusions} ${quantity} ${packsize} ${quality} ${rarity} ${mapDrop} ${corrupted}`
+  const result = `${exclusions} ${inclusions} ${quantity} ${packsize} ${itemRarity} ${quality} ${rarity} ${mapDrop} ${corrupted}`
     .trim().replaceAll(/\s{2,}/g, ' ');
 
   return optimize(result);

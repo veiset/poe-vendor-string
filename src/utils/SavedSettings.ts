@@ -178,6 +178,7 @@ export interface MapSettings {
   allGoodMods: boolean
   quantity: string
   packsize: string
+  itemRarity: string
   optimizeQuant: boolean
   optimizePacksize: boolean
   optimizeQuality: boolean
@@ -365,6 +366,7 @@ export const defaultSettings: SavedSettings = {
     allGoodMods: true,
     quantity: "",
     packsize: "",
+    itemRarity: "",
     optimizeQuant: false,
     optimizePacksize: false,
     optimizeQuality: false,
