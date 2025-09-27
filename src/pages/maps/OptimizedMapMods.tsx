@@ -114,7 +114,7 @@ const OptimizedMapMods = () => {
         <input type="search" className="modifier-quantity-box" id="mapdrop" name="search-mod" value={mapDropChance}
                onChange={v => setMapDropChance(v.target.value)}/>
 
-        <label className="modifier-search-label" htmlFor="itemRarity">Item rairty of at least</label>
+        <label className="modifier-search-label" htmlFor="itemRarity">Item rarity of at least</label>
         <input type="search" className="modifier-quantity-box" id="itemRarity" name="search-mod" value={itemRarity}
                onChange={v => setItemRarity(v.target.value)}/>
         <div className="break"/>
