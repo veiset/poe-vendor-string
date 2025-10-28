@@ -170,6 +170,10 @@ export interface ItemCraftingSettings {
     onlyIfBothPrefixAndSuffix: boolean,
     matchOpenAffix: boolean,
   }
+  customText: {
+    value: string,
+    enabled: boolean,
+  }
 }
 
 export interface MapSettings {
@@ -504,6 +508,10 @@ export const defaultSettings: SavedSettings = {
     magicSettings: {
       onlyIfBothPrefixAndSuffix: true,
       matchOpenAffix: true,
+    },
+    customText: {
+      value: "",
+      enabled: true,
     },
   }
 }

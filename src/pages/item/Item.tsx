@@ -45,6 +45,9 @@ const Item = () => {
   const [onlyIfBothPrefixAndSuffix, setOnlyIfBothPrefixAndSuffix] = useState(profile.itemCrafting.magicSettings.onlyIfBothPrefixAndSuffix);
   const [matchOpenAffix, setMatchOpenAffix] = useState(profile.itemCrafting.magicSettings.matchOpenAffix);
 
+  const [customTextStr, setCustomTextStr] = useState(profile.map.customText.value);
+  const [enableCustomText, setEnableCustomText] = useState(profile.map.customText.enabled);
+
   useEffect(() => {
     if (itembase) {
       setRegexMods(itemRegex[itembase.baseType]);
@@ -64,7 +67,11 @@ const Item = () => {
         magicSettings: {
           onlyIfBothPrefixAndSuffix,
           matchOpenAffix,
-        }
+        },
+        customText: {
+          value: customTextStr,
+          enabled: enableCustomText,
+        },
       }
     };
 
@@ -75,7 +82,7 @@ const Item = () => {
       setResult(generateMagicItemRegex(settings.itemCrafting));
     }
     saveSettings(settings)
-  }, [selectedRareMods, selectedMagicMods, itembase, onlyIfBothPrefixAndSuffix, matchOpenAffix, matchAnyMod]);
+  }, [selectedRareMods, selectedMagicMods, itembase, onlyIfBothPrefixAndSuffix, matchOpenAffix, matchAnyMod, customTextStr, enableCustomText]);
 
   return (<>
       <Header text={"Item"}/>
@@ -92,13 +99,13 @@ const Item = () => {
             setOnlyIfBothPrefixAndSuffix(defaultSettings.itemCrafting.magicSettings.onlyIfBothPrefixAndSuffix);
             setMatchOpenAffix(defaultSettings.itemCrafting.magicSettings.matchOpenAffix);
           }
+          setEnableCustomText(defaultSettings.itemCrafting.customText.enabled);
+          setCustomTextStr(defaultSettings.itemCrafting.customText.value);
         }}
-        customText={""}
-        setCustomText={() => {
-        }}
-        enableCustomText={false}
-        setEnableCustomText={() => {
-        }}
+        customText={customTextStr}
+        setCustomText={setCustomTextStr}
+        enableCustomText={enableCustomText}
+        setEnableCustomText={setEnableCustomText}
         enableBug={true}
       />
       <InfoBanner>
