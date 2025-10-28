@@ -72,7 +72,7 @@ const PageLinks = () => {
       </p>
       <p className="support-link">
         <img src={plausibleIcon} alt="website stats" className="support-icon"/>
-        <a className="source-link" href="https://plausible.vz.is/poe.re" rel="noreferrer">
+        <a className="source-link" href="https://p.vz.is/poe.re" rel="noreferrer">
           Website stats</a>
       </p>
     </div>
