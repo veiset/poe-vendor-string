@@ -9,6 +9,9 @@ import {addExpression} from "../../utils/OutputString";
 import {defaultSettings} from "../../utils/SavedSettings";
 import {loadSettings, saveSettings} from "../../utils/LocalStorage";
 import {ProfileContext} from "../../components/profile/ProfileContext";
+import {Link} from "react-router-dom";
+import alterationIcon from "../../img/linkicons/alteration.png";
+import {PageLink} from "../../layout/PageLinks";
 
 
 export interface ContractLevel {
@@ -99,6 +102,12 @@ const Heist = () => {
         setTargetValue(defaultSettings.heist.targetValue);
         setRequireCoinValue(defaultSettings.heist.requireCoinValue);
       }}/>
+      <h2 className="row">Heist gear</h2>
+      <div className="row heist-gear-info">
+        <span className="heist-gear-span"> To craft gear go to the</span>
+        <PageLink text="Items" icon={alterationIcon} route={"/items"} currentPage={""}/>
+        <span className="heist-gear-span">crafting page and select the base you want to craft</span>
+      </div>
       <h2 className="row">Presets</h2>
       <div className="row">
         <button className="heist-action-button" onClick={() => {

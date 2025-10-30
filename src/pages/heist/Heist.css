@@ -8,10 +8,12 @@
     font-size: 18px;
 
 }
+
 .heist-action-button:hover {
     background-color: #2d2d33; /* Green */
     color: white;
 }
+
 .heist-level-input {
     padding-left: 10px;
     padding-bottom: 30px;
@@ -33,10 +35,20 @@
     height: 24px;
     padding-right: 5px;
 }
+
 .heist-level-input-boxes {
     padding-left: 10px;
 }
+
 .heist-value-input {
     margin-top: 16px;
 
+}
+
+.heist-gear-info {
+}
+
+.heist-gear-span {
+    padding-top: 10px;
+    padding-left: 10px;
 }

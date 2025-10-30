@@ -14,6 +14,7 @@ import MagicItemSelect, {SelectedMagicMod} from "./MagicItemSelect";
 import {Checkbox} from "../vendor/Vendor";
 import Infobox from "../../components/infobox/Infobox";
 import InfoBanner from "../../components/InfoBanner/InfoBanner";
+import item from "./Item";
 
 const Item = () => {
   const {globalProfile} = useContext(ProfileContext);
@@ -48,9 +49,17 @@ const Item = () => {
   const [customTextStr, setCustomTextStr] = useState(profile.map.customText.value);
   const [enableCustomText, setEnableCustomText] = useState(profile.map.customText.enabled);
 
+  const [nonMagicalBase, setNonMagicalBase] = useState(false);
+  const nonMagicBases = ["heist"];
+
   useEffect(() => {
     if (itembase) {
       setRegexMods(itemRegex[itembase.baseType]);
+      const nonMagicalType = nonMagicBases.some((e) => itembase?.baseType.toLowerCase().includes(e.toLowerCase()));
+      setNonMagicalBase(nonMagicalType);
+      if (nonMagicalType && itembase.rarity === "Magic") {
+        setItembase({...itembase, rarity: "Rare"});
+      }
     }
   }, [itembase]);
 
@@ -89,6 +98,7 @@ const Item = () => {
       <RegexResultBox
         result={result}
         reset={() => {
+          setNonMagicalBase(false);
           if (itembase?.rarity === "Rare") {
             setMatchAnyMod(defaultSettings.itemCrafting.rareSettings.matchAnyMod);
             setSelectedRareMods(defaultSettings.itemCrafting.selectedRareMods);
@@ -109,7 +119,6 @@ const Item = () => {
         enableBug={true}
       />
       <InfoBanner>
-        <h2>Known issues (that will get fixed over time) - <a href="/#/items-old" className="source-link">old page</a></h2>
         <ul>
           <li>Clusters are missing notables</li>
           <li>Open prefix/suffix doesn't work for magic synth items</li>
@@ -118,7 +127,7 @@ const Item = () => {
         </ul>
       </InfoBanner>
 
-      <ItemBaseSelector itemBase={itembase} setItemBase={setItembase}/>
+      <ItemBaseSelector itemBase={itembase} setItemBase={setItembase} nonMagicalBase={nonMagicalBase}/>
       {itembase && <h2>Selected: <span className={"item-" + itembase.rarity}>{itembase.item}</span></h2>}
       {regexMods && itembase?.rarity === "Rare" && <ModWarning itemRegex={regexMods}/>}
       <div className="break"/>

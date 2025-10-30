@@ -3,3 +3,8 @@
     margin-top: 4px;
     max-width: 598px;
 }
+
+.item-rarity-warning {
+    padding-left: 10px;
+    color: #f69158;
+}

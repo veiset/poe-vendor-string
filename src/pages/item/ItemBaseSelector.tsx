@@ -15,10 +15,11 @@ export interface Itembase {
 interface ItemBaseSelectorProps {
   setItemBase: (itemBase: Itembase) => void
   itemBase: Itembase | undefined
+  nonMagicalBase: boolean
 }
 
 const ItemBaseSelector = (props: ItemBaseSelectorProps) => {
-  const {setItemBase, itemBase} = props;
+  const {setItemBase, itemBase, nonMagicalBase} = props;
   const search = basetypes.flatMap((base) =>
     base.items.map((item) => `${base.name} - ${item}`)
   ).map((e, index) => ({
@@ -65,14 +66,15 @@ const ItemBaseSelector = (props: ItemBaseSelectorProps) => {
         />
       </div>
       <h2>Item rarity</h2>
-      <Dropdown
-        elements={rarity}
-        selected={selectedRarity}
-        setSelected={(selected) => {
-          setSelectedRarity(selected as Rarity);
-        }}
-        style={"dropdown-sm"}
-      />
+      {!nonMagicalBase ?
+        <Dropdown
+          elements={rarity}
+          selected={selectedRarity}
+          setSelected={(selected) => {
+            setSelectedRarity(selected as Rarity);
+          }}
+          style={"dropdown-sm"}
+        /> : <div className="item-rarity-warning">Selected item base only supports rare items</div>}
     </div>
   </>)
 }

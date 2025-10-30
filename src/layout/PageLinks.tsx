@@ -22,7 +22,7 @@ export interface PageLinkProps {
   currentPage: string
 }
 
-const PageLink = (props: PageLinkProps) => {
+export const PageLink = (props: PageLinkProps) => {
   const {text, icon, route, currentPage} = props;
   const classes = route === currentPage ? "page-link page-link-current" : "page-link";
   return (
