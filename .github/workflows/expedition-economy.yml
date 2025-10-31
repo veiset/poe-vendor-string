@@ -5,7 +5,7 @@ on:
     - cron: '0 */4 * * *'
 
 env:
-  LEAGUE: Mercenaries
+  LEAGUE: Keepers
 
 jobs:
   build:

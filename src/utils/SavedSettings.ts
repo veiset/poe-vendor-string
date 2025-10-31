@@ -5,7 +5,7 @@ import {Itembase} from "../pages/item/ItemBaseSelector";
 import {RareModSelection} from "../pages/item/RareItemSelect";
 import {SelectedMagicMod} from "../pages/item/MagicItemSelect";
 
-export const leagueName = "Mercenaries";
+export const leagueName = "Keepers";
 export const categories: ItemCategory[] = [
   {
     name: "One Handed Weapons", itemType: [
