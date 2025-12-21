@@ -13,11 +13,19 @@ export function generateMapModRegex(settings: MapSettings, regex: Regex<any>): s
   const quality = qualityQualifier(settings);
   const rarity = addRarityRegex(settings.rarity.normal, settings.rarity.magic, settings.rarity.rare, settings.rarity.include);
   const corrupted = corruptedMapCheck(settings);
+  const unidentified = unidentifiedMap(settings);
 
-  const result = `${exclusions} ${inclusions} ${quantity} ${packsize} ${itemRarity} ${quality} ${rarity} ${mapDrop} ${corrupted}`
+  const result = `${exclusions} ${inclusions} ${quantity} ${packsize} ${itemRarity} ${quality} ${rarity} ${mapDrop} ${corrupted} ${unidentified}`
     .trim().replaceAll(/\s{2,}/g, ' ');
 
   return optimize(result);
+}
+
+function unidentifiedMap(settings: MapSettings) {
+  if (settings.unidentified.enabled) {
+    return settings.unidentified.include ? "tified" : "!tified"
+  }
+  return "";
 }
 
 function corruptedMapCheck(settings: MapSettings) {

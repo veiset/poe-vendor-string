@@ -31,6 +31,7 @@ const OptimizedMapMods = () => {
   const [anyQuality, setAnyQuality] = useState(profile.map.anyQuality);
   const [rarity, setRarity] = useState(profile.map.rarity);
   const [corrupted, setCorrupted] = useState(profile.map.corrupted);
+  const [unidentified, setUnidentified] = useState(profile.map.unidentified);
   const [quality, setQuality] = useState(profile.map.quality);
   const [t17, setT17] = useState(profile.map.t17);
   const [regex, setRegex] = useState(t17 ? regexT17 : regexRegular);
@@ -56,6 +57,7 @@ const OptimizedMapMods = () => {
       optimizeQuality,
       rarity,
       corrupted,
+      unidentified,
       quality,
       t17,
       anyQuality,
@@ -70,7 +72,7 @@ const OptimizedMapMods = () => {
       map: {...settings},
     });
     setResult(generateMapModRegex(settings, regex));
-  }, [result, rarity, corrupted, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance]);
+  }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance]);
 
   return (
     <>
@@ -94,6 +96,7 @@ const OptimizedMapMods = () => {
           setItemRarity(defaultSettings.map.itemRarity);
           setRarity(defaultSettings.map.rarity);
           setCorrupted(defaultSettings.map.corrupted);
+          setUnidentified(defaultSettings.map.unidentified);
           setQuality(defaultSettings.map.quality);
           setEnableCustomText(defaultSettings.map.customText.enabled);
           setCustomTextStr(defaultSettings.map.customText.value);
@@ -189,6 +192,20 @@ const OptimizedMapMods = () => {
                    checked={!corrupted.include}
                    onChange={v => setCorrupted({...corrupted, include: false})}/>
             <label htmlFor="corrupted-exclude" className="radio-button-map">Exclude</label>
+          </div>
+        </div>
+        <div className="rarity-select">
+          <Checkbox label="Unidentified Map" value={unidentified.enabled}
+                    onChange={(e) => setUnidentified({...unidentified, enabled: !unidentified.enabled})}/>
+          <div className="radio-button-unidentified">
+            <input type="radio" className="radio-button-map" id="unidentified-include" name="unidentified-include"
+                   checked={unidentified.include}
+                   onChange={v => setUnidentified({...unidentified, include: true})}/>
+            <label htmlFor="unidentified-include" className="radio-button-map radio-first-ele">Include</label>
+            <input type="radio" id="unidentified-exclude" name="unidentified-exclude"
+                   checked={!unidentified.include}
+                   onChange={v => setUnidentified({...unidentified, include: false})}/>
+            <label htmlFor="unidentified-exclude" className="radio-button-map">Exclude</label>
           </div>
         </div>
         <div className="break spacer-top"/>

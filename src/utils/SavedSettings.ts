@@ -197,6 +197,10 @@ export interface MapSettings {
     enabled: boolean,
     include: boolean,
   }
+  unidentified: {
+    enabled: boolean,
+    include: boolean,
+  }
   quality: {
     regular: string,
     currency: string,
@@ -384,6 +388,10 @@ export const defaultSettings: SavedSettings = {
     corrupted: {
       enabled: false,
       include: true,
+    },
+    unidentified: {
+      enabled: false,
+      include: false,
     },
     quality: {
       regular: "",
