@@ -1,48 +1,43 @@
 .runegraft-row {
+    padding: 2px;
     display: flex;
     flex-direction: row;
-    padding: 0.5em;
-    border-bottom: 1px solid #333;
+    flex-wrap: wrap;
+    color: #c5c5c5;
 }
 
 .runegraft-header {
     font-weight: bold;
-    background-color: #222;
+    color: #d5d5d5;
 }
 
 .runegraft-name-cell {
-    flex: 2;
+    width: 25%;
 }
 
 .runegraft-regex-cell {
-    flex: 1;
-    font-family: monospace;
+    width: 10%;
 }
 
 .runegraft-value-cell {
-    flex: 0.5;
-    text-align: right;
+    width: 10%;
 }
 
 .runegraft-description-cell {
-    flex: 3;
-    padding-left: 1em;
-    color: #888;
-}
-
-.runegraft-highlighted {
-    background-color: #2a3d2a;
+    width: 55%;
 }
 
 .runegraft-price-info {
-    text-align: center;
-    color: #666;
-    font-size: 0.9em;
-    margin-bottom: 1em;
+    font-size: 14px;
+    padding-left: 10px;
+    margin-top: 4px;
+    padding-right: 10px;
+}
+
+.runegraft-highlighted {
+    color: #50dbe0;
 }
 
 .runegraft-options {
-    justify-content: center;
-    gap: 2em;
-    margin-bottom: 1em;
+    padding: 20px 20px 10px;
 }

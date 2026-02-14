@@ -8,7 +8,7 @@ import { dateTextFromString } from "../expedition/ExpeditionUtils";
 import { loadSettings, saveSettings } from "../../utils/LocalStorage";
 import { defaultSettings } from "../../utils/SavedSettings";
 import { ProfileContext } from "../../components/profile/ProfileContext";
-import { tattooRegex, TattooRegex } from "../../generated/GeneratedTattoo";
+import { tattooRegex } from "../../generated/GeneratedTattoo";
 
 interface PoeNinjaTattooLine {
     id: string
