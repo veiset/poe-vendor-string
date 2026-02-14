@@ -1,0 +1,2544 @@
+{
+    "lines": [
+        {
+            "id": 108020,
+            "name": "Journey Tattoo of the Soul",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL1VuaXF1ZTNUYXR0dG9vRXF1aXBtZW50IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/b9554ff666/Unique3TatttooEquipment.png",
+            "baseType": "Journey Tattoo of the Soul",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": -25.9,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    -19.36,
+                    -25.41,
+                    -25.93,
+                    -25.9
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": -25.9,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    -19.36,
+                    -25.41,
+                    -25.93,
+                    -25.9
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "+40 to maximum Energy Shield per Allocated Journey Tattoo of the Soul",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 74.10,
+            "exaltedValue": 5.34,
+            "divineValue": 0.42,
+            "count": 7,
+            "detailsId": "journey-tattoo-of-the-soul",
+            "tradeInfo": [],
+            "listingCount": 77
+        },
+        {
+            "id": 108021,
+            "name": "Journey Tattoo of the Mind",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL1VuaXF1ZTNUYXR0dG9vRXF1aXBtZW50IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/b9554ff666/Unique3TatttooEquipment.png",
+            "baseType": "Journey Tattoo of the Mind",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 0,
+                "data": []
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": -27.76,
+                "data": [
+                    0,
+                    -1.51,
+                    -3.11,
+                    -20.42,
+                    -27.83,
+                    -27.82,
+                    -27.76
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "+30 to maximum Mana per Allocated Journey Tattoo of the Mind",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 49.63,
+            "exaltedValue": 3.58,
+            "divineValue": 0.28,
+            "count": 4,
+            "detailsId": "journey-tattoo-of-the-mind",
+            "tradeInfo": [],
+            "listingCount": 23
+        },
+        {
+            "id": 106330,
+            "name": "Tattoo of the Valako Shieldbearer",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vblN0clRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b7072892c0/CommonStrTatttooEquipment.png",
+            "baseType": "Tattoo of the Valako Shieldbearer",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 27.80,
+                "data": [
+                    0,
+                    -9.06,
+                    -9.06,
+                    0,
+                    22.51,
+                    22.58,
+                    27.80
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 27.80,
+                "data": [
+                    0,
+                    -9.06,
+                    -9.06,
+                    0,
+                    22.51,
+                    22.58,
+                    27.80
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "+1% Chance to Block Attack Damage",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 36.68,
+            "exaltedValue": 2.64,
+            "divineValue": 0.21,
+            "count": 34,
+            "detailsId": "tattoo-of-the-valako-shieldbearer",
+            "tradeInfo": [],
+            "listingCount": 384
+        },
+        {
+            "id": 106389,
+            "name": "Tattoo of the Arohongui Shaman",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkludFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/bae0258602/CommonIntTatttooEquipment.png",
+            "baseType": "Tattoo of the Arohongui Shaman",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": -45.75,
+                "data": [
+                    0,
+                    -45.54,
+                    -40.55,
+                    -45.2,
+                    -45.91,
+                    -45.88,
+                    -45.75
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": -45.75,
+                "data": [
+                    0,
+                    -45.54,
+                    -40.55,
+                    -45.2,
+                    -45.91,
+                    -45.88,
+                    -45.75
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "5% increased Effect of Herald Buffs on you",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 35.26,
+            "exaltedValue": 2.54,
+            "divineValue": 0.20,
+            "count": 32,
+            "detailsId": "tattoo-of-the-arohongui-shaman",
+            "tradeInfo": [],
+            "listingCount": 332
+        },
+        {
+            "id": 106369,
+            "name": "Tattoo of the Ramako Shaman",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkRleFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b80711f45f/CommonDexTatttooEquipment.png",
+            "baseType": "Tattoo of the Ramako Shaman",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": -25.93,
+                "data": [
+                    0,
+                    -37.32,
+                    -48.92,
+                    -20.23,
+                    -14.53,
+                    -14.53,
+                    -25.93
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": -25.93,
+                "data": [
+                    0,
+                    -37.32,
+                    -48.92,
+                    -20.23,
+                    -14.53,
+                    -14.53,
+                    -25.93
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "+2% chance to Suppress Spell Damage",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 26.00,
+            "exaltedValue": 1.87,
+            "divineValue": 0.15,
+            "count": 39,
+            "detailsId": "tattoo-of-the-ramako-shaman",
+            "tradeInfo": [],
+            "listingCount": 551
+        },
+        {
+            "id": 106445,
+            "name": "Tattoo of the Ngamahu Warmonger",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vblN0clRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b7072892c0/CommonStrTatttooEquipment.png",
+            "baseType": "Tattoo of the Ngamahu Warmonger",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 20.60,
+                "data": [
+                    0,
+                    -2.01,
+                    -1.51,
+                    0.50,
+                    5.53,
+                    23.12,
+                    20.60
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 20.60,
+                "data": [
+                    0,
+                    -2.01,
+                    -1.51,
+                    0.50,
+                    5.53,
+                    23.12,
+                    20.60
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "5% chance to Ignite",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 24.00,
+            "exaltedValue": 1.73,
+            "divineValue": 0.14,
+            "count": 41,
+            "detailsId": "tattoo-of-the-ngamahu-warmonger",
+            "tradeInfo": [],
+            "listingCount": 537
+        },
+        {
+            "id": 108018,
+            "name": "Journey Tattoo of the Body",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL1VuaXF1ZTNUYXR0dG9vRXF1aXBtZW50IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/b9554ff666/Unique3TatttooEquipment.png",
+            "baseType": "Journey Tattoo of the Body",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": -12.73,
+                "data": [
+                    0,
+                    -12.73,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": -25.45,
+                "data": [
+                    0,
+                    -12.73,
+                    -25.45,
+                    -25.45,
+                    -25.45,
+                    -25.45,
+                    -25.45
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "+25 to maximum Life per Allocated Journey Tattoo of the Body",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 20.50,
+            "exaltedValue": 1.48,
+            "divineValue": 0.12,
+            "count": 4,
+            "detailsId": "journey-tattoo-of-the-body",
+            "tradeInfo": [],
+            "listingCount": 57
+        },
+        {
+            "id": 106372,
+            "name": "Tattoo of the Tukohama Warcaller",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vblN0clRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b7072892c0/CommonStrTatttooEquipment.png",
+            "baseType": "Tattoo of the Tukohama Warcaller",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 12.35,
+                "data": [
+                    0,
+                    16.05,
+                    23.46,
+                    23.46,
+                    35.80,
+                    33.77,
+                    12.35
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 12.35,
+                "data": [
+                    0,
+                    16.05,
+                    23.46,
+                    23.46,
+                    35.80,
+                    33.77,
+                    12.35
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "8% increased Warcry Cooldown Recovery Rate",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 18.20,
+            "exaltedValue": 1.31,
+            "divineValue": 0.10,
+            "count": 42,
+            "detailsId": "tattoo-of-the-tukohama-warcaller",
+            "tradeInfo": [],
+            "listingCount": 1145
+        },
+        {
+            "id": 106343,
+            "name": "Tattoo of the Hinekora Warrior",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkludFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/bae0258602/CommonIntTatttooEquipment.png",
+            "baseType": "Tattoo of the Hinekora Warrior",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 60.09,
+                "data": [
+                    0,
+                    -6.54,
+                    28.04,
+                    40.19,
+                    22.43,
+                    40.19,
+                    60.09
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 60.09,
+                "data": [
+                    0,
+                    -6.54,
+                    28.04,
+                    40.19,
+                    22.43,
+                    40.19,
+                    60.09
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "3% increased maximum Energy Shield",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 17.13,
+            "exaltedValue": 1.23,
+            "divineValue": 0.10,
+            "count": 78,
+            "detailsId": "tattoo-of-the-hinekora-warrior",
+            "tradeInfo": [],
+            "listingCount": 2627
+        },
+        {
+            "id": 106431,
+            "name": "Tattoo of the Ngamahu Firewalker",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vblN0clRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b7072892c0/CommonStrTatttooEquipment.png",
+            "baseType": "Tattoo of the Ngamahu Firewalker",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 25,
+                "data": [
+                    0,
+                    -3.70,
+                    1.85,
+                    33.33,
+                    16.67,
+                    -1.85,
+                    25
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 25,
+                "data": [
+                    0,
+                    -3.70,
+                    1.85,
+                    33.33,
+                    16.67,
+                    -1.85,
+                    25
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "+6% to Fire Resistance",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 13.50,
+            "exaltedValue": 0.97,
+            "divineValue": 0.08,
+            "count": 71,
+            "detailsId": "tattoo-of-the-ngamahu-firewalker",
+            "tradeInfo": [],
+            "listingCount": 1497
+        },
+        {
+            "id": 106383,
+            "name": "Tattoo of the Ramako Fleetfoot",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkRleFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b80711f45f/CommonDexTatttooEquipment.png",
+            "baseType": "Tattoo of the Ramako Fleetfoot",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 33,
+                "data": [
+                    0,
+                    0,
+                    11,
+                    21,
+                    17,
+                    30,
+                    33
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 33,
+                "data": [
+                    0,
+                    0,
+                    11,
+                    21,
+                    17,
+                    30,
+                    33
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "2% increased Movement Speed",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 13.30,
+            "exaltedValue": 0.96,
+            "divineValue": 0.08,
+            "count": 35,
+            "detailsId": "tattoo-of-the-ramako-fleetfoot",
+            "tradeInfo": [],
+            "listingCount": 1026
+        },
+        {
+            "id": 106417,
+            "name": "Tattoo of the Rongokurai Turtle",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkludFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/bae0258602/CommonIntTatttooEquipment.png",
+            "baseType": "Tattoo of the Rongokurai Turtle",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 20,
+                "data": [
+                    0,
+                    5,
+                    65,
+                    90,
+                    50,
+                    25,
+                    20
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 20,
+                "data": [
+                    0,
+                    5,
+                    65,
+                    90,
+                    50,
+                    25,
+                    20
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "You take 5% reduced Extra Damage from Critical Strikes",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 12.00,
+            "exaltedValue": 0.86,
+            "divineValue": 0.07,
+            "count": 35,
+            "detailsId": "tattoo-of-the-rongokurai-turtle",
+            "tradeInfo": [],
+            "listingCount": 815
+        },
+        {
+            "id": 106331,
+            "name": "Tattoo of the Hinekora Storyteller",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkludFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/bae0258602/CommonIntTatttooEquipment.png",
+            "baseType": "Tattoo of the Hinekora Storyteller",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 6.25,
+                "data": [
+                    0,
+                    -1.79,
+                    -5.36,
+                    33.93,
+                    33.93,
+                    25.89,
+                    6.25
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 6.25,
+                "data": [
+                    0,
+                    -1.79,
+                    -5.36,
+                    33.93,
+                    33.93,
+                    25.89,
+                    6.25
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "+3% to Chaos Resistance",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 11.90,
+            "exaltedValue": 0.86,
+            "divineValue": 0.07,
+            "count": 41,
+            "detailsId": "tattoo-of-the-hinekora-storyteller",
+            "tradeInfo": [],
+            "listingCount": 885
+        },
+        {
+            "id": 106416,
+            "name": "Tattoo of the Tawhoa Shaman",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkludFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/bae0258602/CommonIntTatttooEquipment.png",
+            "baseType": "Tattoo of the Tawhoa Shaman",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 0,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    4,
+                    8,
+                    0,
+                    0
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 0,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    4,
+                    8,
+                    0,
+                    0
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "5% chance to Poison on Hit",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 10.00,
+            "exaltedValue": 0.72,
+            "divineValue": 0.06,
+            "count": 41,
+            "detailsId": "tattoo-of-the-tawhoa-shaman",
+            "tradeInfo": [],
+            "listingCount": 978
+        },
+        {
+            "id": 106433,
+            "name": "Tattoo of the Hinekora Warmonger",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkludFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/bae0258602/CommonIntTatttooEquipment.png",
+            "baseType": "Tattoo of the Hinekora Warmonger",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 0,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 0,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "Minions have 5% increased maximum Life",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 10.00,
+            "exaltedValue": 0.72,
+            "divineValue": 0.06,
+            "count": 37,
+            "detailsId": "tattoo-of-the-hinekora-warmonger",
+            "tradeInfo": [],
+            "listingCount": 1312
+        },
+        {
+            "id": 106446,
+            "name": "Tattoo of the Tasalio Warrior",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkRleFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b80711f45f/CommonDexTatttooEquipment.png",
+            "baseType": "Tattoo of the Tasalio Warrior",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 100,
+                "data": [
+                    0,
+                    72,
+                    86,
+                    100,
+                    100,
+                    100,
+                    100
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 100,
+                "data": [
+                    0,
+                    72,
+                    86,
+                    100,
+                    100,
+                    100,
+                    100
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "5% chance to Blind Enemies on Hit with Attacks",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 10.00,
+            "exaltedValue": 0.72,
+            "divineValue": 0.06,
+            "count": 39,
+            "detailsId": "tattoo-of-the-tasalio-warrior",
+            "tradeInfo": [],
+            "listingCount": 1448
+        },
+        {
+            "id": 106317,
+            "name": "Tattoo of the Tasalio Scout",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkRleFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b80711f45f/CommonDexTatttooEquipment.png",
+            "baseType": "Tattoo of the Tasalio Scout",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 40.91,
+                "data": [
+                    0,
+                    -15.15,
+                    6.06,
+                    24.24,
+                    36.36,
+                    36.36,
+                    40.91
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 40.91,
+                "data": [
+                    0,
+                    -15.15,
+                    6.06,
+                    24.24,
+                    36.36,
+                    36.36,
+                    40.91
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "4% increased Effect of your Marks",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 9.30,
+            "exaltedValue": 0.67,
+            "divineValue": 0.05,
+            "count": 45,
+            "detailsId": "tattoo-of-the-tasalio-scout",
+            "tradeInfo": [],
+            "listingCount": 1464
+        },
+        {
+            "id": 106286,
+            "name": "Tattoo of the Arohongui Moonwarden",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkRleFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b80711f45f/CommonDexTatttooEquipment.png",
+            "baseType": "Tattoo of the Arohongui Moonwarden",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": -10,
+                "data": [
+                    0,
+                    -11,
+                    -2,
+                    -11,
+                    -10,
+                    -10,
+                    -10
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": -10,
+                "data": [
+                    0,
+                    -11,
+                    -2,
+                    -11,
+                    -10,
+                    -10,
+                    -10
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "+6% to Cold Resistance",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 9.00,
+            "exaltedValue": 0.65,
+            "divineValue": 0.05,
+            "count": 76,
+            "detailsId": "tattoo-of-the-arohongui-moonwarden",
+            "tradeInfo": [],
+            "listingCount": 3310
+        },
+        {
+            "id": 106424,
+            "name": "Tattoo of the Arohongui Warmonger",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkludFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/bae0258602/CommonIntTatttooEquipment.png",
+            "baseType": "Tattoo of the Arohongui Warmonger",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": -20,
+                "data": [
+                    0,
+                    -4,
+                    0,
+                    0,
+                    -8,
+                    -20,
+                    -20
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": -20,
+                "data": [
+                    0,
+                    -4,
+                    0,
+                    0,
+                    -8,
+                    -20,
+                    -20
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "5% chance to Freeze",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 8.00,
+            "exaltedValue": 0.58,
+            "divineValue": 0.05,
+            "count": 41,
+            "detailsId": "tattoo-of-the-arohongui-warmonger",
+            "tradeInfo": [],
+            "listingCount": 1421
+        },
+        {
+            "id": 106280,
+            "name": "Tattoo of the Valako Stormrider",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkludFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/bae0258602/CommonIntTatttooEquipment.png",
+            "baseType": "Tattoo of the Valako Stormrider",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": -23.91,
+                "data": [
+                    0,
+                    -8.70,
+                    8.70,
+                    8.70,
+                    -20.11,
+                    -21.74,
+                    -23.91
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": -23.91,
+                "data": [
+                    0,
+                    -8.70,
+                    8.70,
+                    8.70,
+                    -20.11,
+                    -21.74,
+                    -23.91
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "+6% to Lightning Resistance",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 7.00,
+            "exaltedValue": 0.50,
+            "divineValue": 0.04,
+            "count": 73,
+            "detailsId": "tattoo-of-the-valako-stormrider",
+            "tradeInfo": [],
+            "listingCount": 3126
+        },
+        {
+            "id": 106287,
+            "name": "Tattoo of the Arohongui Scout",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkRleFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b80711f45f/CommonDexTatttooEquipment.png",
+            "baseType": "Tattoo of the Arohongui Scout",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 4.48,
+                "data": [
+                    0,
+                    -11.94,
+                    -17.91,
+                    -13.43,
+                    -25.37,
+                    -2.99,
+                    4.48
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 4.48,
+                "data": [
+                    0,
+                    -11.94,
+                    -17.91,
+                    -13.43,
+                    -25.37,
+                    -2.99,
+                    4.48
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "10% chance to Avoid being Chilled",
+                    "optional": false
+                },
+                {
+                    "text": "10% chance to Avoid being Frozen",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 7.00,
+            "exaltedValue": 0.50,
+            "divineValue": 0.04,
+            "count": 83,
+            "detailsId": "tattoo-of-the-arohongui-scout",
+            "tradeInfo": [],
+            "listingCount": 3464
+        },
+        {
+            "id": 106462,
+            "name": "Tattoo of the Valako Shaman",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkludFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/bae0258602/CommonIntTatttooEquipment.png",
+            "baseType": "Tattoo of the Valako Shaman",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 40,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    24,
+                    40,
+                    40,
+                    40
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 40,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    24,
+                    40,
+                    40,
+                    40
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "5% chance to Shock",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 7.00,
+            "exaltedValue": 0.50,
+            "divineValue": 0.04,
+            "count": 35,
+            "detailsId": "tattoo-of-the-valako-shaman",
+            "tradeInfo": [],
+            "listingCount": 1411
+        },
+        {
+            "id": 106327,
+            "name": "Tattoo of the Arohongui Warrior",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkRleFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b80711f45f/CommonDexTatttooEquipment.png",
+            "baseType": "Tattoo of the Arohongui Warrior",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": -6.67,
+                "data": [
+                    0,
+                    -16.67,
+                    -16.67,
+                    -16.67,
+                    -16.67,
+                    18.33,
+                    -6.67
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": -6.67,
+                "data": [
+                    0,
+                    -16.67,
+                    -16.67,
+                    -16.67,
+                    -16.67,
+                    18.33,
+                    -6.67
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "5% increased Cold Damage",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 5.60,
+            "exaltedValue": 0.40,
+            "divineValue": 0.03,
+            "count": 77,
+            "detailsId": "tattoo-of-the-arohongui-warrior",
+            "tradeInfo": [],
+            "listingCount": 3440
+        },
+        {
+            "id": 106437,
+            "name": "Tattoo of the Kitava Shaman",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vblN0clRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b7072892c0/CommonStrTatttooEquipment.png",
+            "baseType": "Tattoo of the Kitava Shaman",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 12,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    44,
+                    44,
+                    12
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 12,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    44,
+                    44,
+                    12
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "Attacks have 5% chance to cause Bleeding",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 5.60,
+            "exaltedValue": 0.40,
+            "divineValue": 0.03,
+            "count": 39,
+            "detailsId": "tattoo-of-the-kitava-shaman",
+            "tradeInfo": [],
+            "listingCount": 1492
+        },
+        {
+            "id": 106236,
+            "name": "Tattoo of the Ramako Sniper",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkRleFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b80711f45f/CommonDexTatttooEquipment.png",
+            "baseType": "Tattoo of the Ramako Sniper",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 8,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    20,
+                    8
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 8,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    20,
+                    8
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "5% increased Projectile Speed",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 5.40,
+            "exaltedValue": 0.39,
+            "divineValue": 0.03,
+            "count": 81,
+            "detailsId": "tattoo-of-the-ramako-sniper",
+            "tradeInfo": [],
+            "listingCount": 3210
+        },
+        {
+            "id": 106246,
+            "name": "Tattoo of the Tukohama Shaman",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vblN0clRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b7072892c0/CommonStrTatttooEquipment.png",
+            "baseType": "Tattoo of the Tukohama Shaman",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 0,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    -8,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 0,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    -8,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "Regenerate 0.3% of Life per second",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 5.00,
+            "exaltedValue": 0.36,
+            "divineValue": 0.03,
+            "count": 77,
+            "detailsId": "tattoo-of-the-tukohama-shaman",
+            "tradeInfo": [],
+            "listingCount": 3774
+        },
+        {
+            "id": 106247,
+            "name": "Tattoo of the Hinekora Deathwarden",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkludFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/bae0258602/CommonIntTatttooEquipment.png",
+            "baseType": "Tattoo of the Hinekora Deathwarden",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 25,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    12.5,
+                    25,
+                    25,
+                    25
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 25,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    12.5,
+                    25,
+                    25,
+                    25
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "6% reduced Effect of Curses on you",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 5.00,
+            "exaltedValue": 0.36,
+            "divineValue": 0.03,
+            "count": 74,
+            "detailsId": "tattoo-of-the-hinekora-deathwarden",
+            "tradeInfo": [],
+            "listingCount": 3865
+        },
+        {
+            "id": 106321,
+            "name": "Tattoo of the Tasalio Tideshifter",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkRleFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b80711f45f/CommonDexTatttooEquipment.png",
+            "baseType": "Tattoo of the Tasalio Tideshifter",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 0,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 0,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "10% chance to Avoid being Stunned",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 5.00,
+            "exaltedValue": 0.36,
+            "divineValue": 0.03,
+            "count": 80,
+            "detailsId": "tattoo-of-the-tasalio-tideshifter",
+            "tradeInfo": [],
+            "listingCount": 4125
+        },
+        {
+            "id": 106359,
+            "name": "Tattoo of the Tukohama Warmonger",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vblN0clRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b7072892c0/CommonStrTatttooEquipment.png",
+            "baseType": "Tattoo of the Tukohama Warmonger",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 21.95,
+                "data": [
+                    0,
+                    -14.63,
+                    -4.88,
+                    -2.44,
+                    21.95,
+                    21.95,
+                    21.95
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 21.95,
+                "data": [
+                    0,
+                    -14.63,
+                    -4.88,
+                    -2.44,
+                    21.95,
+                    21.95,
+                    21.95
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "5% increased Melee Damage",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 5.00,
+            "exaltedValue": 0.36,
+            "divineValue": 0.03,
+            "count": 33,
+            "detailsId": "tattoo-of-the-tukohama-warmonger",
+            "tradeInfo": [],
+            "listingCount": 1772
+        },
+        {
+            "id": 106370,
+            "name": "Tattoo of the Ngamahu Warrior",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vblN0clRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b7072892c0/CommonStrTatttooEquipment.png",
+            "baseType": "Tattoo of the Ngamahu Warrior",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 0,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 0,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "5% increased Fire Damage",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 5.00,
+            "exaltedValue": 0.36,
+            "divineValue": 0.03,
+            "count": 87,
+            "detailsId": "tattoo-of-the-ngamahu-warrior",
+            "tradeInfo": [],
+            "listingCount": 3321
+        },
+        {
+            "id": 106373,
+            "name": "Tattoo of the Tawhoa Herbalist",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkRleFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b80711f45f/CommonDexTatttooEquipment.png",
+            "baseType": "Tattoo of the Tawhoa Herbalist",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": -24.24,
+                "data": [
+                    0,
+                    -19.70,
+                    3.03,
+                    7.58,
+                    -6.06,
+                    -24.24,
+                    -24.24
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": -24.24,
+                "data": [
+                    0,
+                    -19.70,
+                    3.03,
+                    7.58,
+                    -6.06,
+                    -24.24,
+                    -24.24
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "4% increased Flask Effect Duration",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 5.00,
+            "exaltedValue": 0.36,
+            "divineValue": 0.03,
+            "count": 41,
+            "detailsId": "tattoo-of-the-tawhoa-herbalist",
+            "tradeInfo": [],
+            "listingCount": 1424
+        },
+        {
+            "id": 106382,
+            "name": "Tattoo of the Ramako Scout",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkRleFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b80711f45f/CommonDexTatttooEquipment.png",
+            "baseType": "Tattoo of the Ramako Scout",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 21.95,
+                "data": [
+                    0,
+                    -14.63,
+                    -2.44,
+                    -2.44,
+                    -2.44,
+                    7.32,
+                    21.95
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 21.95,
+                "data": [
+                    0,
+                    -14.63,
+                    -2.44,
+                    -2.44,
+                    -2.44,
+                    7.32,
+                    21.95
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "6% increased Evasion Rating",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 5.00,
+            "exaltedValue": 0.36,
+            "divineValue": 0.03,
+            "count": 84,
+            "detailsId": "tattoo-of-the-ramako-scout",
+            "tradeInfo": [],
+            "listingCount": 3487
+        },
+        {
+            "id": 106419,
+            "name": "Tattoo of the Ngamahu Shaman",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vblN0clRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b7072892c0/CommonStrTatttooEquipment.png",
+            "baseType": "Tattoo of the Ngamahu Shaman",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 25,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    25,
+                    25,
+                    25,
+                    25
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 25,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    25,
+                    25,
+                    25,
+                    25
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "10% reduced Ignite Duration on you",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 5.00,
+            "exaltedValue": 0.36,
+            "divineValue": 0.03,
+            "count": 80,
+            "detailsId": "tattoo-of-the-ngamahu-shaman",
+            "tradeInfo": [],
+            "listingCount": 3466
+        },
+        {
+            "id": 106429,
+            "name": "Tattoo of the Ngamahu Woodcarver",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vblN0clRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b7072892c0/CommonStrTatttooEquipment.png",
+            "baseType": "Tattoo of the Ngamahu Woodcarver",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 0,
+                "data": [
+                    0,
+                    -2,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 0,
+                "data": [
+                    0,
+                    -2,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "5% increased Totem Life",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 5.00,
+            "exaltedValue": 0.36,
+            "divineValue": 0.03,
+            "count": 41,
+            "detailsId": "tattoo-of-the-ngamahu-woodcarver",
+            "tradeInfo": [],
+            "listingCount": 1449
+        },
+        {
+            "id": 106489,
+            "name": "Tattoo of the Kitava Heart Eater",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkludFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/bae0258602/CommonIntTatttooEquipment.png",
+            "baseType": "Tattoo of the Kitava Heart Eater",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 0,
+                "data": [
+                    0,
+                    0,
+                    36,
+                    0,
+                    0,
+                    54,
+                    0
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 0,
+                "data": [
+                    0,
+                    0,
+                    36,
+                    0,
+                    0,
+                    54,
+                    0
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "Killing Blows have 4% chance to Consume corpses to recover 10% of Maximum Life",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 5.00,
+            "exaltedValue": 0.36,
+            "divineValue": 0.03,
+            "count": 43,
+            "detailsId": "tattoo-of-the-kitava-heart-eater",
+            "tradeInfo": [],
+            "listingCount": 1771
+        },
+        {
+            "id": 106452,
+            "name": "Tattoo of the Kitava Blood Drinker",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vblN0clRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b7072892c0/CommonStrTatttooEquipment.png",
+            "baseType": "Tattoo of the Kitava Blood Drinker",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 50,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    13.33,
+                    0,
+                    50
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 50,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    13.33,
+                    0,
+                    50
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "0.5% of Attack Damage Leeched as Life",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 4.50,
+            "exaltedValue": 0.32,
+            "divineValue": 0.03,
+            "count": 70,
+            "detailsId": "tattoo-of-the-kitava-blood-drinker",
+            "tradeInfo": [],
+            "listingCount": 4491
+        },
+        {
+            "id": 106281,
+            "name": "Tattoo of the Ramako Archer",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkRleFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b80711f45f/CommonDexTatttooEquipment.png",
+            "baseType": "Tattoo of the Ramako Archer",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 7.5,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    2.5,
+                    0,
+                    7.5
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 7.5,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    2.5,
+                    0,
+                    7.5
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "5% increased Global Accuracy Rating",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 4.30,
+            "exaltedValue": 0.31,
+            "divineValue": 0.02,
+            "count": 80,
+            "detailsId": "tattoo-of-the-ramako-archer",
+            "tradeInfo": [],
+            "listingCount": 3432
+        },
+        {
+            "id": 106422,
+            "name": "Tattoo of the Rongokurai Guard",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vblN0clRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b7072892c0/CommonStrTatttooEquipment.png",
+            "baseType": "Tattoo of the Rongokurai Guard",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": -60,
+                "data": [
+                    0,
+                    -51,
+                    -57,
+                    -58,
+                    -60,
+                    -60,
+                    -60
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": -60,
+                "data": [
+                    0,
+                    -51,
+                    -57,
+                    -58,
+                    -60,
+                    -60,
+                    -60
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "Guard Skills have 6% increased Duration",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 4.00,
+            "exaltedValue": 0.29,
+            "divineValue": 0.02,
+            "count": 38,
+            "detailsId": "tattoo-of-the-rongokurai-guard",
+            "tradeInfo": [],
+            "listingCount": 1761
+        },
+        {
+            "id": 106245,
+            "name": "Tattoo of the Valako Warrior",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkludFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/bae0258602/CommonIntTatttooEquipment.png",
+            "baseType": "Tattoo of the Valako Warrior",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": -3.31,
+                "data": [
+                    0,
+                    -23.66,
+                    -23.66,
+                    -18.58,
+                    -16.41,
+                    -11.70,
+                    -3.31
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": -3.31,
+                "data": [
+                    0,
+                    -23.66,
+                    -23.66,
+                    -18.58,
+                    -16.41,
+                    -11.70,
+                    -3.31
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "5% increased Lightning Damage",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 3.80,
+            "exaltedValue": 0.27,
+            "divineValue": 0.02,
+            "count": 82,
+            "detailsId": "tattoo-of-the-valako-warrior",
+            "tradeInfo": [],
+            "listingCount": 3524
+        },
+        {
+            "id": 106347,
+            "name": "Tattoo of the Rongokurai Brute",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vblN0clRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b7072892c0/CommonStrTatttooEquipment.png",
+            "baseType": "Tattoo of the Rongokurai Brute",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 153.8,
+                "data": [
+                    0,
+                    23.08,
+                    -7.69,
+                    -15.38,
+                    130.8,
+                    130.8,
+                    153.8
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 153.8,
+                "data": [
+                    0,
+                    23.08,
+                    -7.69,
+                    -15.38,
+                    130.8,
+                    130.8,
+                    153.8
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "10% increased Stun Threshold",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 3.30,
+            "exaltedValue": 0.24,
+            "divineValue": 0.02,
+            "count": 82,
+            "detailsId": "tattoo-of-the-rongokurai-brute",
+            "tradeInfo": [],
+            "listingCount": 4327
+        },
+        {
+            "id": 106234,
+            "name": "Tattoo of the Rongokurai Warrior",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vblN0clRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b7072892c0/CommonStrTatttooEquipment.png",
+            "baseType": "Tattoo of the Rongokurai Warrior",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": -25,
+                "data": [
+                    0,
+                    -10,
+                    -32.5,
+                    -35,
+                    -10,
+                    -22.5,
+                    -25
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": -25,
+                "data": [
+                    0,
+                    -10,
+                    -32.5,
+                    -35,
+                    -10,
+                    -22.5,
+                    -25
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "6% increased Armour",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 3.00,
+            "exaltedValue": 0.22,
+            "divineValue": 0.02,
+            "count": 103,
+            "detailsId": "tattoo-of-the-rongokurai-warrior",
+            "tradeInfo": [],
+            "listingCount": 4211
+        },
+        {
+            "id": 106248,
+            "name": "Tattoo of the Tasalio Bladedancer",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vblN0clRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b7072892c0/CommonStrTatttooEquipment.png",
+            "baseType": "Tattoo of the Tasalio Bladedancer",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": -25,
+                "data": [
+                    0,
+                    -15,
+                    -25,
+                    -25,
+                    -25,
+                    -25,
+                    -25
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": -25,
+                "data": [
+                    0,
+                    -15,
+                    -25,
+                    -25,
+                    -25,
+                    -25,
+                    -25
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "Attacks have 5% chance to Maim on Hit",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 3.00,
+            "exaltedValue": 0.22,
+            "divineValue": 0.02,
+            "count": 78,
+            "detailsId": "tattoo-of-the-tasalio-bladedancer",
+            "tradeInfo": [],
+            "listingCount": 4548
+        },
+        {
+            "id": 106273,
+            "name": "Tattoo of the Hinekora Shaman",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkludFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/bae0258602/CommonIntTatttooEquipment.png",
+            "baseType": "Tattoo of the Hinekora Shaman",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": -25,
+                "data": [
+                    0,
+                    -17.5,
+                    -20,
+                    -25.25,
+                    -25,
+                    -25,
+                    -25
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": -25,
+                "data": [
+                    0,
+                    -17.5,
+                    -20,
+                    -25.25,
+                    -25,
+                    -25,
+                    -25
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "8% increased Mana Regeneration Rate",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 3.00,
+            "exaltedValue": 0.22,
+            "divineValue": 0.02,
+            "count": 83,
+            "detailsId": "tattoo-of-the-hinekora-shaman",
+            "tradeInfo": [],
+            "listingCount": 3907
+        },
+        {
+            "id": 106274,
+            "name": "Tattoo of the Valako Scout",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkludFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/bae0258602/CommonIntTatttooEquipment.png",
+            "baseType": "Tattoo of the Valako Scout",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": -25,
+                "data": [
+                    0,
+                    0,
+                    -17.5,
+                    -1.25,
+                    -17.5,
+                    -25,
+                    -25
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": -25,
+                "data": [
+                    0,
+                    0,
+                    -17.5,
+                    -1.25,
+                    -17.5,
+                    -25,
+                    -25
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "10% reduced Effect of Shock on you",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 3.00,
+            "exaltedValue": 0.22,
+            "divineValue": 0.02,
+            "count": 74,
+            "detailsId": "tattoo-of-the-valako-scout",
+            "tradeInfo": [],
+            "listingCount": 3677
+        },
+        {
+            "id": 106311,
+            "name": "Tattoo of the Tukohama Brawler",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vblN0clRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b7072892c0/CommonStrTatttooEquipment.png",
+            "baseType": "Tattoo of the Tukohama Brawler",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 50,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    49.5,
+                    50,
+                    50,
+                    50
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 50,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    49.5,
+                    50,
+                    50,
+                    50
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "10% chance to Knock Enemies Back on hit",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 3.00,
+            "exaltedValue": 0.22,
+            "divineValue": 0.02,
+            "count": 75,
+            "detailsId": "tattoo-of-the-tukohama-brawler",
+            "tradeInfo": [],
+            "listingCount": 4429
+        },
+        {
+            "id": 106461,
+            "name": "Tattoo of the Kitava Warrior",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vblN0clRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b7072892c0/CommonStrTatttooEquipment.png",
+            "baseType": "Tattoo of the Kitava Warrior",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 25,
+                "data": [
+                    0,
+                    -16.67,
+                    -16.67,
+                    -16.67,
+                    25,
+                    25,
+                    25
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 25,
+                "data": [
+                    0,
+                    -16.67,
+                    -16.67,
+                    -16.67,
+                    25,
+                    25,
+                    25
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "5% increased Physical Damage",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 3.00,
+            "exaltedValue": 0.22,
+            "divineValue": 0.02,
+            "count": 75,
+            "detailsId": "tattoo-of-the-kitava-warrior",
+            "tradeInfo": [],
+            "listingCount": 4149
+        },
+        {
+            "id": 106548,
+            "name": "Tattoo of the Kitava Rebel",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vblN0clRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b7072892c0/CommonStrTatttooEquipment.png",
+            "baseType": "Tattoo of the Kitava Rebel",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 0.33,
+                "data": [
+                    0,
+                    0,
+                    -3.34,
+                    0.33,
+                    0.33,
+                    0.33,
+                    0.33
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 0.33,
+                "data": [
+                    0,
+                    0,
+                    -3.34,
+                    0.33,
+                    0.33,
+                    0.33,
+                    0.33
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "10% chance to Avoid Bleeding",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 3.00,
+            "exaltedValue": 0.22,
+            "divineValue": 0.02,
+            "count": 77,
+            "detailsId": "tattoo-of-the-kitava-rebel",
+            "tradeInfo": [],
+            "listingCount": 4195
+        },
+        {
+            "id": 106237,
+            "name": "Tattoo of the Tawhoa Naturalist",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkRleFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b80711f45f/CommonDexTatttooEquipment.png",
+            "baseType": "Tattoo of the Tawhoa Naturalist",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": -50,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    -50,
+                    -22.5,
+                    -50,
+                    -50
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": -50,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    -50,
+                    -22.5,
+                    -50,
+                    -50
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "8% increased Life Recovery from Flasks",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 2.00,
+            "exaltedValue": 0.14,
+            "divineValue": 0.01,
+            "count": 86,
+            "detailsId": "tattoo-of-the-tawhoa-naturalist",
+            "tradeInfo": [],
+            "listingCount": 4227
+        },
+        {
+            "id": 106251,
+            "name": "Tattoo of the Tasalio Shaman",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkludFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/bae0258602/CommonIntTatttooEquipment.png",
+            "baseType": "Tattoo of the Tasalio Shaman",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 0,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 0,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "5% chance to Hinder Enemies on Hit with Spells",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 2.00,
+            "exaltedValue": 0.14,
+            "divineValue": 0.01,
+            "count": 90,
+            "detailsId": "tattoo-of-the-tasalio-shaman",
+            "tradeInfo": [],
+            "listingCount": 4490
+        },
+        {
+            "id": 106289,
+            "name": "Tattoo of the Tawhoa Warrior",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkludFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/bae0258602/CommonIntTatttooEquipment.png",
+            "baseType": "Tattoo of the Tawhoa Warrior",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": 0,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": 0,
+                "data": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "5% increased Chaos Damage",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 2.00,
+            "exaltedValue": 0.14,
+            "divineValue": 0.01,
+            "count": 104,
+            "detailsId": "tattoo-of-the-tawhoa-warrior",
+            "tradeInfo": [],
+            "listingCount": 4415
+        },
+        {
+            "id": 106294,
+            "name": "Tattoo of the Tawhoa Scout",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkRleFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b80711f45f/CommonDexTatttooEquipment.png",
+            "baseType": "Tattoo of the Tawhoa Scout",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": -22.78,
+                "data": [
+                    0,
+                    -22.78,
+                    -22.78,
+                    -22.78,
+                    -22.78,
+                    -22.78,
+                    -22.78
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": -22.78,
+                "data": [
+                    0,
+                    -22.78,
+                    -22.78,
+                    -22.78,
+                    -22.78,
+                    -22.78,
+                    -22.78
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "10% chance to Avoid being Poisoned",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 2.00,
+            "exaltedValue": 0.14,
+            "divineValue": 0.01,
+            "count": 85,
+            "detailsId": "tattoo-of-the-tawhoa-scout",
+            "tradeInfo": [],
+            "listingCount": 4395
+        },
+        {
+            "id": 106249,
+            "name": "Tattoo of the Tukohama Warrior",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vblN0clRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b7072892c0/CommonStrTatttooEquipment.png",
+            "baseType": "Tattoo of the Tukohama Warrior",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": -65.96,
+                "data": [
+                    0,
+                    -51.06,
+                    -51.06,
+                    -36.17,
+                    -51.06,
+                    -68.09,
+                    -65.96
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": -65.96,
+                "data": [
+                    0,
+                    -51.06,
+                    -51.06,
+                    -36.17,
+                    -51.06,
+                    -68.09,
+                    -65.96
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "Melee Hits which Stun have 5% chance to Fortify",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 1.60,
+            "exaltedValue": 0.12,
+            "divineValue": 0.01,
+            "count": 86,
+            "detailsId": "tattoo-of-the-tukohama-warrior",
+            "tradeInfo": [],
+            "listingCount": 4352
+        },
+        {
+            "id": 106405,
+            "name": "Tattoo of the Rongokurai Goliath",
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vblN0clRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b7072892c0/CommonStrTatttooEquipment.png",
+            "baseType": "Tattoo of the Rongokurai Goliath",
+            "stackSize": 10,
+            "itemClass": 5,
+            "sparkLine": {
+                "totalChange": -40,
+                "data": [
+                    0,
+                    0,
+                    -25.00,
+                    -40.00,
+                    -30.00,
+                    -50.00,
+                    -40
+                ]
+            },
+            "lowConfidenceSparkLine": {
+                "totalChange": -40,
+                "data": [
+                    0,
+                    0,
+                    -25.00,
+                    -40.00,
+                    -30.00,
+                    -50.00,
+                    -40
+                ]
+            },
+            "implicitModifiers": [],
+            "explicitModifiers": [
+                {
+                    "text": "10% increased Stun Duration on Enemies",
+                    "optional": false
+                }
+            ],
+            "mutatedModifiers": [],
+            "flavourText": "",
+            "chaosValue": 1.20,
+            "exaltedValue": 0.09,
+            "divineValue": 0.01,
+            "count": 76,
+            "detailsId": "tattoo-of-the-rongokurai-goliath",
+            "tradeInfo": [],
+            "listingCount": 4293
+        }
+    ]
+}

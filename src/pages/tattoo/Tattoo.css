@@ -1,0 +1,43 @@
+.tattoo-row {
+    padding: 2px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    color: #c5c5c5;
+}
+
+.tattoo-header {
+    font-weight: bold;
+    color: #d5d5d5;
+}
+
+.tattoo-name-cell {
+    width: 25%;
+}
+
+.tattoo-regex-cell {
+    width: 10%;
+}
+
+.tattoo-value-cell {
+    width: 10%;
+}
+
+.tattoo-description-cell {
+    width: 55%;
+}
+
+.tattoo-price-info {
+    font-size: 14px;
+    padding-left: 10px;
+    margin-top: 4px;
+    padding-right: 10px;
+}
+
+.tattoo-highlighted {
+    color: #50dbe0;
+}
+
+.tattoo-options {
+    padding: 20px 20px 10px;
+}
