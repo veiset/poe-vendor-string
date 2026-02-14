@@ -14,6 +14,7 @@ import OptimizedMapMods from "../pages/maps/OptimizedMapMods";
 import MagicItem from "../pages/magicitem/MagicItem";
 import Item from "../pages/item/Item";
 import Tattoo from "../pages/tattoo/Tattoo";
+import Runegraft from "../pages/runegraft/Runegraft";
 
 
 const Pages = () => {
@@ -41,6 +42,7 @@ const Pages = () => {
         <Route path="/beast" element={<Beast key={"beast-" + profile.name} />} />
         <Route path="/scarab" element={<Scarabs key={"scarab-" + profile.name} />} />
         <Route path="/tattoo" element={<Tattoo key={"tattoo-" + profile.name} />} />
+        <Route path="/runegraft" element={<Runegraft key={"runegraft-" + profile.name} />} />
         <Route path="/jewel" element={<Jewel key={"jewel-" + profile.name} />} />
 
       </Routes>

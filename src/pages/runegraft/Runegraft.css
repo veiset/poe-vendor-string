@@ -1,0 +1,48 @@
+.runegraft-row {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5em;
+    border-bottom: 1px solid #333;
+}
+
+.runegraft-header {
+    font-weight: bold;
+    background-color: #222;
+}
+
+.runegraft-name-cell {
+    flex: 2;
+}
+
+.runegraft-regex-cell {
+    flex: 1;
+    font-family: monospace;
+}
+
+.runegraft-value-cell {
+    flex: 0.5;
+    text-align: right;
+}
+
+.runegraft-description-cell {
+    flex: 3;
+    padding-left: 1em;
+    color: #888;
+}
+
+.runegraft-highlighted {
+    background-color: #2a3d2a;
+}
+
+.runegraft-price-info {
+    text-align: center;
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 1em;
+}
+
+.runegraft-options {
+    justify-content: center;
+    gap: 2em;
+    margin-bottom: 1em;
+}

@@ -2,40 +2,36 @@ import Header from "../../components/Header";
 import ResultBox from "../../components/ResultBox";
 import React, { useContext, useEffect, useState } from "react";
 import { leagueName } from "../expedition/Expedition";
-import "./Tattoo.css";
+import "./Runegraft.css";
 import Collapsable from "../../components/collapsable/Collapsable";
 import { dateTextFromString } from "../expedition/ExpeditionUtils";
 import { loadSettings, saveSettings } from "../../utils/LocalStorage";
 import { defaultSettings } from "../../utils/SavedSettings";
 import { ProfileContext } from "../../components/profile/ProfileContext";
-import { tattooRegex, TattooRegex } from "../../generated/GeneratedTattoo";
+import { runegraftRegex } from "../../generated/GeneratedRunegraft";
 
-interface PoeNinjaTattooLine {
-    id: string
-    primaryValue: number
-}
-
-interface PoeNinjaTattooItem {
-    id: string
+interface PoeNinjaRunegraftLine {
+    id: number
     name: string
+    chaosValue: number
+    explicitModifiers: { text: string, optional: boolean }[]
 }
 
-export interface PoeNinjaTattooData {
-    lines: PoeNinjaTattooLine[]
-    items: PoeNinjaTattooItem[]
+export interface PoeNinjaRunegraftData {
+    lines: PoeNinjaRunegraftLine[]
 }
 
-interface TattooPriceRegex {
+interface RunegraftPriceRegex {
     name: string
     chaosValue: number
     regex: string
     description: string
 }
 
-const sortByChaosValue = (e1: TattooPriceRegex, e2: TattooPriceRegex) => e2.chaosValue - e1.chaosValue;
+const sortByChaosValue = (e1: RunegraftPriceRegex, e2: RunegraftPriceRegex) => e2.chaosValue - e1.chaosValue;
 
 const generateRegex = (
-    prices: TattooPriceRegex[],
+    prices: RunegraftPriceRegex[],
     minValue: number | undefined,
     maxValue: number | undefined,
 ): string => {
@@ -46,7 +42,6 @@ const generateRegex = (
             if (maxValue && e.chaosValue > maxValue) return false;
             return true;
         })
-        // .slice(0, 50)
         .reduce((acc, e) => {
             const currentLength = acc.length;
             const newLength = currentLength + e.regex.length + (currentLength > 0 ? 1 : 0);
@@ -56,13 +51,13 @@ const generateRegex = (
     return `"${regex}"`;
 }
 
-const Tattoo = () => {
+const Runegraft = () => {
     const { globalProfile } = useContext(ProfileContext);
     const profile = loadSettings(globalProfile);
-    const [minChaosValue, setMinChaosValue] = useState<string>(profile.tattoo.minValue || "0");
-    const [maxChaosValue, setMaxChaosValue] = useState<string>(profile.tattoo.maxValue || "999");
+    const [minChaosValue, setMinChaosValue] = useState<string>(profile.runegraft.minValue);
+    const [maxChaosValue, setMaxChaosValue] = useState<string>(profile.runegraft.maxValue);
 
-    const [tattooPrices, setTattooPrices] = useState<TattooPriceRegex[]>([]);
+    const [runegraftPrices, setRunegraftPrices] = useState<RunegraftPriceRegex[]>([]);
     const [lastUpdated, setLastUpdated] = useState("Outdated prices. Check back in a few mins...");
     const [result, setResult] = useState<string>("");
 
@@ -72,21 +67,19 @@ const Tattoo = () => {
             .then((date) => {
                 setLastUpdated(dateTextFromString(date));
             });
-        const data = fetch(`tattoo/tattoo_poe_ninja.json`)
-            .then((r) => r.json()) as Promise<PoeNinjaTattooData>;
+        const data = fetch(`runegraft/runegraft_poe_ninja.json`)
+            .then((r) => r.json()) as Promise<PoeNinjaRunegraftData>;
 
         data.then((d) => {
-            // Map items (name -> id)
-            const nameToId = new Map(d.items.map((i) => [i.name, i.id]));
-            // Map lines (id -> price)
-            const idToPrice = new Map(d.lines.map((l) => [l.id, l.primaryValue]));
+            // Create a map from name to price since the logic relies on regex matching names
+            // The JSON has flat lines with name and chaosValue
+            const nameToPrice = new Map(d.lines.map((l) => [l.name, l.chaosValue]));
 
             // Map regexes to prices
-            const pricedRegex: TattooPriceRegex[] = tattooRegex.map((t) => {
-                const id = nameToId.get(t.tattoo);
-                const price = id ? (idToPrice.get(id) ?? 0) : 0;
+            const pricedRegex: RunegraftPriceRegex[] = runegraftRegex.map((t) => {
+                const price = nameToPrice.get(t.runegraft) ?? 0;
                 return {
-                    name: t.tattoo,
+                    name: t.runegraft,
                     chaosValue: Math.ceil(price),
                     regex: t.regex,
                     description: t.description
@@ -94,32 +87,32 @@ const Tattoo = () => {
             });
 
             pricedRegex.sort(sortByChaosValue);
-            setTattooPrices(pricedRegex);
+            setRunegraftPrices(pricedRegex);
         });
     }, []);
 
     useEffect(() => {
         saveSettings({
             ...profile,
-            tattoo: {
+            runegraft: {
                 minValue: minChaosValue,
-                maxValue: maxChaosValue,
+                maxValue: maxChaosValue
             }
         });
         const minChaosN = minChaosValue ? minChaosValue as unknown as number : undefined;
         const maxChaosN = maxChaosValue ? maxChaosValue as unknown as number : undefined;
-        setResult(generateRegex(tattooPrices, minChaosN, maxChaosN));
-    }, [minChaosValue, maxChaosValue, tattooPrices]);
+        setResult(generateRegex(runegraftPrices, minChaosN, maxChaosN));
+    }, [minChaosValue, maxChaosValue, runegraftPrices]);
 
     return (
         <>
-            <Header text={"Tattoo"} />
+            <Header text={"Runegraft"} />
             <ResultBox result={result} warning={""} reset={() => {
-                setMinChaosValue(defaultSettings.tattoo.minValue);
-                setMaxChaosValue(defaultSettings.tattoo.maxValue);
+                setMinChaosValue("0");
+                setMaxChaosValue("999");
             }} />
-            <p className="tattoo-price-info">Using price data from the {leagueName} League. Last updated: {lastUpdated}</p>
-            <div className="row tattoo-options">
+            <p className="runegraft-price-info">Using price data from the {leagueName} League. Last updated: {lastUpdated}</p>
+            <div className="row runegraft-options">
                 <div>
                     <span className="expedition-option-text">Min chaos value:</span>
                     <input type="search" className="modifier-quantity-box" id="pack-size" name="search-mod" value={minChaosValue}
@@ -143,21 +136,21 @@ const Tattoo = () => {
             </div>
             <div className="row">
                 <Collapsable header={"Price data"} isOpenByDefault={true}>
-                    <div className="tattoo-row tattoo-header">
-                        <div className="tattoo-name-cell">Tattoo name</div>
-                        <div className="tattoo-regex-cell">Regex</div>
-                        <div className="tattoo-value-cell">Chaos</div>
-                        <div className="tattoo-description-cell">Effect</div>
+                    <div className="runegraft-row runegraft-header">
+                        <div className="runegraft-name-cell">Runegraft name</div>
+                        <div className="runegraft-regex-cell">Regex</div>
+                        <div className="runegraft-value-cell">Chaos</div>
+                        <div className="runegraft-description-cell">Effect</div>
                     </div>
-                    {tattooPrices.map((e) => {
+                    {runegraftPrices.map((e) => {
                         const highlighted = result.includes(e.regex);
-                        const highlightedCss = highlighted ? "tattoo-highlighted" : "";
+                        const highlightedCss = highlighted ? "runegraft-highlighted" : "";
                         return (
-                            <div className={`tattoo-row ${highlightedCss}`} key={e.name}>
-                                <div className="tattoo-name-cell" key={e.name}>{e.name}</div>
-                                <div className="tattoo-regex-cell">{e.regex}</div>
-                                <div className="tattoo-value-cell">{e.chaosValue}</div>
-                                <div className="tattoo-description-cell">{e.description}</div>
+                            <div className={`runegraft-row ${highlightedCss}`} key={e.name}>
+                                <div className="runegraft-name-cell" key={e.name}>{e.name}</div>
+                                <div className="runegraft-regex-cell">{e.regex}</div>
+                                <div className="runegraft-value-cell">{e.chaosValue}</div>
+                                <div className="runegraft-description-cell">{e.description}</div>
                             </div>
                         )
                     })}
@@ -167,4 +160,4 @@ const Tattoo = () => {
     );
 }
 
-export default Tattoo;
+export default Runegraft;

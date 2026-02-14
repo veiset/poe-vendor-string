@@ -112,6 +112,7 @@ export interface SavedSettings {
   jewel: JewelSettings
   itemCrafting: ItemCraftingSettings
   tattoo: TattooSettings
+  runegraft: RunegraftSettings
 }
 
 
@@ -533,5 +534,14 @@ export const defaultSettings: SavedSettings = {
   tattoo: {
     minValue: "",
     maxValue: "",
+  },
+  runegraft: {
+    minValue: "",
+    maxValue: "",
   }
+}
+
+export interface RunegraftSettings {
+  minValue: string
+  maxValue: string
 }
