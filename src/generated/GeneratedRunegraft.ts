@@ -9,7 +9,7 @@ export const runegraftRegex: RunegraftRegex[] = [
   { runegraft: "Runegraft of the Angler", description: "Critical Strikes while holding a Fishing Rod", regex: "Rod" },
   { runegraft: "Runegraft of Gemcraft", description: "+1 to Level of all non-Exceptional Support Gems", regex: "Gem" },
   { runegraft: "Runegraft of Stability", description: "Your Lucky or Unlucky effects are instead Unexciting", regex: "Luc" },
-  { runegraft: "Runegraft of the Witchmark", description: "Spells deal added Chaos Damage equal to 2% of your maximum Life", regex: "\+8%" },
+  { runegraft: "Runegraft of the Witchmark", description: "Spells deal added Chaos Damage equal to 2% of your maximum Life", regex: "fe s" },
   { runegraft: "Runegraft of the Soulwick", description: "Gain 1 Vaal Soul per second", regex: "1 V" },
   { runegraft: "Runegraft of the Warp", description: "Buffs on you expire 30% slower", regex: "Deb" },
   { runegraft: "Runegraft of the Bound", description: "Reduced bonuses gained from Equipped Boots", regex: "Bou" },
