@@ -538,10 +538,12 @@ export const defaultSettings: SavedSettings = {
   runegraft: {
     minValue: "",
     maxValue: "",
+    includeTattoos: false,
   }
 }
 
 export interface RunegraftSettings {
   minValue: string
   maxValue: string
+  includeTattoos: boolean
 }

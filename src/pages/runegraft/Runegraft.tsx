@@ -9,6 +9,7 @@ import { loadSettings, saveSettings } from "../../utils/LocalStorage";
 import { defaultSettings } from "../../utils/SavedSettings";
 import { ProfileContext } from "../../components/profile/ProfileContext";
 import { runegraftRegex } from "../../generated/GeneratedRunegraft";
+import { tattooRegex } from "../../generated/GeneratedTattoo";
 
 interface PoeNinjaRunegraftLine {
     id: number
@@ -17,8 +18,24 @@ interface PoeNinjaRunegraftLine {
     explicitModifiers: { text: string, optional: boolean }[]
 }
 
+
 export interface PoeNinjaRunegraftData {
     lines: PoeNinjaRunegraftLine[]
+}
+
+interface PoeNinjaTattooLine {
+    id: string
+    primaryValue: number
+}
+
+interface PoeNinjaTattooItem {
+    id: string
+    name: string
+}
+
+export interface PoeNinjaTattooData {
+    lines: PoeNinjaTattooLine[]
+    items: PoeNinjaTattooItem[]
 }
 
 interface RunegraftPriceRegex {
@@ -56,8 +73,11 @@ const Runegraft = () => {
     const profile = loadSettings(globalProfile);
     const [minChaosValue, setMinChaosValue] = useState<string>(profile.runegraft.minValue);
     const [maxChaosValue, setMaxChaosValue] = useState<string>(profile.runegraft.maxValue);
+    const [includeTattoos, setIncludeTattoos] = useState<boolean>(profile.runegraft.includeTattoos ?? false);
 
     const [runegraftPrices, setRunegraftPrices] = useState<RunegraftPriceRegex[]>([]);
+    const [tattooPrices, setTattooPrices] = useState<RunegraftPriceRegex[]>([]);
+    const [displayedPrices, setDisplayedPrices] = useState<RunegraftPriceRegex[]>([]);
     const [lastUpdated, setLastUpdated] = useState("Outdated prices. Check back in a few mins...");
     const [result, setResult] = useState<string>("");
 
@@ -89,6 +109,25 @@ const Runegraft = () => {
             pricedRegex.sort(sortByChaosValue);
             setRunegraftPrices(pricedRegex);
         });
+
+        const tattooData = fetch(`runegraft/tattoos.json`)
+            .then((r) => r.json()) as Promise<PoeNinjaTattooData>;
+
+        tattooData.then((d) => {
+            const idToName = new Map(d.items.map((i) => [i.id, i.name]));
+            const nameToRegex = new Map(tattooRegex.map((t) => [t.tattoo, t]));
+            const tattoos: RunegraftPriceRegex[] = d.lines.map((l) => {
+                const name = idToName.get(l.id) ?? l.id;
+                const tattooInfo = nameToRegex.get(name);
+                return {
+                    name: name,
+                    chaosValue: Math.ceil(l.primaryValue),
+                    regex: tattooInfo?.regex ?? name.toLowerCase(),
+                    description: tattooInfo?.description ?? "Tattoo"
+                };
+            });
+            setTattooPrices(tattoos);
+        }).catch(e => console.error("Failed to load tattoos", e));
     }, []);
 
     useEffect(() => {
@@ -96,13 +135,22 @@ const Runegraft = () => {
             ...profile,
             runegraft: {
                 minValue: minChaosValue,
-                maxValue: maxChaosValue
+                maxValue: maxChaosValue,
+                includeTattoos: includeTattoos
             }
         });
         const minChaosN = minChaosValue ? minChaosValue as unknown as number : undefined;
         const maxChaosN = maxChaosValue ? maxChaosValue as unknown as number : undefined;
-        setResult(generateRegex(runegraftPrices, minChaosN, maxChaosN));
-    }, [minChaosValue, maxChaosValue, runegraftPrices]);
+
+        let prices = [...runegraftPrices];
+        if (includeTattoos) {
+            prices = [...prices, ...tattooPrices];
+        }
+        prices.sort(sortByChaosValue);
+        setDisplayedPrices(prices);
+
+        setResult(generateRegex(prices, minChaosN, maxChaosN));
+    }, [minChaosValue, maxChaosValue, runegraftPrices, includeTattoos, tattooPrices]);
 
     return (
         <>
@@ -133,6 +181,13 @@ const Runegraft = () => {
                         }} />
 
                 </div>
+                <div>
+                    <span className="expedition-option-text">Include tattoos:</span>
+                    <input type="checkbox" checked={includeTattoos}
+                        onChange={v => {
+                            setIncludeTattoos(v.target.checked);
+                        }} />
+                </div>
             </div>
             <div className="row">
                 <Collapsable header={"Price data"} isOpenByDefault={true}>
@@ -142,7 +197,7 @@ const Runegraft = () => {
                         <div className="runegraft-value-cell">Chaos</div>
                         <div className="runegraft-description-cell">Effect</div>
                     </div>
-                    {runegraftPrices.map((e) => {
+                    {displayedPrices.map((e) => {
                         const highlighted = result.includes(e.regex);
                         const highlightedCss = highlighted ? "runegraft-highlighted" : "";
                         return (
