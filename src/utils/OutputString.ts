@@ -378,7 +378,7 @@ export function generateWeaponType(settings: PoeStringSettings): string {
   if (bow) result = addExpression(result, "bow");
   if (claw) result = addExpression(result, "cl");
   if (dagger) result = addExpression(result, "da");
-  if (staff) result = addExpression(result, "staf");
+  if (staff) result = addExpression(result, "stave");
   if (wand) result = addExpression(result, "wa");
   if (result.includes("|")) {
     return `s:.+(${result})`;
