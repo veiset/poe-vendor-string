@@ -12,15 +12,20 @@ import { runegraftRegex } from "../../generated/GeneratedRunegraft";
 import { tattooRegex } from "../../generated/GeneratedTattoo";
 
 interface PoeNinjaRunegraftLine {
-    id: number
-    name: string
-    chaosValue: number
+    id: string
+    primaryValue: number
     explicitModifiers: { text: string, optional: boolean }[]
+}
+
+interface PoeNinjaRunegraftItem {
+    id: string
+    name: string
 }
 
 
 export interface PoeNinjaRunegraftData {
     lines: PoeNinjaRunegraftLine[]
+    items: PoeNinjaRunegraftItem[]
 }
 
 interface PoeNinjaTattooLine {
@@ -93,11 +98,12 @@ const Runegraft = () => {
         data.then((d) => {
             // Create a map from name to price since the logic relies on regex matching names
             // The JSON has flat lines with name and chaosValue
-            const nameToPrice = new Map(d.lines.map((l) => [l.name, l.chaosValue]));
-
+            const nameToId = new Map(d.items.map((i) => [i.name, i.id]));
+            const idToPrice = new Map(d.lines.map((l) => [l.id, l.primaryValue]));
             // Map regexes to prices
             const pricedRegex: RunegraftPriceRegex[] = runegraftRegex.map((t) => {
-                const price = nameToPrice.get(t.runegraft) ?? 0;
+                const id= nameToId.get(t.runegraft) ?? "";
+                const price = idToPrice.get(id) ?? 0;
                 return {
                     name: t.runegraft,
                     chaosValue: Math.ceil(price),
