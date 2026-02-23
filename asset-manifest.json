@@ -1,13 +1,27 @@
 {
   "files": {
-    "main.css": "/poe-vendor-string/static/css/main.c8cf745b.css",
-    "main.js": "/poe-vendor-string/static/js/main.e9025ae1.js",
-    "index.html": "/poe-vendor-string/index.html",
-    "main.c8cf745b.css.map": "/poe-vendor-string/static/css/main.c8cf745b.css.map",
-    "main.e9025ae1.js.map": "/poe-vendor-string/static/js/main.e9025ae1.js.map"
+    "main.css": "/static/css/main.0c4eabed.css",
+    "main.js": "/static/js/main.4bca877c.js",
+    "static/media/bmc-logo-no-background.png": "/static/media/bmc-logo-no-background.d6e284bcf6fb5faa732f.png",
+    "static/media/manrope-all-400-normal.woff": "/static/media/manrope-all-400-normal.29812aea39915b828ff1.woff",
+    "static/media/chateau_map.png": "/static/media/chateau_map.6d9adf2898e74a310f15.png",
+    "static/media/crimson_temple_map.png": "/static/media/crimson_temple_map.5208156016ae6fab47b7.png",
+    "static/media/manrope-latin-400-normal.woff2": "/static/media/manrope-latin-400-normal.2cfae0fb4662deefa552.woff2",
+    "static/media/Chaos_Orb_inventory_icon.png": "/static/media/Chaos_Orb_inventory_icon.52201c2ac11824366958.png",
+    "static/media/expeidition_reroll.png": "/static/media/expeidition_reroll.c0a103cfca560e13cad8.png",
+    "static/media/alteration.png": "/static/media/alteration.4af5ba0c2afd65c922ce.png",
+    "static/media/scarab.png": "/static/media/scarab.45a49a1438101f1cc9f7.png",
+    "static/media/manrope-latin-ext-400-normal.woff2": "/static/media/manrope-latin-ext-400-normal.9408d54f42fd8adee645.woff2",
+    "static/media/manrope-cyrillic-400-normal.woff2": "/static/media/manrope-cyrillic-400-normal.18b8749c8a2e81c91aa3.woff2",
+    "static/media/manrope-greek-400-normal.woff2": "/static/media/manrope-greek-400-normal.d9fa2c702d76a9760e1b.woff2",
+    "static/media/manrope-vietnamese-400-normal.woff2": "/static/media/manrope-vietnamese-400-normal.4bb1be8af765fce74e9b.woff2",
+    "static/media/manrope-cyrillic-ext-400-normal.woff2": "/static/media/manrope-cyrillic-ext-400-normal.a26a46564e052e1282fa.woff2",
+    "index.html": "/index.html",
+    "main.0c4eabed.css.map": "/static/css/main.0c4eabed.css.map",
+    "main.4bca877c.js.map": "/static/js/main.4bca877c.js.map"
   },
   "entrypoints": [
-    "static/css/main.c8cf745b.css",
-    "static/js/main.e9025ae1.js"
+    "static/css/main.0c4eabed.css",
+    "static/js/main.4bca877c.js"
   ]
 }
