@@ -1,97 +1,97 @@
-import {ContractLevel} from "../pages/heist/Heist";
-import {heistContractTypes} from "../generated/GeneratedHeist";
-import {ItemCategory, MagicItemType, SelectedMod} from "../pages/magicitem/MagicItem";
-import {Itembase} from "../pages/item/ItemBaseSelector";
-import {RareModSelection} from "../pages/item/RareItemSelect";
-import {SelectedMagicMod} from "../pages/item/MagicItemSelect";
+import { ContractLevel } from "../pages/heist/Heist";
+import { heistContractTypes } from "../generated/GeneratedHeist";
+import { ItemCategory, MagicItemType, SelectedMod } from "../pages/magicitem/MagicItem";
+import { Itembase } from "../pages/item/ItemBaseSelector";
+import { RareModSelection } from "../pages/item/RareItemSelect";
+import { SelectedMagicMod } from "../pages/item/MagicItemSelect";
 
 export const leagueName = "Keepers";
 export const categories: ItemCategory[] = [
   {
     name: "One Handed Weapons", itemType: [
-      {name: "Claws", modKey: "Claws"},
-      {name: "Daggers", modKey: "Daggers"},
-      {name: "Wands", modKey: "Wands"},
-      {name: "One Hand Swords", modKey: "One Hand Swords"},
-      {name: "Thrusting One Hand Swords", modKey: "Thrusting One Hand Swords"},
-      {name: "One Hand Axes", modKey: "One Hand Axes"},
-      {name: "One Hand Maces", modKey: "One Hand Maces"},
-      {name: "Sceptres", modKey: "Sceptres"},
-      {name: "Rune Daggers", modKey: "Rune Daggers"},
+      { name: "Claws", modKey: "Claws" },
+      { name: "Daggers", modKey: "Daggers" },
+      { name: "Wands", modKey: "Wands" },
+      { name: "One Hand Swords", modKey: "One Hand Swords" },
+      { name: "Thrusting One Hand Swords", modKey: "Thrusting One Hand Swords" },
+      { name: "One Hand Axes", modKey: "One Hand Axes" },
+      { name: "One Hand Maces", modKey: "One Hand Maces" },
+      { name: "Sceptres", modKey: "Sceptres" },
+      { name: "Rune Daggers", modKey: "Rune Daggers" },
     ]
   },
   {
     name: "Two Handed Weapons", itemType: [
-      {name: "Bows", modKey: "Bows"},
-      {name: "Staves", modKey: "Staves"},
-      {name: "Two Hand Swords", modKey: "Two Hand Swords"},
-      {name: "Two Hand Axes", modKey: "Two Hand Axes"},
-      {name: "Two Hand Maces", modKey: "Two Hand Maces"},
-      {name: "Warstaves", modKey: "Warstaves"},
-      {name: "Fishing Rods", modKey: "Fishing Rods"},
+      { name: "Bows", modKey: "Bows" },
+      { name: "Staves", modKey: "Staves" },
+      { name: "Two Hand Swords", modKey: "Two Hand Swords" },
+      { name: "Two Hand Axes", modKey: "Two Hand Axes" },
+      { name: "Two Hand Maces", modKey: "Two Hand Maces" },
+      { name: "Warstaves", modKey: "Warstaves" },
+      { name: "Fishing Rods", modKey: "Fishing Rods" },
     ]
   },
   {
     name: "Offhand", itemType: [
-      {name: "Quivers", modKey: "Quivers"},
-      {name: "Shields (str)", modKey: "Shields (str)"},
-      {name: "Shields (dex)", modKey: "Shields (dex)"},
-      {name: "Shields (int)", modKey: "Shields (int)"},
-      {name: "Shields (str / dex)", modKey: "Shields (str, dex)"},
-      {name: "Shields (str / int)", modKey: "Shields (str, int)"},
-      {name: "Shields (dex / int)", modKey: "Shields (dex, int)"},
+      { name: "Quivers", modKey: "Quivers" },
+      { name: "Shields (str)", modKey: "Shields (str)" },
+      { name: "Shields (dex)", modKey: "Shields (dex)" },
+      { name: "Shields (int)", modKey: "Shields (int)" },
+      { name: "Shields (str / dex)", modKey: "Shields (str, dex)" },
+      { name: "Shields (str / int)", modKey: "Shields (str, int)" },
+      { name: "Shields (dex / int)", modKey: "Shields (dex, int)" },
     ],
   },
   {
     name: "Jewellery", itemType: [
-      {name: "Amulets", modKey: "Amulets"},
-      {name: "Rings", modKey: "Rings"},
-      {name: "Belts", modKey: "Belts"},
+      { name: "Amulets", modKey: "Amulets" },
+      { name: "Rings", modKey: "Rings" },
+      { name: "Belts", modKey: "Belts" },
     ]
   },
   {
     name: "Gloves", itemType: [
-      {name: "Gloves (str)", modKey: "Gloves (str)"},
-      {name: "Gloves (dex)", modKey: "Gloves (dex)"},
-      {name: "Gloves (int)", modKey: "Gloves (int)"},
-      {name: "Gloves (str / dex)", modKey: "Gloves (str, dex)"},
-      {name: "Gloves (str / int)", modKey: "Gloves (str, int)"},
-      {name: "Gloves (dex / int)", modKey: "Gloves (dex, int)"},
+      { name: "Gloves (str)", modKey: "Gloves (str)" },
+      { name: "Gloves (dex)", modKey: "Gloves (dex)" },
+      { name: "Gloves (int)", modKey: "Gloves (int)" },
+      { name: "Gloves (str / dex)", modKey: "Gloves (str, dex)" },
+      { name: "Gloves (str / int)", modKey: "Gloves (str, int)" },
+      { name: "Gloves (dex / int)", modKey: "Gloves (dex, int)" },
     ]
   },
   {
     name: "Boots", itemType: [
-      {name: "Boots (str)", modKey: "Boots (str)"},
-      {name: "Boots (dex)", modKey: "Boots (dex)"},
-      {name: "Boots (int)", modKey: "Boots (int)"},
-      {name: "Boots (str / dex)", modKey: "Boots (str, dex)"},
-      {name: "Boots (str / int)", modKey: "Boots (str, int)"},
-      {name: "Boots (dex / int)", modKey: "Boots (dex, int)"},
+      { name: "Boots (str)", modKey: "Boots (str)" },
+      { name: "Boots (dex)", modKey: "Boots (dex)" },
+      { name: "Boots (int)", modKey: "Boots (int)" },
+      { name: "Boots (str / dex)", modKey: "Boots (str, dex)" },
+      { name: "Boots (str / int)", modKey: "Boots (str, int)" },
+      { name: "Boots (dex / int)", modKey: "Boots (dex, int)" },
     ]
   },
   {
     name: "Helmets", itemType: [
-      {name: "Helmets (str)", modKey: "Helmets (str)"},
-      {name: "Helmets (dex)", modKey: "Helmets (dex)"},
-      {name: "Helmets (int)", modKey: "Helmets (int)"},
-      {name: "Helmets (str / dex)", modKey: "Helmets (str, dex)"},
-      {name: "Helmets (str / int)", modKey: "Helmets (str, int)"},
-      {name: "Helmets (dex / int)", modKey: "Helmets (dex, int)"},
+      { name: "Helmets (str)", modKey: "Helmets (str)" },
+      { name: "Helmets (dex)", modKey: "Helmets (dex)" },
+      { name: "Helmets (int)", modKey: "Helmets (int)" },
+      { name: "Helmets (str / dex)", modKey: "Helmets (str, dex)" },
+      { name: "Helmets (str / int)", modKey: "Helmets (str, int)" },
+      { name: "Helmets (dex / int)", modKey: "Helmets (dex, int)" },
     ]
   },
   {
     name: "Body Armours", itemType: [
-      {name: "Body Armours (str)", modKey: "Body Armours (str)"},
-      {name: "Body Armours (dex)", modKey: "Body Armours (dex)"},
-      {name: "Body Armours (int)", modKey: "Body Armours (int)"},
-      {name: "Body Armours (str / dex)", modKey: "Body Armours (str, dex)"},
-      {name: "Body Armours (str / int)", modKey: "Body Armours (str, int)"},
-      {name: "Body Armours (dex / int)", modKey: "Body Armours (dex, int)"},
+      { name: "Body Armours (str)", modKey: "Body Armours (str)" },
+      { name: "Body Armours (dex)", modKey: "Body Armours (dex)" },
+      { name: "Body Armours (int)", modKey: "Body Armours (int)" },
+      { name: "Body Armours (str / dex)", modKey: "Body Armours (str, dex)" },
+      { name: "Body Armours (str / int)", modKey: "Body Armours (str, int)" },
+      { name: "Body Armours (dex / int)", modKey: "Body Armours (dex, int)" },
     ]
   },
   {
     name: "Flasks", itemType: [
-      {name: "Tinctures", modKey: "Tinctures"},
+      { name: "Tinctures", modKey: "Tinctures" },
     ]
   },
 ]
@@ -111,7 +111,10 @@ export interface SavedSettings {
   scarab: ScarabSettings
   jewel: JewelSettings
   itemCrafting: ItemCraftingSettings
+  tattoo: TattooSettings
+  runegraft: RunegraftSettings
 }
+
 
 export interface BeastSettings {
   includeHarvest: boolean
@@ -236,6 +239,12 @@ export interface ScarabSettings {
   minPrice: string
 }
 
+
+export interface TattooSettings {
+  minValue: string
+  maxValue: string
+}
+
 export interface JewelSettings {
   allMatch: boolean
   magicOnly: boolean
@@ -337,7 +346,7 @@ export const defaultSettings: SavedSettings = {
     contractLevels:
       Object.keys(heistContractTypes)
         .map((key) => heistContractTypes[key])
-        .map((type) => ({start: 0, end: 0, type})),
+        .map((type) => ({ start: 0, end: 0, type })),
   },
   flask: {
     selectedPrefix: [],
@@ -521,5 +530,20 @@ export const defaultSettings: SavedSettings = {
       value: "",
       enabled: true,
     },
+  },
+  tattoo: {
+    minValue: "",
+    maxValue: "",
+  },
+  runegraft: {
+    minValue: "",
+    maxValue: "",
+    includeTattoos: false,
   }
+}
+
+export interface RunegraftSettings {
+  minValue: string
+  maxValue: string
+  includeTattoos: boolean
 }

@@ -128,6 +128,22 @@ jobs:
           target: beast/
           filename: "beast_poe_ninja.json"
 
+      # Tattoo Economy
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: tattoos
+        with:   
+          url: "https://poe.ninja/poe1/api/economy/exchange/current/overview?league=${{ env.LEAGUE }}&type=Tattoo"
+          target: tattoo/
+          filename: "tattoo_poe_ninja.json"
+
+      # Runegraft Economy
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: runegraft
+        with:   
+          url: "https://poe.ninja/poe1/api/economy/exchange/current/overview?league=${{ env.LEAGUE }}&type=Runegraft"
+          target: runegraft/
+          filename: "runegraft_poe_ninja.json"
+
       # Scarab Economy
       - uses: suisei-cn/actions-download-file@v1.3.0
         id: scarabs
