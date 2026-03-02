@@ -148,7 +148,7 @@ jobs:
       - uses: suisei-cn/actions-download-file@v1.3.0
         id: scarabs
         with:
-          url: "https://poe.ninja/api/data/itemoverview?league=${{ env.LEAGUE }}&type=Scarab&language=en"
+          url: "https://poe.ninja/poe1/api/economy/exchange/current/overview?league=${{ env.LEAGUE }}&type=Scarab"
           target: scarab/
           filename: "scarab_poe_ninja.json"
 

@@ -12,14 +12,19 @@ import ModSearchBox from "../../components/ModSearchBox";
 import {defaultSettings, ScarabSettings} from "../../utils/SavedSettings";
 import {generateScarabRegex} from "./ScarabOutput";
 
-export interface PoeNinjaScarab {
+export interface PoeNinjaScarabLine {
+  id: string
+  primaryValue: number
+}
+
+export interface PoeNinjaScarabItem {
+  id: string
   name: string
-  chaosValue: number
-  listingCount: number
 }
 
 export interface PoeNinjaScarabData {
-  lines: PoeNinjaScarab[]
+  lines: PoeNinjaScarabLine[]
+  items: PoeNinjaScarabItem[]
 }
 
 const sortByChaosValue = (prices: Map<string, number>, e1: Scarab, e2: Scarab) => {
@@ -54,7 +59,12 @@ const Scarabs = () => {
       .then((r) => r.json()) as Promise<PoeNinjaScarabData>
 
     data.then((d) => {
-      setPriceLookup(new Map(d.lines.map((b) => [b.name, b.chaosValue])));
+      const idToName = new Map(d.items.map((i) => [i.id, i.name]));
+      const idToPrice = new Map(d.lines.map((l) => [l.id, l.primaryValue]));
+
+      setPriceLookup(
+        new Map(d.lines.map((b) => [idToName.get(b.id) || "unknown", idToPrice.get(b.id) ?? 0]))
+      );
     })
   }, []);
 
