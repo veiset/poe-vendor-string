@@ -17,4 +17,16 @@ const Header = (props: HeaderProps) => {
   )
 }
 
+export const HeaderWithLanguage = (props: HeaderProps) => {
+  const {text} = props;
+  return (
+    <div className="page-header-container">
+      <h1 className="page-header">{text} Regex</h1>
+      <div className="page-header-profile">
+        <Profile languageSelect={true}/>
+      </div>
+    </div>
+  )
+}
+
 export default Header;

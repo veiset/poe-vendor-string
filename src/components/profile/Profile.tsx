@@ -10,10 +10,16 @@ import {
 } from "../../utils/LocalStorage";
 import {defaultSettings} from "../../utils/SavedSettings";
 import {ProfileContext} from "./ProfileContext";
+import {RepoeLanguage, RepoeLanguageData, RepoeLanguageKey} from "../../utils/Languages";
+
+interface ProfileProps {
+  languageSelect?: boolean
+}
 
 
-const Profile = () => {
-  const {setGlobalProfile} = useContext(ProfileContext);
+const Profile = (props: ProfileProps) => {
+  const {languageSelect} = props;
+  const {setGlobalProfile, lang, setLang} = useContext(ProfileContext);
   const [profiles, setProfiles] = useState(loadProfileNames());
   const [profile, setProfile] = useState(selectedProfile());
   const [showNew, setShowNew] = useState(false);
@@ -56,7 +62,14 @@ const Profile = () => {
   useEffect(() => {
     setSelectedProfile(profile);
     setGlobalProfile(profile);
+    setLang(loadSettings(profile).language);
   }, [setGlobalProfile, profile]);
+
+  useEffect(() => {
+    const profileSettings = loadSettings(profile);
+    saveSettings({...profileSettings, language: lang});
+    setSelectedProfile(profile);
+  }, [lang]);
 
   const confirmAdd = () => {
     console.log(`Adding new profile: ${editName}`)
@@ -90,12 +103,30 @@ const Profile = () => {
   return (
     <div className="profile-container">
       <div>Profile:</div>
-      <select name="league" className="dropdown-select dropdown-md" value={profile}
+      <select name="profile" className="dropdown-select dropdown-md" value={profile}
               onChange={(e) => setProfile(e.target.value)}>
         {profiles.map((profile) => {
           return <option className="option-league" key={profile} value={profile}>{profile}</option>;
         })};
       </select>
+      {languageSelect &&
+        <select
+          name="language"
+          className="dropdown-select dropdown-sm"
+          value={lang} // This should be the 'short' code from your state
+          onChange={(e) => setLang(e.target.value as RepoeLanguageKey)}
+        >
+          {Object.entries(RepoeLanguage).map(([key, data]) => (
+            <option
+              className="option-language"
+              key={key}
+              value={key} // value is the Key (RepoeLanguageKey)
+            >
+              {data.flag} {data.name}
+            </option>
+          ))}
+        </select>
+      }
       <div className="profile-icon profile-icon-large" onClick={() => {
         setShowEdit(false);
         setShowDelete(false);
@@ -118,34 +149,34 @@ const Profile = () => {
       </div>
 
       {showNew &&
-          <ProfileEditBox
-              header={"Create new profile"}
-              editValue={editName}
-              setEditValue={setEditName}
-              show={setShowNew}
-              confirm={confirmAdd}
-              warning={warning}
-          />
+        <ProfileEditBox
+          header={"Create new profile"}
+          editValue={editName}
+          setEditValue={setEditName}
+          show={setShowNew}
+          confirm={confirmAdd}
+          warning={warning}
+        />
       }
       {showEdit &&
-          <ProfileEditBox
-              header={"Edit profile name"}
-              editValue={editName}
-              setEditValue={setEditName}
-              show={setShowEdit}
-              confirm={confirmEdit}
-              warning={warning}
-          />
+        <ProfileEditBox
+          header={"Edit profile name"}
+          editValue={editName}
+          setEditValue={setEditName}
+          show={setShowEdit}
+          confirm={confirmEdit}
+          warning={warning}
+        />
       }
       {showDelete &&
-          <ProfileEditBox
-              header={`Delete profile`}
-              editValue={""}
-              show={setShowDelete}
-              confirm={confirmDelete}
-              warning={warning}
-              saveText={"Confirm"}
-          />
+        <ProfileEditBox
+          header={`Delete profile`}
+          editValue={""}
+          show={setShowDelete}
+          confirm={confirmDelete}
+          warning={warning}
+          saveText={"Confirm"}
+        />
       }
     </div>
   )
