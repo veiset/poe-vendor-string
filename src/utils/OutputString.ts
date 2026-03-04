@@ -1,4 +1,4 @@
-import { gems } from "../generated/GeneratedGems"
+import {regexGems} from "../generated/gems/Generated.Gems.English";
 
 export interface PoeStringSettings {
   anyThreeLink: boolean
@@ -72,7 +72,7 @@ export interface PoeStringSettings {
     staff: boolean
     wand: boolean
   }
-  gems?: string[] // GeneratedGems keys
+  gems: number[] // GeneratedGems keys
 }
 
 export function generateResultString(settings: PoeStringSettings): string {
@@ -390,10 +390,17 @@ export function generateWeaponType(settings: PoeStringSettings): string {
 }
 
 export function generateGems(settings: PoeStringSettings): string {
-  if (!settings.gems?.length) {
+  if (!settings.gems.length) {
     return "";
   }
-  return settings.gems.reduce((expr, gemKey) => 
-    addExpression(expr, gems[gemKey]?.regex)
-  )
+  const tokensById = new Map(
+    regexGems.tokens.map(token => [token.id, token.regex])
+  );
+
+  const gems = settings.gems
+    .map((id) => tokensById.get(id)).filter((e) => e !== null) as string[];
+
+  return gems.reduce((expr, gemKey) =>
+    addExpression(expr, gemKey as string)
+  );
 }

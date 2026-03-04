@@ -2,7 +2,7 @@
     cursor: pointer;
     padding: 8px;
     display: grid;
-    gap: 10px;
+    gap: 0px;
     grid-template-columns: 33% 33% 33%;
 }
 

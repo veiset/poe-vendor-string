@@ -15,15 +15,8 @@ import {ProfileContext} from "../../components/profile/ProfileContext";
 import {gems} from "../../generated/GeneratedGems";
 import GemNameList from './GemNameList';
 import Infobox from '../../components/infobox/Infobox';
+import {regexGems} from "../../generated/gems/Generated.Gems.English";
 
-// TODO: Ideally we'd pre-filter these out of GeneratedGems before generating
-// regexes to avoid needlessly verbose regexes for every gem with a transfigured
-// alternative
-const SELECTABLE_GEM_NAMES = Object.values(gems).filter(g => (
-  g.description &&
-  !/\[UNUSED\]|Playtest|^New|^Vaal|Blinding Aura|Death Aura|Wand Teleport| Channeled$/.test(g.name) &&
-  !/\[UNUSED\]/.test(g.description)
-)).map(g => g.name)
 
 const Vendor = () => {
   const {globalProfile} = useContext(ProfileContext);
@@ -97,7 +90,7 @@ const Vendor = () => {
   const [weaponStaff, setWeaponStaff] = React.useState(profile.vendor.weapon.staff);
   const [weaponWand, setWeaponWand] = React.useState(profile.vendor.weapon.wand);
 
-  const [selectedGems, setSelectedGems] = React.useState(profile.vendor.gems ?? [])
+  const [selectedGems, setSelectedGems] = React.useState(profile.vendor.gems)
 
   const listOfOptions = [
     setRrr, setGgg, setBbb,
@@ -300,14 +293,7 @@ const Vendor = () => {
 
       <div className="full-size">
         <h2>Gems</h2>
-        <Infobox
-          header="Beta: incomplete, might contain incorrect matches"
-          text="
-          Known issues: Missing support gems, should omit transfigured gems.;
-          Not fully tested yet, might accidentally match unexpected items.;
-          Please report any issues found (@vz / #tooldev-general at the poe discord, or as a github issue);"
-        />
-        <GemNameList id="gemnamelist" gemNames={SELECTABLE_GEM_NAMES} selected={selectedGems} setSelected={setSelectedGems}/>
+        <GemNameList id="gemnamelist" gems={regexGems.tokens} selected={selectedGems} setSelected={setSelectedGems}/>
       </div>
 
       <div className="break"/>
