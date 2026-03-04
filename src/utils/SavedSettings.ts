@@ -4,6 +4,7 @@ import { ItemCategory, MagicItemType, SelectedMod } from "../pages/magicitem/Mag
 import { Itembase } from "../pages/item/ItemBaseSelector";
 import { RareModSelection } from "../pages/item/RareItemSelect";
 import { SelectedMagicMod } from "../pages/item/MagicItemSelect";
+import {RepoeLanguage, RepoeLanguageKey} from "./Languages";
 
 export const leagueName = "Keepers";
 export const categories: ItemCategory[] = [
@@ -97,6 +98,7 @@ export const categories: ItemCategory[] = [
 ]
 
 export interface SavedSettings {
+  language: RepoeLanguageKey
   name: string
   version: number
   beast: BeastSettings
@@ -189,7 +191,6 @@ export interface MapSettings {
   optimizeQuant: boolean
   optimizePacksize: boolean
   optimizeQuality: boolean
-  t17: boolean
   rarity: {
     normal: boolean
     magic: boolean
@@ -327,10 +328,11 @@ export interface VendorSettings {
     staff: boolean
     wand: boolean
   }
-  gems?: string[]
+  gems: number[]
 }
 
 export const defaultSettings: SavedSettings = {
+  language: "ENGLISH",
   name: "default",
   version: 1,
   beast: {
@@ -387,7 +389,6 @@ export const defaultSettings: SavedSettings = {
     optimizeQuant: false,
     optimizePacksize: false,
     optimizeQuality: false,
-    t17: false,
     rarity: {
       normal: true,
       magic: true,
@@ -499,7 +500,8 @@ export const defaultSettings: SavedSettings = {
       dagger: false,
       staff: false,
       wand: false,
-    }
+    },
+    gems: [],
   },
   scarab: {
     selected: [],

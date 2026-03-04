@@ -7,6 +7,9 @@
     border-radius: 4px;
     cursor: pointer;
 }
+.dropdown-vsm {
+    min-width: 70px;
+}
 .dropdown-sm {
     min-width: 120px;
 }

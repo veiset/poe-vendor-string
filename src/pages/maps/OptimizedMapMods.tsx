@@ -1,9 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import {ProfileContext} from "../../components/profile/ProfileContext";
 import {loadSettings, saveSettings} from "../../utils/LocalStorage";
-import Header from "../../components/Header";
-import {regexMapModifiersRegular} from "../../generated/GeneratedMapModsRegular";
-import {regexMapModifierT17} from "../../generated/GeneratedMapModsT17";
+import {HeaderWithLanguage} from "../../components/Header";
 import SelectableTokenList from "../../components/SelectableTokenList/SelectableTokenList";
 import {getGradientColor} from "../../utils/ColorGradient";
 import {defaultSettings, MapSettings} from "../../utils/SavedSettings";
@@ -11,9 +9,7 @@ import {Checkbox} from "../vendor/Vendor";
 import {generateMapModRegex} from "./OptimizedMapOutput";
 import "./OptimizedMapMods.css";
 import RegexResultBox from "../../components/RegexResultBox/RegexResultBox";
-
-const regexT17 = regexMapModifierT17;
-const regexRegular = regexMapModifiersRegular;
+import {LanguageFiles} from "../../utils/Languages";
 
 const OptimizedMapMods = () => {
   const {globalProfile} = useContext(ProfileContext);
@@ -33,16 +29,11 @@ const OptimizedMapMods = () => {
   const [corrupted, setCorrupted] = useState(profile.map.corrupted);
   const [unidentified, setUnidentified] = useState(profile.map.unidentified);
   const [quality, setQuality] = useState(profile.map.quality);
-  const [t17, setT17] = useState(profile.map.t17);
-  const [regex, setRegex] = useState(t17 ? regexT17 : regexRegular);
+  const [regex, setRegex] = useState(LanguageFiles.mapmods[profile.language]);
   const [mapDropChance, setMapDropChance] = useState(profile.map.mapDropChance);
 
   const [customTextStr, setCustomTextStr] = useState(profile.map.customText.value);
   const [enableCustomText, setEnableCustomText] = useState(profile.map.customText.enabled);
-
-  useEffect(() => {
-    setRegex(t17 ? regexT17 : regexRegular);
-  }, [t17]);
 
   useEffect(() => {
     const settings: MapSettings = {
@@ -59,7 +50,6 @@ const OptimizedMapMods = () => {
       corrupted,
       unidentified,
       quality,
-      t17,
       anyQuality,
       customText: {
         value: customTextStr,
@@ -76,10 +66,11 @@ const OptimizedMapMods = () => {
 
   return (
     <>
-      <Header text={"Optimized Map Modifiers"}/>
+      <HeaderWithLanguage text={"Optimized Map Modifiers"}/>
       <RegexResultBox
         result={result}
         warning={undefined}
+        enableBug={true}
         customText={customTextStr}
         setCustomText={setCustomTextStr}
         enableCustomText={enableCustomText}
@@ -104,6 +95,7 @@ const OptimizedMapMods = () => {
         }}
       />
       <div className="break"/>
+      <p className="info-text">New generation method. Please report any bugs, especially in the newly added languages. <br/> Will update with new mods shortly after the league is launched.</p>
       <div className="full-size generic-top-element">
         <label className="modifier-search-label" htmlFor="quantity">Quantity of at least</label>
         <input type="search" className="modifier-quantity-box" id="quantity" name="search-mod" value={quantity}
@@ -209,8 +201,6 @@ const OptimizedMapMods = () => {
           </div>
         </div>
         <div className="break spacer-top"/>
-        <Checkbox label="Tier 17 Map Modifiers" className="tier17-color" value={t17}
-                  onChange={setT17}/>
       </div>
       <div className="eq-col-2 box-small-padding">
         <div className="column-header map-column-text">I don't want any of these mods</div>
