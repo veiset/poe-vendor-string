@@ -10,6 +10,7 @@ import {generateMapModRegex} from "./OptimizedMapOutput";
 import "./OptimizedMapMods.css";
 import RegexResultBox from "../../components/RegexResultBox/RegexResultBox";
 import {LanguageFiles} from "../../utils/Languages";
+import Infobox from "../../components/infobox/Infobox";
 
 const OptimizedMapMods = () => {
   const {globalProfile} = useContext(ProfileContext);
@@ -95,6 +96,7 @@ const OptimizedMapMods = () => {
         }}
       />
       <div className="break"/>
+      <p className="info-text">New generation method. Please report any bugs, especially in the newly added languages. <br/> Will update map mobs when https://repoe-fork.github.io/ is updated.</p>
       <div className="full-size generic-top-element">
         <label className="modifier-search-label" htmlFor="quantity">Quantity of at least</label>
         <input type="search" className="modifier-quantity-box" id="quantity" name="search-mod" value={quantity}

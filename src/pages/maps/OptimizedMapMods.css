@@ -62,3 +62,9 @@
 .tier17-color {
     color: #eab7fc;
 }
+.info-text {
+    padding: 0;
+    margin-left: 14px;
+    margin-bottom: 0;
+    color: orange;
+}

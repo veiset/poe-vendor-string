@@ -11,7 +11,7 @@ const Infobox = (props: InfoboxProps) => {
   return (
     <div className="infobox">
       <h2>{header}</h2>
-      {text.split(";").map((txt) => {
+      {text && text.split(";").map((txt) => {
         return (<div key={txt} className="text">{txt === "" ? <br/> : txt}</div>)
       })}
     </div>
