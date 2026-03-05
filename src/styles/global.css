@@ -18,6 +18,13 @@
     --color-text-link: #7eb9b2;
     --color-text-error: #ff6872;
     --color-text-copied: #69c976;
+
+    --color-import: #6b8eaf;
+    --color-import-hover: #5a7d9e;
+
+    /* Muted Clay/Sand (Export) */
+    --color-export: #cfa06b;
+    --color-export-hover: #b88c5a;
 }
 
 h1 {

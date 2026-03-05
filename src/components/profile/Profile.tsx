@@ -8,9 +8,11 @@ import {
   selectedProfile,
   setSelectedProfile
 } from "../../utils/LocalStorage";
-import {defaultSettings} from "../../utils/SavedSettings";
+import {defaultSettings, SavedSettings} from "../../utils/SavedSettings";
 import {ProfileContext} from "./ProfileContext";
 import {RepoeLanguage, RepoeLanguageData, RepoeLanguageKey} from "../../utils/Languages";
+import ExportDialog from "./ProfileExportBox";
+import ProfileImportBox from "./ProfileImportBox";
 
 interface ProfileProps {
   languageSelect?: boolean
@@ -25,6 +27,8 @@ const Profile = (props: ProfileProps) => {
   const [showNew, setShowNew] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const [showExport, setShowExport] = useState(false);
+  const [showImport, setShowImport] = useState(false);
   const [editName, setEditName] = useState("");
   const [warning, setWarning] = useState<string | undefined>(undefined);
 
@@ -100,6 +104,18 @@ const Profile = (props: ProfileProps) => {
     setShowDelete(false);
   }
 
+  const handleImportProfile = (importedSettings: SavedSettings) => {
+    console.log(`Saving profile: ${importedSettings.name}`);
+
+    if (!profiles.includes(importedSettings.name)) {
+      setProfiles(profiles.concat(importedSettings.name));
+    }
+
+    setProfile(importedSettings.name);
+    saveSettings(importedSettings);
+    setShowImport(false);
+  };
+
   return (
     <div className="profile-container">
       <div>Profile:</div>
@@ -109,24 +125,6 @@ const Profile = (props: ProfileProps) => {
           return <option className="option-league" key={profile} value={profile}>{profile}</option>;
         })};
       </select>
-      {languageSelect &&
-        <select
-          name="language"
-          className="dropdown-select dropdown-sm"
-          value={lang} // This should be the 'short' code from your state
-          onChange={(e) => setLang(e.target.value as RepoeLanguageKey)}
-        >
-          {Object.entries(RepoeLanguage).map(([key, data]) => (
-            <option
-              className="option-language"
-              key={key}
-              value={key} // value is the Key (RepoeLanguageKey)
-            >
-              {data.flag} {data.name}
-            </option>
-          ))}
-        </select>
-      }
       <div className="profile-icon profile-icon-large" onClick={() => {
         setShowEdit(false);
         setShowDelete(false);
@@ -147,6 +145,41 @@ const Profile = (props: ProfileProps) => {
         setShowDelete(true);
       }}>✕
       </div>
+      {languageSelect &&
+        <select
+          name="language"
+          className="dropdown-select dropdown-sm"
+          value={lang}
+          onChange={(e) => setLang(e.target.value as RepoeLanguageKey)}
+        >
+          {Object.entries(RepoeLanguage).map(([key, data]) => (
+            <option
+              className="option-language"
+              key={key}
+              value={key}
+            >
+              {data.flag} {data.name}
+            </option>
+          ))}
+        </select>
+      }
+      <div>
+        <button className="export-button" onClick={() => {
+          setShowImport(false);
+          setShowExport(true);
+        }}>Export</button>
+        <button className="import-button" onClick={() => {
+          setShowExport(false);
+          setShowImport(true);
+        }}>Import</button>
+      </div>
+
+      {showExport &&
+        <ExportDialog settings={loadSettings(profile)} setShow={setShowExport}></ExportDialog>
+      }
+      {showImport &&
+        <ProfileImportBox setShow={setShowImport} existingProfiles={profiles} onImport={handleImportProfile} />
+      }
 
       {showNew &&
         <ProfileEditBox

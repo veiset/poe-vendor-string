@@ -51,11 +51,54 @@
     border-radius: 4px;
 }
 
-.new-profile-box {
-
+.export-profile-box {
+    min-width: 600px;
 }
 
 .profile-warning {
     margin: 10px;
     color: var(--color-text-warn);
+}
+
+.import-button {
+    background-color: var(--color-import, #4A90E2); /* Blue fallback */
+    font-family: monospace;
+    border: none;
+    color: white;
+    padding: 11px 4px;
+    min-width: 90px; /* Changed to min-width to accommodate text + symbol */
+    text-decoration: none;
+    font-size: 14px;
+    margin: 2px 4px;
+    border-radius: 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+.import-button:hover {
+    background-color: var(--color-import-hover, #357ABD);
+    opacity: 0.9;
+}
+
+/* Export Button (Data going OUT) */
+.export-button {
+    background-color: var(--color-export, #F5A623); /* Orange/Yellow fallback */
+    font-family: monospace;
+    border: none;
+    color: white;
+    padding: 11px 4px;
+    min-width: 90px;
+    text-decoration: none;
+    font-size: 14px;
+    margin: 4px 4px;
+    cursor: pointer;
+    border-radius: 2px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+.export-button:hover {
+    background-color: var(--color-export-hover, #E09612);
+    opacity: 0.9;
 }
