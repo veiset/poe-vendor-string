@@ -327,6 +327,7 @@ export interface VendorSettings {
     dagger: boolean
     staff: boolean
     wand: boolean
+    shield: boolean
   }
   gems: number[]
 }
@@ -500,6 +501,7 @@ export const defaultSettings: SavedSettings = {
       dagger: false,
       staff: false,
       wand: false,
+      shield: false,
     },
     gems: [],
   },

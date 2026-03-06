@@ -89,6 +89,7 @@ const Vendor = () => {
   const [weaponDagger, setWeaponDagger] = React.useState(profile.vendor.weapon.dagger);
   const [weaponStaff, setWeaponStaff] = React.useState(profile.vendor.weapon.staff);
   const [weaponWand, setWeaponWand] = React.useState(profile.vendor.weapon.wand);
+  const [weaponShield, setWeaponShield] = React.useState(profile.vendor.weapon.shield);
 
   const [selectedGems, setSelectedGems] = React.useState(profile.vendor.gems)
 
@@ -101,7 +102,7 @@ const Vendor = () => {
     setMovement10, setMovement15, setLightning,
     setFire, setCold, setPhys, setChaos, setAnyGem,
     setDmgPhys, setFireMult, setColdMult, setChaosMult,
-    setWeaponSceptre, setWeaponMace, setWeaponAxe, setWeaponSword, setWeaponBow, setWeaponClaw, setWeaponDagger, setWeaponStaff, setWeaponWand
+    setWeaponSceptre, setWeaponMace, setWeaponAxe, setWeaponSword, setWeaponBow, setWeaponClaw, setWeaponDagger, setWeaponStaff, setWeaponWand, setWeaponShield,
   ]
 
   const listOfNumbers = [
@@ -117,7 +118,7 @@ const Vendor = () => {
     movement10, movement15, lightning,
     fire, cold, phys, chaos, anyGem,
     dmgPhys, fireMult, coldMult, chaosMult,
-    weaponSceptre, weaponMace, weaponAxe, weaponSword, weaponBow, weaponClaw, weaponDagger, weaponStaff, weaponWand,
+    weaponSceptre, weaponMace, weaponAxe, weaponSword, weaponBow, weaponClaw, weaponDagger, weaponStaff, weaponWand, weaponShield,
     selectedGems
   ]
 
@@ -168,6 +169,7 @@ const Vendor = () => {
       dagger: weaponDagger,
       staff: weaponStaff,
       wand: weaponWand,
+      shield: weaponShield,
     },
     gems: selectedGems
   };
@@ -287,6 +289,9 @@ const Vendor = () => {
             <Checkbox className="float-left weapon-select" label="Wand" value={weaponWand} onChange={setWeaponWand}/>
             <Checkbox className="float-left weapon-select" label="Dagger" value={weaponDagger}
                       onChange={setWeaponDagger}/>
+          </div>
+          <div>
+            <Checkbox className="float-left weapon-select" label="Shield" value={weaponShield} onChange={setWeaponShield}/>
           </div>
         </div>
       </div>

@@ -71,6 +71,7 @@ export interface PoeStringSettings {
     dagger: boolean
     staff: boolean
     wand: boolean
+    shield: boolean
   }
   gems: number[] // GeneratedGems keys
 }
@@ -369,7 +370,7 @@ export function generateWeaponDamage(settings: PoeStringSettings): string {
 }
 
 export function generateWeaponType(settings: PoeStringSettings): string {
-  const {sceptre, mace, axe, sword, bow, claw, dagger, staff, wand} = settings.weapon;
+  const {sceptre, mace, axe, sword, bow, claw, dagger, staff, wand, shield} = settings.weapon;
   let result = "";
   if (sceptre) result = addExpression(result, "sc");
   if (mace) result = addExpression(result, "mac");
@@ -380,6 +381,7 @@ export function generateWeaponType(settings: PoeStringSettings): string {
   if (dagger) result = addExpression(result, "da");
   if (staff) result = addExpression(result, "stave");
   if (wand) result = addExpression(result, "wa");
+  if (shield) result = addExpression(result, "sh");
   if (result.includes("|")) {
     return `s:.+(${result})`;
   } else if (result) {
