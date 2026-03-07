@@ -107,7 +107,6 @@ export interface SavedSettings {
   expedition: ExpeditionSettings
   map: MapSettings
   item: ItemSettings
-  mapT17: MapT17Settings
   vendor: VendorSettings
   mapNames: MapNameSettings
   scarab: ScarabSettings
@@ -191,6 +190,7 @@ export interface MapSettings {
   optimizeQuant: boolean
   optimizePacksize: boolean
   optimizeQuality: boolean
+  displayNightmareMods: boolean
   rarity: {
     normal: boolean
     magic: boolean
@@ -390,6 +390,7 @@ export const defaultSettings: SavedSettings = {
     optimizeQuant: false,
     optimizePacksize: false,
     optimizeQuality: false,
+    displayNightmareMods: false,
     rarity: {
       normal: true,
       magic: true,
@@ -418,13 +419,6 @@ export const defaultSettings: SavedSettings = {
       enabled: true,
     },
     mapDropChance: "",
-  },
-  mapT17: {
-    mods: [],
-    quantity: "",
-    packsize: "",
-    optimizeQuant: false,
-    optimizePacksize: false,
   },
   mapNames: {
     selected: [],

@@ -16,6 +16,6 @@ export interface Regex<T> {
   optimizationTable: {[ids: string]: TokenOptimization },
 }
 export interface MapModsTokenOption {
-  tier17: boolean,
   scary: number,
+  nm: boolean,
 }

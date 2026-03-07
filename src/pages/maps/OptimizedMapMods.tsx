@@ -31,6 +31,7 @@ const OptimizedMapMods = () => {
   const [quality, setQuality] = useState(profile.map.quality);
   const [regex, setRegex] = useState(LanguageFiles.mapmods[profile.language]);
   const [mapDropChance, setMapDropChance] = useState(profile.map.mapDropChance);
+  const [displayNightmareMods, setDisplayNightmareMods] = useState(profile.map.displayNightmareMods);
 
   const [customTextStr, setCustomTextStr] = useState(profile.map.customText.value);
   const [enableCustomText, setEnableCustomText] = useState(profile.map.customText.enabled);
@@ -51,6 +52,7 @@ const OptimizedMapMods = () => {
       unidentified,
       quality,
       anyQuality,
+      displayNightmareMods,
       customText: {
         value: customTextStr,
         enabled: enableCustomText,
@@ -62,7 +64,7 @@ const OptimizedMapMods = () => {
       map: {...settings},
     });
     setResult(generateMapModRegex(settings, regex));
-  }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance]);
+  }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods]);
 
   return (
     <>
@@ -92,10 +94,12 @@ const OptimizedMapMods = () => {
           setEnableCustomText(defaultSettings.map.customText.enabled);
           setCustomTextStr(defaultSettings.map.customText.value);
           setMapDropChance(defaultSettings.map.mapDropChance);
+          setDisplayNightmareMods(defaultSettings.map.displayNightmareMods);
         }}
       />
       <div className="break"/>
-      <p className="info-text">New generation method. Please report any bugs, especially in the newly added languages. <br/> Will update with new mods shortly after the league is launched.</p>
+      <p className="info-text">New generation method. Please report any bugs, especially in the newly added
+        languages. <br/> English now has nightmare mods, will keep updating.</p>
       <div className="full-size generic-top-element">
         <label className="modifier-search-label" htmlFor="quantity">Quantity of at least</label>
         <input type="search" className="modifier-quantity-box" id="quantity" name="search-mod" value={quantity}
@@ -200,6 +204,10 @@ const OptimizedMapMods = () => {
             <label htmlFor="unidentified-exclude" className="radio-button-map">Exclude</label>
           </div>
         </div>
+        <div className="rarity-select">
+          <Checkbox label="Show nightmare modifiers" value={displayNightmareMods}
+                    onChange={setDisplayNightmareMods}/>
+        </div>
         <div className="break spacer-top"/>
       </div>
       <div className="eq-col-2 box-small-padding">
@@ -227,10 +235,12 @@ const OptimizedMapMods = () => {
           colorFun={(isSelected, token) => {
             if (isSelected) return "#ffffff";
             if (token.options.scary < 100) return "#ffffff";
-            if (token.options.scary > 1100) return "#eab7fc";
+            if (token.options.scary > 1000) return "#eab7fc";
             return getGradientColor("#FC9090", "#ffffff", (1100 - token.options.scary) / 1100);
           }}
-          elements={regex.tokens}
+          elements={regex.tokens
+            .filter((e) => displayNightmareMods ? true : !e.options.nm)
+          }
           setSelected={setSelectedBadIds}
           selected={selectedBadIds}
         />
@@ -243,10 +253,12 @@ const OptimizedMapMods = () => {
           colorFun={(isSelected, token) => {
             if (isSelected) return "#ffffff";
             if (token.options.scary < 100) return "#ffffff";
-            if (token.options.scary > 1100) return "#eab7fc";
+            if (token.options.scary > 1000) return "#eab7fc";
             return getGradientColor("#FC9090", "#ffffff", (1100 - token.options.scary) / 1100);
           }}
-          elements={regex.tokens}
+          elements={regex.tokens
+            .filter((e) => displayNightmareMods ? true : !e.options.nm)
+          }
           setSelected={setSelectedGoodIds}
           selected={selectedGoodIds}
         />
