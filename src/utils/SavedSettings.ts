@@ -6,7 +6,7 @@ import { RareModSelection } from "../pages/item/RareItemSelect";
 import { SelectedMagicMod } from "../pages/item/MagicItemSelect";
 import {RepoeLanguage, RepoeLanguageKey} from "./Languages";
 
-export const leagueName = "Keepers";
+export const leagueName = "Mirage";
 export const categories: ItemCategory[] = [
   {
     name: "One Handed Weapons", itemType: [
