@@ -15,12 +15,16 @@ import MagicItem from "../pages/magicitem/MagicItem";
 import Item from "../pages/item/Item";
 import Tattoo from "../pages/tattoo/Tattoo";
 import Runegraft from "../pages/runegraft/Runegraft";
+import {useRefreshFromInitialLoad, useRefreshOnFocus} from "../utils/RefreshOnFocus";
 
 
 const Pages = () => {
   const [globalProfile, setGlobalProfile] = useState(selectedProfile());
   const [profile, setProfile] = useState(loadSettings(globalProfile));
   const [lang, setLang] = useState(profile.language);
+
+  useRefreshFromInitialLoad();
+  useRefreshOnFocus();
 
   useEffect(() => {
     console.log(`Loading profile: ${globalProfile}, lang: ${lang}`)
