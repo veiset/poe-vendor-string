@@ -6,7 +6,7 @@ import {generateNumberRegex} from "../../utils/regex/GenerateNumberRegex";
 export function generateMapModRegex(settings: MapSettings, regex: Regex<any>): string {
   const exclusions = generateBadMods(settings, regex);
   const inclusions = generateGoodMods(settings, regex);
-  const quantity = addQuantifier("m q.*", generateNumberRegex(settings.quantity, settings.optimizeQuant));
+  const quantity = addQuantifier("ty \\(Quantity\\):.*", generateNumberRegex(settings.quantity, settings.optimizeQuant));
   const packsize = addQuantifier("iz.*", generateNumberRegex(settings.packsize, settings.optimizePacksize));
   const mapDrop = addQuantifier("re maps.*", generateNumberRegex(settings.mapDropChance, false));
   const itemRarity = addQuantifier("m rar.*", generateNumberRegex(settings.itemRarity, false));
