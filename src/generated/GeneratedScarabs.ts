@@ -113,10 +113,10 @@ export const scarabs: { [key: string]: Scarab } = {
  },
   "Bestiary Scarab of Duplicating": {
     name: "Bestiary Scarab of Duplicating",
-    regex: "opy",
+    regex: "at'",
     icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9HcmVhdGVyU2NhcmFiQmVhc3RzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/7225b9e62b/GreaterScarabBeasts.png",
     description: "Create a copy of Beasts captured in Area",
-    flavourText: "\"What's better than one captured beast, exile?\"",
+    flavourText: "What's better than one captured beast, exile?",
     },
  "Bestiary Scarab of the Herd": {
    name: "Bestiary Scarab of the Herd",
@@ -589,7 +589,7 @@ export const scarabs: { [key: string]: Scarab } = {
  },
  "Legion Scarab of Treasures": {
    name: "Legion Scarab of Treasures",
-   regex: "mse",
+   regex: "hoa",
    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9BbHROb3JtYWxTY2FyYWJMZWdpb24iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/8c2976d5a7/AltNormalScarabLegion.png",
      description: "Legion Chests in Area have a 20 % chance to spread their Rewards to Legion Monsters they release from stasis when they are broken out Legion Monsters that have gained Rewards have increased Difficulty",
      flavourText: "Ancient Hoards imbued with powerful Artifacts.",
