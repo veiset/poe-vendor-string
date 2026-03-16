@@ -42,6 +42,7 @@ const Item = () => {
   }>(profile.itemCrafting.selectedRareMods);
   const [selectedMagicMods, setSelectedMagicMods] = useState<SelectedMagicMod[]>(profile.itemCrafting.selectedMagicMods);
   const [matchAnyMod, setMatchAnyMod] = useState(profile.itemCrafting.rareSettings.matchAnyMod);
+  const [matchPrefixAndSuffix, setMatchPrefixAndSuffix] = useState(profile.itemCrafting.rareSettings.matchPrefixAndSuffix);
 
   const [onlyIfBothPrefixAndSuffix, setOnlyIfBothPrefixAndSuffix] = useState(profile.itemCrafting.magicSettings.onlyIfBothPrefixAndSuffix);
   const [matchOpenAffix, setMatchOpenAffix] = useState(profile.itemCrafting.magicSettings.matchOpenAffix);
@@ -72,6 +73,7 @@ const Item = () => {
         selectedMagicMods,
         rareSettings: {
           matchAnyMod,
+          matchPrefixAndSuffix,
         },
         magicSettings: {
           onlyIfBothPrefixAndSuffix,
@@ -91,7 +93,7 @@ const Item = () => {
       setResult(generateMagicItemRegex(settings.itemCrafting));
     }
     saveSettings(settings)
-  }, [selectedRareMods, selectedMagicMods, itembase, onlyIfBothPrefixAndSuffix, matchOpenAffix, matchAnyMod, customTextStr, enableCustomText]);
+  }, [selectedRareMods, selectedMagicMods, itembase, onlyIfBothPrefixAndSuffix, matchOpenAffix, matchAnyMod, matchPrefixAndSuffix, customTextStr, enableCustomText]);
 
   return (<>
       <Header text={"Item"}/>
@@ -101,6 +103,7 @@ const Item = () => {
           setNonMagicalBase(false);
           if (itembase?.rarity === "Rare") {
             setMatchAnyMod(defaultSettings.itemCrafting.rareSettings.matchAnyMod);
+            setMatchPrefixAndSuffix(defaultSettings.itemCrafting.rareSettings.matchPrefixAndSuffix);
             setSelectedRareMods(defaultSettings.itemCrafting.selectedRareMods);
           }
           if (itembase?.rarity === "Magic") {
@@ -135,15 +138,28 @@ const Item = () => {
           <div>
               <div className="radio-button-modgroup">
                   <input type="radio" className="radio-button-map" id="rare-mods-all" name="Match any rare mod"
-                         defaultChecked={!matchAnyMod}
-                         checked={!matchAnyMod}
-                         onChange={v => setMatchAnyMod(false)}/>
+                         defaultChecked={!matchAnyMod && !matchPrefixAndSuffix}
+                         checked={!matchAnyMod && !matchPrefixAndSuffix}
+                         onChange={v => {
+                             setMatchAnyMod(false);
+                             setMatchPrefixAndSuffix(false);
+                         }}/>
                   <label htmlFor="rare-mods-all" className="radio-button-map radio-first-ele">Match if only ALL mods are
                       found</label>
                   <input type="radio" id="rare-mods-any" name="Match all rare mods" defaultChecked={matchAnyMod}
                          checked={matchAnyMod}
-                         onChange={v => setMatchAnyMod(true)}/>
+                         onChange={v => {
+                             setMatchAnyMod(true);
+                             setMatchPrefixAndSuffix(false);
+                         }}/>
                   <label htmlFor="rare-mods-any" className="radio-button-map">Match if ANY mod is found</label>
+                  <input type="radio" id="rare-mods-prefix-suffix" name="Match all rare mods" defaultChecked={matchPrefixAndSuffix}
+                         checked={matchPrefixAndSuffix}
+                         onChange={v => {
+                             setMatchPrefixAndSuffix(true);
+                             setMatchAnyMod(false);
+                         }}/>
+                  <label htmlFor="rare-mods-prefix-suffix" className="radio-button-map">Match at least 1 Prefix AND 1 Suffix</label>
               </div>
               <RareItemSelect
                   itemRegex={regexMods}
