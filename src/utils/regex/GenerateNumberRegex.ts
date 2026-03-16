@@ -14,7 +14,7 @@ export function generateNumberRegex(number: string, optimize: boolean): string {
   }
   if (quant >= 200) {
     const v = truncateLastDigit(truncateLastDigit(quant))
-    return v === 9 ? `9..` : `[${v}-9]..`;
+    return `[${v}-9]..`;
   }
   if (quant >= 150) {
     const str = quant.toString();
@@ -24,8 +24,7 @@ export function generateNumberRegex(number: string, optimize: boolean): string {
     if (str[1] === "0" && str[2] === "0") {
       return `([2-9]..|${d0}..)`;
     } else if (str[2] === "0") {
-      const d1Range = d1 === "9" ? "9" : `[${d1}-9]`;
-      return `([2-9]..|1${d1Range}.)`;
+      return `([2-9]..|1[${d1}-9].)`;
     } else if (str[1] === "0") {
       return `([2-9]..|\\d0[${d2}-9]|\\d[1-9].)`;
     } else if (str[1] === "9" && str[2] === "9") {
@@ -34,10 +33,7 @@ export function generateNumberRegex(number: string, optimize: boolean): string {
       if (d1 === "9") {
         return `([2-9]..|19[${d2}-9])`;
       }
-      const d1Range = d1 === "9" ? "9" : `[${d1}-9]`;
-      const d2Range = d2 === "9" ? "9" : `[${d2}-9]`;
-      const d1PlusRange = Number(d1) + 1 === 9 ? "9" : `[${Number(d1) + 1}-9]`;
-      return `[12](${d1Range}${d2Range}|${d1PlusRange}.)`;
+      return `[12]([${d1}-9][${d2}-9]|[${Number(d1) + 1}-9].)`;
     }
   }
   if (quant > 100) {
@@ -48,8 +44,7 @@ export function generateNumberRegex(number: string, optimize: boolean): string {
     if (str[1] === "0" && str[2] === "0") {
       return `${d0}..`;
     } else if (str[2] === "0") {
-      const d1Range = d1 === "9" ? "9" : `[${d1}-9]`;
-      return `(1${d1Range}.|[2-9]..)`;
+      return `(1[${d1}-9].|[2-9]..)`;
     } else if (str[1] === "0") {
       return `(\\d0[${d2}-9]|\\d[1-9].)`;
     } else if (str[1] === "9" && str[2] === "9") {
@@ -58,10 +53,7 @@ export function generateNumberRegex(number: string, optimize: boolean): string {
       if (d1 === "9") {
         return `19[${d2}-9]`;
       }
-      const d1Range = d1 === "9" ? "9" : `[${d1}-9]`;
-      const d2Range = d2 === "9" ? "9" : `[${d2}-9]`;
-      const d1PlusRange = Number(d1) + 1 === 9 ? "9" : `[${Number(d1) + 1}-9]`;
-      return `(1(${d1Range}${d2Range}|${d1PlusRange}.)|[2-9]..)`;
+      return `(1([${d1}-9][${d2}-9]|[${Number(d1) + 1}-9].)|[2-9]..)`;
     }
   }
   if (quant === 100) {
@@ -74,18 +66,13 @@ export function generateNumberRegex(number: string, optimize: boolean): string {
     if (str[1] === "0") {
       return `([${d0}-9].|\\d..)`;
     } else if (str[0] === "9") {
-      const d1Range = d1 === "9" ? "9" : `[${d1}-9]`;
-      return `(9${d1Range}|\\d..)`;
+      return `(${d0}[${d1}-9]|\\d..)`;
     } else {
-      const d0Range = d0 === "9" ? "9" : `[${d0}-9]`;
-      const d1Range = d1 === "9" ? "9" : `[${d1}-9]`;
-      const d0PlusRange = Number(d0) + 1 === 9 ? "9" : `[${Number(d0) + 1}-9]`;
-      return `(${d0Range}${d1Range}|${d0PlusRange}.|\\d..)`;
+      return `(${d0}[${d1}-9]|[${Number(d0) + 1}-9].|\\d..)`;
     }
   }
   if (quant <= 9) {
-    const qRange = quant === 9 ? "9" : `[${quant}-9]`;
-    return `(${qRange}|\\d..?)`;
+    return `([${quant}-9]|\\d..?)`;
   }
   return number;
 }
@@ -114,7 +101,7 @@ function match1(n: number): string {
   const n1 = n % 10;
   if (n >= 9) return "";
   if (n1 === 0) return "\\d";
-  return n1 === 9 ? "9" : `[${n1}-9]`;
+  return `[${n1}-9]`;
 }
 
 /**
