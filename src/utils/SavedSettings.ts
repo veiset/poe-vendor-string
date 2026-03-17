@@ -169,6 +169,7 @@ export interface ItemCraftingSettings {
   selectedMagicMods: SelectedMagicMod[]
   rareSettings: {
     matchAnyMod: boolean,
+    matchPrefixAndSuffix: boolean,
   }
   magicSettings: {
     onlyIfBothPrefixAndSuffix: boolean,
@@ -519,6 +520,7 @@ export const defaultSettings: SavedSettings = {
     selectedMagicMods: [],
     rareSettings: {
       matchAnyMod: false,
+      matchPrefixAndSuffix: false,
     },
     magicSettings: {
       onlyIfBothPrefixAndSuffix: true,
