@@ -7,11 +7,14 @@ interface BugreportPros {
 export const BugReport = (props: BugreportPros) => {
   const {regex} = props;
   const site = window.location.hash.replace("#/", "");
+  
+  const title = `[Bug,${site}]: "${regex.slice(0, 250)}"`;
+  const encodedTitle = encodeURIComponent(title);
 
   return (<a
     className="bug-report"
     target="_blank"
-    href={`https://github.com/veiset/poe-vendor-string/issues/new?template=bug-report.md&title=[Bug,${site}]:%20${regex.slice(0, 250)}`}>
+    href={`https://github.com/veiset/poe-vendor-string/issues/new?template=bug-report.md&title=${encodedTitle}`}>
     <svg xmlns="http://www.w3.org/2000/svg" height="1em" fill="currentColor" viewBox="0 0 512 512"
          className="bug-report-icon">
       <path
