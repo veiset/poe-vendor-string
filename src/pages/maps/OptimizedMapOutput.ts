@@ -2,6 +2,7 @@ import {MapSettings} from "../../utils/SavedSettings";
 import {Regex} from "../../generated/GeneratedTypes";
 import {idToRegex, optimizeRegexFromIds} from "../../utils/regex/OptimizeRegexResult";
 import {generateNumberRegex} from "../../utils/regex/GenerateNumberRegex";
+import {regexMapModsENGLISH} from "../../generated/mapmods/Generated.MapModsV3.ENGLISH";
 
 export function generateMapModRegex(settings: MapSettings, regex: Regex<any>): string {
   const exclusions = generateBadMods(settings, regex);
@@ -67,7 +68,7 @@ function generateBadMods(settings: MapSettings, regex: Regex<any>): string {
   if (settings.badIds.length === 0) {
     return "";
   }
-  const tokens = optimizeRegexFromIds(settings.badIds, regex)
+  const tokens = optimizeRegexFromIds(getSelectedIds(settings, settings.badIds), regex)
   return `"!${tokens.join("|")}"`;
 }
 
@@ -75,7 +76,7 @@ function generateGoodMods(settings: MapSettings, regex: Regex<any>): string {
   if (settings.goodIds.length === 0) {
     return "";
   }
-  const tokens = (settings.goodIds
+  const tokens = (getSelectedIds(settings, settings.goodIds)
     .map((id) => idToRegex(id, regex))
     .filter((e) => e !== undefined) as string[])
     .filter(onlyUnique);
@@ -122,4 +123,15 @@ function optimize(string: string): string {
     .replaceAll(`"!"`, "")
     .replaceAll("[8-9]", "[89]")
     .replaceAll("[9-9]", "9");
+}
+
+function getSelectedIds(settings: MapSettings, ids: number[]) {
+  return settings.displayNightmareMods
+    ? ids
+    : ids.filter((id) => !isNightmareId(id));
+}
+
+function isNightmareId(id: number): boolean {
+    const token = regexMapModsENGLISH.tokens.find(t => t.id === id);
+    return token?.options.nm === true;
 }
