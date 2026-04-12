@@ -23,11 +23,9 @@ interface TradeSearchResponse {
 
 const POE_TRADE_API = "https://www.pathofexile.com/api/trade";
 
-function corsHeaders(origin: string, allowedOrigin: string): HeadersInit {
-  const isAllowed = origin === allowedOrigin;
-
+function corsHeaders(allowedOrigin: string): HeadersInit {
   return {
-    "Access-Control-Allow-Origin": isAllowed ? origin : allowedOrigin,
+    "Access-Control-Allow-Origin": allowedOrigin,
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
     "Access-Control-Max-Age": "86400",
@@ -35,16 +33,14 @@ function corsHeaders(origin: string, allowedOrigin: string): HeadersInit {
 }
 
 function handleOptions(request: Request, env: Env): Response {
-  const origin = request.headers.get("Origin") || "";
   return new Response(null, {
     status: 204,
-    headers: corsHeaders(origin, env.ALLOWED_ORIGIN),
+    headers: corsHeaders(env.ALLOWED_ORIGIN),
   });
 }
 
 async function handleSearch(request: Request, env: Env): Promise<Response> {
-  const origin = request.headers.get("Origin") || "";
-  const headers = corsHeaders(origin, env.ALLOWED_ORIGIN);
+  const headers = corsHeaders(env.ALLOWED_ORIGIN);
 
   try {
     const body: TradeSearchRequest = await request.json();
@@ -127,8 +123,7 @@ async function handleSearch(request: Request, env: Env): Promise<Response> {
 }
 
 async function handleLeagues(request: Request, env: Env): Promise<Response> {
-  const origin = request.headers.get("Origin") || "";
-  const headers = corsHeaders(origin, env.ALLOWED_ORIGIN);
+  const headers = corsHeaders(env.ALLOWED_ORIGIN);
 
   try {
     const poeResponse = await fetch(`${POE_TRADE_API}/data/leagues`, {
