@@ -10,6 +10,7 @@ import {generateMapModRegex} from "./OptimizedMapOutput";
 import "./OptimizedMapMods.css";
 import RegexResultBox from "../../components/RegexResultBox/RegexResultBox";
 import {LanguageFiles} from "../../utils/Languages";
+import {openTradeSearch, TradeSettings} from "../../utils/TradeUrlBuilder";
 
 const OptimizedMapMods = () => {
   const {globalProfile} = useContext(ProfileContext);
@@ -35,6 +36,32 @@ const OptimizedMapMods = () => {
 
   const [customTextStr, setCustomTextStr] = useState(profile.map.customText.value);
   const [enableCustomText, setEnableCustomText] = useState(profile.map.customText.enabled);
+  const [tradeSearchLoading, setTradeSearchLoading] = useState(false);
+  const [tradeMessage, setTradeMessage] = useState<string | null>(null);
+
+  const handleTradeSearch = async () => {
+    setTradeSearchLoading(true);
+    setTradeMessage(null);
+    try {
+      const settings: TradeSettings = {
+        badIds: selectedBadIds,
+        goodIds: selectedGoodIds,
+        allGoodMods: modGrouping,
+        quantity,
+        packsize,
+        itemRarity,
+      };
+      const tradeResult = await openTradeSearch(settings);
+      if (tradeResult.success) {
+        setTradeMessage(`Trade search opened! Found ${tradeResult.total ?? 0} results.`);
+      } else {
+        setTradeMessage(`Trade site opened. ${tradeResult.error ? `(${tradeResult.error})` : ''}`);
+      }
+      setTimeout(() => setTradeMessage(null), 5000);
+    } finally {
+      setTradeSearchLoading(false);
+    }
+  };
 
   useEffect(() => {
     const settings: MapSettings = {
@@ -77,6 +104,8 @@ const OptimizedMapMods = () => {
         setCustomText={setCustomTextStr}
         enableCustomText={enableCustomText}
         setEnableCustomText={setEnableCustomText}
+        onTradeSearch={handleTradeSearch}
+        tradeSearchLoading={tradeSearchLoading}
         reset={() => {
           setSelectedBadIds(defaultSettings.map.badIds);
           setSelectedGoodIds(defaultSettings.map.goodIds);
@@ -97,15 +126,21 @@ const OptimizedMapMods = () => {
           setDisplayNightmareMods(defaultSettings.map.displayNightmareMods);
         }}
       />
+      {tradeMessage && (
+        <div className="trade-message">
+          {tradeMessage}
+        </div>
+      )}
       <div className="break"/>
       <p className="info-text">New generation method. Please report any bugs, especially in the newly added
         languages. <br/> English now has nightmare mods, will keep updating.</p>
+      <p className="trade-info-text">* Fields marked with an asterisk are compatible with the Trade search.</p>
       <div className="full-size generic-top-element">
-        <label className="modifier-search-label" htmlFor="quantity">Quantity of at least</label>
+        <label className="modifier-search-label" htmlFor="quantity">Quantity of at least<span className="trade-compatible">*</span></label>
         <input type="search" className="modifier-quantity-box" id="quantity" name="search-mod" value={quantity}
                onChange={v => setQuantity(v.target.value)}/>
 
-        <label className="modifier-search-label" htmlFor="pack-size">Pack Size of at least</label>
+        <label className="modifier-search-label" htmlFor="pack-size">Pack Size of at least<span className="trade-compatible">*</span></label>
         <input type="search" className="modifier-quantity-box" id="pack-size" name="search-mod" value={packsize}
                onChange={v => setPacksize(v.target.value)}/>
 
@@ -113,7 +148,7 @@ const OptimizedMapMods = () => {
         <input type="search" className="modifier-quantity-box" id="mapdrop" name="search-mod" value={mapDropChance}
                onChange={v => setMapDropChance(v.target.value)}/>
 
-        <label className="modifier-search-label" htmlFor="itemRarity">Item rarity of at least</label>
+        <label className="modifier-search-label" htmlFor="itemRarity">Item rarity of at least<span className="trade-compatible">*</span></label>
         <input type="search" className="modifier-quantity-box" id="itemRarity" name="search-mod" value={itemRarity}
                onChange={v => setItemRarity(v.target.value)}/>
         <div className="break"/>

@@ -1,0 +1,6 @@
+# Cloudflare Worker configuration for PoE Trade API Proxy
+name = "poe-trade-proxy"
+main = "src/index.ts"
+
+[vars]
+ALLOWED_ORIGIN = "https://poe.re"

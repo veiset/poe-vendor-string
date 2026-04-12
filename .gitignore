@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/worker/node_modules
 /.pnp
 .pnp.js
 
@@ -23,6 +24,7 @@ yarn-debug.log*
 yarn-error.log*
 
 .idea
+.env
 
 build/
 .gradle
