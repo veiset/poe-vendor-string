@@ -20,7 +20,7 @@ const OptimizedMapMods = () => {
   const [modGrouping, setModGrouping] = useState(profile.map.allGoodMods);
   const [quantity, setQuantity] = useState(profile.map.quantity);
   const [packsize, setPacksize] = useState(profile.map.packsize);
-  const [itemRarity, setItemRarity] = useState(profile.map.packsize);
+  const [itemRarity, setItemRarity] = useState(profile.map.itemRarity);
   const [optimizeQuant, setOptimizeQuant] = useState(profile.map.optimizeQuant);
   const [optimizePacksize, setOptimizePacksize] = useState(profile.map.optimizePacksize);
   const [optimizeQuality, setOptimizeQuality] = useState(profile.map.optimizeQuality);
