@@ -1,6 +1,6 @@
 import tradeStatIds from "../generated/mapmods/trade/TradeStatIdMatching.json";
 
-const WORKER_URL = process.env.REACT_APP_TRADE_PROXY_URL;
+const WORKER_URL = "https://poe-trade-proxy.veiset.workers.dev";
 const TRADE_URL_BASE = "https://www.pathofexile.com/trade/search";
 
 interface WorkerSearchResponse {
