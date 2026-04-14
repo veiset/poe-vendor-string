@@ -114,6 +114,30 @@
     transition-duration: 0.4s;
 }
 
+.rrb-trade-button {
+    width: 90px;
+    background-color: #2d7a9c;
+    font-family: monospace;
+    border: none;
+    color: white;
+    padding: 12px 10px;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 4px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+.rrb-trade-button:hover {
+    background-color: #3a9bc4;
+}
+
+.rrb-trade-button:disabled {
+    background-color: #5a6a7a;
+    cursor: not-allowed;
+}
+
 .rrb-bug {
     background-color: #283036;
     border: none;

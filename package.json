@@ -28,7 +28,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "fetch-trade-stats": "npx ts-node --project scripts/tsconfig.json scripts/fetch-trade-stats.ts"
   },
   "eslintConfig": {
     "extends": [
@@ -49,6 +50,7 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^4.0.0"
+    "gh-pages": "^4.0.0",
+    "ts-node": "^10.9.2"
   }
 }
