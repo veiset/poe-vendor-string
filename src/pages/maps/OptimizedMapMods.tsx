@@ -50,10 +50,11 @@ const OptimizedMapMods = () => {
         quantity,
         packsize,
         itemRarity,
+        regex: result,
       };
       const tradeResult = await openTradeSearch(settings);
       if (tradeResult.success) {
-        setTradeMessage(`Trade search opened! Found ${tradeResult.total ?? 0} results.`);
+        setTradeMessage("Trade search opened!");
       } else {
         setTradeMessage(`Trade site opened. ${tradeResult.error ? `(${tradeResult.error})` : ''}`);
       }
