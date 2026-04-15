@@ -8,7 +8,7 @@ ALLOWED_ORIGIN = "https://poe.re"
 
 [[kv_namespaces]]
 binding = "TRADE_CACHE"
-id = "REPLACE_WITH_KV_NAMESPACE_ID"
+id = "55571b813438461aa2914d3a026984b4"
 
 [observability]
 enabled = false
