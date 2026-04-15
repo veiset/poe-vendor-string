@@ -2,61 +2,174 @@
  * Cloudflare Worker: PoE Trade API Proxy
  *
  * Endpoints:
- *   POST /search - Create a trade search and return the search ID
+ *   POST /search - Create a trade search and return the search ID (cached via KV)
  *   GET  /leagues - Get available leagues
+ *
+ * Uses Cloudflare Workers KV to cache search results keyed by the regex string.
+ * This avoids hitting the PoE Trade API for identical queries.
  */
 
 interface Env {
   ALLOWED_ORIGIN: string;
+  TRADE_CACHE: KVNamespace;
 }
 
 interface TradeSearchRequest {
   league: string;
-  query: object;
+  query: TradeQuery;
+  regex?: string;
+}
+
+interface TradeQuery {
+  query: {
+    stats?: {
+      type: string;
+      filters: { id: string }[];
+      value?: { min: number };
+    }[];
+    filters?: {
+      map_filters?: {
+        filters?: {
+          map_iiq?: { min: number };
+          map_packsize?: { min: number };
+          map_iir?: { min: number };
+        };
+      };
+    };
+  };
 }
 
 interface TradeSearchResponse {
   id: string;
-  result: string[];
-  total: number;
+}
+
+interface CachedResult {
+  url: string;
 }
 
 const POE_TRADE_API = "https://www.pathofexile.com/api/trade";
+const CACHE_TTL_SECONDS = 7 * 24 * 60 * 60; // 1 week
 
-function corsHeaders(allowedOrigin: string): HeadersInit {
+function getAllowedOrigin(
+  requestOrigin: string,
+  allowedOrigin: string,
+): string {
+  if (requestOrigin.startsWith("http://localhost:")) return requestOrigin;
+  return allowedOrigin;
+}
+
+function corsHeaders(
+  requestOrigin: string,
+  allowedOrigin: string,
+): HeadersInit {
   return {
-    "Access-Control-Allow-Origin": allowedOrigin,
+    "Access-Control-Allow-Origin": getAllowedOrigin(
+      requestOrigin,
+      allowedOrigin,
+    ),
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
     "Access-Control-Max-Age": "86400",
   };
 }
 
-function handleOptions(request: Request, env: Env): Response {
-  return new Response(null, {
-    status: 204,
-    headers: corsHeaders(env.ALLOWED_ORIGIN),
+function jsonResponse(
+  body: object,
+  status: number,
+  headers: HeadersInit,
+): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { ...headers, "Content-Type": "application/json" },
   });
 }
 
-async function handleSearch(request: Request, env: Env): Promise<Response> {
-  const headers = corsHeaders(env.ALLOWED_ORIGIN);
+function handleOptions(origin: string, env: Env): Response {
+  return new Response(null, {
+    status: 204,
+    headers: corsHeaders(origin, env.ALLOWED_ORIGIN),
+  });
+}
+
+function logSearch(body: TradeSearchRequest, cacheHit: boolean): void {
+  const q = body.query?.query;
+  const stats = q?.stats ?? [];
+  const mapFilters = q?.filters?.map_filters?.filters;
+
+  const notGroup = stats.find((s) => s.type === "not");
+  const andGroup = stats.find((s) => s.type === "and");
+  const countGroup = stats.find((s) => s.type === "count");
+
+  const toIds = (group?: { filters: { id: string }[] }) =>
+    group?.filters.map((f) => f.id) ?? [];
+
+  console.log({
+    event: "search",
+    league: body.league,
+    cache: cacheHit ? "hit" : "miss",
+    regex: body.regex ?? null,
+    badModCount: notGroup?.filters.length ?? 0,
+    badModIds: toIds(notGroup),
+    goodModCount: (andGroup ?? countGroup)?.filters.length ?? 0,
+    goodModMode: andGroup ? "all" : countGroup ? "any" : null,
+    goodModIds: toIds(andGroup ?? countGroup),
+    iiq: mapFilters?.map_iiq?.min ?? null,
+    packsize: mapFilters?.map_packsize?.min ?? null,
+    iir: mapFilters?.map_iir?.min ?? null,
+  });
+}
+
+function toCacheKey(league: string, regex?: string): string | null {
+  return regex ? `${league}:${regex}` : null;
+}
+
+async function getCached(
+  env: Env,
+  cacheKey: string | null,
+): Promise<CachedResult | null> {
+  if (!cacheKey) return null;
+  return env.TRADE_CACHE.get<CachedResult>(cacheKey, "json");
+}
+
+async function putCache(
+  env: Env,
+  cacheKey: string | null,
+  result: CachedResult,
+): Promise<void> {
+  if (!cacheKey) return;
+  await env.TRADE_CACHE.put(cacheKey, JSON.stringify(result), {
+    expirationTtl: CACHE_TTL_SECONDS,
+  });
+}
+
+async function handleSearch(
+  request: Request,
+  origin: string,
+  env: Env,
+): Promise<Response> {
+  const headers = corsHeaders(origin, env.ALLOWED_ORIGIN);
 
   try {
     const body: TradeSearchRequest = await request.json();
 
     if (!body.league || !body.query) {
-      return new Response(
-        JSON.stringify({
-          error: "Missing 'league' or 'query' in request body",
-        }),
-        {
-          status: 400,
-          headers: { ...headers, "Content-Type": "application/json" },
-        },
+      return jsonResponse(
+        { error: "Missing 'league' or 'query' in request body" },
+        400,
+        headers,
       );
     }
 
+    const cacheKey = toCacheKey(body.league, body.regex);
+
+    const cached = await getCached(env, cacheKey);
+    if (cached) {
+      logSearch(body, true);
+      return jsonResponse({ ...cached, cached: true }, 200, headers);
+    }
+
+    logSearch(body, false);
+    // Query PoE Trade API
     const poeResponse = await fetch(
       `${POE_TRADE_API}/search/${encodeURIComponent(body.league)}`,
       {
@@ -88,42 +201,32 @@ async function handleSearch(request: Request, env: Env): Promise<Response> {
     }
 
     if (!poeResponse.ok) {
-      return new Response(
-        JSON.stringify({
+      return jsonResponse(
+        {
           error: `PoE API error: ${poeResponse.status}`,
           status: poeResponse.status,
-        }),
-        {
-          status: poeResponse.status,
-          headers: { ...headers, "Content-Type": "application/json" },
         },
+        poeResponse.status,
+        headers,
       );
     }
 
     const data: TradeSearchResponse = await poeResponse.json();
+    const result: CachedResult = {
+      url: `https://www.pathofexile.com/trade/search/${encodeURIComponent(body.league)}/${data.id}`,
+    };
 
-    return new Response(
-      JSON.stringify({
-        id: data.id,
-        total: data.total,
-        url: `https://www.pathofexile.com/trade/search/${encodeURIComponent(body.league)}/${data.id}`,
-      }),
-      {
-        status: 200,
-        headers: { ...headers, "Content-Type": "application/json" },
-      },
-    );
+    await putCache(env, cacheKey, result);
+
+    return jsonResponse(result, 200, headers);
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
-    return new Response(JSON.stringify({ error: message }), {
-      status: 500,
-      headers: { ...headers, "Content-Type": "application/json" },
-    });
+    return jsonResponse({ error: message }, 500, headers);
   }
 }
 
-async function handleLeagues(request: Request, env: Env): Promise<Response> {
-  const headers = corsHeaders(env.ALLOWED_ORIGIN);
+async function handleLeagues(origin: string, env: Env): Promise<Response> {
+  const headers = corsHeaders(origin, env.ALLOWED_ORIGIN);
 
   try {
     const poeResponse = await fetch(`${POE_TRADE_API}/data/leagues`, {
@@ -133,26 +236,18 @@ async function handleLeagues(request: Request, env: Env): Promise<Response> {
     });
 
     if (!poeResponse.ok) {
-      return new Response(
-        JSON.stringify({ error: `PoE API error: ${poeResponse.status}` }),
-        {
-          status: poeResponse.status,
-          headers: { ...headers, "Content-Type": "application/json" },
-        },
+      return jsonResponse(
+        { error: `PoE API error: ${poeResponse.status}` },
+        poeResponse.status,
+        headers,
       );
     }
 
     const data = await poeResponse.json();
-    return new Response(JSON.stringify(data), {
-      status: 200,
-      headers: { ...headers, "Content-Type": "application/json" },
-    });
+    return jsonResponse(data as object, 200, headers);
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
-    return new Response(JSON.stringify({ error: message }), {
-      status: 500,
-      headers: { ...headers, "Content-Type": "application/json" },
-    });
+    return jsonResponse({ error: message }, 500, headers);
   }
 }
 
@@ -161,29 +256,28 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
     const path = url.pathname;
+    const origin = request.headers.get("Origin") || "";
 
     if (request.method === "OPTIONS") {
-      return handleOptions(request, env);
+      return handleOptions(origin, env);
     }
 
     if (path === "/search" && request.method === "POST") {
-      return handleSearch(request, env);
+      return handleSearch(request, origin, env);
     }
 
     if (path === "/leagues" && request.method === "GET") {
-      return handleLeagues(request, env);
+      return handleLeagues(origin, env);
     }
 
     if (path === "/" || path === "/health") {
-      return new Response(
-        JSON.stringify({ status: "ok", service: "poe-trade-proxy" }),
-        { status: 200, headers: { "Content-Type": "application/json" } },
+      return jsonResponse(
+        { status: "ok", service: "poe-trade-proxy" },
+        200,
+        {},
       );
     }
 
-    return new Response(JSON.stringify({ error: "Not found" }), {
-      status: 404,
-      headers: { "Content-Type": "application/json" },
-    });
+    return jsonResponse({ error: "Not found" }, 404, {});
   },
 };

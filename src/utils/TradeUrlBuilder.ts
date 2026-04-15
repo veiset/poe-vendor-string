@@ -4,8 +4,6 @@ const WORKER_URL = "https://poe-trade-proxy.veiset.workers.dev";
 const TRADE_URL_BASE = "https://www.pathofexile.com/trade/search";
 
 interface WorkerSearchResponse {
-  id: string;
-  total: number;
   url: string;
   error?: string;
 }
@@ -23,6 +21,7 @@ export interface TradeSettings {
   quantity: string;
   packsize: string;
   itemRarity: string;
+  regex: string;
 }
 
 interface TradeQuery {
@@ -53,8 +52,6 @@ interface TradeQuery {
 export interface TradeSearchResult {
   success: boolean;
   url: string;
-  searchId?: string;
-  total?: number;
   error?: string;
 }
 
@@ -67,7 +64,8 @@ export async function getCurrentLeague(): Promise<string> {
 
   try {
     const response = await fetch(`${WORKER_URL}/leagues`);
-    if (!response.ok) throw new Error(`Failed to fetch leagues: ${response.status}`);
+    if (!response.ok)
+      throw new Error(`Failed to fetch leagues: ${response.status}`);
 
     const data: { result: { id: string }[] } = await response.json();
 
@@ -89,9 +87,9 @@ export async function getCurrentLeague(): Promise<string> {
 
 function toStatFilters(ids: number[]): { id: string }[] {
   return ids
-    .map(id => tradeStatMap[id.toString()])
+    .map((id) => tradeStatMap[id.toString()])
     .filter((statId): statId is string => statId !== undefined)
-    .map(id => ({ id }));
+    .map((id) => ({ id }));
 }
 
 function parseMinFilter(value: string): { min: number } | undefined {
@@ -165,7 +163,7 @@ export async function createTradeSearch(
     const response = await fetch(`${WORKER_URL}/search`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ league, query }),
+      body: JSON.stringify({ league, query, regex: settings.regex }),
     });
 
     const data: WorkerSearchResponse = await response.json();
@@ -181,8 +179,6 @@ export async function createTradeSearch(
     return {
       success: true,
       url: data.url,
-      searchId: data.id,
-      total: data.total,
     };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
