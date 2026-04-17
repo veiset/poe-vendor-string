@@ -29,7 +29,8 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "fetch-trade-stats": "npx ts-node --project scripts/tsconfig.json scripts/fetch-trade-stats.ts"
+    "fetch-trade-stats": "npx ts-node --project scripts/tsconfig.json scripts/fetch-trade-stats.ts",
+    "fetch-map-affixes": "npx ts-node --project scripts/tsconfig.json scripts/fetch-map-affixes.ts"
   },
   "eslintConfig": {
     "extends": [
