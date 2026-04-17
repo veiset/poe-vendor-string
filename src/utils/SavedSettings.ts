@@ -192,6 +192,8 @@ export interface MapSettings {
   optimizePacksize: boolean
   optimizeQuality: boolean
   displayNightmareMods: boolean
+  displayAffixBadges: boolean
+  groupByAffix: boolean
   rarity: {
     normal: boolean
     magic: boolean
@@ -392,6 +394,8 @@ export const defaultSettings: SavedSettings = {
     optimizePacksize: false,
     optimizeQuality: false,
     displayNightmareMods: false,
+    displayAffixBadges: false,
+    groupByAffix: false,
     rarity: {
       normal: true,
       magic: true,

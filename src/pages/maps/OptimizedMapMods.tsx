@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useMemo, useState} from "react";
 import {ProfileContext} from "../../components/profile/ProfileContext";
 import {loadSettings, saveSettings} from "../../utils/LocalStorage";
 import {HeaderWithLanguage} from "../../components/Header";
@@ -11,6 +11,8 @@ import "./OptimizedMapMods.css";
 import RegexResultBox from "../../components/RegexResultBox/RegexResultBox";
 import {LanguageFiles} from "../../utils/Languages";
 import {openTradeSearch, TradeSettings} from "../../utils/TradeUrlBuilder";
+import {mapModIsPrefix} from "../../utils/MapModAffixes";
+import {Token} from "../../generated/GeneratedTypes";
 
 const OptimizedMapMods = () => {
   const {globalProfile} = useContext(ProfileContext);
@@ -33,6 +35,8 @@ const OptimizedMapMods = () => {
   const [regex, setRegex] = useState(LanguageFiles.mapmods[profile.language]);
   const [mapDropChance, setMapDropChance] = useState(profile.map.mapDropChance);
   const [displayNightmareMods, setDisplayNightmareMods] = useState(profile.map.displayNightmareMods);
+  const [displayAffixBadges, setDisplayAffixBadges] = useState(profile.map.displayAffixBadges);
+  const [groupByAffix, setGroupByAffix] = useState(profile.map.groupByAffix);
 
   const [customTextStr, setCustomTextStr] = useState(profile.map.customText.value);
   const [enableCustomText, setEnableCustomText] = useState(profile.map.customText.enabled);
@@ -81,6 +85,8 @@ const OptimizedMapMods = () => {
       quality,
       anyQuality,
       displayNightmareMods,
+      displayAffixBadges,
+      groupByAffix,
       customText: {
         value: customTextStr,
         enabled: enableCustomText,
@@ -92,7 +98,31 @@ const OptimizedMapMods = () => {
       map: {...settings},
     });
     setResult(generateMapModRegex(settings, regex));
-  }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods]);
+  }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix]);
+
+  const renderAffixTag = useMemo(() => {
+    if (!displayAffixBadges) return undefined;
+    return (token: Token<any>) => {
+      const isPrefix = mapModIsPrefix(token.id);
+      if (isPrefix === undefined) return null;
+      return (
+        <span className={`mod-affix-tag mod-affix-tag--${isPrefix ? "prefix" : "suffix"}`}>
+          {isPrefix ? "P" : "S"}
+        </span>
+      );
+    };
+  }, [displayAffixBadges]);
+
+  const affixGroupFn = useMemo(() => {
+    if (!groupByAffix) return undefined;
+    return (token: Token<any>) => {
+      const isPrefix = mapModIsPrefix(token.id);
+      if (isPrefix === undefined) return null;
+      return isPrefix
+        ? {key: "prefix", label: "Prefix"}
+        : {key: "suffix", label: "Suffix"};
+    };
+  }, [groupByAffix]);
 
   return (
     <>
@@ -125,6 +155,8 @@ const OptimizedMapMods = () => {
           setCustomTextStr(defaultSettings.map.customText.value);
           setMapDropChance(defaultSettings.map.mapDropChance);
           setDisplayNightmareMods(defaultSettings.map.displayNightmareMods);
+          setDisplayAffixBadges(defaultSettings.map.displayAffixBadges);
+          setGroupByAffix(defaultSettings.map.groupByAffix);
         }}
       />
       {tradeMessage && (
@@ -244,6 +276,12 @@ const OptimizedMapMods = () => {
           <Checkbox label="Show nightmare modifiers" value={displayNightmareMods}
                     onChange={setDisplayNightmareMods}/>
         </div>
+        <div className="rarity-select">
+          <Checkbox label="Show prefix/suffix badges" value={displayAffixBadges}
+                    onChange={setDisplayAffixBadges}/>
+          <Checkbox label="Group mods by prefix/suffix" value={groupByAffix}
+                    onChange={setGroupByAffix}/>
+        </div>
         <div className="break spacer-top"/>
       </div>
       <div className="eq-col-2 box-small-padding">
@@ -279,6 +317,9 @@ const OptimizedMapMods = () => {
           }
           setSelected={setSelectedBadIds}
           selected={selectedBadIds}
+          tagFn={renderAffixTag}
+          groupFn={affixGroupFn}
+          groupOrder={["prefix", "suffix"]}
         />
       </div>
       <div className="eq-col-2">
@@ -297,6 +338,9 @@ const OptimizedMapMods = () => {
           }
           setSelected={setSelectedGoodIds}
           selected={selectedGoodIds}
+          tagFn={renderAffixTag}
+          groupFn={affixGroupFn}
+          groupOrder={["prefix", "suffix"]}
         />
       </div>
     </>
