@@ -14,4 +14,25 @@
     font-size: 16px;
     padding: 5px;
     margin: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.selectable-token-list-text {
+    flex: 1;
+}
+
+.selectable-token-list-group + .selectable-token-list-group {
+    margin-top: 14px;
+}
+
+.selectable-token-list-group-header {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #8aa0b4;
+    padding: 4px 6px 2px;
+    border-bottom: 1px solid #33404d;
+    margin-bottom: 4px;
 }
