@@ -51,7 +51,11 @@ function normalizeText(text: string): string {
     .trim();
 }
 
-function textsMatch(generalizedText: string, tradeText: string): boolean {
+function depluralize(text: string): string {
+  return text.replace(/([^s])s(?=\s|$)/g, '$1');
+}
+
+function textsMatch(generalizedText: string, tradeText: string, exactOnly: boolean): boolean {
   const alternatives = generalizedText.split('|');
 
   for (const alt of alternatives) {
@@ -60,6 +64,15 @@ function textsMatch(generalizedText: string, tradeText: string): boolean {
 
     if (normalizedMod === normalizedTrade) {
       return true;
+    }
+
+    // Handle singular/plural differences (e.g. "Grasping Vines" vs "Grasping Vine")
+    if (depluralize(normalizedMod) === depluralize(normalizedTrade)) {
+      return true;
+    }
+
+    if (exactOnly) {
+      continue;
     }
 
     // Check if one contains the other (for partial matches)
@@ -72,11 +85,18 @@ function textsMatch(generalizedText: string, tradeText: string): boolean {
     }
 
     // Handle map mods that don't have "have #% chance to" prefix
+    // More specific patterns first: "have chance to be X" = "are X", "have chance to have a X" = "have X"
     const tradeWithoutChance = normalizedTrade
+      .replace(/monsters have NUM chance to have a /i, 'monsters have ')
       .replace(/monsters have NUM chance to /i, 'monsters ')
+      .replace(/players have NUM chance to be /i, 'players are ')
       .replace(/players have NUM chance to /i, 'players ');
 
     if (normalizedMod === tradeWithoutChance) {
+      return true;
+    }
+
+    if (depluralize(normalizedMod) === depluralize(tradeWithoutChance)) {
       return true;
     }
 
@@ -155,16 +175,31 @@ async function main() {
     const unmatched: MapModToken[] = [];
 
     for (const token of tokens) {
-      let found = false;
+      // Two-pass matching: prefer exact matches over fuzzy/partial matches
+      let bestMatch: TradeStatEntry | null = null;
+
+      // Pass 1: exact match only
       for (const stat of tradeStats) {
-        if (textsMatch(token.generalizedText, stat.text)) {
-          mapping[token.id] = stat.id;
-          found = true;
-          console.log(`✓ Matched: "${token.rawText.substring(0, 50)}..." -> ${stat.id}`);
+        if (textsMatch(token.generalizedText, stat.text, true)) {
+          bestMatch = stat;
           break;
         }
       }
-      if (!found) {
+
+      // Pass 2: fuzzy/partial match (only if no exact match found)
+      if (!bestMatch) {
+        for (const stat of tradeStats) {
+          if (textsMatch(token.generalizedText, stat.text, false)) {
+            bestMatch = stat;
+            break;
+          }
+        }
+      }
+
+      if (bestMatch) {
+        mapping[token.id] = bestMatch.id;
+        console.log(`✓ Matched: "${token.rawText.substring(0, 50)}..." -> ${bestMatch.id}`);
+      } else {
         unmatched.push(token);
       }
     }
