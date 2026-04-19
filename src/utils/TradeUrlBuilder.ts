@@ -3,11 +3,6 @@ import tradeStatIds from "../generated/mapmods/trade/TradeStatIdMatching.json";
 const WORKER_URL = "https://poe-trade-proxy.veiset.workers.dev";
 const TRADE_URL_BASE = "https://www.pathofexile.com/trade/search";
 
-interface WorkerSearchResponse {
-  url: string;
-  error?: string;
-}
-
 interface StatGroup {
   type: "and" | "not" | "count" | "if";
   filters: { id: string }[];
@@ -159,26 +154,12 @@ export async function createTradeSearch(
 
   try {
     const league = await getCurrentLeague();
-
-    const response = await fetch(`${WORKER_URL}/search`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ league, query, regex: settings.regex }),
-    });
-
-    const data: WorkerSearchResponse = await response.json();
-
-    if (!response.ok || data.error) {
-      return {
-        success: false,
-        url: `${TRADE_URL_BASE}/${encodeURIComponent(league)}`,
-        error: data.error || `Request failed with status ${response.status}`,
-      };
-    }
+    const encodedQuery = encodeURIComponent(JSON.stringify(query));
+    const url = `${TRADE_URL_BASE}/${encodeURIComponent(league)}?q=${encodedQuery}`;
 
     return {
       success: true,
-      url: data.url,
+      url,
     };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
