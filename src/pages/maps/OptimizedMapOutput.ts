@@ -100,11 +100,11 @@ function onlyUnique(value: string, index: number, array: string[]) {
 function addRarityRegex(normal: boolean, magic: boolean, rare: boolean, include: boolean, language: RepoeLanguageKey): string {
   const statRegex = MapStaticStatRegex[language] ?? MapStaticStatRegex.ENGLISH;
   if (normal && magic && rare) {
-    return include ? "" : `"!${statRegex.rarity_prefix}(n|m|r)"`;
+    return include ? "" : `"!${statRegex.rarity_prefix}(${statRegex.rarity_normal}|${statRegex.rarity_magic}|${statRegex.rarity_rare})"`;
   }
-  const normalRegex = normal ? "n" : "";
-  const magicRegex = magic ? "m" : "";
-  const rareRegex = rare ? "r" : "";
+  const normalRegex = normal ? statRegex.rarity_normal : "";
+  const magicRegex = magic ? statRegex.rarity_magic : "";
+  const rareRegex = rare ? statRegex.rarity_rare : "";
   const result = [normalRegex, magicRegex, rareRegex]
     .filter((e) => e.length > 0)
     .join("|");
