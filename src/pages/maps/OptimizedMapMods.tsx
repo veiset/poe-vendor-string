@@ -91,7 +91,7 @@ const OptimizedMapMods = () => {
       ...profile,
       map: {...settings},
     });
-    setResult(generateMapModRegex(settings, regex));
+    setResult(generateMapModRegex(settings, regex, profile.language));
   }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods]);
 
   return (
