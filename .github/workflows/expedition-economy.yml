@@ -124,7 +124,7 @@ jobs:
       - uses: suisei-cn/actions-download-file@v1.3.0
         id: beasts
         with:
-          url: "https://poe.ninja/api/data/itemoverview?league=${{ env.LEAGUE }}&type=Beast&language=en"
+          url: "https://poe.ninja/poe1/api/economy/stash/current/item/overview?league=${{ env.LEAGUE }}&type=Beast"
           target: beast/
           filename: "beast_poe_ninja.json"
 
