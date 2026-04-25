@@ -1,9 +1,11 @@
 .page-link-header {
     white-space: nowrap;
     flex-grow: 10;
-    padding: 6px 20px 8px 8px;
-    font-size: 24px;
-    color: #ffffff;
+    padding: 14px 20px 10px 14px;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-deep-text);
+    letter-spacing: -0.01em;
 }
 
 .support-link {
@@ -29,11 +31,30 @@
 
 .page-link {
     flex-grow: 0;
-    padding-left: 7px;
-    padding-bottom: 8px;
-    padding-top: 2px;
-    font-size: 18px;
+    padding: 0;
+    font-size: 14px;
     white-space: nowrap;
+    transition: background-color 0.15s ease;
+    border-left: 2px solid transparent;
+}
+
+.page-link a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px 8px 14px;
+    color: var(--color-text);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.page-link:hover {
+    background-color: var(--color-area);
+}
+
+.page-link a:hover {
+    color: var(--color-text);
+    text-decoration: none;
 }
 
 .page-links {
@@ -43,12 +64,10 @@
 }
 
 .page-link-icon {
-    position: relative;
-    top: 11px;
-    margin-top: -7px;
-    padding-right: 5px;
-    height: 32px;
-    width: 32px;
+    height: 24px;
+    width: 24px;
+    flex-shrink: 0;
+    object-fit: contain;
 }
 
 a {
@@ -62,7 +81,16 @@ a:hover {
 }
 
 .page-link-current {
-    background-color: var(--color-area);
+    background-color: var(--color-accent-soft);
+    border-left-color: var(--color-accent);
+}
+
+.page-link-current a {
+    color: var(--color-accent-hover);
+}
+
+.page-link-current:hover {
+    background-color: var(--color-accent-soft);
 }
 
 .page-link-wrapper {
@@ -75,18 +103,56 @@ a:hover {
     padding-top: 20px;
 }
 
-@media (max-width: calc(230px + 1250px + 20px)) {
+@media (max-width: calc(230px + 1600px + 20px)) {
     .page-links {
         flex-direction: row;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 6px;
     }
 
     .page-link {
-        padding-right: 20px;
+        border-left: none;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .page-link a {
+        padding: 6px 12px;
+        gap: 6px;
+    }
+
+    .page-link-icon {
+        height: 20px;
+        width: 20px;
+    }
+
+    .page-link:hover {
+        background-color: var(--color-area-2);
+    }
+
+    .page-link-current {
+        background-color: var(--color-accent);
+    }
+
+    .page-link-current a {
+        color: #0a0d12;
+        font-weight: 600;
+    }
+
+    .page-link-current:hover {
+        background-color: var(--color-accent-hover);
     }
 
     .page-link-wrapper {
         flex-direction: row;
         flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .page-link-header {
+        padding: 8px 16px;
+        font-size: 16px;
     }
 }
 

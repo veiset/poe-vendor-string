@@ -1,42 +1,58 @@
 .rrb-layout {
-    font-size: 18px;
+    font-size: 14px;
     background-color: var(--color-area);
     color: var(--color-text);
     width: 100%;
     position: sticky;
     top: 0;
-    padding: 14px;
+    padding: 14px 20px;
     z-index: 50;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
 
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
+    flex-direction: row;
+    column-gap: 18px;
+    row-gap: 10px;
+    align-items: center;
 }
 
 .rrb-result {
-    font-family: monospace;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
     flex-shrink: 10;
     flex-grow: 1;
     text-overflow: clip;
+    min-width: 280px;
 }
 
 .rrb-result-text {
-    min-height: 46px;
+    background-color: transparent;
+    border: none;
+    padding: 4px 0;
+    min-height: 38px;
+    font-size: 13px;
+    line-height: 1.45;
+    word-break: break-all;
+    color: var(--color-text);
 }
 
 .rrb-result-info {
-    color: #b1b1b7;
-    padding-top: 10px;
-    font-size: 16px;
+    color: var(--color-text-dim);
+    padding-top: 8px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
 }
 
 .rrb-actions {
-    font-family: monospace;
-    padding-top: 10px;
-    flex-shrink: 10;
+    font-family: inherit;
+    flex-shrink: 0;
     flex-grow: 0;
-    width: 594px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
 }
 
 .rrb-break {
@@ -46,105 +62,130 @@
 
 .rrb-options {
     background-color: var(--color-bg);
-    font-size: 20px;
-    margin-top: 20px;
-    padding: 20px;
+    font-size: 14px;
+    margin-top: 6px;
+    padding: 14px 16px;
+    border: 1px solid var(--color-border-soft);
+    border-radius: 4px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    gap: 10px;
+    gap: 14px;
     width: 100%;
+    box-sizing: border-box;
+    align-items: center;
 }
 
 .rrb-options-custom-text {
-    padding: 4px;
+    padding: 0;
+}
+
+.rrb-copy-button,
+.rrb-reset-button,
+.rrb-trade-button,
+.rrb-option-button {
+    font-family: inherit;
+    border: none;
+    color: white;
+    padding: 9px 18px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0;
+    cursor: pointer;
+    border-radius: 3px;
+    letter-spacing: 0.02em;
+    transition: background-color 0.15s ease, transform 0.05s ease;
+    min-width: 78px;
+}
+
+.rrb-copy-button:active,
+.rrb-reset-button:active,
+.rrb-trade-button:active,
+.rrb-option-button:active {
+    transform: translateY(1px);
 }
 
 .rrb-copy-button {
     background-color: var(--color-correct);
-    font-family: monospace;
-    border: none;
-    color: white;
-    padding: 12px 12px;
-    width: 90px;
-    text-decoration: none;
-    font-size: 16px;
-    margin: 4px 4px;
-    cursor: pointer;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
+    color: #0a0d12;
 }
 
-.rrb-options input[type=text] {
-    width: 200px;
-    padding: 5px;
-    margin-left: 4px;
-    margin-right: 10px;
-    font-size: 16px;
-    font-family: monospace;
+.rrb-copy-button:hover {
+    background-color: var(--color-correct-hover);
 }
 
 .rrb-reset-button {
-    width: 90px;
-    background-color: var(--color-deep-error);
-    font-family: monospace;
-    border: none;
-    color: white;
-    padding: 12px 10px;
-    text-decoration: none;
-    font-size: 16px;
-    margin: 4px 4px;
-    cursor: pointer;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
+    background-color: transparent;
+    color: var(--color-text-error);
+    border: 1px solid var(--color-text-error);
+}
+
+.rrb-reset-button:hover {
+    background-color: rgba(248, 113, 113, 0.12);
 }
 
 .rrb-option-button {
-    width: 90px;
-    background-color: #444e5b;
-    font-family: monospace;
-    border: none;
-    color: white;
-    padding: 12px 10px;
-    text-decoration: none;
-    font-size: 16px;
-    margin: 4px 4px;
-    cursor: pointer;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
+    background-color: var(--color-area-2);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+}
+
+.rrb-option-button:hover {
+    background-color: var(--color-area-hover);
 }
 
 .rrb-trade-button {
-    width: 90px;
-    background-color: #2d7a9c;
-    font-family: monospace;
-    border: none;
-    color: white;
-    padding: 12px 10px;
-    text-decoration: none;
-    font-size: 16px;
-    margin: 4px 4px;
-    cursor: pointer;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
+    background-color: var(--color-accent);
+    color: #0a0d12;
 }
 
 .rrb-trade-button:hover {
-    background-color: #3a9bc4;
+    background-color: var(--color-accent-hover);
 }
 
 .rrb-trade-button:disabled {
-    background-color: #5a6a7a;
+    background-color: var(--color-disabled);
+    color: var(--color-text-muted);
     cursor: not-allowed;
 }
 
+.rrb-options input[type=text] {
+    width: 220px;
+    padding: 8px 10px;
+    margin: 0 6px;
+    font-size: 13px;
+    font-family: ui-monospace, monospace;
+}
+
 .rrb-bug {
-    background-color: #283036;
-    border: none;
-    margin-left: 40px;
-    width: 150px;
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    margin-left: 8px;
+    padding: 7px 12px;
+    border-radius: 3px;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.rrb-bug:hover {
+    border-color: var(--color-text-warn);
+    color: var(--color-text-warn);
 }
 
 .copied-good {
     color: var(--color-text-copied);
+}
+
+.error {
+    color: var(--color-text-error);
+    font-size: 13px;
+    padding-top: 6px;
+}
+
+.warning {
+    color: var(--color-text-warn);
+    font-size: 13px;
+    padding-top: 6px;
 }

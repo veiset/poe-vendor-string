@@ -1,0 +1,41 @@
+.iet-group {
+    display: inline-flex;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border-soft);
+    border-radius: 4px;
+    padding: 3px;
+    gap: 2px;
+    align-self: flex-start;
+    margin-top: 4px;
+}
+
+.iet-option {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 3px;
+    color: var(--color-text-muted);
+    transition: background-color 0.15s ease, color 0.15s ease;
+    user-select: none;
+}
+
+.iet-option input[type="radio"] {
+    display: none;
+}
+
+.iet-option:hover {
+    color: var(--color-text);
+}
+
+.iet-option.iet-active.iet-include {
+    background-color: var(--color-correct);
+    color: #0a0d12;
+}
+
+.iet-option.iet-active.iet-exclude {
+    background-color: var(--color-error);
+    color: #0a0d12;
+}

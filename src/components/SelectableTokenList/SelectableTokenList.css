@@ -1,22 +1,35 @@
 .selectable-token-list-mod-list {
     cursor: pointer;
-    padding-left: 5px;
-    padding-top: 5px;
-}
-
-.selectable-token-list-selected {
-    color: #000000;
-    background-color: #c0ecfa;
-    text-underline: white;
+    padding: 4px;
+    overflow-y: auto;
+    max-height: 70vh;
+    flex-grow: 1;
 }
 
 .selectable-token-list-selectable {
-    font-size: 16px;
-    padding: 5px;
-    margin: 1px;
+    font-size: 13px;
+    padding: 7px 10px;
+    margin: 1px 0;
+    border-radius: 4px;
+    transition: background-color 0.1s ease, color 0.1s ease;
+    line-height: 1.35;
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+.selectable-token-list-selectable:hover {
+    background-color: var(--color-area-hover);
+}
+
+.selectable-token-list-selected {
+    color: #0a0d12 !important;
+    background-color: var(--color-accent);
+    font-weight: 600;
+}
+
+.selectable-token-list-selected:hover {
+    background-color: var(--color-accent-hover);
 }
 
 .selectable-token-list-text {
@@ -31,8 +44,8 @@
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #8aa0b4;
+    color: var(--color-text-muted);
     padding: 4px 6px 2px;
-    border-bottom: 1px solid #33404d;
+    border-bottom: 1px solid var(--color-border-soft);
     margin-bottom: 4px;
 }

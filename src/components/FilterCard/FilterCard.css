@@ -1,0 +1,61 @@
+.filter-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+    padding: 14px 12px 6px 12px;
+    align-items: stretch;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.filter-card {
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-border-strong);
+    border-radius: 4px;
+    padding: 14px 16px 12px 16px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.filter-card-wide {
+    grid-column: span 2;
+}
+
+@media (max-width: 700px) {
+    .filter-card-wide {
+        grid-column: span 1;
+    }
+}
+
+.filter-card-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-card-title::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--color-border-soft), transparent);
+}
+
+.filter-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex-grow: 1;
+}
+
+.filter-card[data-disabled="true"] .filter-card-body > *:not(:first-child) {
+    opacity: 0.35;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}

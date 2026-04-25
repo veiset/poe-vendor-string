@@ -1,38 +1,60 @@
 .profile-container {
     display: flex;
     align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    color: var(--color-text-muted);
+    font-size: 13px;
 }
 
 .profile-icon {
-    padding: 5px;
-    font-size: 18px;
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    background-color: var(--color-area-2);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
     cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    user-select: none;
+    transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.profile-icon:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
 }
 
 .profile-icon-large {
-    font-size: 28px;
+    font-size: 18px;
 }
 
 .new-profile-box {
-    background-color: var(--color-regex-bg);
-    padding: 6px;
+    background-color: var(--color-area);
+    padding: 12px;
     margin: 20px;
     z-index: 1000;
     position: absolute;
     top: 100px;
-    font-size: 16px;
-    border: 1px solid var(--color-text-highlight);
+    font-size: 14px;
+    border: 1px solid var(--color-border);
     border-radius: 4px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 .profile-header {
-    padding: 8px;
-    font-size: 18px;
-    font-weight: bold;
+    padding: 4px 8px 8px 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-deep-text);
 }
 
 .profile-button-area {
-    padding-bottom: 0px;
+    padding-bottom: 0;
 }
 
 .profile-input-area {
@@ -40,15 +62,15 @@
 }
 
 .new-profile-box input[type=text] {
-    background-color: #444e5b;
+    background-color: var(--color-area-2);
     color: var(--color-text);
-    font-size: 16px;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #000000;
-    width: 160px;
+    font-size: 14px;
+    margin: 8px;
+    padding: 8px 10px;
+    border: 1px solid var(--color-border);
+    width: 200px;
     box-sizing: border-box;
-    border-radius: 4px;
+    border-radius: 3px;
 }
 
 .export-profile-box {
@@ -56,49 +78,45 @@
 }
 
 .profile-warning {
-    margin: 10px;
+    margin: 8px;
     color: var(--color-text-warn);
+    font-size: 13px;
+}
+
+.import-button,
+.export-button {
+    font-family: inherit;
+    border: none;
+    color: #0a0d12;
+    padding: 7px 14px;
+    min-width: 80px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0 4px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.05s ease;
+    letter-spacing: 0.01em;
 }
 
 .import-button {
-    background-color: var(--color-import, #4A90E2); /* Blue fallback */
-    font-family: monospace;
-    border: none;
-    color: white;
-    padding: 11px 4px;
-    min-width: 90px; /* Changed to min-width to accommodate text + symbol */
-    text-decoration: none;
-    font-size: 14px;
-    margin: 2px 4px;
-    border-radius: 2px;
-    cursor: pointer;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
+    background-color: var(--color-import);
 }
 
 .import-button:hover {
-    background-color: var(--color-import-hover, #357ABD);
-    opacity: 0.9;
+    background-color: var(--color-import-hover);
 }
 
-/* Export Button (Data going OUT) */
 .export-button {
-    background-color: var(--color-export, #F5A623); /* Orange/Yellow fallback */
-    font-family: monospace;
-    border: none;
-    color: white;
-    padding: 11px 4px;
-    min-width: 90px;
-    text-decoration: none;
-    font-size: 14px;
-    margin: 4px 4px;
-    cursor: pointer;
-    border-radius: 2px;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
+    background-color: var(--color-export);
 }
 
 .export-button:hover {
-    background-color: var(--color-export-hover, #E09612);
-    opacity: 0.9;
+    background-color: var(--color-export-hover);
+}
+
+.import-button:active,
+.export-button:active {
+    transform: translateY(1px);
 }
