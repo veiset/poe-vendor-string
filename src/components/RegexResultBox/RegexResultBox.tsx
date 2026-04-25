@@ -46,10 +46,10 @@ const RegexResultBox = (props: RegexResultBoxProps) => {
 
   useEffect(() => {
     if (autoCopy) {
-      navigator.clipboard.writeText(result);
-      setCopied(result);
+      navigator.clipboard.writeText(finalResult);
+      setCopied(finalResult);
     }
-  }, [result, autoCopy]);
+  }, [finalResult, autoCopy]);
 
   return (
     <div className="rrb-layout">
