@@ -23,7 +23,7 @@ const MapNameList = (props: MapNameListProps) => {
 
   return (
     <>
-      <div className="eq-col-2 box-small-padding">
+      <div className="mapnames-search">
         <ModSearchBox id={id} search={search} setSearch={setSearch} placeholder={"Search for a Map..."}/>
       </div>
       <div className="map-list">

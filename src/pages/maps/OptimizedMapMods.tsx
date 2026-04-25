@@ -11,6 +11,33 @@ import "./OptimizedMapMods.css";
 import RegexResultBox from "../../components/RegexResultBox/RegexResultBox";
 import {LanguageFiles} from "../../utils/Languages";
 import {openTradeSearch, TradeSettings} from "../../utils/TradeUrlBuilder";
+import FilterCard from "../../components/FilterCard/FilterCard";
+import IncludeExcludeToggle from "../../components/IncludeExcludeToggle/IncludeExcludeToggle";
+
+interface NumberFieldProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  trade?: boolean;
+}
+
+const NumberField = ({id, label, value, onChange, trade}: NumberFieldProps) => (
+  <div className="mm-field">
+    <label htmlFor={id} className="mm-field-label">
+      {label}
+      {trade && <span className="trade-compatible">*</span>}
+    </label>
+    <input
+      type="search"
+      className="mm-field-input"
+      id={id}
+      name={id}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+    />
+  </div>
+);
 
 const OptimizedMapMods = () => {
   const {globalProfile} = useContext(ProfileContext);
@@ -94,6 +121,15 @@ const OptimizedMapMods = () => {
     setResult(generateMapModRegex(settings, regex, profile.language));
   }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods]);
 
+  const colorFun = (isSelected: boolean, token: any) => {
+    if (isSelected) return "#ffffff";
+    if (token.options.scary < 100) return "#ffffff";
+    if (token.options.scary > 1000) return "#eab7fc";
+    return getGradientColor("#FC9090", "#ffffff", (1100 - token.options.scary) / 1100);
+  };
+
+  const visibleTokens = regex.tokens.filter((e) => displayNightmareMods ? true : !e.options.nm);
+
   return (
     <>
       <HeaderWithLanguage text={"Optimized Map Modifiers"}/>
@@ -136,168 +172,109 @@ const OptimizedMapMods = () => {
       <p className="info-text">New generation method. Please report any bugs, especially in the newly added
         languages. <br/> English now has nightmare mods, will keep updating.</p>
       <p className="trade-info-text">* Fields marked with an asterisk are compatible with the Trade search.</p>
-      <div className="full-size generic-top-element">
-        <label className="modifier-search-label" htmlFor="quantity">Quantity of at least<span className="trade-compatible">*</span></label>
-        <input type="search" className="modifier-quantity-box" id="quantity" name="search-mod" value={quantity}
-               onChange={v => setQuantity(v.target.value)}/>
 
-        <label className="modifier-search-label" htmlFor="pack-size">Pack Size of at least<span className="trade-compatible">*</span></label>
-        <input type="search" className="modifier-quantity-box" id="pack-size" name="search-mod" value={packsize}
-               onChange={v => setPacksize(v.target.value)}/>
+      <div className="filter-card-grid">
+        <FilterCard title="Quantity & Yield">
+          <NumberField id="quantity" label="Quantity of at least" value={quantity} onChange={setQuantity} trade/>
+          <NumberField id="pack-size" label="Pack Size of at least" value={packsize} onChange={setPacksize} trade/>
+          <NumberField id="mapdrop" label="More maps of at least" value={mapDropChance} onChange={setMapDropChance}/>
+          <NumberField id="itemRarity" label="Item rarity of at least" value={itemRarity} onChange={setItemRarity} trade/>
+        </FilterCard>
 
-        <label className="modifier-search-label" htmlFor="mapdrop">More maps of at least</label>
-        <input type="search" className="modifier-quantity-box" id="mapdrop" name="search-mod" value={mapDropChance}
-               onChange={v => setMapDropChance(v.target.value)}/>
+        <FilterCard title="Quality" wide>
+          <div className="mm-field-grid">
+            <NumberField id="qregular" label="Quality of" value={quality.regular}
+                         onChange={(v) => setQuality({...quality, regular: v})}/>
+            <NumberField id="qpacksize" label="Quality (pack size)" value={quality.packSize}
+                         onChange={(v) => setQuality({...quality, packSize: v})}/>
+            <NumberField id="qrarity" label="Quality (rarity)" value={quality.rarity}
+                         onChange={(v) => setQuality({...quality, rarity: v})}/>
+            <NumberField id="qcurrency" label="Quality (currency)" value={quality.currency}
+                         onChange={(v) => setQuality({...quality, currency: v})}/>
+            <NumberField id="qdiv" label="Quality (divination)" value={quality.divination}
+                         onChange={(v) => setQuality({...quality, divination: v})}/>
+            <NumberField id="qscarab" label="Quality (scarab)" value={quality.scarab}
+                         onChange={(v) => setQuality({...quality, scarab: v})}/>
+          </div>
+          <Checkbox label="Match any of the quality types (disable to match ALL selected qualities)"
+                    value={anyQuality}
+                    onChange={setAnyQuality}/>
+        </FilterCard>
 
-        <label className="modifier-search-label" htmlFor="itemRarity">Item rarity of at least<span className="trade-compatible">*</span></label>
-        <input type="search" className="modifier-quantity-box" id="itemRarity" name="search-mod" value={itemRarity}
-               onChange={v => setItemRarity(v.target.value)}/>
-        <div className="break"/>
+        <FilterCard title="Optimization">
+          <Checkbox label="Optimize Quantity (round down to nearest 10, saves a lot of query space)"
+                    value={optimizeQuant}
+                    onChange={setOptimizeQuant}/>
+          <Checkbox label="Optimize Pack Size value" value={optimizePacksize}
+                    onChange={setOptimizePacksize}/>
+          <Checkbox label="Optimize Map Quality value" value={optimizeQuality}
+                    onChange={setOptimizeQuality}/>
+          <Checkbox label="Show nightmare modifiers" value={displayNightmareMods}
+                    onChange={setDisplayNightmareMods}/>
+        </FilterCard>
 
-        <label className="modifier-search-label" htmlFor="qregular">Quality of</label>
-        <input type="search" className="modifier-quantity-box" id="qregular" name="search-mod" value={quality.regular}
-               onChange={v => setQuality({...quality, regular: v.target.value})}/>
-
-        <label className="modifier-search-label" htmlFor="qpacksize">Quality (pack size)</label>
-        <input type="search" className="modifier-quantity-box" id="qpacksize" name="search-mod" value={quality.packSize}
-               onChange={v => setQuality({...quality, packSize: v.target.value})}/>
-
-        <label className="modifier-search-label" htmlFor="qrarity">Quality (rarity)</label>
-        <input type="search" className="modifier-quantity-box" id="qrarity" name="search-mod" value={quality.rarity}
-               onChange={v => setQuality({...quality, rarity: v.target.value})}/>
-
-        <div className="break"/>
-
-        <label className="modifier-search-label" htmlFor="qcurrency">Quality (currency)</label>
-        <input type="search" className="modifier-quantity-box" id="qcurrency" name="search-mod" value={quality.currency}
-               onChange={v => setQuality({...quality, currency: v.target.value})}/>
-
-        <label className="modifier-search-label" htmlFor="qdiv">Quality (divination)</label>
-        <input type="search" className="modifier-quantity-box" id="qdiv" name="search-mod" value={quality.divination}
-               onChange={v => setQuality({...quality, divination: v.target.value})}/>
-
-        <label className="modifier-search-label" htmlFor="qscarab">Quality (scarab)</label>
-        <input type="search" className="modifier-quantity-box" id="qscarab" name="search-mod" value={quality.scarab}
-               onChange={v => setQuality({...quality, scarab: v.target.value})}/>
-
-        <div className="break"/>
-
-        <Checkbox label="Match any of the quality types (disable this to match ALL selected quality)"
-                  value={anyQuality}
-                  onChange={setAnyQuality}/>
-
-        <Checkbox label="Optimize Quantity value (round down to nearest 10, saves a lot of query space)"
-                  value={optimizeQuant}
-                  onChange={setOptimizeQuant}/>
-        <Checkbox label="Optimize Pack Size value" value={optimizePacksize}
-                  onChange={setOptimizePacksize}/>
-        <Checkbox label="Optimize Map Quality value" value={optimizeQuality}
-                  onChange={setOptimizeQuality}/>
-
-        <div className="rarity-select">
+        <FilterCard title="Map Rarity">
           <Checkbox label="Normal Maps" value={rarity.normal}
                     onChange={(e) => setRarity({...rarity, normal: !!e})}/>
           <Checkbox label="Magic Maps" value={rarity.magic}
                     onChange={(e) => setRarity({...rarity, magic: !!e})}/>
           <Checkbox label="Rare Maps" value={rarity.rare}
                     onChange={(e) => setRarity({...rarity, rare: !!e})}/>
-          <div className="radio-button-modgroup">
-            <input type="radio" className="radio-button-map" id="maps-include" name="map-include"
-                   checked={rarity.include}
-                   onChange={v => setRarity({...rarity, include: true})}/>
-            <label htmlFor="maps-include" className="radio-button-map radio-first-ele">Include</label>
-            <input type="radio" id="maps-exclude" name="map-include"
-                   checked={!rarity.include}
-                   onChange={v => setRarity({...rarity, include: false})}/>
-            <label htmlFor="maps-exclude" className="radio-button-map">Exclude</label>
+          <IncludeExcludeToggle name="map-rarity" include={rarity.include}
+                                setInclude={(v) => setRarity({...rarity, include: v})}/>
+        </FilterCard>
+
+        <FilterCard title="Map State">
+          <div className={`mm-state-row${corrupted.enabled ? "" : " mm-state-row-off"}`}>
+            <Checkbox label="Filter corrupted" value={corrupted.enabled}
+                      onChange={() => setCorrupted({...corrupted, enabled: !corrupted.enabled})}/>
+            <IncludeExcludeToggle name="corrupted" include={corrupted.include}
+                                  setInclude={(v) => setCorrupted({...corrupted, include: v})}/>
           </div>
-        </div>
-        <div className="rarity-select">
-          <Checkbox label="Corrupted Map" value={corrupted.enabled}
-                    onChange={(e) => setCorrupted({...corrupted, enabled: !corrupted.enabled})}/>
-          <div className="radio-button-corrupted">
-            <input type="radio" className="radio-button-map" id="corrupted-include" name="corrupted-include"
-                   checked={corrupted.include}
-                   onChange={v => setCorrupted({...corrupted, include: true})}/>
-            <label htmlFor="corrupted-include" className="radio-button-map radio-first-ele">Include</label>
-            <input type="radio" id="corrupted-exclude" name="corrupted-exclude"
-                   checked={!corrupted.include}
-                   onChange={v => setCorrupted({...corrupted, include: false})}/>
-            <label htmlFor="corrupted-exclude" className="radio-button-map">Exclude</label>
+          <div className={`mm-state-row${unidentified.enabled ? "" : " mm-state-row-off"}`}>
+            <Checkbox label="Filter unidentified" value={unidentified.enabled}
+                      onChange={() => setUnidentified({...unidentified, enabled: !unidentified.enabled})}/>
+            <IncludeExcludeToggle name="unidentified" include={unidentified.include}
+                                  setInclude={(v) => setUnidentified({...unidentified, include: v})}/>
           </div>
-        </div>
-        <div className="rarity-select">
-          <Checkbox label="Unidentified Map" value={unidentified.enabled}
-                    onChange={(e) => setUnidentified({...unidentified, enabled: !unidentified.enabled})}/>
-          <div className="radio-button-unidentified">
-            <input type="radio" className="radio-button-map" id="unidentified-include" name="unidentified-include"
-                   checked={unidentified.include}
-                   onChange={v => setUnidentified({...unidentified, include: true})}/>
-            <label htmlFor="unidentified-include" className="radio-button-map radio-first-ele">Include</label>
-            <input type="radio" id="unidentified-exclude" name="unidentified-exclude"
-                   checked={!unidentified.include}
-                   onChange={v => setUnidentified({...unidentified, include: false})}/>
-            <label htmlFor="unidentified-exclude" className="radio-button-map">Exclude</label>
+        </FilterCard>
+      </div>
+
+      <div className="mm-mod-picker">
+        <div className="mm-mod-column">
+          <div className="mm-mod-column-header">
+            <span className="mm-mod-column-title mm-mod-column-title-bad">I don't want any of these mods</span>
           </div>
+          <SelectableTokenList
+            sortFn={(a, b) => b.options.scary - a.options.scary}
+            colorFun={colorFun}
+            elements={visibleTokens}
+            setSelected={setSelectedBadIds}
+            selected={selectedBadIds}
+          />
         </div>
-        <div className="rarity-select">
-          <Checkbox label="Show nightmare modifiers" value={displayNightmareMods}
-                    onChange={setDisplayNightmareMods}/>
+        <div className="mm-mod-column">
+          <div className="mm-mod-column-header">
+            <span className="mm-mod-column-title mm-mod-column-title-good">I want these mods</span>
+            <div className="radio-button-modgroup">
+              <input type="radio" className="radio-button-map" id="mods-any" name="mods" value="any"
+                     checked={!modGrouping}
+                     onChange={v => setModGrouping(!v.target.checked)}/>
+              <label htmlFor="mods-any" className="radio-button-map radio-first-ele">I want <b>any</b> of the
+                modifiers</label>
+              <input type="radio" id="mods-all" name="mods" value="all" checked={modGrouping}
+                     onChange={v => setModGrouping(v.target.checked)}/>
+              <label htmlFor="mods-all" className="radio-button-map">I want <b>all</b> of the modifiers</label>
+            </div>
+          </div>
+          <SelectableTokenList
+            sortFn={(a, b) => a.options.scary - b.options.scary}
+            colorFun={colorFun}
+            elements={visibleTokens}
+            setSelected={setSelectedGoodIds}
+            selected={selectedGoodIds}
+          />
         </div>
-        <div className="break spacer-top"/>
-      </div>
-      <div className="eq-col-2 box-small-padding">
-        <div className="column-header map-column-text">I don't want any of these mods</div>
-      </div>
-      <div className="eq-col-2 box-small-padding">
-        <div className="column-header map-column-text">I want these mods</div>
-        <div className="radio-button-modgroup">
-          <input type="radio" className="radio-button-map" id="mods-any" name="mods" value="any"
-                 checked={!modGrouping}
-                 onChange={v => setModGrouping(!v.target.checked)}/>
-          <label htmlFor="mods-any" className="radio-button-map radio-first-ele">I want <b>any</b> of the
-            modifiers</label>
-          <input type="radio" id="mods-all" name="mods" value="all" checked={modGrouping}
-                 onChange={v => setModGrouping(v.target.checked)}/>
-          <label htmlFor="mods-all" className="radio-button-map">I want <b>all</b> of the modifiers</label>
-        </div>
-      </div>
-      <div className="break"/>
-      <div className="eq-col-2">
-        <SelectableTokenList
-          sortFn={(a, b) => {
-            return b.options.scary - a.options.scary
-          }}
-          colorFun={(isSelected, token) => {
-            if (isSelected) return "#ffffff";
-            if (token.options.scary < 100) return "#ffffff";
-            if (token.options.scary > 1000) return "#eab7fc";
-            return getGradientColor("#FC9090", "#ffffff", (1100 - token.options.scary) / 1100);
-          }}
-          elements={regex.tokens
-            .filter((e) => displayNightmareMods ? true : !e.options.nm)
-          }
-          setSelected={setSelectedBadIds}
-          selected={selectedBadIds}
-        />
-      </div>
-      <div className="eq-col-2">
-        <SelectableTokenList
-          sortFn={(a, b) => {
-            return a.options.scary - b.options.scary
-          }}
-          colorFun={(isSelected, token) => {
-            if (isSelected) return "#ffffff";
-            if (token.options.scary < 100) return "#ffffff";
-            if (token.options.scary > 1000) return "#eab7fc";
-            return getGradientColor("#FC9090", "#ffffff", (1100 - token.options.scary) / 1100);
-          }}
-          elements={regex.tokens
-            .filter((e) => displayNightmareMods ? true : !e.options.nm)
-          }
-          setSelected={setSelectedGoodIds}
-          selected={selectedGoodIds}
-        />
       </div>
     </>
   )

@@ -1,15 +1,30 @@
 .selectable-search-layout {
-    padding: 2px;
+    padding: 0 4px 8px 4px;
 }
 
 .selectable-search-input {
-    padding: 8px;
-    width: 85%;
-    margin-left: 6px;
-    font-size: 16px;
-    font-family: monospace;
+    padding: 9px 12px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 13px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.selectable-search-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-soft);
+}
+
+.selectable-search-input::placeholder {
+    color: #888;
 }
 
 .selectable-search-max-width {
-    width: 98%;
+    width: 100%;
 }

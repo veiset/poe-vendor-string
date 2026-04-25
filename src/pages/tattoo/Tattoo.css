@@ -28,10 +28,10 @@
 }
 
 .tattoo-price-info {
-    font-size: 14px;
-    padding-left: 10px;
-    margin-top: 4px;
-    padding-right: 10px;
+    font-size: 13px;
+    padding: 0 14px;
+    margin: 4px 12px 0 12px;
+    color: var(--color-text-muted);
 }
 
 .tattoo-highlighted {
@@ -40,4 +40,31 @@
 
 .tattoo-options {
     padding: 20px 20px 10px;
+}
+
+.tattoo-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    padding: 4px 0;
+}
+
+.tattoo-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tattoo-field label {
+    font-size: 14px;
+    color: var(--color-text);
+}
+
+.tattoo-field-input {
+    width: 80px;
+    padding: 6px 10px;
+    font-size: 13px;
+    font-family: monospace;
+    text-align: center;
+    flex-shrink: 0;
 }

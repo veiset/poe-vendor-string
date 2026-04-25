@@ -1,17 +1,30 @@
 .selectable-token-list-mod-list {
     cursor: pointer;
-    padding-left: 5px;
-    padding-top: 5px;
-}
-
-.selectable-token-list-selected {
-    color: #000000;
-    background-color: #c0ecfa;
-    text-underline: white;
+    padding: 4px;
+    overflow-y: auto;
+    max-height: 70vh;
+    flex-grow: 1;
 }
 
 .selectable-token-list-selectable {
     font-size: 16px;
-    padding: 5px;
-    margin: 1px;
+    padding: 7px 10px;
+    margin: 1px 0;
+    border-radius: 4px;
+    transition: background-color 0.1s ease, color 0.1s ease;
+    line-height: 1.35;
+}
+
+.selectable-token-list-selectable:hover {
+    background-color: var(--color-area-hover);
+}
+
+.selectable-token-list-selected {
+    color: #000000 !important;
+    background-color: #c0ecfa;
+    font-weight: 400;
+}
+
+.selectable-token-list-selected:hover {
+    background-color: #d4f2fc;
 }
