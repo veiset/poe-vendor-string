@@ -10,6 +10,8 @@ import { defaultSettings } from "../../utils/SavedSettings";
 import { ProfileContext } from "../../components/profile/ProfileContext";
 import { runegraftRegex } from "../../generated/GeneratedRunegraft";
 import { tattooRegex } from "../../generated/GeneratedTattoo";
+import FilterCard from "../../components/FilterCard/FilterCard";
+import { Checkbox } from "../vendor/Vendor";
 
 interface PoeNinjaRunegraftLine {
     id: string
@@ -166,34 +168,25 @@ const Runegraft = () => {
                 setMaxChaosValue("999");
             }} />
             <p className="runegraft-price-info">Using price data from the {leagueName} League. Last updated: {lastUpdated}</p>
-            <div className="row runegraft-options">
-                <div>
-                    <span className="expedition-option-text">Min chaos value:</span>
-                    <input type="search" className="modifier-quantity-box" id="pack-size" name="search-mod" value={minChaosValue}
-                        onChange={v => {
-                            const val = v.target.value;
-                            const value = val;
-                            setMinChaosValue(value);
-                        }} />
-
-                </div>
-                <div>
-                    <span className="expedition-option-text">Max chaos value:</span>
-                    <input type="search" className="modifier-quantity-box" id="pack-size" name="search-mod" value={maxChaosValue}
-                        onChange={v => {
-                            const val = v.target.value;
-                            const value = val;
-                            setMaxChaosValue(value);
-                        }} />
-
-                </div>
-                <div>
-                    <span className="expedition-option-text">Include tattoos:</span>
-                    <input type="checkbox" checked={includeTattoos}
-                        onChange={v => {
-                            setIncludeTattoos(v.target.checked);
-                        }} />
-                </div>
+            <div className="filter-card-grid">
+                <FilterCard title="Settings" wide>
+                    <div className="runegraft-fields">
+                        <div className="runegraft-field">
+                            <label htmlFor="runegraft-min">Min chaos value</label>
+                            <input type="search" className="runegraft-field-input" id="runegraft-min" name="search-mod"
+                                   value={minChaosValue}
+                                   onChange={v => setMinChaosValue(v.target.value)} />
+                        </div>
+                        <div className="runegraft-field">
+                            <label htmlFor="runegraft-max">Max chaos value</label>
+                            <input type="search" className="runegraft-field-input" id="runegraft-max" name="search-mod"
+                                   value={maxChaosValue}
+                                   onChange={v => setMaxChaosValue(v.target.value)} />
+                        </div>
+                    </div>
+                    <div className="runegraft-card-divider"/>
+                    <Checkbox label="Include tattoos" value={includeTattoos} onChange={setIncludeTattoos}/>
+                </FilterCard>
             </div>
             <div className="row">
                 <Collapsable header={"Price data"} isOpenByDefault={true}>

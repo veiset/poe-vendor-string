@@ -7,7 +7,7 @@
 }
 
 .selectable-token-list-selectable {
-    font-size: 13px;
+    font-size: 16px;
     padding: 7px 10px;
     margin: 1px 0;
     border-radius: 4px;
@@ -20,11 +20,11 @@
 }
 
 .selectable-token-list-selected {
-    color: #0a0d12 !important;
-    background-color: var(--color-accent);
-    font-weight: 600;
+    color: #000000 !important;
+    background-color: #c0ecfa;
+    font-weight: 400;
 }
 
 .selectable-token-list-selected:hover {
-    background-color: var(--color-accent-hover);
+    background-color: #d4f2fc;
 }

@@ -164,11 +164,6 @@
 
 .radio-button-modgroup input[type="radio"]:checked + label {
     background-color: var(--color-accent);
-    color: #0a0d12;
-}
-
-.radio-button-modgroup input[type="radio"]:checked + label b {
-    color: #0a0d12;
 }
 
 .radio-button-map {
@@ -215,7 +210,7 @@
 .trade-info-text {
     padding: 0 14px;
     margin: 4px 12px 8px 12px;
-    color: var(--color-text-muted);
+    color: var(--color-accent);
     font-size: 12px;
     width: calc(100% - 24px);
     box-sizing: border-box;

@@ -8,6 +8,7 @@ import ResultBox from "../../components/ResultBox";
 import {MapNameSettings} from "../../utils/SavedSettings";
 import {generateMapNameStr} from "../../utils/MapNameOutput";
 import {Checkbox} from "../vendor/Vendor";
+import "./MapNames.css";
 
 const MapNames = () => {
   const {globalProfile} = useContext(ProfileContext);
@@ -49,16 +50,18 @@ const MapNames = () => {
         }}
       />
       <div className="break"/>
-      <Checkbox
-        label="Map tab search (click this if searching in your map stash tab, won't work in other stash tabs)"
-        value={mapTabSearch}
-        onChange={setMapTabSearch}/>
-      <div className="break"/>
-      <div className="eq-col-2 box-small-padding">
-        <div className="column-header map-column-text">I want these maps:</div>
+      <div className="mapnames-options">
+        <Checkbox
+          className="mapnames-tab-search"
+          label="Map tab search (click this if searching in your map stash tab, won't work in other stash tabs)"
+          value={mapTabSearch}
+          onChange={setMapTabSearch}/>
       </div>
       <div className="break"/>
-      <div className="full-size">
+      <div className="mapnames-card">
+        <div className="mapnames-card-header">
+          <span className="mapnames-card-title">I want these maps</span>
+        </div>
         <MapNameList id="mapnamelist" names={names} selected={selected} setSelected={setSelected}/>
       </div>
     </>

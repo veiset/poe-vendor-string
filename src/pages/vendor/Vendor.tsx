@@ -16,6 +16,7 @@ import {gems} from "../../generated/GeneratedGems";
 import GemNameList from './GemNameList';
 import Infobox from '../../components/infobox/Infobox';
 import {regexGems} from "../../generated/gems/Generated.Gems.English";
+import FilterCard from "../../components/FilterCard/FilterCard";
 
 
 const Vendor = () => {
@@ -200,7 +201,7 @@ const Vendor = () => {
       }}/>
       <div className="break"/>
       <div className="vendor-wrapper">
-        <div className="eq-col-3">
+        <div className="eq-col-4">
           <div className="column-header">Link colors (3L)</div>
           <SocketCheckbox label="r-r-*" value={rrA} onChange={setRrA}/>
           <SocketCheckbox label="g-g-*" value={ggA} onChange={setGgA}/>
@@ -223,7 +224,7 @@ const Vendor = () => {
           <SocketCheckbox label="g-*-*" value={gaa} onChange={setGaa}/>
           <SocketCheckbox label="b-*-*" value={baa} onChange={setBaa}/>
         </div>
-        <div className="eq-col-3">
+        <div className="eq-col-4">
           <div className="column-header small-padding"> Link colors (2L)</div>
           <SocketCheckbox label="r-r" value={rr} onChange={setRr}/>
           <SocketCheckbox label="g-g" value={gg} onChange={setGg}/>
@@ -248,56 +249,50 @@ const Vendor = () => {
             <NumberInput label="b" value={specLinkColorsB} image="b" onChange={setSpecLinkColorsB}/>
           </div>
         </div>
-        <div className="eq-col-3">
-          <div className="column-header"> Movement speed</div>
-          <Checkbox label="Movement speed (10%)" value={movement10} onChange={setMovement10}/>
-          <Checkbox label="Movement speed (15%)" value={movement15} onChange={setMovement15}/>
+        <div className="eq-col-4 vendor-card-stack">
+          <FilterCard title="Movement speed">
+            <Checkbox label="Movement speed (10%)" value={movement10} onChange={setMovement10}/>
+            <Checkbox label="Movement speed (15%)" value={movement15} onChange={setMovement15}/>
+          </FilterCard>
 
-          <div className="column-header">
-            Misc
-          </div>
-          <Checkbox label="+1 wand (any)" value={anyGem} onChange={setAnyGem}/>
-          <Checkbox label="+1 lightning wand" value={lightning} onChange={setLightning}/>
-          <Checkbox label="+1 fire wand" value={fire} onChange={setFire}/>
-          <Checkbox label="+1 cold wand" value={cold} onChange={setCold}/>
-          <Checkbox label="+1 phys wand" value={phys} onChange={setPhys}/>
-          <Checkbox label="+1 chaos wand" value={chaos} onChange={setChaos}/>
+          <FilterCard title="Misc">
+            <Checkbox label="+1 wand (any)" value={anyGem} onChange={setAnyGem}/>
+            <Checkbox label="+1 lightning wand" value={lightning} onChange={setLightning}/>
+            <Checkbox label="+1 fire wand" value={fire} onChange={setFire}/>
+            <Checkbox label="+1 cold wand" value={cold} onChange={setCold}/>
+            <Checkbox label="+1 phys wand" value={phys} onChange={setPhys}/>
+            <Checkbox label="+1 chaos wand" value={chaos} onChange={setChaos}/>
+            <div className="vendor-card-divider"/>
+            <Checkbox label="Physical damage" value={dmgPhys} onChange={setDmgPhys}/>
+            <Checkbox label="Fire DOT multi" value={fireMult} onChange={setFireMult}/>
+            <Checkbox label="Cold DOT multi" value={coldMult} onChange={setColdMult}/>
+            <Checkbox label="Chaos DOT multi" value={chaosMult} onChange={setChaosMult}/>
+          </FilterCard>
+        </div>
 
-          <Checkbox className="small-padding" label="Physical damage" value={dmgPhys} onChange={setDmgPhys}/>
-          <Checkbox label="Fire DOT multi" value={fireMult} onChange={setFireMult}/>
-          <Checkbox label="Cold DOT multi" value={coldMult} onChange={setColdMult}/>
-          <Checkbox label="Chaos DOT multi" value={chaosMult} onChange={setChaosMult}/>
-
-          <div className="column-header">
-            Weapon bases
-          </div>
-          <p className="warn-weapon">This will always highlight the selected weapon type, even if it doesn't match
-            sockets, links or stats.</p>
-          <div>
-            <Checkbox className="float-left weapon-select" label="Axe" value={weaponAxe} onChange={setWeaponAxe}/>
-            <Checkbox className="float-left weapon-select" label="Mace" value={weaponMace} onChange={setWeaponMace}/>
-            <Checkbox className="float-left weapon-select" label="Sword" value={weaponSword} onChange={setWeaponSword}/>
-          </div>
-          <div>
-            <Checkbox className="float-left weapon-select" label="Staff" value={weaponStaff} onChange={setWeaponStaff}/>
-            <Checkbox className="float-left weapon-select" label="Sceptre" value={weaponSceptre}
-                      onChange={setWeaponSceptre}/>
-            <Checkbox className="float-left weapon-select" label="Claw" value={weaponClaw} onChange={setWeaponClaw}/>
-          </div>
-          <div>
-            <Checkbox className="float-left weapon-select" label="Bow" value={weaponBow} onChange={setWeaponBow}/>
-            <Checkbox className="float-left weapon-select" label="Wand" value={weaponWand} onChange={setWeaponWand}/>
-            <Checkbox className="float-left weapon-select" label="Dagger" value={weaponDagger}
-                      onChange={setWeaponDagger}/>
-          </div>
-          <div>
-            <Checkbox className="float-left weapon-select" label="Shield" value={weaponShield} onChange={setWeaponShield}/>
-          </div>
+        <div className="eq-col-4 vendor-card-stack">
+          <FilterCard title="Weapon bases">
+            <p className="warn-weapon">This will always highlight the selected weapon type, even if it doesn't match sockets, links or stats.</p>
+            <div className="vendor-weapon-grid">
+              <Checkbox label="Axe" value={weaponAxe} onChange={setWeaponAxe}/>
+              <Checkbox label="Mace" value={weaponMace} onChange={setWeaponMace}/>
+              <Checkbox label="Sword" value={weaponSword} onChange={setWeaponSword}/>
+              <Checkbox label="Staff" value={weaponStaff} onChange={setWeaponStaff}/>
+              <Checkbox label="Sceptre" value={weaponSceptre} onChange={setWeaponSceptre}/>
+              <Checkbox label="Claw" value={weaponClaw} onChange={setWeaponClaw}/>
+              <Checkbox label="Bow" value={weaponBow} onChange={setWeaponBow}/>
+              <Checkbox label="Wand" value={weaponWand} onChange={setWeaponWand}/>
+              <Checkbox label="Dagger" value={weaponDagger} onChange={setWeaponDagger}/>
+              <Checkbox label="Shield" value={weaponShield} onChange={setWeaponShield}/>
+            </div>
+          </FilterCard>
         </div>
       </div>
 
-      <div className="full-size">
-        <h2>Gems</h2>
+      <div className="vendor-gems-card">
+        <div className="vendor-gems-card-header">
+          <span className="vendor-gems-card-title">Gems</span>
+        </div>
         <GemNameList id="gemnamelist" gems={regexGems.tokens} selected={selectedGems} setSelected={setSelectedGems}/>
       </div>
 
@@ -350,9 +345,11 @@ const SocketCheckbox = (props: LinkCheckboxProps) => {
       <label className="checkbox">
         <input className="checkbox-input" type="checkbox" checked={props.value}
                onChange={e => props.onChange(e.target.checked)}/>
-        {els.map((c, i) =>
-          <img key={i} className="socket-size" src={imgFromChar(c)} alt="red"/>
-        )}
+        <span className="socket-row">
+          {els.map((c, i) =>
+            <img key={i} className="socket-size" src={imgFromChar(c)} alt="red"/>
+          )}
+        </span>
         {props.label &&
             <span className="link-text">{props.label.replaceAll("-", "")}</span>
         }

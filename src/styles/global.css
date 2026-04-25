@@ -132,10 +132,7 @@ h2 {
 }
 
 .checkbox span {
-    display: inline-block;
-    vertical-align: middle;
     white-space: normal;
-    margin-top: 0;
 }
 
 input[type="radio"] {
@@ -207,31 +204,36 @@ input[type="search"] {
     background-color: #ffffff;
 }
 
+.numberinput {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin: 4px 6px;
+}
+
 .numberinput-input {
-    height: 33px;
-    width: 33px;
-    font-size: 11px;
+    height: 32px;
+    width: 38px;
+    font-size: 13px;
     font-family: monospace;
-    margin: 3px 10px;
     padding: 0;
+    text-align: center;
 }
 
 .numberinput-large-input {
-    height: 33px;
+    height: 32px;
     width: 103px;
-    margin: 3px 10px;
-    padding: 0;
+    padding: 4px 8px;
 }
 
 .numberinput span {
-    display: inline-block;
-    margin-top: -10px;
-    vertical-align: middle;
     white-space: nowrap;
+    font-size: 13px;
+    color: var(--color-text);
 }
 
 .numberinput img {
-    margin-bottom: -8px;
+    display: block;
 }
 
 .modifier-search-box {
@@ -285,7 +287,44 @@ input[type="search"] {
     border-color: var(--color-accent);
 }
 
+/* ---------- Shared selectable list (Vendor, Jewel, Flasks, Map names) ---------- */
+
+.selectable-item {
+    font-size: 16px;
+    padding: 6px 10px;
+    margin: 1px 0;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.1s ease, color 0.1s ease;
+    line-height: 1.35;
+}
+
+.selectable-item:hover {
+    background-color: var(--color-area-hover);
+}
+
+.selected-mod {
+    color: #000000 !important;
+    background-color: #c0ecfa;
+}
+
+.selected-mod:hover {
+    background-color: #d4f2fc;
+}
+
 /* ---------- Legacy classes still used by other tabs ---------- */
+
+.column-header {
+    padding: 14px 10px 4px 10px;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-deep-text);
+    letter-spacing: -0.01em;
+}
+
+.small-padding {
+    padding-top: 10px;
+}
 
 .modifier-search-label {
     font-size: 16px;

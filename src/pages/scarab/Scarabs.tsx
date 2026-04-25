@@ -11,6 +11,7 @@ import {leagueName} from "../expedition/Expedition";
 import ModSearchBox from "../../components/ModSearchBox";
 import {defaultSettings, ScarabSettings} from "../../utils/SavedSettings";
 import {generateScarabRegex} from "./ScarabOutput";
+import FilterCard from "../../components/FilterCard/FilterCard";
 
 export interface PoeNinjaScarabLine {
   id: string
@@ -86,60 +87,72 @@ const Scarabs = () => {
         }}
       />
       <div className="break"/>
-      <p className="beast-price-info">Using price data from the {leagueName} League. Last updated: {lastUpdated}</p>
-      <div className="full-size generic-top-element">
-        <div className="scarab-options-row">
-          <button className="scarab-action-button" onClick={() => {
-            const itemsToAdd = scarabList
-              .filter((scarab) => {
-                const priceOfScarab = priceLookup.get(scarab.name);
-                if (!priceOfScarab) return false;
-                const withinMaxPrice = Number(maxPrice) >= priceOfScarab;
-                const withinMinPrice = Number(minPrice) <= priceOfScarab;
-                return withinMinPrice && withinMaxPrice;
-              })
-              .filter((scarab) => !selected.includes(scarab.name))
-              .map((e) => e.name);
-            setSelected(selected.concat(itemsToAdd));
-          }}>
-            Auto select cheap scarabs, with a value between:
-          </button>
-          <div>
-            <input type="search" className="modifier-quantity-box" id="minprice" name="search-mod" value={minPrice}
-                   onChange={v => setMinPrice(v.target.value)}/>
+      <p className="scarab-price-info">Using price data from the {leagueName} League. Last updated: {lastUpdated}</p>
+      <div className="filter-card-grid">
+        <FilterCard title="Auto select" wide>
+          <div className="scarab-options-row">
+            <button className="scarab-action-button" onClick={() => {
+              const itemsToAdd = scarabList
+                .filter((scarab) => {
+                  const priceOfScarab = priceLookup.get(scarab.name);
+                  if (!priceOfScarab) return false;
+                  const withinMaxPrice = Number(maxPrice) >= priceOfScarab;
+                  const withinMinPrice = Number(minPrice) <= priceOfScarab;
+                  return withinMinPrice && withinMaxPrice;
+                })
+                .filter((scarab) => !selected.includes(scarab.name))
+                .map((e) => e.name);
+              setSelected(selected.concat(itemsToAdd));
+            }}>
+              Auto select cheap scarabs between:
+            </button>
+            <div className="scarab-field">
+              <label htmlFor="minprice">Min</label>
+              <input type="search" className="scarab-field-input" id="minprice" name="search-mod"
+                     value={minPrice}
+                     onChange={v => setMinPrice(v.target.value)}/>
+            </div>
+            <div className="scarab-field">
+              <label htmlFor="maxPrice">Max</label>
+              <input type="search" className="scarab-field-input" id="maxPrice" name="search-mod"
+                     value={maxPrice}
+                     onChange={v => setMaxPrice(v.target.value)}/>
+            </div>
+            <button className="scarab-action-button scarab-reset-button" onClick={() => {
+              setMinPrice(defaultSettings.scarab.minPrice);
+              setMaxPrice(defaultSettings.scarab.maxPrice);
+            }}>Reset
+            </button>
           </div>
-          <div>
-            <input type="search" className="modifier-quantity-box" id="maxPrice" name="search-mod" value={maxPrice}
-                   onChange={v => setMaxPrice(v.target.value)}/>
-          </div>
-          <button className="scarab-action-button" onClick={() => {
-            setMinPrice(defaultSettings.scarab.minPrice);
-            setMaxPrice(defaultSettings.scarab.maxPrice);
-          }}>Reset
-          </button>
+        </FilterCard>
+      </div>
+
+      <div className="scarab-card">
+        <div className="scarab-card-header">
+          <span className="scarab-card-title">Scarabs</span>
         </div>
-      </div>
-      <div className="half-size">
-        <ModSearchBox id="scarab-search-box" search={search} setSearch={setSearch}
-                      placeholder={"Search for a Scarab..."}/>
-      </div>
-      <div className="full-size scarab-list">
-        {scarabList
-          .filter((e) => search.length < 2 || e.name.toLowerCase().includes(search.toLowerCase()))
-          .sort((e1, e2) => sortByChaosValue(priceLookup, e1, e2))
-          .map((scarab) => {
-            const isSelected = selected.includes(scarab.name);
-            const price = priceLookup.get(scarab.name) ?? 0;
-            return (
-              <ScarabElement
-                key={scarab.name}
-                selected={selected}
-                setSelected={setSelected}
-                isSelected={isSelected}
-                scarab={scarab}
-                price={price}
-              />)
-          })}
+        <div className="scarab-search">
+          <ModSearchBox id="scarab-search-box" search={search} setSearch={setSearch}
+                        placeholder={"Search for a Scarab..."}/>
+        </div>
+        <div className="scarab-list">
+          {scarabList
+            .filter((e) => search.length < 2 || e.name.toLowerCase().includes(search.toLowerCase()))
+            .sort((e1, e2) => sortByChaosValue(priceLookup, e1, e2))
+            .map((scarab) => {
+              const isSelected = selected.includes(scarab.name);
+              const price = priceLookup.get(scarab.name) ?? 0;
+              return (
+                <ScarabElement
+                  key={scarab.name}
+                  selected={selected}
+                  setSelected={setSelected}
+                  isSelected={isSelected}
+                  scarab={scarab}
+                  price={price}
+                />)
+            })}
+        </div>
       </div>
     </>
   );
