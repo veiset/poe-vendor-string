@@ -32,10 +32,8 @@
 
 .iet-option.iet-active.iet-include {
     background-color: var(--color-correct);
-    color: #0a0d12;
 }
 
 .iet-option.iet-active.iet-exclude {
     background-color: var(--color-error);
-    color: #0a0d12;
 }

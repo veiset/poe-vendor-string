@@ -9,6 +9,7 @@ import {Checkbox} from "../vendor/Vendor";
 import {generateFlaskOutput, minItemLevel} from "../../utils/FlaskOuput";
 import {defaultSettings, FlaskSettings} from "../../utils/SavedSettings";
 import {ProfileContext} from "../../components/profile/ProfileContext";
+import FilterCard from "../../components/FilterCard/FilterCard";
 
 
 const Flasks = () => {
@@ -62,38 +63,49 @@ const Flasks = () => {
         setMatchOpenPrefixSuffix(defaultSettings.flask.matchOpenPrefixSuffix);
       }}/>
       <div className="break"/>
-      <div className="full-size generic-top-element">
-        <label className="modifier-search-label" htmlFor="quantity">Flask item level</label>
-        <input type="search" className="modifier-quantity-box" id="quantity" name="search-mod"
-               value={ilevel}
-               onChange={v => setIlevel(v.target.value)}/>
-        <Checkbox label="Require that both prefix and suffix matches" value={matchBothPrefixAndSuffix}
-                  onChange={setMatchBothPrefixAndSuffix}/>
-        <Checkbox label="Match open prefix or open suffix" value={matchOpenPrefixSuffix}
-                  onChange={setMatchOpenPrefixSuffix}/>
-        <Checkbox label="Ignore tier for increased effect flasks (useful when rolling flasks for Mageblood)"
-                  value={ignoreEffectTiers}
-                  onChange={setIgnoreEffectTiers}/>
-      </div>
-      <div className="break"/>
 
-      <div className="eq-col-2">
-        <div className="flask-checkbox-padding">
-          <div className="column-header">Prefix</div>
-          <Checkbox label="Only match prefix with the highest ilevel" value={onlyMaxPrefixTierMod}
-                    onChange={setOnlyMaxPrefixTierMod}/>
-        </div>
-        <FlaskModList id="flask-prefix" mods={flaskPrefix} onlyMaxTierMod={onlyMaxPrefixTierMod} ilevel={ilevel}
-                      selected={selectedPrefix} setSelected={setSelectedPrefix}/>
+      <div className="filter-card-grid">
+        <FilterCard title="Settings" wide>
+          <div className="flasks-field">
+            <label htmlFor="ilevel">Flask item level</label>
+            <input type="search" className="flasks-field-input" id="ilevel" name="search-mod"
+                   value={ilevel}
+                   onChange={v => setIlevel(v.target.value)}/>
+          </div>
+          <div className="flasks-card-divider"/>
+          <Checkbox label="Require that both prefix and suffix matches" value={matchBothPrefixAndSuffix}
+                    onChange={setMatchBothPrefixAndSuffix}/>
+          <Checkbox label="Match open prefix or open suffix" value={matchOpenPrefixSuffix}
+                    onChange={setMatchOpenPrefixSuffix}/>
+          <Checkbox label="Ignore tier for increased effect flasks (useful when rolling flasks for Mageblood)"
+                    value={ignoreEffectTiers}
+                    onChange={setIgnoreEffectTiers}/>
+        </FilterCard>
       </div>
-      <div className="eq-col-2">
-        <div className="flask-checkbox-padding">
-          <div className="column-header">Suffix</div>
-          <Checkbox label="Only match suffix with the highest ilevel" value={onlyMaxSuffixTierMod}
-                    onChange={setOnlyMaxSuffixTierMod}/>
+
+      <div className="flasks-mod-picker">
+        <div className="flasks-mod-column">
+          <div className="flasks-mod-column-header">
+            <span className="flasks-mod-column-title">Prefix</span>
+          </div>
+          <div className="flasks-mod-column-toggle">
+            <Checkbox label="Only match prefix with the highest ilevel" value={onlyMaxPrefixTierMod}
+                      onChange={setOnlyMaxPrefixTierMod}/>
+          </div>
+          <FlaskModList id="flask-prefix" mods={flaskPrefix} onlyMaxTierMod={onlyMaxPrefixTierMod} ilevel={ilevel}
+                        selected={selectedPrefix} setSelected={setSelectedPrefix}/>
         </div>
-        <FlaskModList id="flask-suffix" mods={flaskSuffix} onlyMaxTierMod={onlyMaxSuffixTierMod} ilevel={ilevel}
-                      selected={selectedSuffix} setSelected={setSelectedSuffix}/>
+        <div className="flasks-mod-column">
+          <div className="flasks-mod-column-header">
+            <span className="flasks-mod-column-title">Suffix</span>
+          </div>
+          <div className="flasks-mod-column-toggle">
+            <Checkbox label="Only match suffix with the highest ilevel" value={onlyMaxSuffixTierMod}
+                      onChange={setOnlyMaxSuffixTierMod}/>
+          </div>
+          <FlaskModList id="flask-suffix" mods={flaskSuffix} onlyMaxTierMod={onlyMaxSuffixTierMod} ilevel={ilevel}
+                        selected={selectedSuffix} setSelected={setSelectedSuffix}/>
+        </div>
       </div>
     </>
   )

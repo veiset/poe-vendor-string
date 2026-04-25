@@ -2,10 +2,77 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
 }
 
 .scarab-auto-add-items {
     padding-top: 10px;
+}
+
+.scarab-price-info {
+    font-size: 13px;
+    padding: 0 14px;
+    margin: 4px 12px 0 12px;
+    color: var(--color-text-muted);
+}
+
+.scarab-field {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.scarab-field label {
+    font-size: 14px;
+    color: var(--color-text);
+}
+
+.scarab-field-input {
+    width: 80px;
+    padding: 6px 10px;
+    font-size: 13px;
+    font-family: monospace;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.scarab-card {
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-border-strong);
+    border-radius: 4px;
+    padding: 14px 12px 10px 12px;
+    margin: 14px 12px;
+    width: calc(100% - 24px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.scarab-card-header {
+    display: flex;
+    align-items: center;
+    padding: 0 4px 12px 4px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--color-border-soft);
+}
+
+.scarab-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-deep-text);
+    letter-spacing: -0.01em;
+}
+
+.scarab-search {
+    width: 100%;
+    padding-bottom: 8px;
+}
+
+.scarab-search .modifier-search-box {
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 .scarab-element {
@@ -14,6 +81,8 @@
     cursor: pointer;
     padding: 5px;
     column-gap: 15px;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .scarab-element-selected {
@@ -59,9 +128,13 @@
 }
 
 .scarab-list {
-    padding: 15px;
+    padding: 4px;
     display: grid;
-    grid-template-columns: 49% 49%;
+    grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr));
+    gap: 0;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .scarab-chaos {
@@ -73,18 +146,26 @@
 }
 
 .scarab-action-button {
-    transition-duration: 0.2s;
-    background-color: #71baee;
-    border: 1px solid #050101;
+    background-color: var(--color-accent);
+    color: #ffffff;
+    border: none;
     cursor: pointer;
-    padding: 8px;
-    margin: 10px;
-    font-size: 18px;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 1);
-    border-radius: 2px;
-
+    padding: 8px 14px;
+    font-size: 14px;
+    border-radius: 3px;
+    transition: background-color 0.15s ease;
 }
 
 .scarab-action-button:hover {
-    background-color: #b9ddf1;
+    background-color: var(--color-accent-hover);
+}
+
+.scarab-reset-button {
+    background-color: transparent;
+    color: var(--color-text-error);
+    border: 1px solid var(--color-text-error);
+}
+
+.scarab-reset-button:hover {
+    background-color: rgba(255, 104, 114, 0.12);
 }
