@@ -1,54 +1,174 @@
-.modifier-search-label {
-    font-size: 20px;
-    padding-left: 10px;
+.mm-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 4px 0;
 }
 
-.modifier-quantity-box {
-    width: 60px;
-    padding: 8px;
-    margin: 10px;
-    font-size: 16px;
-    font-family: monospace;
+.mm-state-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 6px 0;
+    flex-wrap: wrap;
 }
 
-.selected-mod {
+.mm-state-row + .mm-state-row {
+    border-top: 1px solid var(--color-border-soft);
+}
+
+.mm-state-row-off > *:not(:first-child) {
+    opacity: 0.35;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.mm-field-label {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    flex-grow: 1;
+    line-height: 1.3;
+}
+
+.mm-field-input {
+    width: 70px;
+    padding: 6px 10px;
+    font-size: 13px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background-color: #ffffff;
     color: #000000;
-    background-color: #c0ecfa;
-    text-underline: white;
+    flex-shrink: 0;
+    text-align: center;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.selectable-item {
+.mm-field-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-soft);
+}
+
+.mm-field-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 4px 18px;
+    padding-bottom: 6px;
+}
+
+.mm-mod-picker {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
+    gap: 12px;
+    padding: 14px 12px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mm-mod-column {
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-border-strong);
+    border-radius: 4px;
+    padding: 14px 12px 10px 12px;
+    display: flex;
+    flex-direction: column;
+    min-height: 480px;
+}
+
+.mm-mod-column-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 0 4px 12px 4px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--color-border-soft);
+    min-height: 52px;
+    box-sizing: border-box;
+}
+
+.mm-mod-column-title {
     font-size: 16px;
-    padding: 5px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.box-small-padding {
-    margin-bottom: 0;
+.mm-mod-column-title::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
 }
 
-.mod-list {
-    cursor: pointer;
-    padding: 15px;
+.mm-mod-column-title-bad {
+    color: #f87171;
 }
 
-.map-column-text {
-    font-size: 28px;
-    padding-left: 17px;
+.mm-mod-column-title-bad::before {
+    background-color: #f87171;
+    box-shadow: 0 0 8px rgba(248, 113, 113, 0.5);
 }
 
-.map-search-bar {
-    padding-left: 8px;
+.mm-mod-column-title-good {
+    color: #86efac;
+}
+
+.mm-mod-column-title-good::before {
+    background-color: #86efac;
+    box-shadow: 0 0 8px rgba(134, 239, 172, 0.5);
 }
 
 .radio-button-modgroup {
-    padding: 8px 8px 8px 10px;
+    display: inline-flex;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border-soft);
+    border-radius: 4px;
+    padding: 3px;
+    gap: 2px;
+    font-size: 14px;
 }
 
-.rarity-select {
-    padding-top: 8px;
-    width: 100%;
-    display: flex;
-    gap: 20px;
+.radio-button-modgroup input[type="radio"] {
+    display: none;
+}
+
+.radio-button-modgroup label {
+    padding: 8px 14px;
+    border-radius: 3px;
+    cursor: pointer;
+    color: var(--color-text);
+    user-select: none;
+    font-weight: 500;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.radio-button-modgroup label b {
+    color: var(--color-text);
+    font-weight: 700;
+}
+
+.radio-button-modgroup label:hover {
+    background-color: var(--color-area-hover);
+}
+
+.radio-button-modgroup label.radio-first-ele {
+    padding-right: 14px;
+}
+
+.radio-button-modgroup input[type="radio"]:checked + label {
+    background-color: var(--color-accent);
+    color: #0a0d12;
+}
+
+.radio-button-modgroup input[type="radio"]:checked + label b {
+    color: #0a0d12;
 }
 
 .radio-button-map {
@@ -62,33 +182,41 @@
 .tier17-color {
     color: #eab7fc;
 }
+
 .info-text {
-    padding: 0;
-    margin-left: 14px;
-    margin-bottom: 0;
-    color: orange;
+    padding: 8px 14px;
+    margin: 8px 12px 0 12px;
+    color: var(--color-text-warn);
+    background-color: rgba(245, 158, 11, 0.08);
+    border-left: 3px solid var(--color-text-warn);
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 1.5;
+    width: calc(100% - 24px);
+    box-sizing: border-box;
 }
 
 .trade-message {
-    background-color: #2d7a9c;
-    color: white;
-    padding: 10px 14px;
+    background-color: var(--color-accent);
+    color: #0a0d12;
+    padding: 10px 16px;
     margin: 0;
     font-size: 14px;
+    font-weight: 600;
     animation: fadeIn 0.3s ease-in;
 }
 
 .trade-compatible {
-    color: #2d7a9c;
+    color: var(--color-accent);
     font-weight: bold;
     margin-left: 2px;
 }
 
 .trade-info-text {
-    padding: 0;
-    margin-left: 14px;
-    margin-top: 4px;
-    margin-bottom: 0;
-    color: #2d7a9c;
-    font-size: 14px;
+    padding: 0 14px;
+    margin: 4px 12px 8px 12px;
+    color: var(--color-text-muted);
+    font-size: 12px;
+    width: calc(100% - 24px);
+    box-sizing: border-box;
 }
