@@ -24,9 +24,10 @@ interface TradeQuery {
     status: { option: string };
     stats?: StatGroup[];
     filters: {
-      map_filters?: {
+      map_filters: {
         disabled: boolean;
         filters: {
+          map_tier: { min: number };
           map_iiq?: { min: number };
           map_packsize?: { min: number };
           map_iir?: { min: number };
@@ -97,6 +98,12 @@ function buildTradeQuery(settings: TradeSettings): TradeQuery {
     query: {
       status: { option: "online" },
       filters: {
+        map_filters: {
+          disabled: false,
+          filters: {
+            map_tier: { min: 16 },
+          },
+        },
         type_filters: {
           disabled: false,
           filters: {
@@ -134,13 +141,11 @@ function buildTradeQuery(settings: TradeSettings): TradeQuery {
   const mapIir = parseMinFilter(settings.itemRarity);
 
   if (mapIiq || mapPacksize || mapIir) {
-    query.query.filters.map_filters = {
-      disabled: false,
-      filters: {
-        ...(mapIiq && { map_iiq: mapIiq }),
-        ...(mapPacksize && { map_packsize: mapPacksize }),
-        ...(mapIir && { map_iir: mapIir }),
-      },
+    query.query.filters.map_filters.filters = {
+      ...query.query.filters.map_filters.filters,
+      ...(mapIiq && { map_iiq: mapIiq }),
+      ...(mapPacksize && { map_packsize: mapPacksize }),
+      ...(mapIir && { map_iir: mapIir }),
     };
   }
 
