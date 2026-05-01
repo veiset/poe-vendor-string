@@ -18,4 +18,5 @@ export interface Regex<T> {
 export interface MapModsTokenOption {
   scary: number,
   nm: boolean,
+  prefix: boolean,
 }
