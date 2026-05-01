@@ -60,6 +60,32 @@
     padding: 4px;
 }
 
+.rrb-options-price-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.rrb-options input[type=text].rrb-options-price-max {
+    width: 70px;
+}
+
+.rrb-options input[type=text].rrb-options-price-currency {
+    width: 130px;
+}
+
+.rrb-options-projected-length {
+    color: #b1b1b7;
+    font-size: 16px;
+    width: 100%;
+}
+
+.rrb-options-price-warning {
+    color: var(--color-deep-error);
+    font-size: 16px;
+    width: 100%;
+}
+
 .rrb-copy-button {
     background-color: var(--color-correct);
     font-family: monospace;
