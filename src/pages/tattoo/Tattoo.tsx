@@ -9,6 +9,7 @@ import { loadSettings, saveSettings } from "../../utils/LocalStorage";
 import { defaultSettings } from "../../utils/SavedSettings";
 import { ProfileContext } from "../../components/profile/ProfileContext";
 import { tattooRegex } from "../../generated/GeneratedTattoo";
+import FilterCard from "../../components/FilterCard/FilterCard";
 
 interface PoeNinjaTattooLine {
     id: string
@@ -119,27 +120,23 @@ const Tattoo = () => {
                 setMaxChaosValue(defaultSettings.tattoo.maxValue);
             }} />
             <p className="tattoo-price-info">Using price data from the {leagueName} League. Last updated: {lastUpdated}</p>
-            <div className="row tattoo-options">
-                <div>
-                    <span className="expedition-option-text">Min chaos value:</span>
-                    <input type="search" className="modifier-quantity-box" id="pack-size" name="search-mod" value={minChaosValue}
-                        onChange={v => {
-                            const val = v.target.value;
-                            const value = val;
-                            setMinChaosValue(value);
-                        }} />
-
-                </div>
-                <div>
-                    <span className="expedition-option-text">Max chaos value:</span>
-                    <input type="search" className="modifier-quantity-box" id="pack-size" name="search-mod" value={maxChaosValue}
-                        onChange={v => {
-                            const val = v.target.value;
-                            const value = val;
-                            setMaxChaosValue(value);
-                        }} />
-
-                </div>
+            <div className="filter-card-grid">
+                <FilterCard title="Settings" wide>
+                    <div className="tattoo-fields">
+                        <div className="tattoo-field">
+                            <label htmlFor="tattoo-min">Min chaos value</label>
+                            <input type="search" className="tattoo-field-input" id="tattoo-min" name="search-mod"
+                                   value={minChaosValue}
+                                   onChange={v => setMinChaosValue(v.target.value)} />
+                        </div>
+                        <div className="tattoo-field">
+                            <label htmlFor="tattoo-max">Max chaos value</label>
+                            <input type="search" className="tattoo-field-input" id="tattoo-max" name="search-mod"
+                                   value={maxChaosValue}
+                                   onChange={v => setMaxChaosValue(v.target.value)} />
+                        </div>
+                    </div>
+                </FilterCard>
             </div>
             <div className="row">
                 <Collapsable header={"Price data"} isOpenByDefault={true}>

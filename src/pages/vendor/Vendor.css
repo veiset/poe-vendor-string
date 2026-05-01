@@ -1,12 +1,69 @@
 .vendor-wrapper {
     display: flex;
     flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px 12px 0 12px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.socket-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    line-height: 0;
 }
 
 .socket-size {
     position: relative;
     top: 3px;
     height: 32px;
+    display: block;
+}
+
+.vendor-card-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.vendor-card-divider {
+    height: 1px;
+    background-color: var(--color-border-soft);
+    margin: 8px 0;
+}
+
+.vendor-weapon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 4px 14px;
+}
+
+.vendor-gems-card {
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-border-strong);
+    border-radius: 4px;
+    padding: 14px 12px 10px 12px;
+    display: flex;
+    flex-direction: column;
+    margin: 14px 12px;
+    width: calc(100% - 24px);
+    box-sizing: border-box;
+}
+
+.vendor-gems-card-header {
+    display: flex;
+    align-items: center;
+    padding: 0 4px 12px 4px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--color-border-soft);
+}
+
+.vendor-gems-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-deep-text);
+    letter-spacing: -0.01em;
 }
 .column-header {
     padding-top: 15px;

@@ -1,27 +1,49 @@
 .dropdown-select {
-    padding: 10px;
-    font-size: 16px;
-    background-color: #444e5b;
-    border: 1px solid #000000;
-    color: #fff;
-    border-radius: 4px;
+    padding: 7px 10px;
+    font-size: 13px;
+    background-color: var(--color-area-2);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    border-radius: 3px;
     cursor: pointer;
+    transition: border-color 0.15s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%238d97a8' d='M0 0h10L5 6z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 28px;
 }
+
+.dropdown-select:hover {
+    border-color: var(--color-accent);
+}
+
+.dropdown-select:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-soft);
+}
+
 .dropdown-vsm {
     min-width: 70px;
 }
+
 .dropdown-sm {
-    margin-left: 10px;
+    margin-left: 6px;
     margin-right: 4px;
-    min-width: 120px;
+    min-width: 130px;
 }
+
 .dropdown-md {
-    margin: 2px;
-    min-width: 220px;
+    margin: 0 4px;
+    min-width: 180px;
 }
+
 .dropdown-big {
     min-width: 250px;
 }
+
 .dropdown-xl {
     min-width: 300px;
 }

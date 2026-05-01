@@ -1,10 +1,20 @@
 .bug-report {
-    font-size: 14px;
-    padding: 12px;
-    margin: 4px;
-    border-radius: 4px;
-    background-color: #70312a;
+    font-size: 13px;
+    padding: 0;
+    margin: 0;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
+
+.bug-report:hover {
+    color: var(--color-text-warn);
+    text-decoration: none;
+}
+
 .bug-report-icon {
-    padding-right: 5px;
+    height: 14px;
+    width: 14px;
 }
