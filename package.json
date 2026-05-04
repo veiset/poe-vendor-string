@@ -50,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "@types/testing-library__jest-dom": "^5.14.3",
     "gh-pages": "^4.0.0",
     "ts-node": "^10.9.2"
   }

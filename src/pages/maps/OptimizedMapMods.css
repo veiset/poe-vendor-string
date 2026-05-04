@@ -92,3 +92,24 @@
     color: #2d7a9c;
     font-size: 14px;
 }
+
+.mod-affix-tag {
+    display: inline-block;
+    width: 22px;
+    text-align: center;
+    padding: 2px 0;
+    border-radius: 2px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.mod-affix-tag--prefix {
+    background-color: #7a2e2e;
+}
+
+.mod-affix-tag--suffix {
+    background-color: #2d4f7c;
+}

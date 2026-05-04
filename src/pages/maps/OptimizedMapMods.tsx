@@ -11,6 +11,7 @@ import "./OptimizedMapMods.css";
 import RegexResultBox from "../../components/RegexResultBox/RegexResultBox";
 import {LanguageFiles} from "../../utils/Languages";
 import {openTradeSearch, TradeSettings} from "../../utils/TradeUrlBuilder";
+import {MapModsTokenOption, Token} from "../../generated/mapmods/GeneratedTypes";
 
 const OptimizedMapMods = () => {
   const {globalProfile} = useContext(ProfileContext);
@@ -33,6 +34,8 @@ const OptimizedMapMods = () => {
   const [regex, setRegex] = useState(LanguageFiles.mapmods[profile.language]);
   const [mapDropChance, setMapDropChance] = useState(profile.map.mapDropChance);
   const [displayNightmareMods, setDisplayNightmareMods] = useState(profile.map.displayNightmareMods);
+  const [displayAffixBadges, setDisplayAffixBadges] = useState(profile.map.displayAffixBadges);
+  const [groupByAffix, setGroupByAffix] = useState(profile.map.groupByAffix);
 
   const [customTextStr, setCustomTextStr] = useState(profile.map.customText.value);
   const [enableCustomText, setEnableCustomText] = useState(profile.map.customText.enabled);
@@ -81,6 +84,8 @@ const OptimizedMapMods = () => {
       quality,
       anyQuality,
       displayNightmareMods,
+      displayAffixBadges,
+      groupByAffix,
       customText: {
         value: customTextStr,
         enabled: enableCustomText,
@@ -92,7 +97,22 @@ const OptimizedMapMods = () => {
       map: {...settings},
     });
     setResult(generateMapModRegex(settings, regex, profile.language));
-  }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods]);
+  }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix]);
+
+  const renderAffixTag = displayAffixBadges
+    ? (token: Token<MapModsTokenOption>) => (
+        <span className={`mod-affix-tag mod-affix-tag--${token.options.prefix ? "prefix" : "suffix"}`}>
+          {token.options.prefix ? "P" : "S"}
+        </span>
+      )
+    : undefined;
+
+  const affixGroupFn = groupByAffix
+    ? (token: Token<MapModsTokenOption>) =>
+        token.options.prefix
+          ? {key: "prefix", label: "Prefix"}
+          : {key: "suffix", label: "Suffix"}
+    : undefined;
 
   return (
     <>
@@ -125,6 +145,8 @@ const OptimizedMapMods = () => {
           setCustomTextStr(defaultSettings.map.customText.value);
           setMapDropChance(defaultSettings.map.mapDropChance);
           setDisplayNightmareMods(defaultSettings.map.displayNightmareMods);
+          setDisplayAffixBadges(defaultSettings.map.displayAffixBadges);
+          setGroupByAffix(defaultSettings.map.groupByAffix);
         }}
       />
       {tradeMessage && (
@@ -241,6 +263,12 @@ const OptimizedMapMods = () => {
           </div>
         </div>
         <div className="rarity-select">
+          <Checkbox label="Show prefix/suffix badges" value={displayAffixBadges}
+                    onChange={setDisplayAffixBadges}/>
+          <Checkbox label="Group mods by prefix/suffix" value={groupByAffix}
+                    onChange={setGroupByAffix}/>
+        </div>
+        <div className="rarity-select">
           <Checkbox label="Show nightmare modifiers" value={displayNightmareMods}
                     onChange={setDisplayNightmareMods}/>
         </div>
@@ -279,6 +307,9 @@ const OptimizedMapMods = () => {
           }
           setSelected={setSelectedBadIds}
           selected={selectedBadIds}
+          tagFn={renderAffixTag}
+          groupFn={affixGroupFn}
+          groupOrder={["prefix", "suffix"]}
         />
       </div>
       <div className="eq-col-2">
@@ -297,6 +328,9 @@ const OptimizedMapMods = () => {
           }
           setSelected={setSelectedGoodIds}
           selected={selectedGoodIds}
+          tagFn={renderAffixTag}
+          groupFn={affixGroupFn}
+          groupOrder={["prefix", "suffix"]}
         />
       </div>
     </>
