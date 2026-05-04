@@ -312,6 +312,7 @@ interface CheckboxProps {
   value: boolean
   onChange: Dispatch<SetStateAction<boolean>>
   className?: string
+  disabled?: boolean
 }
 
 interface LinkCheckboxProps {
@@ -333,8 +334,9 @@ interface NumberInputProps {
 export const Checkbox = (props: CheckboxProps) => {
   return (
     <div className={props.className}>
-      <label className="checkbox checkbox-text">
+      <label className={`checkbox checkbox-text${props.disabled ? " checkbox-disabled" : ""}`}>
         <input className="checkbox-input" type="checkbox" checked={props.value}
+               disabled={props.disabled}
                onChange={e => props.onChange(e.target.checked)}/>
         <span>{props.label}</span>
       </label>

@@ -3,9 +3,14 @@ import tradeStatIds from "../generated/mapmods/trade/TradeStatIdMatching.json";
 const WORKER_URL = "https://poe-trade-proxy.veiset.workers.dev";
 const TRADE_URL_BASE = "https://www.pathofexile.com/trade/search";
 
+interface StatFilter {
+  id: string;
+  value?: { min: number };
+}
+
 interface StatGroup {
   type: "and" | "not" | "count" | "if";
-  filters: { id: string }[];
+  filters: StatFilter[];
   value?: { min: number };
 }
 
@@ -17,6 +22,11 @@ export interface TradeSettings {
   packsize: string;
   itemRarity: string;
   regex: string;
+  eightModOnly: boolean;
+  corrupted: {
+    enabled: boolean;
+    include: boolean;
+  };
 }
 
 interface TradeQuery {
@@ -38,6 +48,12 @@ interface TradeQuery {
         filters: {
           rarity?: { option: string };
           category?: { option: string };
+        };
+      };
+      misc_filters?: {
+        disabled: boolean;
+        filters: {
+          corrupted?: { option: "true" | "false" };
         };
       };
     };
@@ -132,6 +148,13 @@ function buildTradeQuery(settings: TradeSettings): TradeQuery {
     }
   }
 
+  if (settings.eightModOnly) {
+    stats.push({
+      type: "and",
+      filters: [{ id: "pseudo.pseudo_number_of_affix_mods", value: { min: 8 } }],
+    });
+  }
+
   if (stats.length > 0) {
     query.query.stats = stats;
   }
@@ -146,6 +169,15 @@ function buildTradeQuery(settings: TradeSettings): TradeQuery {
       ...(mapIiq && { map_iiq: mapIiq }),
       ...(mapPacksize && { map_packsize: mapPacksize }),
       ...(mapIir && { map_iir: mapIir }),
+    };
+  }
+
+  if (settings.corrupted.enabled) {
+    query.query.filters.misc_filters = {
+      disabled: false,
+      filters: {
+        corrupted: { option: settings.corrupted.include ? "true" : "false" },
+      },
     };
   }
 

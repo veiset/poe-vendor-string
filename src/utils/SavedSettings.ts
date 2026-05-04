@@ -194,6 +194,7 @@ export interface MapSettings {
   displayNightmareMods: boolean
   displayAffixBadges: boolean
   groupByAffix: boolean
+  tradeEightModOnly: boolean
   rarity: {
     normal: boolean
     magic: boolean
@@ -396,6 +397,7 @@ export const defaultSettings: SavedSettings = {
     displayNightmareMods: false,
     displayAffixBadges: false,
     groupByAffix: false,
+    tradeEightModOnly: false,
     rarity: {
       normal: true,
       magic: true,

@@ -36,6 +36,8 @@ const OptimizedMapMods = () => {
   const [displayNightmareMods, setDisplayNightmareMods] = useState(profile.map.displayNightmareMods);
   const [displayAffixBadges, setDisplayAffixBadges] = useState(profile.map.displayAffixBadges);
   const [groupByAffix, setGroupByAffix] = useState(profile.map.groupByAffix);
+  const [tradeEightModOnly, setTradeEightModOnly] = useState(profile.map.tradeEightModOnly);
+  const eightModDisabled = corrupted.enabled && !corrupted.include;
 
   const [customTextStr, setCustomTextStr] = useState(profile.map.customText.value);
   const [enableCustomText, setEnableCustomText] = useState(profile.map.customText.enabled);
@@ -54,6 +56,8 @@ const OptimizedMapMods = () => {
         packsize,
         itemRarity,
         regex: result,
+        eightModOnly: tradeEightModOnly && !eightModDisabled,
+        corrupted,
       };
       const tradeResult = await openTradeSearch(settings);
       if (tradeResult.success) {
@@ -86,6 +90,7 @@ const OptimizedMapMods = () => {
       displayNightmareMods,
       displayAffixBadges,
       groupByAffix,
+      tradeEightModOnly,
       customText: {
         value: customTextStr,
         enabled: enableCustomText,
@@ -97,7 +102,7 @@ const OptimizedMapMods = () => {
       map: {...settings},
     });
     setResult(generateMapModRegex(settings, regex, profile.language));
-  }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix]);
+  }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly]);
 
   const renderAffixTag = displayAffixBadges
     ? (token: Token<MapModsTokenOption>) => (
@@ -147,6 +152,7 @@ const OptimizedMapMods = () => {
           setDisplayNightmareMods(defaultSettings.map.displayNightmareMods);
           setDisplayAffixBadges(defaultSettings.map.displayAffixBadges);
           setGroupByAffix(defaultSettings.map.groupByAffix);
+          setTradeEightModOnly(defaultSettings.map.tradeEightModOnly);
         }}
       />
       {tradeMessage && (
@@ -233,6 +239,11 @@ const OptimizedMapMods = () => {
                    onChange={v => setRarity({...rarity, include: false})}/>
             <label htmlFor="maps-exclude" className="radio-button-map">Exclude</label>
           </div>
+        </div>
+        <div className="rarity-select">
+          <Checkbox label="Search for 8-mod maps only (Trade)" value={tradeEightModOnly}
+                    onChange={setTradeEightModOnly}
+                    disabled={eightModDisabled}/>
         </div>
         <div className="rarity-select">
           <Checkbox label="Corrupted Map" value={corrupted.enabled}
