@@ -1,5 +1,6 @@
 import React from "react";
-import {render, screen, fireEvent, within} from "@testing-library/react";
+import "@testing-library/jest-dom";
+import {render, screen, fireEvent} from "@testing-library/react";
 import SelectableTokenList from "./SelectableTokenList";
 import {Token} from "../../generated/GeneratedTypes";
 

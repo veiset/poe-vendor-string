@@ -263,14 +263,14 @@ const OptimizedMapMods = () => {
           </div>
         </div>
         <div className="rarity-select">
-          <Checkbox label="Show nightmare modifiers" value={displayNightmareMods}
-                    onChange={setDisplayNightmareMods}/>
-        </div>
-        <div className="rarity-select">
           <Checkbox label="Show prefix/suffix badges" value={displayAffixBadges}
                     onChange={setDisplayAffixBadges}/>
           <Checkbox label="Group mods by prefix/suffix" value={groupByAffix}
                     onChange={setGroupByAffix}/>
+        </div>
+        <div className="rarity-select">
+          <Checkbox label="Show nightmare modifiers" value={displayNightmareMods}
+                    onChange={setDisplayNightmareMods}/>
         </div>
         <div className="break spacer-top"/>
       </div>
