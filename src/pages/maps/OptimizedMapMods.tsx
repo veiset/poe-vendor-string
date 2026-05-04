@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useMemo, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {ProfileContext} from "../../components/profile/ProfileContext";
 import {loadSettings, saveSettings} from "../../utils/LocalStorage";
 import {HeaderWithLanguage} from "../../components/Header";
@@ -99,22 +99,20 @@ const OptimizedMapMods = () => {
     setResult(generateMapModRegex(settings, regex, profile.language));
   }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix]);
 
-  const renderAffixTag = useMemo(() => {
-    if (!displayAffixBadges) return undefined;
-    return (token: Token<MapModsTokenOption>) => (
-      <span className={`mod-affix-tag mod-affix-tag--${token.options.prefix ? "prefix" : "suffix"}`}>
-        {token.options.prefix ? "P" : "S"}
-      </span>
-    );
-  }, [displayAffixBadges]);
+  const renderAffixTag = displayAffixBadges
+    ? (token: Token<MapModsTokenOption>) => (
+        <span className={`mod-affix-tag mod-affix-tag--${token.options.prefix ? "prefix" : "suffix"}`}>
+          {token.options.prefix ? "P" : "S"}
+        </span>
+      )
+    : undefined;
 
-  const affixGroupFn = useMemo(() => {
-    if (!groupByAffix) return undefined;
-    return (token: Token<MapModsTokenOption>) =>
-      token.options.prefix
-        ? {key: "prefix", label: "Prefix"}
-        : {key: "suffix", label: "Suffix"};
-  }, [groupByAffix]);
+  const affixGroupFn = groupByAffix
+    ? (token: Token<MapModsTokenOption>) =>
+        token.options.prefix
+          ? {key: "prefix", label: "Prefix"}
+          : {key: "suffix", label: "Suffix"}
+    : undefined;
 
   return (
     <>
