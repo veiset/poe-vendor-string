@@ -9,6 +9,7 @@ import {Checkbox} from "../vendor/Vendor";
 import {generateMapModRegex} from "./OptimizedMapOutput";
 import "./OptimizedMapMods.css";
 import RegexResultBox from "../../components/RegexResultBox/RegexResultBox";
+import {TradeAsterisk} from "../../components/TradeAsterisk";
 import {LanguageFiles} from "../../utils/Languages";
 import {openTradeSearch, TradeSettings} from "../../utils/TradeUrlBuilder";
 import {MapModsTokenOption, Token} from "../../generated/mapmods/GeneratedTypes";
@@ -165,11 +166,11 @@ const OptimizedMapMods = () => {
         languages. <br/> English now has nightmare mods, will keep updating.</p>
       <p className="trade-info-text">* Fields marked with an asterisk are compatible with the Trade search.</p>
       <div className="full-size generic-top-element">
-        <label className="modifier-search-label" htmlFor="quantity">Quantity of at least<span className="trade-compatible">*</span></label>
+        <label className="modifier-search-label" htmlFor="quantity">Quantity of at least<TradeAsterisk/></label>
         <input type="search" className="modifier-quantity-box" id="quantity" name="search-mod" value={quantity}
                onChange={v => setQuantity(v.target.value)}/>
 
-        <label className="modifier-search-label" htmlFor="pack-size">Pack Size of at least<span className="trade-compatible">*</span></label>
+        <label className="modifier-search-label" htmlFor="pack-size">Pack Size of at least<TradeAsterisk/></label>
         <input type="search" className="modifier-quantity-box" id="pack-size" name="search-mod" value={packsize}
                onChange={v => setPacksize(v.target.value)}/>
 
@@ -177,7 +178,7 @@ const OptimizedMapMods = () => {
         <input type="search" className="modifier-quantity-box" id="mapdrop" name="search-mod" value={mapDropChance}
                onChange={v => setMapDropChance(v.target.value)}/>
 
-        <label className="modifier-search-label" htmlFor="itemRarity">Item rarity of at least<span className="trade-compatible">*</span></label>
+        <label className="modifier-search-label" htmlFor="itemRarity">Item rarity of at least<TradeAsterisk/></label>
         <input type="search" className="modifier-quantity-box" id="itemRarity" name="search-mod" value={itemRarity}
                onChange={v => setItemRarity(v.target.value)}/>
         <div className="break"/>
@@ -241,12 +242,12 @@ const OptimizedMapMods = () => {
           </div>
         </div>
         <div className="rarity-select">
-          <Checkbox label="Search for 8-mod maps only (Trade)" value={tradeEightModOnly}
+          <Checkbox label={<>Only 8-mod maps (trade webpage query only)<TradeAsterisk/></>} value={tradeEightModOnly}
                     onChange={setTradeEightModOnly}
                     disabled={eightModDisabled}/>
         </div>
         <div className="rarity-select">
-          <Checkbox label="Corrupted Map" value={corrupted.enabled}
+          <Checkbox label={<>Corrupted Map<TradeAsterisk/></>} value={corrupted.enabled}
                     onChange={(e) => setCorrupted({...corrupted, enabled: !corrupted.enabled})}/>
           <div className="radio-button-corrupted">
             <input type="radio" className="radio-button-map" id="corrupted-include" name="corrupted-include"

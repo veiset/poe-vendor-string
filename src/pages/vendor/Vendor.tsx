@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useContext, useEffect} from 'react';
+import React, {Dispatch, ReactNode, SetStateAction, useContext, useEffect} from 'react';
 import './Vendor.css';
 import socketRed from '../../img/red-socket.png';
 import socketGreen from '../../img/green-socket.png';
@@ -308,7 +308,7 @@ const Vendor = () => {
 
 
 interface CheckboxProps {
-  label: string
+  label: ReactNode
   value: boolean
   onChange: Dispatch<SetStateAction<boolean>>
   className?: string
