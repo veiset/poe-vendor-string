@@ -120,6 +120,11 @@ input[type="search"] {
     font-size: 18px;
 }
 
+.checkbox-disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
 .modifier-search-box {
     padding: 8px;
     width: 85%;
