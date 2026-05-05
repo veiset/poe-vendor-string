@@ -112,7 +112,7 @@ function parseMinFilter(value: string): { min: number } | undefined {
 function buildTradeQuery(settings: TradeSettings): TradeQuery {
   const query: TradeQuery = {
     query: {
-      status: { option: "online" },
+      status: { option: "securable" },
       filters: {
         map_filters: {
           disabled: false,
