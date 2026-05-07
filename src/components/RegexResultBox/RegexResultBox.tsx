@@ -41,11 +41,13 @@ const RegexResultBox = (props: RegexResultBoxProps) => {
     : result;
 
   useEffect(() => {
-    if (autoCopy) {
-      navigator.clipboard.writeText(result);
-      setCopied(result);
-    }
-  }, [result, autoCopy]);
+    if (!autoCopy) return;
+    if (finalResult === copied) return;
+
+    navigator.clipboard.writeText(finalResult)
+      .then(() => setCopied(finalResult))
+      .catch(() => { /* permission denied; retry on next change */ });
+  }, [finalResult, autoCopy, copied]);
 
   return (
     <div className="rrb-layout">
