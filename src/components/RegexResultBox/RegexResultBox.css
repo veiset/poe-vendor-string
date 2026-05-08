@@ -185,3 +185,40 @@
     font-size: 13px;
     padding-top: 6px;
 }
+
+@media (max-width: 700px) {
+    .rrb-layout {
+        padding: 10px 12px;
+        column-gap: 10px;
+        row-gap: 8px;
+    }
+
+    .rrb-result {
+        min-width: 0;
+        flex-basis: 100%;
+    }
+
+    .rrb-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .rrb-copy-button,
+    .rrb-reset-button,
+    .rrb-trade-button,
+    .rrb-option-button {
+        padding: 8px 14px;
+        min-width: 0;
+        flex-grow: 1;
+    }
+
+    .rrb-options {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+
+    .rrb-options input[type=text] {
+        width: 100%;
+        margin: 0;
+    }
+}

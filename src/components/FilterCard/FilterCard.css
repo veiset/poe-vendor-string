@@ -22,7 +22,7 @@
     grid-column: span 2;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1660px) {
     .filter-card-wide {
         grid-column: span 1;
     }
@@ -58,4 +58,19 @@
     opacity: 0.35;
     pointer-events: none;
     transition: opacity 0.2s ease;
+}
+
+@media (max-width: 700px) {
+    .filter-card-grid {
+        padding: 8px 6px 4px 6px;
+        gap: 8px;
+    }
+
+    .filter-card {
+        padding: 10px 12px 10px 12px;
+    }
+
+    .filter-card-title {
+        margin-bottom: 8px;
+    }
 }

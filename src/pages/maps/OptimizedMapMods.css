@@ -34,7 +34,7 @@
 
 .mm-field-input {
     width: 70px;
-    padding: 6px 10px;
+    padding: 3px 6px !important;
     font-size: 13px;
     font-family: ui-monospace, "SF Mono", Menlo, monospace;
     border: 1px solid var(--color-border);
@@ -61,7 +61,7 @@
 
 .mm-mod-picker {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(440px, 100%), 1fr));
     gap: 12px;
     padding: 14px 12px;
     width: 100%;
@@ -229,4 +229,68 @@
 
 .mod-affix-tag--suffix {
     background-color: #2d4f7c;
+}
+
+@media (max-width: 700px) {
+    .mm-mod-picker {
+        gap: 10px;
+        padding: 8px 6px;
+    }
+
+    .mm-mod-column {
+        padding: 10px 8px 8px 8px;
+        min-height: 0;
+    }
+
+    .mm-mod-column-header {
+        padding: 0 2px 8px 2px;
+        margin-bottom: 6px;
+        min-height: 0;
+        gap: 6px;
+    }
+
+    .mm-mod-column-title {
+        font-size: 14px;
+    }
+
+    .radio-button-modgroup {
+        font-size: 12px;
+        padding: 2px;
+    }
+
+    .radio-button-modgroup label {
+        padding: 6px 10px;
+    }
+
+    .radio-button-modgroup label.radio-first-ele {
+        padding-right: 10px;
+    }
+
+    .info-text,
+    .trade-info-text {
+        margin-left: 6px;
+        margin-right: 6px;
+        width: calc(100% - 12px);
+    }
+
+    .mm-field {
+        gap: 8px;
+        padding: 2px 0;
+    }
+
+    .mm-field-grid {
+        gap: 2px 12px;
+    }
+}
+
+@media (max-width: 425px) {
+    .mm-mod-column-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .radio-button-modgroup {
+        align-self: stretch;
+        justify-content: center;
+    }
 }
