@@ -195,6 +195,7 @@ export interface MapSettings {
   displayAffixBadges: boolean
   groupByAffix: boolean
   tradeEightModOnly: boolean
+  tradeExcludeValdo: boolean
   rarity: {
     normal: boolean
     magic: boolean
@@ -398,6 +399,7 @@ export const defaultSettings: SavedSettings = {
     displayAffixBadges: false,
     groupByAffix: false,
     tradeEightModOnly: false,
+    tradeExcludeValdo: false,
     rarity: {
       normal: true,
       magic: true,

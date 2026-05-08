@@ -10,8 +10,8 @@ export function generateMapModRegex(settings: MapSettings, regex: Regex<any>, la
   const statRegex = MapStaticStatRegex[language] ?? MapStaticStatRegex.ENGLISH;
   const quantity = addQuantifier(statRegex.quantity, generateNumberRegex(settings.quantity, settings.optimizeQuant));
   const packsize = addQuantifier(statRegex.packsize, generateNumberRegex(settings.packsize, settings.optimizePacksize));
-  const mapDrop = addQuantifier(statRegex.mapdrop, generateNumberRegex(settings.mapDropChance, false));
-  const itemRarity = addQuantifier(statRegex.itemrarity, generateNumberRegex(settings.itemRarity, false));
+  const mapDrop = addQuantifier(statRegex.mapdrop, generateNumberRegex(settings.mapDropChance, settings.optimizeQuant));
+  const itemRarity = addQuantifier(statRegex.itemrarity, generateNumberRegex(settings.itemRarity, settings.optimizeQuant));
   const quality = qualityQualifier(settings, language);
   const rarity = addRarityRegex(settings.rarity.normal, settings.rarity.magic, settings.rarity.rare, settings.rarity.include, language);
   const corrupted = corruptedMapCheck(settings, language);

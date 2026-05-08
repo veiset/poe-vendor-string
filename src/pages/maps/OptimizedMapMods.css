@@ -215,6 +215,17 @@
     font-size: 13px;
 }
 
+.radio-button-modgroup-sm {
+    padding: 2px;
+    font-size: 11px;
+}
+
+.radio-button-modgroup-sm label {
+    padding: 3px 8px !important;
+    letter-spacing: 0.04em;
+    font-weight: 500 !important;
+}
+
 .radio-button-modgroup input[type="radio"] {
     display: none;
 }

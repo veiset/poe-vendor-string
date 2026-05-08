@@ -169,7 +169,7 @@ const Runegraft = () => {
             }} />
             <p className="runegraft-price-info">Using price data from the {leagueName} League. Last updated: {lastUpdated}</p>
             <div className="filter-card-grid">
-                <FilterCard title="Settings" wide>
+                <FilterCard title="Settings">
                     <div className="runegraft-fields">
                         <div className="runegraft-field">
                             <label htmlFor="runegraft-min">Min chaos value</label>

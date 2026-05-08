@@ -65,7 +65,7 @@ const Flasks = () => {
       <div className="break"/>
 
       <div className="filter-card-grid">
-        <FilterCard title="Settings" wide>
+        <FilterCard title="Settings">
           <div className="flasks-field">
             <label htmlFor="ilevel">Flask item level</label>
             <input type="search" className="flasks-field-input" id="ilevel" name="search-mod"

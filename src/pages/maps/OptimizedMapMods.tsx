@@ -42,6 +42,25 @@ const NumberField = ({id, label, value, onChange, trade, primary}: NumberFieldPr
   </div>
 );
 
+interface ExactOptimizedToggleProps {
+  name: string;
+  optimized: boolean;
+  setOptimized: (v: boolean) => void;
+}
+
+const ExactOptimizedToggle = ({name, optimized, setOptimized}: ExactOptimizedToggleProps) => (
+  <div className="radio-button-modgroup radio-button-modgroup-sm">
+    <input type="radio" id={`${name}-exact`} name={name} value="exact"
+           checked={!optimized}
+           onChange={() => setOptimized(false)}/>
+    <label htmlFor={`${name}-exact`} className="radio-button-map">Exact</label>
+    <input type="radio" id={`${name}-optimized`} name={name} value="optimized"
+           checked={optimized}
+           onChange={() => setOptimized(true)}/>
+    <label htmlFor={`${name}-optimized`} className="radio-button-map">Optimized</label>
+  </div>
+);
+
 const OptimizedMapMods = () => {
   const {globalProfile} = useContext(ProfileContext);
   const profile = loadSettings(globalProfile);
@@ -66,6 +85,7 @@ const OptimizedMapMods = () => {
   const [displayAffixBadges, setDisplayAffixBadges] = useState(profile.map.displayAffixBadges);
   const [groupByAffix, setGroupByAffix] = useState(profile.map.groupByAffix);
   const [tradeEightModOnly, setTradeEightModOnly] = useState(profile.map.tradeEightModOnly);
+  const [tradeExcludeValdo, setTradeExcludeValdo] = useState(profile.map.tradeExcludeValdo);
   const eightModDisabled = corrupted.enabled && !corrupted.include;
 
   const [customTextStr, setCustomTextStr] = useState(profile.map.customText.value);
@@ -86,6 +106,7 @@ const OptimizedMapMods = () => {
         itemRarity,
         regex: result,
         eightModOnly: tradeEightModOnly && !eightModDisabled,
+        excludeValdo: tradeExcludeValdo,
         corrupted,
       };
       const tradeResult = await openTradeSearch(settings);
@@ -120,6 +141,7 @@ const OptimizedMapMods = () => {
       displayAffixBadges,
       groupByAffix,
       tradeEightModOnly,
+      tradeExcludeValdo,
       customText: {
         value: customTextStr,
         enabled: enableCustomText,
@@ -131,7 +153,7 @@ const OptimizedMapMods = () => {
       map: {...settings},
     });
     setResult(generateMapModRegex(settings, regex, profile.language));
-  }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly]);
+  }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly, tradeExcludeValdo]);
 
   const renderAffixTag = displayAffixBadges
     ? (token: Token<MapModsTokenOption>) => (
@@ -191,6 +213,7 @@ const OptimizedMapMods = () => {
           setDisplayAffixBadges(defaultSettings.map.displayAffixBadges);
           setGroupByAffix(defaultSettings.map.groupByAffix);
           setTradeEightModOnly(defaultSettings.map.tradeEightModOnly);
+          setTradeExcludeValdo(defaultSettings.map.tradeExcludeValdo);
         }}
       />
       {tradeMessage && (
@@ -202,7 +225,15 @@ const OptimizedMapMods = () => {
       <p className="trade-info-text">* Fields marked with an asterisk are compatible with the Trade search.</p>
 
       <div className="filter-card-grid">
-        <FilterCard title="Quantity & Yield">
+        <FilterCard title="Quantity & Yield"
+                    headerControl={
+                      <ExactOptimizedToggle name="yield-mode"
+                                            optimized={optimizeQuant && optimizePacksize}
+                                            setOptimized={(v) => {
+                                              setOptimizeQuant(v);
+                                              setOptimizePacksize(v);
+                                            }}/>
+                    }>
           <NumberField id="quantity" label="Quantity of at least" value={quantity} onChange={setQuantity} trade/>
           <NumberField id="pack-size" label="Pack Size of at least" value={packsize} onChange={setPacksize} trade/>
           <NumberField id="mapdrop" label="More maps of at least" value={mapDropChance} onChange={setMapDropChance}/>
@@ -217,10 +248,14 @@ const OptimizedMapMods = () => {
                                   setInclude={(v) => setCorrupted({...corrupted, include: v})}/>
           </div>
           <div className={`mm-state-row`}>
-            <Checkbox label={<>Only 8-mod maps (trade webpage query only)<TradeAsterisk/></>}
-                      value={tradeEightModOnly}
-                      onChange={setTradeEightModOnly}
-                      disabled={eightModDisabled}/>
+            <Checkbox label="Normal Maps" value={rarity.normal}
+                      onChange={(e) => setRarity({...rarity, normal: !!e})}/>
+            <Checkbox label="Magic Maps" value={rarity.magic}
+                      onChange={(e) => setRarity({...rarity, magic: !!e})}/>
+            <Checkbox label="Rare Maps" value={rarity.rare}
+                      onChange={(e) => setRarity({...rarity, rare: !!e})}/>
+            <IncludeExcludeToggle name="map-rarity" include={rarity.include}
+                                  setInclude={(v) => setRarity({...rarity, include: v})}/>
           </div>
           <div className={`mm-state-row${unidentified.enabled ? "" : " mm-state-row-off"}`}>
             <Checkbox label="Filter unidentified" value={unidentified.enabled}
@@ -230,18 +265,12 @@ const OptimizedMapMods = () => {
           </div>
         </FilterCard>
 
-        <FilterCard title="Map Rarity">
-          <Checkbox label="Normal Maps" value={rarity.normal}
-                    onChange={(e) => setRarity({...rarity, normal: !!e})}/>
-          <Checkbox label="Magic Maps" value={rarity.magic}
-                    onChange={(e) => setRarity({...rarity, magic: !!e})}/>
-          <Checkbox label="Rare Maps" value={rarity.rare}
-                    onChange={(e) => setRarity({...rarity, rare: !!e})}/>
-          <IncludeExcludeToggle name="map-rarity" include={rarity.include}
-                                setInclude={(v) => setRarity({...rarity, include: v})}/>
-        </FilterCard>
-
-        <FilterCard title="Quality" wide>
+        <FilterCard title="Quality"
+                    headerControl={
+                      <ExactOptimizedToggle name="quality-mode"
+                                            optimized={optimizeQuality}
+                                            setOptimized={setOptimizeQuality}/>
+                    }>
           <div className="mm-field-grid">
             <NumberField id="qregular" label="Quality of" value={quality.regular} primary
                          onChange={(v) => setQuality({...quality, regular: v})}/>
@@ -261,15 +290,16 @@ const OptimizedMapMods = () => {
                     onChange={setAnyQuality}/>
         </FilterCard>
 
-        <FilterCard title="Optimization">
-          <Checkbox label="Optimize Quantity (round down to nearest 10, saves a lot of query space)"
-                    value={optimizeQuant}
-                    onChange={setOptimizeQuant}/>
-          <Checkbox label="Optimize Pack Size value" value={optimizePacksize}
-                    onChange={setOptimizePacksize}/>
-          <Checkbox label="Optimize Map Quality value" value={optimizeQuality}
-                    onChange={setOptimizeQuality}/>
+        <FilterCard title="Trade Search">
+          <Checkbox label={<>Only 8-mod maps<TradeAsterisk/></>}
+                    value={tradeEightModOnly}
+                    onChange={setTradeEightModOnly}
+                    disabled={eightModDisabled}/>
+          <Checkbox label={<>Exclude Valdo maps<TradeAsterisk/></>}
+                    value={tradeExcludeValdo}
+                    onChange={setTradeExcludeValdo}/>
         </FilterCard>
+
       </div>
 
       <div className="mm-mod-picker">
