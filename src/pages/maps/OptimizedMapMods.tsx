@@ -264,16 +264,18 @@ const OptimizedMapMods = () => {
             <IncludeExcludeToggle name="corrupted" include={corrupted.include}
                                   setInclude={(v) => setCorrupted({...corrupted, include: v})}/>
           </div>
+          <div className={`mm-state-row`}>
+            <Checkbox label={<>Only 8-mod maps (trade webpage query only)<TradeAsterisk/></>}
+                      value={tradeEightModOnly}
+                      onChange={setTradeEightModOnly}
+                      disabled={eightModDisabled}/>
+          </div>
           <div className={`mm-state-row${unidentified.enabled ? "" : " mm-state-row-off"}`}>
             <Checkbox label="Filter unidentified" value={unidentified.enabled}
                       onChange={() => setUnidentified({...unidentified, enabled: !unidentified.enabled})}/>
             <IncludeExcludeToggle name="unidentified" include={unidentified.include}
                                   setInclude={(v) => setUnidentified({...unidentified, include: v})}/>
           </div>
-          <Checkbox label={<>Only 8-mod maps (trade webpage query only)<TradeAsterisk/></>}
-                    value={tradeEightModOnly}
-                    onChange={setTradeEightModOnly}
-                    disabled={eightModDisabled}/>
         </FilterCard>
       </div>
 
