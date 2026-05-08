@@ -22,11 +22,12 @@ interface NumberFieldProps {
   value: string;
   onChange: (value: string) => void;
   trade?: boolean;
+  primary?: boolean;
 }
 
-const NumberField = ({id, label, value, onChange, trade}: NumberFieldProps) => (
+const NumberField = ({id, label, value, onChange, trade, primary}: NumberFieldProps) => (
   <div className="mm-field">
-    <label htmlFor={id} className="mm-field-label">
+    <label htmlFor={id} className={`mm-field-label${primary ? " mm-field-label-primary" : ""}`}>
       {label}
       {trade && <TradeAsterisk/>}
     </label>
@@ -209,54 +210,7 @@ const OptimizedMapMods = () => {
           <NumberField id="mapdrop" label="More maps of at least" value={mapDropChance} onChange={setMapDropChance}/>
           <NumberField id="itemRarity" label="Item rarity of at least" value={itemRarity} onChange={setItemRarity} trade/>
         </FilterCard>
-
-        <FilterCard title="Quality" wide>
-          <div className="mm-field-grid">
-            <NumberField id="qregular" label="Quality of" value={quality.regular}
-                         onChange={(v) => setQuality({...quality, regular: v})}/>
-            <NumberField id="qpacksize" label="Quality (pack size)" value={quality.packSize}
-                         onChange={(v) => setQuality({...quality, packSize: v})}/>
-            <NumberField id="qrarity" label="Quality (rarity)" value={quality.rarity}
-                         onChange={(v) => setQuality({...quality, rarity: v})}/>
-            <NumberField id="qcurrency" label="Quality (currency)" value={quality.currency}
-                         onChange={(v) => setQuality({...quality, currency: v})}/>
-            <NumberField id="qdiv" label="Quality (divination)" value={quality.divination}
-                         onChange={(v) => setQuality({...quality, divination: v})}/>
-            <NumberField id="qscarab" label="Quality (scarab)" value={quality.scarab}
-                         onChange={(v) => setQuality({...quality, scarab: v})}/>
-          </div>
-          <Checkbox label="Match any of the quality types (disable to match ALL selected qualities)"
-                    value={anyQuality}
-                    onChange={setAnyQuality}/>
-        </FilterCard>
-
-        <FilterCard title="Optimization">
-          <Checkbox label="Optimize Quantity (round down to nearest 10, saves a lot of query space)"
-                    value={optimizeQuant}
-                    onChange={setOptimizeQuant}/>
-          <Checkbox label="Optimize Pack Size value" value={optimizePacksize}
-                    onChange={setOptimizePacksize}/>
-          <Checkbox label="Optimize Map Quality value" value={optimizeQuality}
-                    onChange={setOptimizeQuality}/>
-          <Checkbox label="Show nightmare modifiers" value={displayNightmareMods}
-                    onChange={setDisplayNightmareMods}/>
-          <Checkbox label="Show prefix/suffix badges" value={displayAffixBadges}
-                    onChange={setDisplayAffixBadges}/>
-          <Checkbox label="Group mods by prefix/suffix" value={groupByAffix}
-                    onChange={setGroupByAffix}/>
-        </FilterCard>
-
-        <FilterCard title="Map Rarity">
-          <Checkbox label="Normal Maps" value={rarity.normal}
-                    onChange={(e) => setRarity({...rarity, normal: !!e})}/>
-          <Checkbox label="Magic Maps" value={rarity.magic}
-                    onChange={(e) => setRarity({...rarity, magic: !!e})}/>
-          <Checkbox label="Rare Maps" value={rarity.rare}
-                    onChange={(e) => setRarity({...rarity, rare: !!e})}/>
-          <IncludeExcludeToggle name="map-rarity" include={rarity.include}
-                                setInclude={(v) => setRarity({...rarity, include: v})}/>
-        </FilterCard>
-
+        
         <FilterCard title="Map State">
           <div className={`mm-state-row${corrupted.enabled ? "" : " mm-state-row-off"}`}>
             <Checkbox label="Filter corrupted" value={corrupted.enabled}
@@ -277,12 +231,73 @@ const OptimizedMapMods = () => {
                                   setInclude={(v) => setUnidentified({...unidentified, include: v})}/>
           </div>
         </FilterCard>
+
+        <FilterCard title="Map Rarity">
+          <Checkbox label="Normal Maps" value={rarity.normal}
+                    onChange={(e) => setRarity({...rarity, normal: !!e})}/>
+          <Checkbox label="Magic Maps" value={rarity.magic}
+                    onChange={(e) => setRarity({...rarity, magic: !!e})}/>
+          <Checkbox label="Rare Maps" value={rarity.rare}
+                    onChange={(e) => setRarity({...rarity, rare: !!e})}/>
+          <IncludeExcludeToggle name="map-rarity" include={rarity.include}
+                                setInclude={(v) => setRarity({...rarity, include: v})}/>
+        </FilterCard>
+
+        <FilterCard title="Quality" wide>
+          <div className="mm-field-grid">
+            <NumberField id="qregular" label="Quality of" value={quality.regular} primary
+                         onChange={(v) => setQuality({...quality, regular: v})}/>
+            <NumberField id="qpacksize" label="• Pack size" value={quality.packSize}
+                         onChange={(v) => setQuality({...quality, packSize: v})}/>
+            <NumberField id="qrarity" label="• Rarity" value={quality.rarity}
+                         onChange={(v) => setQuality({...quality, rarity: v})}/>
+            <NumberField id="qcurrency" label="• Currency" value={quality.currency}
+                         onChange={(v) => setQuality({...quality, currency: v})}/>
+            <NumberField id="qdiv" label="• Divination" value={quality.divination}
+                         onChange={(v) => setQuality({...quality, divination: v})}/>
+            <NumberField id="qscarab" label="• Scarab" value={quality.scarab}
+                         onChange={(v) => setQuality({...quality, scarab: v})}/>
+          </div>
+          <Checkbox label="Match any of the quality types (disable to match ALL selected qualities)"
+                    value={anyQuality}
+                    onChange={setAnyQuality}/>
+        </FilterCard>
+
+        <FilterCard title="Optimization">
+          <Checkbox label="Optimize Quantity (round down to nearest 10, saves a lot of query space)"
+                    value={optimizeQuant}
+                    onChange={setOptimizeQuant}/>
+          <Checkbox label="Optimize Pack Size value" value={optimizePacksize}
+                    onChange={setOptimizePacksize}/>
+          <Checkbox label="Optimize Map Quality value" value={optimizeQuality}
+                    onChange={setOptimizeQuality}/>
+        </FilterCard>
       </div>
 
       <div className="mm-mod-picker">
         <div className="mm-mod-column">
           <div className="mm-mod-column-header">
             <span className="mm-mod-column-title mm-mod-column-title-bad">I don't want any of these mods</span>
+            <div className="mm-display-pills">
+              <button type="button"
+                      className={`mm-display-pill mm-display-pill-nightmare${displayNightmareMods ? " mm-display-pill-on" : ""}`}
+                      onClick={() => setDisplayNightmareMods(!displayNightmareMods)}
+                      aria-pressed={displayNightmareMods}>
+                Nightmare
+              </button>
+              <button type="button"
+                      className={`mm-display-pill mm-display-pill-affix${displayAffixBadges ? " mm-display-pill-on" : ""}`}
+                      onClick={() => setDisplayAffixBadges(!displayAffixBadges)}
+                      aria-pressed={displayAffixBadges}>
+                P/S badges
+              </button>
+              <button type="button"
+                      className={`mm-display-pill mm-display-pill-group${groupByAffix ? " mm-display-pill-on" : ""}`}
+                      onClick={() => setGroupByAffix(!groupByAffix)}
+                      aria-pressed={groupByAffix}>
+                Group by affix
+              </button>
+            </div>
           </div>
           <SelectableTokenList
             sortFn={(a, b) => b.options.scary - a.options.scary}
@@ -298,15 +313,17 @@ const OptimizedMapMods = () => {
         <div className="mm-mod-column">
           <div className="mm-mod-column-header">
             <span className="mm-mod-column-title mm-mod-column-title-good">I want these mods</span>
-            <div className="radio-button-modgroup">
-              <input type="radio" className="radio-button-map" id="mods-any" name="mods" value="any"
-                     checked={!modGrouping}
-                     onChange={v => setModGrouping(!v.target.checked)}/>
-              <label htmlFor="mods-any" className="radio-button-map radio-first-ele">I want <b>any</b> of the
-                modifiers</label>
-              <input type="radio" id="mods-all" name="mods" value="all" checked={modGrouping}
-                     onChange={v => setModGrouping(v.target.checked)}/>
-              <label htmlFor="mods-all" className="radio-button-map">I want <b>all</b> of the modifiers</label>
+            <div className="mm-mod-grouping">
+              <span className="mm-mod-grouping-label">Match</span>
+              <div className="radio-button-modgroup">
+                <input type="radio" className="radio-button-map" id="mods-any" name="mods" value="any"
+                       checked={!modGrouping}
+                       onChange={v => setModGrouping(!v.target.checked)}/>
+                <label htmlFor="mods-any" className="radio-button-map radio-first-ele">Any</label>
+                <input type="radio" id="mods-all" name="mods" value="all" checked={modGrouping}
+                       onChange={v => setModGrouping(v.target.checked)}/>
+                <label htmlFor="mods-all" className="radio-button-map">All</label>
+              </div>
             </div>
           </div>
           <SelectableTokenList

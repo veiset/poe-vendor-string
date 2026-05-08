@@ -394,7 +394,7 @@ export const defaultSettings: SavedSettings = {
     optimizeQuant: false,
     optimizePacksize: false,
     optimizeQuality: false,
-    displayNightmareMods: false,
+    displayNightmareMods: true,
     displayAffixBadges: false,
     groupByAffix: false,
     tradeEightModOnly: false,
