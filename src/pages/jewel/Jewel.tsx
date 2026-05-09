@@ -8,6 +8,8 @@ import {Checkbox} from "../vendor/Vendor";
 import {jewelAbyss, jewelRegular} from "../../generated/GeneratedJewel";
 import JewelMods from "./JewelMods";
 import {generateJewelRegex} from "./JewelOutput";
+import FilterCard from "../../components/FilterCard/FilterCard";
+import "./Jewel.css";
 
 
 const Jewel = () => {
@@ -55,39 +57,47 @@ const Jewel = () => {
         }}
       />
       <div className="break"/>
-      <div className="full-size generic-top-element">
-        <Checkbox label="Magic Jewels only" value={magicOnly}
-                  onChange={setMagicOnly}/>
-        {magicOnly
-          ? <>
-            <Checkbox label="Require that both prefix and suffix matches" value={matchBothPrefixAndSuffix}
-                      onChange={setMatchBothPrefixAndSuffix}/>
-            <Checkbox label="Match open prefix or open suffix" value={matchOpenPrefixSuffix}
-                      onChange={setMatchOpenPrefixSuffix}/>
-          </>
-          : <Checkbox label="Should match all selected mods" value={allMatch}
-                      onChange={setAllMatch}/>
-        }
-        <div className="radio-button-modgroup">
-          <input type="radio" className="radio-button-map" id="jewel-regular" name="regular jewel"
-                 defaultChecked={!abyssJewel}
-                 checked={!abyssJewel}
-                 onChange={v => setAbyssJewel(false)}/>
-          <label htmlFor="jewel-regular" className="radio-button-map radio-first-ele">Regular Jewel</label>
-          <input type="radio" id="jewel-abyss" name="abyss jewel" defaultChecked={abyssJewel}
-                 checked={abyssJewel}
-                 onChange={v => setAbyssJewel(true)}/>
-          <label htmlFor="jewel-abyss" className="radio-button-map">Abyss Jewel</label>
-        </div>
+      <div className="filter-card-grid">
+        <FilterCard title="Settings" wide>
+          <div className="jewel-type-row">
+            <span className="jewel-type-label">Jewel type</span>
+            <div className="radio-button-modgroup">
+              <input type="radio" className="radio-button-map" id="jewel-regular" name="regular jewel"
+                     defaultChecked={!abyssJewel}
+                     checked={!abyssJewel}
+                     onChange={v => setAbyssJewel(false)}/>
+              <label htmlFor="jewel-regular" className="radio-button-map radio-first-ele">Regular Jewel</label>
+              <input type="radio" id="jewel-abyss" name="abyss jewel" defaultChecked={abyssJewel}
+                     checked={abyssJewel}
+                     onChange={v => setAbyssJewel(true)}/>
+              <label htmlFor="jewel-abyss" className="radio-button-map">Abyss Jewel</label>
+            </div>
+          </div>
+          <div className="jewel-card-divider"/>
+          <Checkbox label="Magic Jewels only" value={magicOnly}
+                    onChange={setMagicOnly}/>
+          {magicOnly
+            ? <>
+              <Checkbox label="Require that both prefix and suffix matches" value={matchBothPrefixAndSuffix}
+                        onChange={setMatchBothPrefixAndSuffix}/>
+              <Checkbox label="Match open prefix or open suffix" value={matchOpenPrefixSuffix}
+                        onChange={setMatchOpenPrefixSuffix}/>
+            </>
+            : <Checkbox label="Should match all selected mods" value={allMatch}
+                        onChange={setAllMatch}/>
+          }
+          {abyssJewel && magicOnly &&
+            <p className="jewel-warn">Warning: Only max modifier tier (T1) is matched when rolling magical abyssal jewels.</p>
+          }
+        </FilterCard>
       </div>
-      {abyssJewel && magicOnly ?
-        <p className="warning-soft">Warning: Only max modifier tier (T1) is matched when rolling magical abyssal
-          jewels.</p> : <></>}
-      <div className="break"/>
-      {abyssJewel
-        ? <JewelMods mods={abyssMods} selected={selectedAbyss} setSelected={setSelectedAbyss}/>
-        : <JewelMods mods={regularMods} selected={selectedRegular} setSelected={setSelectedRegular}/>
-      }
+
+      <div className="jewel-mod-picker">
+        {abyssJewel
+          ? <JewelMods mods={abyssMods} selected={selectedAbyss} setSelected={setSelectedAbyss}/>
+          : <JewelMods mods={regularMods} selected={selectedRegular} setSelected={setSelectedRegular}/>
+        }
+      </div>
     </>
   );
 }

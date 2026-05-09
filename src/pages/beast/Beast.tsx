@@ -10,6 +10,7 @@ import {Checkbox} from "../vendor/Vendor";
 import {loadSettings, saveSettings} from "../../utils/LocalStorage";
 import {defaultSettings} from "../../utils/SavedSettings";
 import {ProfileContext} from "../../components/profile/ProfileContext";
+import FilterCard from "../../components/FilterCard/FilterCard";
 
 export interface PoeNinjaBeast {
   name: string
@@ -132,33 +133,28 @@ const Beast = () => {
         setMenagerieLimit(defaultSettings.beast.menagerieLimit);
       }}/>
       <p className="beast-price-info">Using price data from the {leagueName} League. Last updated: {lastUpdated}</p>
-      <div className="row beast-options">
-        <div>
-          <span className="expedition-option-text">Min chaos value:</span>
-          <input type="search" className="modifier-quantity-box" id="pack-size" name="search-mod" value={minChaosValue}
-                 onChange={v => {
-                   const val = v.target.value;
-                   const value = val;
-                   setMinChaosValue(value);
-                 }}/>
-
-        </div>
-        <div>
-          <span className="expedition-option-text">Max chaos value:</span>
-          <input type="search" className="modifier-quantity-box" id="pack-size" name="search-mod" value={maxChaosValue}
-                 onChange={v => {
-                   const val = v.target.value;
-                   const value = val;
-                   setMaxChaosValue(value);
-                 }}/>
-
-        </div>
-      </div>
-      <div className="row beast-options">
-        <Checkbox label="Include harvest beasts" value={includeHarvest} onChange={setIncludeHarvest}/>
-        <Checkbox label="Use menagerie regex character limit (100)" value={menagerieLimit}
-                  onChange={setMenagerieLimit}/>
-        <Checkbox label="Show red beasts only" value={redBeastsOnly} onChange={setRedBeastsOnly}/>
+      <div className="filter-card-grid">
+        <FilterCard title="Settings" wide>
+          <div className="beast-fields">
+            <div className="beast-field">
+              <label htmlFor="beast-min">Min chaos value</label>
+              <input type="search" className="beast-field-input" id="beast-min" name="search-mod"
+                     value={minChaosValue}
+                     onChange={v => setMinChaosValue(v.target.value)}/>
+            </div>
+            <div className="beast-field">
+              <label htmlFor="beast-max">Max chaos value</label>
+              <input type="search" className="beast-field-input" id="beast-max" name="search-mod"
+                     value={maxChaosValue}
+                     onChange={v => setMaxChaosValue(v.target.value)}/>
+            </div>
+          </div>
+          <div className="beast-card-divider"/>
+          <Checkbox label="Include harvest beasts" value={includeHarvest} onChange={setIncludeHarvest}/>
+          <Checkbox label="Use menagerie regex character limit (100)" value={menagerieLimit}
+                    onChange={setMenagerieLimit}/>
+          <Checkbox label="Show red beasts only" value={redBeastsOnly} onChange={setRedBeastsOnly}/>
+        </FilterCard>
       </div>
       <div className="row">
         <Collapsable header={"Price data"} isOpenByDefault={true}>

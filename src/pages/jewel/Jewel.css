@@ -1,31 +1,34 @@
-.flasks-field {
+.jewel-type-row {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 4px 0;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding: 4px 0 8px 0;
 }
 
-.flasks-card-divider {
+.jewel-type-label {
+    font-size: 14px;
+    color: var(--color-text);
+}
+
+.jewel-card-divider {
     height: 1px;
     background-color: var(--color-border-soft);
     margin: 8px 0;
 }
 
-.flasks-field label {
-    font-size: 14px;
-    color: var(--color-text);
-}
-
-.flasks-field-input {
-    width: 80px;
-    padding: 6px 10px;
+.jewel-warn {
+    margin: 10px 0 0 0;
+    padding: 8px 12px;
     font-size: 13px;
-    font-family: monospace;
-    text-align: center;
-    flex-shrink: 0;
+    color: var(--color-text-warn);
+    background-color: rgba(239, 160, 90, 0.08);
+    border-left: 3px solid var(--color-text-warn);
+    border-radius: 3px;
+    line-height: 1.4;
 }
 
-.flasks-mod-picker {
+.jewel-mod-picker {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
     gap: 12px;
@@ -34,7 +37,7 @@
     box-sizing: border-box;
 }
 
-.flasks-mod-column {
+.jewel-mod-column {
     background-color: var(--color-card-bg);
     border: 1px solid var(--color-border-strong);
     border-radius: 4px;
@@ -42,9 +45,10 @@
     display: flex;
     flex-direction: column;
     min-height: 480px;
+    min-width: 0;
 }
 
-.flasks-mod-column-header {
+.jewel-mod-column-header {
     display: flex;
     align-items: center;
     padding: 0 4px 12px 4px;
@@ -54,28 +58,24 @@
     box-sizing: border-box;
 }
 
-.flasks-mod-column-title {
+.jewel-mod-column-title {
     font-size: 16px;
     font-weight: 600;
     color: var(--color-deep-text);
     letter-spacing: -0.01em;
 }
 
-.flasks-mod-column-toggle {
-    padding: 0 4px 8px 4px;
-}
-
-.flasks-mod-column .map-search-bar {
+.jewel-mod-column .map-search-bar {
     padding: 0;
 }
 
-.flasks-mod-column .modifier-search-box {
+.jewel-mod-column .modifier-search-box {
     width: 100%;
     margin: 0 0 8px 0;
     box-sizing: border-box;
 }
 
-.flasks-mod-column .mod-list {
+.jewel-mod-column .mod-list {
     cursor: pointer;
     padding: 4px;
     overflow-y: auto;
