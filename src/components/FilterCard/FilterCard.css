@@ -1,11 +1,17 @@
 .filter-card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
     gap: 12px;
     padding: 14px 12px 6px 12px;
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
+}
+
+@media (max-width: 1180px) {
+    .filter-card-grid {
+        grid-template-columns: repeat(auto-fit, minmax(374px, 1fr));
+    }
 }
 
 .filter-card {

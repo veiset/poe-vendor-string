@@ -1,0 +1,53 @@
+.pill-toggle {
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--color-border-soft);
+    background-color: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pill-toggle:hover {
+    border-color: var(--color-border-strong);
+    color: var(--color-text);
+}
+
+.pill-toggle-nightmare.pill-toggle-on {
+    background-color: #a78bfa;
+    border-color: #a78bfa;
+    color: #1a0d2e;
+    font-weight: 600;
+    box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.35), 0 0 8px rgba(167, 139, 250, 0.4);
+}
+
+.pill-toggle-nightmare.pill-toggle-on:hover {
+    background-color: #b89bfb;
+}
+
+.pill-toggle-affix.pill-toggle-on {
+    background-color: var(--color-import);
+    border-color: var(--color-import);
+    color: #0a0d12;
+    font-weight: 600;
+    box-shadow: 0 0 0 1px rgba(107, 142, 175, 0.35), 0 0 8px rgba(107, 142, 175, 0.4);
+}
+
+.pill-toggle-affix.pill-toggle-on:hover {
+    background-color: #819db8;
+}
+
+.pill-toggle-group.pill-toggle-on {
+    background-color: var(--color-text-warn);
+    border-color: var(--color-text-warn);
+    color: #2a1605;
+    font-weight: 600;
+    box-shadow: 0 0 0 1px rgba(239, 160, 90, 0.35), 0 0 8px rgba(239, 160, 90, 0.4);
+}
+
+.pill-toggle-group.pill-toggle-on:hover {
+    background-color: #f3b576;
+}
