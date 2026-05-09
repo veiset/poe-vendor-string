@@ -199,8 +199,6 @@ const OptimizedMapMods = () => {
         </div>
       )}
       <div className="break"/>
-      <p className="info-text">New generation method. Please report any bugs, especially in the newly added
-        languages. <br/> English now has nightmare mods, will keep updating.</p>
       <p className="trade-info-text">* Fields marked with an asterisk are compatible with the Trade search.</p>
 
       <div className="filter-card-grid">
