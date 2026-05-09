@@ -134,7 +134,7 @@ const Beast = () => {
       }}/>
       <p className="beast-price-info">Using price data from the {leagueName} League. Last updated: {lastUpdated}</p>
       <div className="filter-card-grid">
-        <FilterCard title="Settings" wide>
+        <FilterCard title="Settings">
           <div className="beast-fields">
             <div className="beast-field">
               <label htmlFor="beast-min">Min chaos value</label>

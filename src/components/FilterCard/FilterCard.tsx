@@ -5,18 +5,21 @@ export interface FilterCardProps {
   title: string;
   children: React.ReactNode;
   disabled?: boolean;
-  wide?: boolean;
   className?: string;
+  headerControl?: React.ReactNode;
 }
 
 const FilterCard = (props: FilterCardProps) => {
-  const {title, children, disabled, wide, className} = props;
+  const {title, children, disabled, className, headerControl} = props;
   const classes = ["filter-card"];
-  if (wide) classes.push("filter-card-wide");
   if (className) classes.push(className);
   return (
     <section className={classes.join(" ")} data-disabled={disabled ? "true" : "false"}>
-      <header className="filter-card-title">{title}</header>
+      <header className="filter-card-title">
+        <span className="filter-card-title-text">{title}</span>
+        <span className="filter-card-title-divider"/>
+        {headerControl && <div className="filter-card-title-control">{headerControl}</div>}
+      </header>
       <div className="filter-card-body">{children}</div>
     </section>
   );

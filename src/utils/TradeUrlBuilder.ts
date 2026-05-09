@@ -23,6 +23,7 @@ export interface TradeSettings {
   itemRarity: string;
   regex: string;
   eightModOnly: boolean;
+  excludeValdo: boolean;
   corrupted: {
     enabled: boolean;
     include: boolean;
@@ -54,6 +55,7 @@ interface TradeQuery {
         disabled: boolean;
         filters: {
           corrupted?: { option: "true" | "false" };
+          foil_variation?: { option: "none" };
         };
       };
     };
@@ -172,11 +174,14 @@ function buildTradeQuery(settings: TradeSettings): TradeQuery {
     };
   }
 
-  if (settings.corrupted.enabled) {
+  if (settings.corrupted.enabled || settings.excludeValdo) {
     query.query.filters.misc_filters = {
       disabled: false,
       filters: {
-        corrupted: { option: settings.corrupted.include ? "true" : "false" },
+        ...(settings.corrupted.enabled && {
+          corrupted: { option: settings.corrupted.include ? "true" : "false" },
+        }),
+        ...(settings.excludeValdo && { foil_variation: { option: "none" } }),
       },
     };
   }

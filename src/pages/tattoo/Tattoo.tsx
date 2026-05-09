@@ -121,7 +121,7 @@ const Tattoo = () => {
             }} />
             <p className="tattoo-price-info">Using price data from the {leagueName} League. Last updated: {lastUpdated}</p>
             <div className="filter-card-grid">
-                <FilterCard title="Settings" wide>
+                <FilterCard title="Settings">
                     <div className="tattoo-fields">
                         <div className="tattoo-field">
                             <label htmlFor="tattoo-min">Min chaos value</label>

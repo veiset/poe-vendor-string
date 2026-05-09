@@ -58,7 +58,7 @@ const Jewel = () => {
       />
       <div className="break"/>
       <div className="filter-card-grid">
-        <FilterCard title="Settings" wide>
+        <FilterCard title="Settings">
           <div className="jewel-type-row">
             <span className="jewel-type-label">Jewel type</span>
             <div className="radio-button-modgroup">

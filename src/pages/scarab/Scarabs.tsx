@@ -89,7 +89,7 @@ const Scarabs = () => {
       <div className="break"/>
       <p className="scarab-price-info">Using price data from the {leagueName} League. Last updated: {lastUpdated}</p>
       <div className="filter-card-grid">
-        <FilterCard title="Auto select" wide>
+        <FilterCard title="Auto select">
           <div className="scarab-options-row">
             <button className="scarab-action-button" onClick={() => {
               const itemsToAdd = scarabList
