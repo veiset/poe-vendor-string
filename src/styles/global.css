@@ -169,6 +169,88 @@ input[type="radio"]:checked::after {
     background-color: var(--color-accent);
 }
 
+.radio-button-modgroup {
+    display: inline-flex;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border-soft);
+    border-radius: 4px;
+    padding: 3px;
+    gap: 2px;
+    font-size: 13px;
+}
+
+.radio-button-modgroup-sm {
+    padding: 2px;
+    font-size: 11px;
+}
+
+.radio-button-modgroup-sm label {
+    padding: 3px 8px !important;
+    letter-spacing: 0.04em;
+    font-weight: 500 !important;
+}
+
+.radio-button-modgroup input[type="radio"] {
+    display: none;
+}
+
+.radio-button-modgroup label {
+    padding: 8px 14px;
+    border-radius: 3px;
+    cursor: pointer;
+    color: var(--color-text);
+    user-select: none;
+    font-weight: 500;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.radio-button-modgroup label b {
+    color: var(--color-text);
+    font-weight: 700;
+}
+
+.radio-button-modgroup label:hover {
+    background-color: var(--color-area-hover);
+}
+
+.radio-button-modgroup label.radio-first-ele {
+    padding-right: 14px;
+}
+
+.radio-button-modgroup input[type="radio"]:checked + label {
+    background-color: var(--color-accent);
+}
+
+.radio-button-map {
+    cursor: pointer;
+}
+
+.radio-first-ele {
+    padding-right: 10px;
+}
+
+@media (max-width: 700px) {
+    .radio-button-modgroup {
+        font-size: 12px;
+        padding: 2px;
+    }
+
+    .radio-button-modgroup label {
+        padding: 6px 10px;
+    }
+
+    .radio-button-modgroup label.radio-first-ele {
+        padding-right: 10px;
+    }
+}
+
+@media (max-width: 425px) {
+    .radio-button-modgroup {
+        align-self: stretch;
+        justify-content: center;
+    }
+}
+
 input[type="number"], input[type="search"], input[type="text"] {
     background-color: #ffffff;
     color: #000000;

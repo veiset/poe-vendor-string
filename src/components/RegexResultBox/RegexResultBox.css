@@ -21,10 +21,9 @@
 
 .rrb-result {
     font-family: ui-monospace, "SF Mono", Menlo, monospace;
-    flex-shrink: 10;
-    flex-grow: 1;
+    flex: 1 1 0;
+    min-width: 0;
     text-overflow: clip;
-    min-width: 280px;
 }
 
 .rrb-result-text {

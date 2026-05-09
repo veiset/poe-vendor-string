@@ -3,7 +3,6 @@ import {ProfileContext} from "../../components/profile/ProfileContext";
 import {loadSettings, saveSettings} from "../../utils/LocalStorage";
 import {HeaderWithLanguage} from "../../components/Header";
 import SelectableTokenList from "../../components/SelectableTokenList/SelectableTokenList";
-import {getGradientColor} from "../../utils/ColorGradient";
 import {defaultSettings, MapSettings} from "../../utils/SavedSettings";
 import {Checkbox} from "../vendor/Vendor";
 import {generateMapModRegex} from "./OptimizedMapOutput";
@@ -15,51 +14,10 @@ import {openTradeSearch, TradeSettings} from "../../utils/TradeUrlBuilder";
 import {MapModsTokenOption, Token} from "../../generated/mapmods/GeneratedTypes";
 import FilterCard from "../../components/FilterCard/FilterCard";
 import IncludeExcludeToggle from "../../components/IncludeExcludeToggle/IncludeExcludeToggle";
-
-interface NumberFieldProps {
-  id: string;
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  trade?: boolean;
-  primary?: boolean;
-}
-
-const NumberField = ({id, label, value, onChange, trade, primary}: NumberFieldProps) => (
-  <div className="mm-field">
-    <label htmlFor={id} className={`mm-field-label${primary ? " mm-field-label-primary" : ""}`}>
-      {label}
-      {trade && <TradeAsterisk/>}
-    </label>
-    <input
-      type="search"
-      className="mm-field-input"
-      id={id}
-      name={id}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-    />
-  </div>
-);
-
-interface ExactOptimizedToggleProps {
-  name: string;
-  optimized: boolean;
-  setOptimized: (v: boolean) => void;
-}
-
-const ExactOptimizedToggle = ({name, optimized, setOptimized}: ExactOptimizedToggleProps) => (
-  <div className="radio-button-modgroup radio-button-modgroup-sm">
-    <input type="radio" id={`${name}-exact`} name={name} value="exact"
-           checked={!optimized}
-           onChange={() => setOptimized(false)}/>
-    <label htmlFor={`${name}-exact`} className="radio-button-map">Exact</label>
-    <input type="radio" id={`${name}-optimized`} name={name} value="optimized"
-           checked={optimized}
-           onChange={() => setOptimized(true)}/>
-    <label htmlFor={`${name}-optimized`} className="radio-button-map">Optimized</label>
-  </div>
-);
+import NumberField from "../../components/NumberField/NumberField";
+import PillToggle from "../../components/PillToggle/PillToggle";
+import ExactOptimizedToggle from "../../components/ExactOptimizedToggle/ExactOptimizedToggle";
+import {mapModTokenColor} from "../../utils/MapModColor";
 
 const OptimizedMapMods = () => {
   const {globalProfile} = useContext(ProfileContext);
@@ -169,13 +127,6 @@ const OptimizedMapMods = () => {
           ? {key: "prefix", label: "Prefix"}
           : {key: "suffix", label: "Suffix"}
     : undefined;
-
-  const colorFun = (isSelected: boolean, token: any) => {
-    if (isSelected) return "#ffffff";
-    if (token.options.scary < 100) return "#ffffff";
-    if (token.options.scary > 1000) return "#eab7fc";
-    return getGradientColor("#FC9090", "#ffffff", (1100 - token.options.scary) / 1100);
-  };
 
   const visibleTokens = regex.tokens.filter((e) => displayNightmareMods ? true : !e.options.nm);
 
@@ -307,29 +258,20 @@ const OptimizedMapMods = () => {
           <div className="mm-mod-column-header">
             <span className="mm-mod-column-title mm-mod-column-title-bad">I don't want any of these mods</span>
             <div className="mm-display-pills">
-              <button type="button"
-                      className={`mm-display-pill mm-display-pill-nightmare${displayNightmareMods ? " mm-display-pill-on" : ""}`}
-                      onClick={() => setDisplayNightmareMods(!displayNightmareMods)}
-                      aria-pressed={displayNightmareMods}>
-                Nightmare
-              </button>
-              <button type="button"
-                      className={`mm-display-pill mm-display-pill-affix${displayAffixBadges ? " mm-display-pill-on" : ""}`}
-                      onClick={() => setDisplayAffixBadges(!displayAffixBadges)}
-                      aria-pressed={displayAffixBadges}>
-                P/S badges
-              </button>
-              <button type="button"
-                      className={`mm-display-pill mm-display-pill-group${groupByAffix ? " mm-display-pill-on" : ""}`}
-                      onClick={() => setGroupByAffix(!groupByAffix)}
-                      aria-pressed={groupByAffix}>
-                Group by affix
-              </button>
+              <PillToggle variant="nightmare" label="Nightmare"
+                          active={displayNightmareMods}
+                          onToggle={() => setDisplayNightmareMods(!displayNightmareMods)}/>
+              <PillToggle variant="affix" label="P/S badges"
+                          active={displayAffixBadges}
+                          onToggle={() => setDisplayAffixBadges(!displayAffixBadges)}/>
+              <PillToggle variant="group" label="Group by affix"
+                          active={groupByAffix}
+                          onToggle={() => setGroupByAffix(!groupByAffix)}/>
             </div>
           </div>
           <SelectableTokenList
             sortFn={(a, b) => b.options.scary - a.options.scary}
-            colorFun={colorFun}
+            colorFun={mapModTokenColor}
             elements={visibleTokens}
             setSelected={setSelectedBadIds}
             selected={selectedBadIds}
@@ -356,7 +298,7 @@ const OptimizedMapMods = () => {
           </div>
           <SelectableTokenList
             sortFn={(a, b) => a.options.scary - b.options.scary}
-            colorFun={colorFun}
+            colorFun={mapModTokenColor}
             elements={visibleTokens}
             setSelected={setSelectedGoodIds}
             selected={selectedGoodIds}
