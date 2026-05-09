@@ -18,6 +18,7 @@ import NumberField from "../../components/NumberField/NumberField";
 import PillToggle from "../../components/PillToggle/PillToggle";
 import ExactOptimizedToggle from "../../components/ExactOptimizedToggle/ExactOptimizedToggle";
 import {mapModTokenColor} from "../../utils/MapModColor";
+import {generatePriceNoteRegex, isValidPriceNoteMax, isValidPriceNoteMin} from "../../utils/regex/PriceNoteRegex";
 
 const OptimizedMapMods = () => {
   const {globalProfile} = useContext(ProfileContext);
@@ -46,6 +47,21 @@ const OptimizedMapMods = () => {
   const [tradeExcludeValdo, setTradeExcludeValdo] = useState(profile.map.tradeExcludeValdo);
   const [tradeExcludeShaperElder, setTradeExcludeShaperElder] = useState(profile.map.tradeExcludeShaperElder);
   const eightModDisabled = corrupted.enabled && !corrupted.include;
+
+  const [priceFilterMin, setPriceFilterMin] = useState("");
+  const [priceFilterMax, setPriceFilterMax] = useState("");
+  const [priceFilterCurrency, setPriceFilterCurrency] = useState("");
+  const [priceFilterOptimize, setPriceFilterOptimize] = useState(false);
+
+  const priceFilterTerm = generatePriceNoteRegex({
+    currency: priceFilterCurrency,
+    min: priceFilterMin,
+    max: priceFilterMax,
+    optimize: priceFilterOptimize,
+  });
+  const setAlphabeticPriceFilterCurrency = (value: string) => {
+    if (/^[A-Za-z]*$/.test(value)) setPriceFilterCurrency(value);
+  };
 
   const [customTextStr, setCustomTextStr] = useState(profile.map.customText.value);
   const [enableCustomText, setEnableCustomText] = useState(profile.map.customText.enabled);
@@ -120,6 +136,15 @@ const OptimizedMapMods = () => {
     setResult(generateMapModRegex(settings, regex, profile.language));
   }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly, tradeExcludeValdo, tradeExcludeShaperElder]);
 
+  const resultWithPriceFilter = [result, priceFilterTerm].filter((s) => s.length > 0).join(" ");
+
+  const priceMinInvalid = !isValidPriceNoteMin(priceFilterMin);
+  const priceMaxInvalid = !isValidPriceNoteMax(priceFilterMax);
+  const priceRangeInvalid = !priceMinInvalid && !priceMaxInvalid
+    && priceFilterMin.trim().length > 0
+    && priceFilterMax.trim().length > 0
+    && Number.parseInt(priceFilterMin, 10) > Number.parseInt(priceFilterMax, 10);
+
   const renderAffixTag = displayAffixBadges
     ? (token: Token<MapModsTokenOption>) => (
         <span className={`mod-affix-tag mod-affix-tag--${token.options.prefix ? "prefix" : "suffix"}`}>
@@ -141,7 +166,7 @@ const OptimizedMapMods = () => {
     <>
       <HeaderWithLanguage text={"Optimized Map Modifiers"}/>
       <RegexResultBox
-        result={result}
+        result={resultWithPriceFilter}
         warning={undefined}
         enableBug={true}
         customText={customTextStr}
@@ -173,6 +198,10 @@ const OptimizedMapMods = () => {
           setTradeEightModOnly(defaultSettings.map.tradeEightModOnly);
           setTradeExcludeValdo(defaultSettings.map.tradeExcludeValdo);
           setTradeExcludeShaperElder(defaultSettings.map.tradeExcludeShaperElder);
+          setPriceFilterMin("");
+          setPriceFilterMax("");
+          setPriceFilterCurrency("");
+          setPriceFilterOptimize(false);
         }}
       />
       {tradeMessage && (
@@ -247,6 +276,26 @@ const OptimizedMapMods = () => {
           <Checkbox label="Match any of the quality types (disable to match ALL selected qualities)"
                     value={anyQuality}
                     onChange={setAnyQuality}/>
+        </FilterCard>
+
+        <FilterCard title="Price"
+                    headerControl={
+                      <ExactOptimizedToggle name="price-mode"
+                                            optimized={priceFilterOptimize}
+                                            setOptimized={setPriceFilterOptimize}/>
+                    }>
+          <NumberField id="price-min" label="Min" value={priceFilterMin} onChange={setPriceFilterMin}/>
+          <NumberField id="price-max" label="Max" value={priceFilterMax} onChange={setPriceFilterMax}/>
+          <NumberField id="price-currency" label="Currency" value={priceFilterCurrency} onChange={setAlphabeticPriceFilterCurrency}/>
+          {priceMinInvalid &&
+            <span className="map-price-warning">Min value is invalid or out of range (0..9999)</span>
+          }
+          {priceMaxInvalid &&
+            <span className="map-price-warning">Max value is invalid or out of range (0..9999)</span>
+          }
+          {priceRangeInvalid &&
+            <span className="map-price-warning">Min must be less than or equal to Max</span>
+          }
         </FilterCard>
 
         <FilterCard title="Trade Search">
