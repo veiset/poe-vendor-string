@@ -1,5 +1,6 @@
 import {
   generatePriceNoteRegex,
+  isValidPriceNoteCurrencyInput,
   isValidPriceNoteMax,
   isValidPriceNoteMin,
   PriceNoteOptions,
@@ -324,6 +325,16 @@ describe("generatePriceNoteRegex - invalid input", () => {
     ["both min and max space-only", {min: "  ", max: "  "}],
   ])("%s returns empty string", (_name, options) => {
     expectPriceNote(options, "");
+  });
+});
+
+describe("isValidPriceNoteCurrencyInput", () => {
+  test.each(["", "chaos", "Divine", "EXALTED"])("valid %p", (raw) => {
+    expect(isValidPriceNoteCurrencyInput(raw)).toBe(true);
+  });
+
+  test.each(["chaos2", "ancient orb", "a.*+?", "1"])("invalid %p", (raw) => {
+    expect(isValidPriceNoteCurrencyInput(raw)).toBe(false);
   });
 });
 

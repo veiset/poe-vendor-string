@@ -1,9 +1,3 @@
-// Builds a `"Note:.*? <number> <currency>"` regex that matches every price
-// in [min, max] and nothing else. With both min and max set, use
-// priceRangeRegex; with max empty, use minOnlyPriceRegex;
-// min empty / 0 uses maxOnlyPriceRegex (the legacy X9/X99/X999 family).
-// Currency must match `[A-Za-z]+`; PoE trade entries do not use 0 or prices with a leading 0.
-
 export interface PriceNoteOptions {
   currency: string;
   min: string;
@@ -13,28 +7,26 @@ export interface PriceNoteOptions {
 
 const PRICE_AMOUNT_RE = /^\d+$/;
 const CURRENCY_RE = /^[A-Za-z]+$/;
+const PARTIAL_CURRENCY_RE = /^[A-Za-z]*$/;
+
+// Round a price bound by keeping the leading digit and filling the rest:
+// fillDigit=9 rounds an upper bound up (42 -> 49, 345 -> 399).
+// fillDigit=0 rounds a lower bound down (23 -> 20, 234 -> 200).
+function roundToLeadingDigit(n: number, fillDigit: 0 | 9): number {
+  const digits = String(n).length;
+  if (digits === 1) return n;
+  const magnitude = Math.pow(10, digits - 1);
+  const leading = Math.floor(n / magnitude);
+  return fillDigit === 9 ? leading * magnitude + (magnitude - 1) : leading * magnitude;
+}
 
 function optimizedMax(rawMax: number, optimize: boolean): number {
-  if (!optimize) return rawMax;
-  const digits = String(rawMax).length;
-  if (digits === 1) return rawMax;
-  // Use the leading digit, replace the rest with 9s.
-  // 42 -> 49, 345 -> 399, 1234 -> 1999. X9/X99/X999 are exact.
-  const magnitude = Math.pow(10, digits - 1);
-  const d0 = Math.floor(rawMax / magnitude);
-  return d0 * magnitude + (magnitude - 1);
+  return optimize ? roundToLeadingDigit(rawMax, 9) : rawMax;
 }
 
 function optimizedMin(rawMin: number, optimize: boolean): number {
-  if (!optimize) return rawMin;
-  if (rawMin === 0) return 0;
-  const digits = String(rawMin).length;
-  if (digits === 1) return rawMin;
-  // Mirror of optimizedMax: use the leading digit, replace the rest with 0s.
-  // 23 -> 20, 234 -> 200, 2345 -> 2000. X0/X00/X000 are exact.
-  const magnitude = Math.pow(10, digits - 1);
-  const d0 = Math.floor(rawMin / magnitude);
-  return d0 * magnitude;
+  if (!optimize || rawMin === 0) return rawMin;
+  return roundToLeadingDigit(rawMin, 0);
 }
 
 export function generatePriceNoteRegex(options: PriceNoteOptions): string {
@@ -78,6 +70,11 @@ function simplifySmallRanges(s: string): string {
     if (span === 1) return `[${a}${b}]`;
     return m;
   });
+}
+
+// Allows the empty string so partial typing does not lock the field.
+export function isValidPriceNoteCurrencyInput(raw: string): boolean {
+  return PARTIAL_CURRENCY_RE.test(raw);
 }
 
 export function isValidPriceNoteMax(raw: string): boolean {
