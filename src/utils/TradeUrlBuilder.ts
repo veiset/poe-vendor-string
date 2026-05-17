@@ -24,6 +24,7 @@ export interface TradeSettings {
   regex: string;
   eightModOnly: boolean;
   excludeValdo: boolean;
+  excludeShaperElder: boolean;
   corrupted: {
     enabled: boolean;
     include: boolean;
@@ -154,6 +155,13 @@ function buildTradeQuery(settings: TradeSettings): TradeQuery {
     stats.push({
       type: "and",
       filters: [{ id: "pseudo.pseudo_number_of_affix_mods", value: { min: 8 } }],
+    });
+  }
+
+  if (settings.excludeShaperElder) {
+    stats.push({
+      type: "not",
+      filters: [{ id: "implicit.stat_1792283443" }],
     });
   }
 

@@ -209,6 +209,7 @@ export interface MapSettings {
   groupByAffix: boolean;
   tradeEightModOnly: boolean;
   tradeExcludeValdo: boolean;
+  tradeExcludeShaperElder: boolean;
   rarity: {
     normal: boolean;
     magic: boolean;
@@ -411,6 +412,7 @@ export const defaultSettings: SavedSettings = {
     groupByAffix: false,
     tradeEightModOnly: false,
     tradeExcludeValdo: true,
+    tradeExcludeShaperElder: true,
     rarity: {
       normal: true,
       magic: true,

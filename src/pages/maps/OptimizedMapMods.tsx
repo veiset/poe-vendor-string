@@ -44,6 +44,7 @@ const OptimizedMapMods = () => {
   const [groupByAffix, setGroupByAffix] = useState(profile.map.groupByAffix);
   const [tradeEightModOnly, setTradeEightModOnly] = useState(profile.map.tradeEightModOnly);
   const [tradeExcludeValdo, setTradeExcludeValdo] = useState(profile.map.tradeExcludeValdo);
+  const [tradeExcludeShaperElder, setTradeExcludeShaperElder] = useState(profile.map.tradeExcludeShaperElder);
   const eightModDisabled = corrupted.enabled && !corrupted.include;
 
   const [customTextStr, setCustomTextStr] = useState(profile.map.customText.value);
@@ -65,6 +66,7 @@ const OptimizedMapMods = () => {
         regex: result,
         eightModOnly: tradeEightModOnly && !eightModDisabled,
         excludeValdo: tradeExcludeValdo,
+        excludeShaperElder: tradeExcludeShaperElder,
         corrupted,
       };
       const tradeResult = await openTradeSearch(settings);
@@ -100,6 +102,7 @@ const OptimizedMapMods = () => {
       groupByAffix,
       tradeEightModOnly,
       tradeExcludeValdo,
+      tradeExcludeShaperElder,
       customText: {
         value: customTextStr,
         enabled: enableCustomText,
@@ -111,7 +114,7 @@ const OptimizedMapMods = () => {
       map: {...settings},
     });
     setResult(generateMapModRegex(settings, regex, profile.language));
-  }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly, tradeExcludeValdo]);
+  }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly, tradeExcludeValdo, tradeExcludeShaperElder]);
 
   const renderAffixTag = displayAffixBadges
     ? (token: Token<MapModsTokenOption>) => (
@@ -165,6 +168,7 @@ const OptimizedMapMods = () => {
           setGroupByAffix(defaultSettings.map.groupByAffix);
           setTradeEightModOnly(defaultSettings.map.tradeEightModOnly);
           setTradeExcludeValdo(defaultSettings.map.tradeExcludeValdo);
+          setTradeExcludeShaperElder(defaultSettings.map.tradeExcludeShaperElder);
         }}
       />
       {tradeMessage && (
@@ -249,6 +253,9 @@ const OptimizedMapMods = () => {
           <Checkbox label={<>Exclude Valdo maps<TradeAsterisk/></>}
                     value={tradeExcludeValdo}
                     onChange={setTradeExcludeValdo}/>
+          <Checkbox label={<>Exclude Shaper/Elder influenced maps<TradeAsterisk/></>}
+                    value={tradeExcludeShaperElder}
+                    onChange={setTradeExcludeShaperElder}/>
         </FilterCard>
 
       </div>
