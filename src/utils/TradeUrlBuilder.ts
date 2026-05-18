@@ -25,10 +25,15 @@ export interface TradeSettings {
   eightModOnly: boolean;
   excludeValdo: boolean;
   excludeShaperElder: boolean;
-  moreMaps: string;
-  moreCurrency: string;
-  moreScarabs: string;
-  moreDivinationCards: string;
+  mapDropChance: string;
+  quality: {
+    currency: string;
+    divination: string;
+    scarab: string;
+    rarity: string;
+    packSize: string;
+  };
+  anyQuality: boolean;
   corrupted: {
     enabled: boolean;
     include: boolean;
@@ -162,17 +167,30 @@ function buildTradeQuery(settings: TradeSettings): TradeQuery {
     });
   }
 
-  const yieldFilters: StatFilter[] = [];
-  const pushYield = (raw: string, id: string) => {
+  const mapDropMin = parseMinFilter(settings.mapDropChance);
+  if (mapDropMin) {
+    stats.push({
+      type: "and",
+      filters: [{ id: "pseudo.pseudo_map_more_map_drops", value: mapDropMin }],
+    });
+  }
+
+  const qualityFilters: StatFilter[] = [];
+  const pushQuality = (raw: string, id: string) => {
     const min = parseMinFilter(raw);
-    if (min) yieldFilters.push({ id, value: min });
+    if (min) qualityFilters.push({ id, value: min });
   };
-  pushYield(settings.moreMaps, "pseudo.pseudo_map_more_map_drops");
-  pushYield(settings.moreCurrency, "pseudo.pseudo_map_more_currency_drops");
-  pushYield(settings.moreScarabs, "pseudo.pseudo_map_more_scarab_drops");
-  pushYield(settings.moreDivinationCards, "pseudo.pseudo_map_more_card_drops");
-  if (yieldFilters.length > 0) {
-    stats.push({ type: "and", filters: yieldFilters });
+  pushQuality(settings.quality.currency, "pseudo.pseudo_map_quality_currency");
+  pushQuality(settings.quality.divination, "pseudo.pseudo_map_quality_cards");
+  pushQuality(settings.quality.scarab, "pseudo.pseudo_map_quality_scarabs");
+  pushQuality(settings.quality.rarity, "pseudo.pseudo_map_quality_rarity");
+  pushQuality(settings.quality.packSize, "pseudo.pseudo_map_quality_pack_size");
+  if (qualityFilters.length > 0) {
+    if (settings.anyQuality && qualityFilters.length > 1) {
+      stats.push({ type: "count", filters: qualityFilters, value: { min: 1 } });
+    } else {
+      stats.push({ type: "and", filters: qualityFilters });
+    }
   }
 
   if (settings.excludeShaperElder) {

@@ -45,10 +45,6 @@ const OptimizedMapMods = () => {
   const [tradeEightModOnly, setTradeEightModOnly] = useState(profile.map.tradeEightModOnly);
   const [tradeExcludeValdo, setTradeExcludeValdo] = useState(profile.map.tradeExcludeValdo);
   const [tradeExcludeShaperElder, setTradeExcludeShaperElder] = useState(profile.map.tradeExcludeShaperElder);
-  const [tradeMoreMaps, setTradeMoreMaps] = useState(profile.map.tradeMoreMaps);
-  const [tradeMoreCurrency, setTradeMoreCurrency] = useState(profile.map.tradeMoreCurrency);
-  const [tradeMoreScarabs, setTradeMoreScarabs] = useState(profile.map.tradeMoreScarabs);
-  const [tradeMoreDivinationCards, setTradeMoreDivinationCards] = useState(profile.map.tradeMoreDivinationCards);
   const eightModDisabled = corrupted.enabled && !corrupted.include;
 
   const [customTextStr, setCustomTextStr] = useState(profile.map.customText.value);
@@ -71,10 +67,9 @@ const OptimizedMapMods = () => {
         eightModOnly: tradeEightModOnly && !eightModDisabled,
         excludeValdo: tradeExcludeValdo,
         excludeShaperElder: tradeExcludeShaperElder,
-        moreMaps: tradeMoreMaps,
-        moreCurrency: tradeMoreCurrency,
-        moreScarabs: tradeMoreScarabs,
-        moreDivinationCards: tradeMoreDivinationCards,
+        mapDropChance,
+        quality,
+        anyQuality,
         corrupted,
       };
       const tradeResult = await openTradeSearch(settings);
@@ -111,10 +106,6 @@ const OptimizedMapMods = () => {
       tradeEightModOnly,
       tradeExcludeValdo,
       tradeExcludeShaperElder,
-      tradeMoreMaps,
-      tradeMoreCurrency,
-      tradeMoreScarabs,
-      tradeMoreDivinationCards,
       customText: {
         value: customTextStr,
         enabled: enableCustomText,
@@ -126,7 +117,7 @@ const OptimizedMapMods = () => {
       map: {...settings},
     });
     setResult(generateMapModRegex(settings, regex, profile.language));
-  }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly, tradeExcludeValdo, tradeExcludeShaperElder, tradeMoreMaps, tradeMoreCurrency, tradeMoreScarabs, tradeMoreDivinationCards]);
+  }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly, tradeExcludeValdo, tradeExcludeShaperElder]);
 
   const renderAffixTag = displayAffixBadges
     ? (token: Token<MapModsTokenOption>) => (
@@ -181,10 +172,6 @@ const OptimizedMapMods = () => {
           setTradeEightModOnly(defaultSettings.map.tradeEightModOnly);
           setTradeExcludeValdo(defaultSettings.map.tradeExcludeValdo);
           setTradeExcludeShaperElder(defaultSettings.map.tradeExcludeShaperElder);
-          setTradeMoreMaps(defaultSettings.map.tradeMoreMaps);
-          setTradeMoreCurrency(defaultSettings.map.tradeMoreCurrency);
-          setTradeMoreScarabs(defaultSettings.map.tradeMoreScarabs);
-          setTradeMoreDivinationCards(defaultSettings.map.tradeMoreDivinationCards);
         }}
       />
       {tradeMessage && (
@@ -207,7 +194,7 @@ const OptimizedMapMods = () => {
                     }>
           <NumberField id="quantity" label="Quantity of at least" value={quantity} onChange={setQuantity} trade/>
           <NumberField id="pack-size" label="Pack Size of at least" value={packsize} onChange={setPacksize} trade/>
-          <NumberField id="mapdrop" label="More maps of at least" value={mapDropChance} onChange={setMapDropChance}/>
+          <NumberField id="mapdrop" label="More maps of at least" value={mapDropChance} onChange={setMapDropChance} trade/>
           <NumberField id="itemRarity" label="Item rarity of at least" value={itemRarity} onChange={setItemRarity} trade/>
         </FilterCard>
         
@@ -246,15 +233,15 @@ const OptimizedMapMods = () => {
             <NumberField id="qregular" label="Quality of" value={quality.regular} primary
                          onChange={(v) => setQuality({...quality, regular: v})}/>
             <NumberField id="qpacksize" label="• Pack size" value={quality.packSize}
-                         onChange={(v) => setQuality({...quality, packSize: v})}/>
+                         onChange={(v) => setQuality({...quality, packSize: v})} trade/>
             <NumberField id="qrarity" label="• Rarity" value={quality.rarity}
-                         onChange={(v) => setQuality({...quality, rarity: v})}/>
+                         onChange={(v) => setQuality({...quality, rarity: v})} trade/>
             <NumberField id="qcurrency" label="• Currency" value={quality.currency}
-                         onChange={(v) => setQuality({...quality, currency: v})}/>
+                         onChange={(v) => setQuality({...quality, currency: v})} trade/>
             <NumberField id="qdiv" label="• Divination" value={quality.divination}
-                         onChange={(v) => setQuality({...quality, divination: v})}/>
+                         onChange={(v) => setQuality({...quality, divination: v})} trade/>
             <NumberField id="qscarab" label="• Scarab" value={quality.scarab}
-                         onChange={(v) => setQuality({...quality, scarab: v})}/>
+                         onChange={(v) => setQuality({...quality, scarab: v})} trade/>
           </div>
           <Checkbox label="Match any of the quality types (disable to match ALL selected qualities)"
                     value={anyQuality}
@@ -272,14 +259,6 @@ const OptimizedMapMods = () => {
           <Checkbox label={<>Exclude Shaper/Elder influenced maps<TradeAsterisk/></>}
                     value={tradeExcludeShaperElder}
                     onChange={setTradeExcludeShaperElder}/>
-          <NumberField id="trade-more-maps" label="More Maps % of at least"
-                       value={tradeMoreMaps} onChange={setTradeMoreMaps} trade/>
-          <NumberField id="trade-more-currency" label="More Currency % of at least"
-                       value={tradeMoreCurrency} onChange={setTradeMoreCurrency} trade/>
-          <NumberField id="trade-more-scarabs" label="More Scarabs % of at least"
-                       value={tradeMoreScarabs} onChange={setTradeMoreScarabs} trade/>
-          <NumberField id="trade-more-cards" label="More Divination Cards % of at least"
-                       value={tradeMoreDivinationCards} onChange={setTradeMoreDivinationCards} trade/>
         </FilterCard>
 
       </div>

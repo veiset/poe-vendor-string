@@ -210,10 +210,6 @@ export interface MapSettings {
   tradeEightModOnly: boolean;
   tradeExcludeValdo: boolean;
   tradeExcludeShaperElder: boolean;
-  tradeMoreMaps: string;
-  tradeMoreCurrency: string;
-  tradeMoreScarabs: string;
-  tradeMoreDivinationCards: string;
   rarity: {
     normal: boolean;
     magic: boolean;
@@ -417,10 +413,6 @@ export const defaultSettings: SavedSettings = {
     tradeEightModOnly: false,
     tradeExcludeValdo: true,
     tradeExcludeShaperElder: true,
-    tradeMoreMaps: "",
-    tradeMoreCurrency: "",
-    tradeMoreScarabs: "",
-    tradeMoreDivinationCards: "",
     rarity: {
       normal: true,
       magic: true,
