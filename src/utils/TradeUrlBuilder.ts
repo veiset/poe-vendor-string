@@ -38,6 +38,10 @@ export interface TradeSettings {
     enabled: boolean;
     include: boolean;
   };
+  unidentified: {
+    enabled: boolean;
+    include: boolean;
+  };
 }
 
 interface TradeQuery {
@@ -65,6 +69,7 @@ interface TradeQuery {
         disabled: boolean;
         filters: {
           corrupted?: { option: "true" | "false" };
+          identified?: { option: "true" | "false" };
           foil_variation?: { option: "none" };
         };
       };
@@ -217,12 +222,15 @@ function buildTradeQuery(settings: TradeSettings): TradeQuery {
     };
   }
 
-  if (settings.corrupted.enabled || settings.excludeValdo) {
+  if (settings.corrupted.enabled || settings.unidentified.enabled || settings.excludeValdo) {
     query.query.filters.misc_filters = {
       disabled: false,
       filters: {
         ...(settings.corrupted.enabled && {
           corrupted: { option: settings.corrupted.include ? "true" : "false" },
+        }),
+        ...(settings.unidentified.enabled && {
+          identified: { option: settings.unidentified.include ? "false" : "true" },
         }),
         ...(settings.excludeValdo && { foil_variation: { option: "none" } }),
       },

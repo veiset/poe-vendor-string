@@ -71,6 +71,7 @@ const OptimizedMapMods = () => {
         quality,
         anyQuality,
         corrupted,
+        unidentified,
       };
       const tradeResult = await openTradeSearch(settings);
       if (tradeResult.success) {
@@ -200,7 +201,7 @@ const OptimizedMapMods = () => {
         
         <FilterCard title="Map State">
           <div className={`mm-state-row${corrupted.enabled ? "" : " mm-state-row-off"}`}>
-            <Checkbox label="Filter corrupted" value={corrupted.enabled}
+            <Checkbox label={<>Filter corrupted<TradeAsterisk/></>} value={corrupted.enabled}
                       onChange={() => setCorrupted({...corrupted, enabled: !corrupted.enabled})}/>
             <IncludeExcludeToggle name="corrupted" include={corrupted.include}
                                   setInclude={(v) => setCorrupted({...corrupted, include: v})}/>
@@ -216,7 +217,7 @@ const OptimizedMapMods = () => {
                                   setInclude={(v) => setRarity({...rarity, include: v})}/>
           </div>
           <div className={`mm-state-row${unidentified.enabled ? "" : " mm-state-row-off"}`}>
-            <Checkbox label="Filter unidentified" value={unidentified.enabled}
+            <Checkbox label={<>Filter unidentified<TradeAsterisk/></>} value={unidentified.enabled}
                       onChange={() => setUnidentified({...unidentified, enabled: !unidentified.enabled})}/>
             <IncludeExcludeToggle name="unidentified" include={unidentified.include}
                                   setInclude={(v) => setUnidentified({...unidentified, include: v})}/>
