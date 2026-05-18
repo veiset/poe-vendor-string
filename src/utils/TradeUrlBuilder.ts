@@ -25,6 +25,10 @@ export interface TradeSettings {
   eightModOnly: boolean;
   excludeValdo: boolean;
   excludeShaperElder: boolean;
+  moreMaps: string;
+  moreCurrency: string;
+  moreScarabs: string;
+  moreDivinationCards: string;
   corrupted: {
     enabled: boolean;
     include: boolean;
@@ -156,6 +160,19 @@ function buildTradeQuery(settings: TradeSettings): TradeQuery {
       type: "and",
       filters: [{ id: "pseudo.pseudo_number_of_affix_mods", value: { min: 8 } }],
     });
+  }
+
+  const yieldFilters: StatFilter[] = [];
+  const pushYield = (raw: string, id: string) => {
+    const min = parseMinFilter(raw);
+    if (min) yieldFilters.push({ id, value: min });
+  };
+  pushYield(settings.moreMaps, "pseudo.pseudo_map_more_map_drops");
+  pushYield(settings.moreCurrency, "pseudo.pseudo_map_more_currency_drops");
+  pushYield(settings.moreScarabs, "pseudo.pseudo_map_more_scarab_drops");
+  pushYield(settings.moreDivinationCards, "pseudo.pseudo_map_more_card_drops");
+  if (yieldFilters.length > 0) {
+    stats.push({ type: "and", filters: yieldFilters });
   }
 
   if (settings.excludeShaperElder) {
