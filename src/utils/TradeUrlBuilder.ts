@@ -1,4 +1,5 @@
 import tradeStatIds from "../generated/mapmods/trade/TradeStatIdMatching.json";
+import {MapSettings} from "./SavedSettings";
 
 const WORKER_URL = "https://poe-trade-proxy.veiset.workers.dev";
 const TRADE_URL_BASE = "https://www.pathofexile.com/trade/search";
@@ -26,13 +27,7 @@ export interface TradeSettings {
   excludeValdo: boolean;
   excludeShaperElder: boolean;
   mapDropChance: string;
-  quality: {
-    currency: string;
-    divination: string;
-    scarab: string;
-    rarity: string;
-    packSize: string;
-  };
+  quality: Omit<MapSettings["quality"], "regular">;
   anyQuality: boolean;
   corrupted: {
     enabled: boolean;
@@ -126,7 +121,7 @@ function parseMinFilter(value: string): { min: number } | undefined {
   return !isNaN(num) && num > 0 ? { min: num } : undefined;
 }
 
-function buildTradeQuery(settings: TradeSettings): TradeQuery {
+export function buildTradeQuery(settings: TradeSettings): TradeQuery {
   const query: TradeQuery = {
     query: {
       status: { option: "securable" },
