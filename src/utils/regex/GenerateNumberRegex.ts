@@ -12,52 +12,8 @@ export function generateNumberRegex(number: string, optimize: boolean): string {
     }
     return "";
   }
-  if (quant >= 200) {
-    const v = truncateLastDigit(truncateLastDigit(quant))
-    return `[${v}-9]..`;
-  }
-  if (quant >= 150) {
-    const str = quant.toString();
-    const d0 = str[0];
-    const d1 = str[1];
-    const d2 = str[2];
-    if (str[1] === "0" && str[2] === "0") {
-      return `([2-9]..|${d0}..)`;
-    } else if (str[2] === "0") {
-      return `([2-9]..|1[${d1}-9].)`;
-    } else if (str[1] === "0") {
-      return `([2-9]..|\\d0[${d2}-9]|\\d[1-9].)`;
-    } else if (str[1] === "9" && str[2] === "9") {
-      return `([2-9]..|199)`;
-    } else {
-      if (d1 === "9") {
-        return `([2-9]..|19[${d2}-9])`;
-      }
-      return `[12]([${d1}-9][${d2}-9]|[${Number(d1) + 1}-9].)`;
-    }
-  }
-  if (quant > 100) {
-    const str = quant.toString();
-    const d0 = str[0];
-    const d1 = str[1];
-    const d2 = str[2];
-    if (str[1] === "0" && str[2] === "0") {
-      return `${d0}..`;
-    } else if (str[2] === "0") {
-      return `(1[${d1}-9].|[2-9]..)`;
-    } else if (str[1] === "0") {
-      return `(\\d0[${d2}-9]|\\d[1-9].)`;
-    } else if (str[1] === "9" && str[2] === "9") {
-      return `(199|[2-9]..)`;
-    } else {
-      if (d1 === "9") {
-        return `19[${d2}-9]`;
-      }
-      return `(1([${d1}-9][${d2}-9]|[${Number(d1) + 1}-9].)|[2-9]..)`;
-    }
-  }
-  if (quant === 100) {
-    return `\\d..`;
+  if (quant >= 100) {
+    return threeDigitMin(quant);
   }
   if (quant > 9) {
     const str = quant.toString();
@@ -137,4 +93,29 @@ function match3(n: number) {
 
 function truncateLastDigit(n: number): number {
   return Math.floor(n / 10);
+}
+
+function threeDigitMin(n: number): string {
+  const str = n.toString();
+  const d0 = str[0];
+  const d1 = str[1];
+  const d2 = str[2];
+  const D0 = Number(d0);
+  const D1 = Number(d1);
+  if (d1 === "0" && d2 === "0") {
+    return D0 === 9 ? `${d0}..` : `[${d0}-9]..`;
+  }
+  let head: string;
+  if (d2 === "0") {
+    head = d1 === "9" ? `${d0}9.` : `${d0}[${d1}-9].`;
+  } else if (d1 === "0") {
+    head = `${d0}(0[${d2}-9]|[1-9].)`;
+  } else if (d1 === "9" && d2 === "9") {
+    head = `${d0}99`;
+  } else if (d1 === "9") {
+    head = `${d0}9[${d2}-9]`;
+  } else {
+    head = `${d0}(${d1}[${d2}-9]|[${D1 + 1}-9].)`;
+  }
+  return D0 === 9 ? head : `(${head}|[${D0 + 1}-9]..)`;
 }
