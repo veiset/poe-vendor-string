@@ -120,11 +120,9 @@ function threeDigitMin(n: number): string {
   return D0 === 9 ? head : `(${head}|[${D0 + 1}-9]..)`;
 }
 
-const INTEGER_RANGE_MAX = 999;
-
 export function generateIntegerRangeRegex(min: number, max: number): string {
   if (!Number.isInteger(min) || !Number.isInteger(max)) return "";
-  if (min < 0 || max < 0 || min > max || max > INTEGER_RANGE_MAX) return "";
+  if (min < 0 || max < 0 || min > max) return "";
 
   const minLength = String(min).length;
   const maxLength = String(max).length;

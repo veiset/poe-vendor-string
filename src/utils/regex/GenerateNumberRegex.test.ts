@@ -155,7 +155,8 @@ describe("generateIntegerRangeRegex", () => {
 
   test("returns empty string for invalid ranges", () => {
     expect(generateIntegerRangeRegex(50, 10)).toBe("");
-    expect(generateIntegerRangeRegex(0, 1000)).toBe("");
+    expect(generateIntegerRangeRegex(-1, 10)).toBe("");
+    expect(generateIntegerRangeRegex(0, Number.NaN)).toBe("");
   });
 
   test.each([

@@ -170,7 +170,6 @@ describe("generatePriceNoteRegex - min-only price", () => {
     ]);
     expectNotMatches(options, [
       "Note: ~b/o 9 chaos",
-      "Note: ~b/o 1000 chaos",
       "Note: ~b/o 10.5 chaos",
     ]);
   });
@@ -207,6 +206,18 @@ describe("generatePriceNoteRegex - optimize flag", () => {
   test("optimize does not rescue an inverted raw range", () => {
     expectNoPriceNote({min: "23", max: "20", optimize: true});
   });
+
+  test("three-digit range optimize widens bounds to the nearest tens outward", () => {
+    const options = {min: "156", max: "234", optimize: true};
+
+    expectMatches(options, [
+      "Note: ~b/o 150 chaos",
+      "Note: ~b/o 156 chaos",
+      "Note: ~b/o 234 chaos",
+      "Note: ~b/o 239 chaos",
+    ]);
+    expectNotMatches(options, ["Note: ~b/o 149 chaos", "Note: ~b/o 240 chaos"]);
+  });
 });
 
 describe("generatePriceNoteRegex - numeric-prefix inputs", () => {
@@ -236,9 +247,7 @@ describe("generatePriceNoteRegex - invalid input", () => {
     ["currency with space", {currency: "ancient orb"}],
     ["currency with digits", {currency: "chaos2"}],
     ["invalid max", {max: "chaos"}],
-    ["max over 999", {max: "1000"}],
     ["invalid min", {min: "chaos", max: "100"}],
-    ["min over 999", {min: "1000", max: "1000"}],
     ["min greater than max", {min: "50", max: "10"}],
     ["both min and max empty", {min: "", max: ""}],
     ["min 0 with empty max", {min: "0", max: ""}],

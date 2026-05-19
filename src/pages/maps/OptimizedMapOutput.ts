@@ -41,44 +41,31 @@ export function generatePriceNoteRegex(options: PriceNoteOptions): string {
   const maxRaw = options.max.trim();
   if (minRaw.length === 0 && maxRaw.length === 0) return "";
 
-  const rawMin = minRaw.length === 0 ? 0 : Number.parseInt(minRaw, 10);
-  const minPrice = optimizedMin(rawMin, options.optimize);
-
   let priceRegex: string;
   if (maxRaw.length === 0) {
-    if (minPrice === 0) return "";
-    priceRegex = generateNumberRegex(String(minPrice), false);
+    priceRegex = generateNumberRegex(minRaw, options.optimize);
   } else {
-    const rawMax = Number.parseInt(maxRaw, 10);
+    const rawMin = minRaw.length === 0 ? 0 : priceAmount(minRaw);
+    const rawMax = priceAmount(maxRaw);
     if (rawMin > rawMax) return "";
-    priceRegex = generateIntegerRangeRegex(minPrice, optimizedMax(rawMax, options.optimize));
+    const minPrice = options.optimize ? Math.floor(rawMin / 10) * 10 : rawMin;
+    const maxPrice = options.optimize ? Math.floor(rawMax / 10) * 10 + 9 : rawMax;
+    priceRegex = generateIntegerRangeRegex(minPrice, maxPrice);
   }
 
   if (priceRegex === "") return "";
   return noteRegex(priceRegex, currency);
 }
 
+// Pull the numeric value out of arbitrary user input, mirroring generateNumberRegex's digit extraction.
+function priceAmount(raw: string): number {
+  const digits = (raw.match(/\d/g) ?? []).join("");
+  return digits.length === 0 ? NaN : Number.parseInt(digits, 10);
+}
+
 function noteRegex(priceRegex: string, currency: string): string {
   const amount = priceRegex.includes("|") ? `(${priceRegex})` : priceRegex;
   return String.raw`"Note:.*? ${amount} ${currency}"`;
-}
-
-// fillDigit=9 rounds an upper bound up (42 -> 49); fillDigit=0 rounds a lower bound down (23 -> 20).
-function roundToLeadingDigit(n: number, fillDigit: 0 | 9): number {
-  const digits = String(n).length;
-  if (digits === 1) return n;
-  const magnitude = Math.pow(10, digits - 1);
-  const leading = Math.floor(n / magnitude);
-  return fillDigit === 9 ? leading * magnitude + (magnitude - 1) : leading * magnitude;
-}
-
-function optimizedMax(rawMax: number, optimize: boolean): number {
-  return optimize ? roundToLeadingDigit(rawMax, 9) : rawMax;
-}
-
-function optimizedMin(rawMin: number, optimize: boolean): number {
-  if (!optimize || rawMin === 0) return rawMin;
-  return roundToLeadingDigit(rawMin, 0);
 }
 
 function unidentifiedMap(settings: MapSettings, language: RepoeLanguageKey) {
