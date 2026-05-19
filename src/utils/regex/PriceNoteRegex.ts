@@ -1,4 +1,4 @@
-import {generateIntegerMinRegex, generateIntegerRangeRegex} from "./GenerateNumberRegex";
+import {generateIntegerRangeRegex, generateNumberRegex} from "./GenerateNumberRegex";
 
 export interface PriceNoteOptions {
   currency: string;
@@ -10,6 +10,7 @@ export interface PriceNoteOptions {
 const PRICE_AMOUNT_RE = /^\d+$/;
 const CURRENCY_RE = /^[A-Za-z]+$/;
 const PARTIAL_CURRENCY_RE = /^[A-Za-z]*$/;
+const PRICE_AMOUNT_MAX = 999;
 
 // Round a price bound by keeping the leading digit and filling the rest:
 // fillDigit=9 rounds an upper bound up (42 -> 49, 345 -> 399).
@@ -46,7 +47,10 @@ export function generatePriceNoteRegex(options: PriceNoteOptions): string {
   const minPrice = optimizedMin(rawMin, options.optimize);
 
   if (maxRaw.length === 0) {
-    return noteRegex(generateIntegerMinRegex(minPrice), currency);
+    const priceRegex = minPrice === 0
+      ? generateIntegerRangeRegex(0, PRICE_AMOUNT_MAX)
+      : generateNumberRegex(String(minPrice), false);
+    return noteRegex(priceRegex, currency);
   }
 
   const rawMax = Number.parseInt(maxRaw, 10);
@@ -84,7 +88,7 @@ export function isValidPriceNoteMax(raw: string): boolean {
   if (max.length === 0) return true;
   if (!PRICE_AMOUNT_RE.test(max)) return false;
 
-  return Number.parseInt(max, 10) <= 9999;
+  return Number.parseInt(max, 10) <= PRICE_AMOUNT_MAX;
 }
 
 export function isValidPriceNoteMin(raw: string): boolean {
@@ -92,5 +96,5 @@ export function isValidPriceNoteMin(raw: string): boolean {
   if (min.length === 0) return true;
   if (!PRICE_AMOUNT_RE.test(min)) return false;
 
-  return Number.parseInt(min, 10) <= 9999;
+  return Number.parseInt(min, 10) <= PRICE_AMOUNT_MAX;
 }

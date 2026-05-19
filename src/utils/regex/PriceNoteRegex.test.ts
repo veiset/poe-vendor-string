@@ -58,9 +58,9 @@ describe("generatePriceNoteRegex - max price", () => {
     );
   });
 
-  test("four digit max does not match five digit prices", () => {
-    expectMatches({max: "9999"}, ["Note: ~b/o 9999 chaos"]);
-    expectNotMatches({max: "9999"}, ["Note: ~b/o 10000 chaos"]);
+  test("three digit max does not match four digit prices", () => {
+    expectMatches({max: "999"}, ["Note: ~b/o 999 chaos"]);
+    expectNotMatches({max: "999"}, ["Note: ~b/o 1000 chaos"]);
   });
 });
 
@@ -83,13 +83,13 @@ describe("generatePriceNoteRegex - min and max price", () => {
   test.each([
     [{min: "1", max: "234"}, ["Note: ~b/o 1 chaos", "Note: ~b/o 123 chaos", "Note: ~b/o 234 chaos"], ["Note: ~b/o 0 chaos", "Note: ~b/o 235 chaos"]],
     [{min: "156", max: "900"}, ["Note: ~b/o 156 chaos", "Note: ~b/o 500 chaos", "Note: ~b/o 900 chaos"], ["Note: ~b/o 155 chaos", "Note: ~b/o 901 chaos"]],
-    [{min: "12", max: "3000"}, ["Note: ~b/o 12 chaos", "Note: ~b/o 999 chaos", "Note: ~b/o 3000 chaos"], ["Note: ~b/o 11 chaos", "Note: ~b/o 3001 chaos"]],
+    [{min: "12", max: "999"}, ["Note: ~b/o 12 chaos", "Note: ~b/o 500 chaos", "Note: ~b/o 999 chaos"], ["Note: ~b/o 11 chaos", "Note: ~b/o 1000 chaos"]],
   ])("handles grouped range branches for %p", (options, matches, misses) => {
     expectMatches(options, matches);
     expectNotMatches(options, misses);
   });
 
-  test.each(["7", "42", "1234", "9999"])("min == max matches only exact price %s", (value) => {
+  test.each(["7", "42", "999"])("min == max matches only exact price %s", (value) => {
     expectMatches({min: value, max: value}, [`Note: ~b/o ${value} chaos`]);
     expectNotMatches({min: value, max: value}, [`Note: ~b/o ${Number(value) + 1} chaos`]);
   });
@@ -101,11 +101,11 @@ describe("generatePriceNoteRegex - min-only price", () => {
 
     expectMatches(options, [
       "Note: ~b/o 10 chaos",
-      "Note: ~b/o 1234 chaos",
-      "Note: ~b/o 10000 chaos",
+      "Note: ~b/o 999 chaos",
     ]);
     expectNotMatches(options, [
       "Note: ~b/o 9 chaos",
+      "Note: ~b/o 1000 chaos",
       "Note: ~b/o 10.5 chaos",
     ]);
   });
@@ -155,10 +155,10 @@ describe("generatePriceNoteRegex - invalid input", () => {
     ["currency with digits", {currency: "chaos2"}],
     ["invalid max", {max: "chaos"}],
     ["decimal max", {max: "1.5"}],
-    ["max over 9999", {max: "10000"}],
+    ["max over 999", {max: "1000"}],
     ["invalid min", {min: "chaos", max: "100"}],
     ["decimal min", {min: "1.5", max: "100"}],
-    ["min over 9999", {min: "10000", max: "10000"}],
+    ["min over 999", {min: "1000", max: "1000"}],
     ["min greater than max", {min: "50", max: "10"}],
     ["both min and max empty", {min: "", max: ""}],
     ["both min and max space-only", {min: "  ", max: "  "}],
@@ -181,14 +181,14 @@ describe.each([
   {
     name: "isValidPriceNoteMax",
     isValid: isValidPriceNoteMax,
-    valid: ["", "   ", "250", " 250 ", "9999"],
-    invalid: ["chaos", "1.5", "-5", "10000"],
+    valid: ["", "   ", "250", " 250 ", "999"],
+    invalid: ["chaos", "1.5", "-5", "1000"],
   },
   {
     name: "isValidPriceNoteMin",
     isValid: isValidPriceNoteMin,
-    valid: ["", "   ", "50", " 50 ", "9999"],
-    invalid: ["chaos", "1.5", "-5", "10000"],
+    valid: ["", "   ", "50", " 50 ", "999"],
+    invalid: ["chaos", "1.5", "-5", "1000"],
   },
 ])("$name", ({isValid, valid, invalid}) => {
   test.each(valid)("valid %p", (raw) => {

@@ -120,24 +120,11 @@ function threeDigitMin(n: number): string {
   return D0 === 9 ? head : `(${head}|[${D0 + 1}-9]..)`;
 }
 
-const INTEGER_RANGE_MAX = 9999;
-
-export function generateIntegerMinRegex(min: number): string {
-  if (!Number.isInteger(min) || min > INTEGER_RANGE_MAX) return "";
-  if (min <= 0) return String.raw`\d\d*`;
-
-  const length = String(min).length;
-  const sameLengthMax = Math.pow(10, length) - 1;
-  const sameLengthPart = rangeRegexAtLength(length, min, sameLengthMax);
-  const longerLengthPart = digitN(length + 1) + String.raw`\d*`;
-
-  return `${sameLengthPart}|${longerLengthPart}`;
-}
+const INTEGER_RANGE_MAX = 999;
 
 export function generateIntegerRangeRegex(min: number, max: number): string {
   if (!Number.isInteger(min) || !Number.isInteger(max)) return "";
   if (min < 0 || max < 0 || min > max || max > INTEGER_RANGE_MAX) return "";
-  if (min === 0) return maxDigitsRegex(max, String(max).length);
 
   const minLength = String(min).length;
   const maxLength = String(max).length;
@@ -146,7 +133,7 @@ export function generateIntegerRangeRegex(min: number, max: number): string {
   let fullRangeStartLength: number | undefined;
   const addFullRangePart = (endLength: number) => {
     if (fullRangeStartLength === undefined) return;
-    parts.push(String.raw`[1-9]` + digitN(fullRangeStartLength - 1) + String.raw`\d?`.repeat(endLength - fullRangeStartLength));
+    parts.push(String.raw`[1-9]` + digitN(fullRangeStartLength - 1) + ".?".repeat(endLength - fullRangeStartLength));
     fullRangeStartLength = undefined;
   };
 
@@ -177,7 +164,7 @@ function rangeRegexAtLength(length: number, min: number, max: number): string {
   const lengthMin = length === 1 ? 0 : Math.pow(10, length - 1);
   const lengthMax = Math.pow(10, length) - 1;
   if (length >= 2 && min === lengthMin && max === lengthMax) {
-    return String.raw`[1-9]` + String.raw`\d`.repeat(length - 1);
+    return String.raw`[1-9]` + digitN(length - 1);
   }
 
   const minText = integerText(min, length);
@@ -239,7 +226,7 @@ function rangeRegexAtLength(length: number, min: number, max: number): string {
 }
 
 function digitN(n: number): string {
-  return String.raw`\d`.repeat(n);
+  return ".".repeat(n);
 }
 
 function integerText(value: number, length: number): string {
@@ -249,40 +236,4 @@ function integerText(value: number, length: number): string {
 
 function groupBranch(s: string): string {
   return s.includes("|") ? `(${s})` : s;
-}
-
-function maxDigitsRegex(max: number, length: number): string {
-  if (max === Math.pow(10, length) - 1) {
-    return String.raw`\d` + String.raw`\d?`.repeat(length - 1);
-  }
-
-  const digits = String(max).split("").map((d) => parseInt(d, 10));
-  const parts: string[] = length > 1 ? [String.raw`\d` + String.raw`\d?`.repeat(length - 2)] : [];
-
-  for (let pos = 0; pos < length; pos++) {
-    const digit = digits[pos];
-    const prefix = digits.slice(0, pos).join("");
-    const remainingDigits = length - pos - 1;
-    const isUnit = pos === length - 1;
-
-    if (isUnit) {
-      if (digit === 9) parts.push(prefix + String.raw`\d`);
-      else if (digit === 0) parts.push(prefix + "0");
-      else parts.push(prefix + `[0-${digit}]`);
-      continue;
-    }
-
-    const lowerBound = pos === 0 ? 1 : 0;
-    if (digit > lowerBound) {
-      const lowerRange = digit - 1 === lowerBound ? `${lowerBound}` : `[${lowerBound}-${digit - 1}]`;
-      parts.push(prefix + lowerRange + String.raw`\d`.repeat(remainingDigits));
-    }
-
-    if (digits.slice(pos + 1).every((d) => d === 9)) {
-      parts.push(prefix + digit + String.raw`\d`.repeat(remainingDigits));
-      return parts.join("|");
-    }
-  }
-
-  return parts.join("|");
 }

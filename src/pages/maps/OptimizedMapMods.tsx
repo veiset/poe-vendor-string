@@ -25,8 +25,8 @@ import {
 } from "../../utils/regex/PriceNoteRegex";
 
 function priceWarningFor(min: string, max: string): string {
-  if (!isValidPriceNoteMin(min)) return "Min value is invalid or out of range (0..9999)";
-  if (!isValidPriceNoteMax(max)) return "Max value is invalid or out of range (0..9999)";
+  if (!isValidPriceNoteMin(min)) return "Min value is invalid or out of range (0..999)";
+  if (!isValidPriceNoteMax(max)) return "Max value is invalid or out of range (0..999)";
   if (min.trim() && max.trim() && Number.parseInt(min, 10) > Number.parseInt(max, 10)) {
     return "Min must be less than or equal to Max";
   }
