@@ -35,7 +35,7 @@ export const tattooRegex: TattooRegex[] = [
     { tattoo: "Tattoo of the Tukohama Warrior", description: "Melee Hits which Stun have 5% chance to Fortify", regex: "ify" },
     { tattoo: "Tattoo of the Valako Scout", description: "10% reduced Effect of Shock on you", regex: "f Sh" },
     { tattoo: "Tattoo of the Valako Shaman", description: "5% chance to Shock", regex: "to Sh" },
-    { tattoo: "Tattoo of the Valako Shieldbearer", description: "+1% Chance to Block Attack Damage", regex: "ck A" },
+    { tattoo: "Tattoo of the Valako Shieldbearer", description: "+1% Chance to Block Attack Damage", regex: "k At" },
     { tattoo: "Tattoo of the Valako Stormrider", description: "+6% to Lightning Resistance", regex: "orm" },
     { tattoo: "Tattoo of the Valako Warrior", description: "5% increased Lightning Damage", regex: "g d" },
     { tattoo: "Journey Tattoo of the Mind", description: "+30 to maximum Mana", regex: "30 t" },
