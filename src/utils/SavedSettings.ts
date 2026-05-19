@@ -210,6 +210,12 @@ export interface MapSettings {
   tradeEightModOnly: boolean;
   tradeExcludeValdo: boolean;
   tradeExcludeShaperElder: boolean;
+  price: {
+    min: string;
+    max: string;
+    currency: string;
+    optimize: boolean;
+  };
   rarity: {
     normal: boolean;
     magic: boolean;
@@ -413,6 +419,12 @@ export const defaultSettings: SavedSettings = {
     tradeEightModOnly: false,
     tradeExcludeValdo: true,
     tradeExcludeShaperElder: true,
+    price: {
+      min: "",
+      max: "",
+      currency: "",
+      optimize: false,
+    },
     rarity: {
       normal: true,
       magic: true,
