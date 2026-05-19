@@ -1,4 +1,4 @@
-import { generateNumberRegex } from "./GenerateNumberRegex";
+import {generateIntegerMinRegex, generateIntegerRangeRegex, generateNumberRegex} from "./GenerateNumberRegex";
 
 const testRegex = (n: number, optimize = false) => {
   const r = generateNumberRegex(String(n), optimize);
@@ -134,5 +134,66 @@ describe("generateNumberRegex", () => {
       }
       expect(oversized).toEqual([]);
     });
+  });
+});
+
+describe("generateIntegerRangeRegex", () => {
+  const testRangeRegex = (min: number, max: number) =>
+    new RegExp("^(?:" + generateIntegerRangeRegex(min, max) + ")$");
+
+  test.each([
+    [0, 42, [0, 9, 42], [43, 100]],
+    [10, 50, [10, 25, 50], [9, 51]],
+    [156, 900, [156, 500, 900], [155, 901]],
+    [12, 3000, [12, 999, 3000], [11, 3001]],
+  ])("matches %i..%i inclusively", (min, max, matches, misses) => {
+    const re = testRangeRegex(min, max);
+
+    matches.forEach((value) => expect(re.test(String(value))).toBe(true));
+    misses.forEach((value) => expect(re.test(String(value))).toBe(false));
+  });
+
+  test("returns empty string for invalid ranges", () => {
+    expect(generateIntegerRangeRegex(50, 10)).toBe("");
+    expect(generateIntegerRangeRegex(0, 10000)).toBe("");
+  });
+
+  test.each([
+    [0, 42],
+    [1, 234],
+    [10, 50],
+    [156, 900],
+    [1000, 3000],
+    [12, 3000],
+    [9999, 9999],
+  ])("matches exactly every integer in %i..%i", (min, max) => {
+    const re = testRangeRegex(min, max);
+    const failures: string[] = [];
+
+    for (let value = 0; value <= 9999; value++) {
+      const shouldMatch = value >= min && value <= max;
+      const matches = re.test(String(value));
+      if (matches !== shouldMatch) {
+        failures.push(`value=${value} should=${shouldMatch} matches=${matches}`);
+        if (failures.length > 10) break;
+      }
+    }
+
+    expect(failures).toEqual([]);
+  });
+});
+
+describe("generateIntegerMinRegex", () => {
+  test("matches the minimum and higher digit lengths", () => {
+    const re = new RegExp("^(?:" + generateIntegerMinRegex(10) + ")$");
+
+    expect(re.test("9")).toBe(false);
+    expect(re.test("10")).toBe(true);
+    expect(re.test("9999")).toBe(true);
+    expect(re.test("10000")).toBe(true);
+  });
+
+  test("returns empty string for unsupported minimums", () => {
+    expect(generateIntegerMinRegex(10000)).toBe("");
   });
 });

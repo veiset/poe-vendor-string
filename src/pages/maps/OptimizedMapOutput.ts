@@ -3,6 +3,7 @@ import {Regex} from "../../generated/GeneratedTypes";
 import {idToRegex, optimizeRegexFromIds} from "../../utils/regex/OptimizeRegexResult";
 import {generateNumberRegex} from "../../utils/regex/GenerateNumberRegex";
 import {LanguageFiles, MapStaticStatRegex, RepoeLanguageKey} from "../../utils/Languages";
+import {generatePriceNoteRegex} from "../../utils/regex/PriceNoteRegex";
 
 export function generateMapModRegex(settings: MapSettings, regex: Regex<any>, language: RepoeLanguageKey): string {
   const exclusions = generateBadMods(settings, regex, language);
@@ -16,8 +17,9 @@ export function generateMapModRegex(settings: MapSettings, regex: Regex<any>, la
   const rarity = addRarityRegex(settings.rarity.normal, settings.rarity.magic, settings.rarity.rare, settings.rarity.include, language);
   const corrupted = corruptedMapCheck(settings, language);
   const unidentified = unidentifiedMap(settings, language);
+  const price = generatePriceNoteRegex(settings.price);
 
-  const result = `${exclusions} ${inclusions} ${quantity} ${packsize} ${itemRarity} ${quality} ${rarity} ${mapDrop} ${corrupted} ${unidentified}`
+  const result = `${exclusions} ${inclusions} ${quantity} ${packsize} ${itemRarity} ${quality} ${rarity} ${mapDrop} ${corrupted} ${unidentified} ${price}`
     .trim().replaceAll(/\s{2,}/g, ' ');
 
   return optimize(result);

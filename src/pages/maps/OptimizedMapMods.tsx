@@ -19,7 +19,6 @@ import PillToggle from "../../components/PillToggle/PillToggle";
 import ExactOptimizedToggle from "../../components/ExactOptimizedToggle/ExactOptimizedToggle";
 import {mapModTokenColor} from "../../utils/MapModColor";
 import {
-  generatePriceNoteRegex,
   isValidPriceNoteCurrencyInput,
   isValidPriceNoteMax,
   isValidPriceNoteMin,
@@ -62,17 +61,10 @@ const OptimizedMapMods = () => {
   const [tradeExcludeShaperElder, setTradeExcludeShaperElder] = useState(profile.map.tradeExcludeShaperElder);
   const eightModDisabled = corrupted.enabled && !corrupted.include;
 
-  const [priceFilterMin, setPriceFilterMin] = useState("");
-  const [priceFilterMax, setPriceFilterMax] = useState("");
-  const [priceFilterCurrency, setPriceFilterCurrency] = useState("");
-  const [priceFilterOptimize, setPriceFilterOptimize] = useState(false);
-
-  const priceFilterTerm = generatePriceNoteRegex({
-    currency: priceFilterCurrency,
-    min: priceFilterMin,
-    max: priceFilterMax,
-    optimize: priceFilterOptimize,
-  });
+  const [priceFilterMin, setPriceFilterMin] = useState(profile.map.price.min);
+  const [priceFilterMax, setPriceFilterMax] = useState(profile.map.price.max);
+  const [priceFilterCurrency, setPriceFilterCurrency] = useState(profile.map.price.currency);
+  const [priceFilterOptimize, setPriceFilterOptimize] = useState(profile.map.price.optimize);
   const setAlphabeticPriceFilterCurrency = (value: string) => {
     if (isValidPriceNoteCurrencyInput(value)) setPriceFilterCurrency(value);
   };
@@ -137,6 +129,12 @@ const OptimizedMapMods = () => {
       tradeEightModOnly,
       tradeExcludeValdo,
       tradeExcludeShaperElder,
+      price: {
+        min: priceFilterMin,
+        max: priceFilterMax,
+        currency: priceFilterCurrency,
+        optimize: priceFilterOptimize,
+      },
       customText: {
         value: customTextStr,
         enabled: enableCustomText,
@@ -148,9 +146,7 @@ const OptimizedMapMods = () => {
       map: {...settings},
     });
     setResult(generateMapModRegex(settings, regex, profile.language));
-  }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly, tradeExcludeValdo, tradeExcludeShaperElder]);
-
-  const resultWithPriceFilter = [result, priceFilterTerm].filter((s) => s.length > 0).join(" ");
+  }, [rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly, tradeExcludeValdo, tradeExcludeShaperElder, priceFilterMin, priceFilterMax, priceFilterCurrency, priceFilterOptimize]);
 
   const priceWarning = priceWarningFor(priceFilterMin, priceFilterMax);
 
@@ -175,7 +171,7 @@ const OptimizedMapMods = () => {
     <>
       <HeaderWithLanguage text={"Optimized Map Modifiers"}/>
       <RegexResultBox
-        result={resultWithPriceFilter}
+        result={result}
         warning={undefined}
         enableBug={true}
         customText={customTextStr}
@@ -207,10 +203,10 @@ const OptimizedMapMods = () => {
           setTradeEightModOnly(defaultSettings.map.tradeEightModOnly);
           setTradeExcludeValdo(defaultSettings.map.tradeExcludeValdo);
           setTradeExcludeShaperElder(defaultSettings.map.tradeExcludeShaperElder);
-          setPriceFilterMin("");
-          setPriceFilterMax("");
-          setPriceFilterCurrency("");
-          setPriceFilterOptimize(false);
+          setPriceFilterMin(defaultSettings.map.price.min);
+          setPriceFilterMax(defaultSettings.map.price.max);
+          setPriceFilterCurrency(defaultSettings.map.price.currency);
+          setPriceFilterOptimize(defaultSettings.map.price.optimize);
         }}
       />
       {tradeMessage && (
