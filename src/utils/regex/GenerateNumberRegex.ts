@@ -288,121 +288,36 @@ function maxIntegerRegex(max: number): string {
   if (max === 9999) return String.raw`\d\d?\d?\d?`;
   if (max === 100) return String.raw`\d\d?|100`;
 
-  if (max <= 99) {
-    return twoDigitMaxRegex(max);
-  }
-
-  if (max <= 999) {
-    return threeDigitMaxRegex(max);
-  }
-
-  return fourDigitMaxRegex(max);
+  return maxDigitsRegex(max, String(max).length);
 }
 
-function twoDigitMaxRegex(max: number): string {
-  const t = Math.floor(max / 10);
-  const u = max % 10;
-  const parts: string[] = [String.raw`\d`];
+function maxDigitsRegex(max: number, length: number): string {
+  const digits = String(max).split("").map((d) => parseInt(d, 10));
+  const parts: string[] = [String.raw`\d` + String.raw`\d?`.repeat(length - 2)];
 
-  if (t > 1) {
-    if (t - 1 === 1) {
-      parts.push(String.raw`1\d`);
-    } else {
-      parts.push(`[1-${t - 1}]` + String.raw`\d`);
+  for (let pos = 0; pos < length; pos++) {
+    const digit = digits[pos];
+    const prefix = digits.slice(0, pos).join("");
+    const remainingDigits = length - pos - 1;
+    const isUnit = pos === length - 1;
+
+    if (isUnit) {
+      if (digit === 9) parts.push(prefix + String.raw`\d`);
+      else if (digit === 0) parts.push(prefix + "0");
+      else parts.push(prefix + `[0-${digit}]`);
+      continue;
     }
-  }
 
-  if (u === 9) {
-    parts.push(`${t}` + String.raw`\d`);
-  } else if (u === 0) {
-    parts.push(`${t}0`);
-  } else {
-    parts.push(`${t}[0-${u}]`);
-  }
-
-  return parts.join("|");
-}
-
-function threeDigitMaxRegex(max: number): string {
-  const h = Math.floor(max / 100);
-  const t = Math.floor((max % 100) / 10);
-  const u = max % 10;
-  const parts: string[] = [String.raw`\d\d?`];
-
-  if (h > 1) {
-    if (h - 1 === 1) {
-      parts.push(String.raw`1\d\d`);
-    } else {
-      parts.push(`[1-${h - 1}]` + String.raw`\d\d`);
+    const lowerBound = pos === 0 ? 1 : 0;
+    if (digit > lowerBound) {
+      const lowerRange = digit - 1 === lowerBound ? `${lowerBound}` : `[${lowerBound}-${digit - 1}]`;
+      parts.push(prefix + lowerRange + String.raw`\d`.repeat(remainingDigits));
     }
-  }
 
-  if (t === 9 && u === 9) {
-    parts.push(`${h}` + String.raw`\d\d`);
-    return parts.join("|");
-  }
-
-  if (t > 0) {
-    if (t - 1 === 0) {
-      parts.push(`${h}0` + String.raw`\d`);
-    } else {
-      parts.push(`${h}[0-${t - 1}]` + String.raw`\d`);
+    if (digits.slice(pos + 1).every((d) => d === 9)) {
+      parts.push(prefix + digit + String.raw`\d`.repeat(remainingDigits));
+      return parts.join("|");
     }
-  }
-
-  if (u === 9) {
-    parts.push(`${h}${t}` + String.raw`\d`);
-  } else if (u === 0) {
-    parts.push(`${h}${t}0`);
-  } else {
-    parts.push(`${h}${t}[0-${u}]`);
-  }
-
-  return parts.join("|");
-}
-
-function fourDigitMaxRegex(max: number): string {
-  const th = Math.floor(max / 1000);
-  const h = Math.floor((max % 1000) / 100);
-  const t = Math.floor((max % 100) / 10);
-  const u = max % 10;
-  const parts: string[] = [String.raw`\d\d?\d?`];
-
-  if (th > 1) {
-    if (th - 1 === 1) {
-      parts.push(String.raw`1\d\d\d`);
-    } else {
-      parts.push(`[1-${th - 1}]` + String.raw`\d\d\d`);
-    }
-  }
-
-  if (h === 9 && t === 9 && u === 9) {
-    parts.push(`${th}` + String.raw`\d\d\d`);
-    return parts.join("|");
-  }
-
-  if (h > 0) {
-    if (h - 1 === 0) {
-      parts.push(`${th}0` + String.raw`\d\d`);
-    } else {
-      parts.push(`${th}[0-${h - 1}]` + String.raw`\d\d`);
-    }
-  }
-
-  if (t > 0) {
-    if (t - 1 === 0) {
-      parts.push(`${th}${h}0` + String.raw`\d`);
-    } else {
-      parts.push(`${th}${h}[0-${t - 1}]` + String.raw`\d`);
-    }
-  }
-
-  if (u === 9) {
-    parts.push(`${th}${h}${t}` + String.raw`\d`);
-  } else if (u === 0) {
-    parts.push(`${th}${h}${t}0`);
-  } else {
-    parts.push(`${th}${h}${t}[0-${u}]`);
   }
 
   return parts.join("|");
