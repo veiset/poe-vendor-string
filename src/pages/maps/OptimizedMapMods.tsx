@@ -5,7 +5,7 @@ import {HeaderWithLanguage} from "../../components/Header";
 import SelectableTokenList from "../../components/SelectableTokenList/SelectableTokenList";
 import {defaultSettings, MapSettings} from "../../utils/SavedSettings";
 import {Checkbox} from "../vendor/Vendor";
-import {generateMapModRegex} from "./OptimizedMapOutput";
+import {generateMapModRegex, isValidPriceAmount, isValidPriceCurrencyInput} from "./OptimizedMapOutput";
 import "./OptimizedMapMods.css";
 import RegexResultBox from "../../components/RegexResultBox/RegexResultBox";
 import {TradeAsterisk} from "../../components/TradeAsterisk";
@@ -18,15 +18,10 @@ import NumberField from "../../components/NumberField/NumberField";
 import PillToggle from "../../components/PillToggle/PillToggle";
 import ExactOptimizedToggle from "../../components/ExactOptimizedToggle/ExactOptimizedToggle";
 import {mapModTokenColor} from "../../utils/MapModColor";
-import {
-  isValidPriceNoteCurrencyInput,
-  isValidPriceNoteMax,
-  isValidPriceNoteMin,
-} from "../../utils/regex/PriceNoteRegex";
 
 function priceWarningFor(min: string, max: string): string {
-  if (!isValidPriceNoteMin(min)) return "Min value is invalid or out of range (0..999)";
-  if (!isValidPriceNoteMax(max)) return "Max value is invalid or out of range (0..999)";
+  if (!isValidPriceAmount(min)) return "Min value is invalid or out of range (0..999)";
+  if (!isValidPriceAmount(max)) return "Max value is invalid or out of range (0..999)";
   if (min.trim() && max.trim() && Number.parseInt(min, 10) > Number.parseInt(max, 10)) {
     return "Min must be less than or equal to Max";
   }
@@ -66,7 +61,7 @@ const OptimizedMapMods = () => {
   const [priceFilterCurrency, setPriceFilterCurrency] = useState(profile.map.price.currency);
   const [priceFilterOptimize, setPriceFilterOptimize] = useState(profile.map.price.optimize);
   const setAlphabeticPriceFilterCurrency = (value: string) => {
-    if (isValidPriceNoteCurrencyInput(value)) setPriceFilterCurrency(value);
+    if (isValidPriceCurrencyInput(value)) setPriceFilterCurrency(value);
   };
 
   const [customTextStr, setCustomTextStr] = useState(profile.map.customText.value);

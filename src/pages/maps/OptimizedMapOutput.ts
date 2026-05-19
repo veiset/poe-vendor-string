@@ -1,9 +1,20 @@
 import {MapSettings} from "../../utils/SavedSettings";
 import {Regex} from "../../generated/GeneratedTypes";
 import {idToRegex, optimizeRegexFromIds} from "../../utils/regex/OptimizeRegexResult";
-import {generateNumberRegex} from "../../utils/regex/GenerateNumberRegex";
+import {generateIntegerRangeRegex, generateNumberRegex} from "../../utils/regex/GenerateNumberRegex";
 import {LanguageFiles, MapStaticStatRegex, RepoeLanguageKey} from "../../utils/Languages";
-import {generatePriceNoteRegex} from "../../utils/regex/PriceNoteRegex";
+
+export interface PriceNoteOptions {
+  currency: string;
+  min: string;
+  max: string;
+  optimize: boolean;
+}
+
+const PRICE_AMOUNT_RE = /^\d+$/;
+const CURRENCY_RE = /^[A-Za-z]+$/;
+const PARTIAL_CURRENCY_RE = /^[A-Za-z]*$/;
+const PRICE_AMOUNT_MAX = 999;
 
 export function generateMapModRegex(settings: MapSettings, regex: Regex<any>, language: RepoeLanguageKey): string {
   const exclusions = generateBadMods(settings, regex, language);
@@ -23,6 +34,68 @@ export function generateMapModRegex(settings: MapSettings, regex: Regex<any>, la
     .trim().replaceAll(/\s{2,}/g, ' ');
 
   return optimize(result);
+}
+
+export function generatePriceNoteRegex(options: PriceNoteOptions): string {
+  const currency = options.currency.trim();
+  if (!CURRENCY_RE.test(currency)) return "";
+
+  const minRaw = options.min.trim();
+  const maxRaw = options.max.trim();
+  if (minRaw.length === 0 && maxRaw.length === 0) return "";
+
+  if (!isValidPriceAmount(minRaw)) return "";
+  if (!isValidPriceAmount(maxRaw)) return "";
+
+  const rawMin = minRaw.length === 0 ? 0 : Number.parseInt(minRaw, 10);
+  const minPrice = optimizedMin(rawMin, options.optimize);
+
+  if (maxRaw.length === 0) {
+    const priceRegex = minPrice === 0
+      ? generateIntegerRangeRegex(0, PRICE_AMOUNT_MAX)
+      : generateNumberRegex(String(minPrice), false);
+    return noteRegex(priceRegex, currency);
+  }
+
+  const rawMax = Number.parseInt(maxRaw, 10);
+  if (rawMin > rawMax) return "";
+
+  const maxPrice = optimizedMax(rawMax, options.optimize);
+  return noteRegex(generateIntegerRangeRegex(minPrice, maxPrice), currency);
+}
+
+export function isValidPriceAmount(raw: string): boolean {
+  const v = raw.trim();
+  if (v.length === 0) return true;
+  if (!PRICE_AMOUNT_RE.test(v)) return false;
+  return Number.parseInt(v, 10) <= PRICE_AMOUNT_MAX;
+}
+
+export function isValidPriceCurrencyInput(raw: string): boolean {
+  return PARTIAL_CURRENCY_RE.test(raw);
+}
+
+function noteRegex(priceRegex: string, currency: string): string {
+  const amount = priceRegex.includes("|") ? `(${priceRegex})` : priceRegex;
+  return String.raw`"Note:.*? ${amount} ${currency}"`;
+}
+
+// fillDigit=9 rounds an upper bound up (42 -> 49); fillDigit=0 rounds a lower bound down (23 -> 20).
+function roundToLeadingDigit(n: number, fillDigit: 0 | 9): number {
+  const digits = String(n).length;
+  if (digits === 1) return n;
+  const magnitude = Math.pow(10, digits - 1);
+  const leading = Math.floor(n / magnitude);
+  return fillDigit === 9 ? leading * magnitude + (magnitude - 1) : leading * magnitude;
+}
+
+function optimizedMax(rawMax: number, optimize: boolean): number {
+  return optimize ? roundToLeadingDigit(rawMax, 9) : rawMax;
+}
+
+function optimizedMin(rawMin: number, optimize: boolean): number {
+  if (!optimize || rawMin === 0) return rawMin;
+  return roundToLeadingDigit(rawMin, 0);
 }
 
 function unidentifiedMap(settings: MapSettings, language: RepoeLanguageKey) {
@@ -128,8 +201,12 @@ function addQuantifier(prefix: string, string: string) {
 function optimize(string: string): string {
   return string
     .replaceAll(`"!"`, "")
-    .replaceAll("[8-9]", "[89]")
-    .replaceAll("[9-9]", "9");
+    .replace(/\[(\d)-(\d)\]/g, (m, a, b) => {
+      const span = Number(b) - Number(a);
+      if (span === 0) return a;
+      if (span === 1) return `[${a}${b}]`;
+      return m;
+    });
 }
 
 function getSelectedIds(settings: MapSettings, ids: number[], language: RepoeLanguageKey) {
