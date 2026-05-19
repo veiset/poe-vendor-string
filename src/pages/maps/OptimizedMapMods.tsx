@@ -5,7 +5,7 @@ import {HeaderWithLanguage} from "../../components/Header";
 import SelectableTokenList from "../../components/SelectableTokenList/SelectableTokenList";
 import {defaultSettings, MapSettings} from "../../utils/SavedSettings";
 import {Checkbox} from "../vendor/Vendor";
-import {generateMapModRegex, isValidPriceAmount, isValidPriceCurrencyInput} from "./OptimizedMapOutput";
+import {generateMapModRegex} from "./OptimizedMapOutput";
 import "./OptimizedMapMods.css";
 import RegexResultBox from "../../components/RegexResultBox/RegexResultBox";
 import {TradeAsterisk} from "../../components/TradeAsterisk";
@@ -18,15 +18,6 @@ import NumberField from "../../components/NumberField/NumberField";
 import PillToggle from "../../components/PillToggle/PillToggle";
 import ExactOptimizedToggle from "../../components/ExactOptimizedToggle/ExactOptimizedToggle";
 import {mapModTokenColor} from "../../utils/MapModColor";
-
-function priceWarningFor(min: string, max: string): string {
-  if (!isValidPriceAmount(min)) return "Min value is invalid or out of range (0..999)";
-  if (!isValidPriceAmount(max)) return "Max value is invalid or out of range (0..999)";
-  if (min.trim() && max.trim() && Number.parseInt(min, 10) > Number.parseInt(max, 10)) {
-    return "Min must be less than or equal to Max";
-  }
-  return "";
-}
 
 const OptimizedMapMods = () => {
   const {globalProfile} = useContext(ProfileContext);
@@ -60,9 +51,6 @@ const OptimizedMapMods = () => {
   const [priceFilterMax, setPriceFilterMax] = useState(profile.map.price.max);
   const [priceFilterCurrency, setPriceFilterCurrency] = useState(profile.map.price.currency);
   const [priceFilterOptimize, setPriceFilterOptimize] = useState(profile.map.price.optimize);
-  const setAlphabeticPriceFilterCurrency = (value: string) => {
-    if (isValidPriceCurrencyInput(value)) setPriceFilterCurrency(value);
-  };
 
   const [customTextStr, setCustomTextStr] = useState(profile.map.customText.value);
   const [enableCustomText, setEnableCustomText] = useState(profile.map.customText.enabled);
@@ -142,8 +130,6 @@ const OptimizedMapMods = () => {
     });
     setResult(generateMapModRegex(settings, regex, profile.language));
   }, [rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly, tradeExcludeValdo, tradeExcludeShaperElder, priceFilterMin, priceFilterMax, priceFilterCurrency, priceFilterOptimize]);
-
-  const priceWarning = priceWarningFor(priceFilterMin, priceFilterMax);
 
   const renderAffixTag = displayAffixBadges
     ? (token: Token<MapModsTokenOption>) => (
@@ -286,8 +272,7 @@ const OptimizedMapMods = () => {
                     }>
           <NumberField id="price-min" label="Min" value={priceFilterMin} onChange={setPriceFilterMin}/>
           <NumberField id="price-max" label="Max" value={priceFilterMax} onChange={setPriceFilterMax}/>
-          <NumberField id="price-currency" label="Currency" value={priceFilterCurrency} onChange={setAlphabeticPriceFilterCurrency}/>
-          {priceWarning && <span className="map-price-warning">{priceWarning}</span>}
+          <NumberField id="price-currency" label="Currency" value={priceFilterCurrency} onChange={setPriceFilterCurrency}/>
         </FilterCard>
 
         <FilterCard title="Trade Search">

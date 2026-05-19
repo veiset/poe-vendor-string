@@ -1,12 +1,6 @@
 import {LanguageFiles} from "../../utils/Languages";
 import {defaultSettings, MapSettings} from "../../utils/SavedSettings";
-import {
-  generateMapModRegex,
-  generatePriceNoteRegex,
-  isValidPriceAmount,
-  isValidPriceCurrencyInput,
-  PriceNoteOptions,
-} from "./OptimizedMapOutput";
+import {generateMapModRegex, generatePriceNoteRegex, PriceNoteOptions} from "./OptimizedMapOutput";
 
 function resultRegexes(result: string): RegExp[] {
   return Array.from(result.matchAll(/"([^"]+)"/g), (match) => new RegExp(match[1]));
@@ -181,9 +175,6 @@ describe("generatePriceNoteRegex - min-only price", () => {
     ]);
   });
 
-  test('min "0" with empty max matches integer prices', () => {
-    expectMatches({min: "0", max: ""}, ["Note: ~b/o 0 chaos", "Note: ~b/o 123 chaos"]);
-  });
 });
 
 describe("generatePriceNoteRegex - optimize flag", () => {
@@ -212,6 +203,26 @@ describe("generatePriceNoteRegex - optimize flag", () => {
     expectMatches(options, ["Note: ~b/o 20 chaos", "Note: ~b/o 23 chaos"]);
     expectNotMatches(options, ["Note: ~b/o 19 chaos"]);
   });
+
+  test("optimize does not rescue an inverted raw range", () => {
+    expectNoPriceNote({min: "23", max: "20", optimize: true});
+  });
+});
+
+describe("generatePriceNoteRegex - numeric-prefix inputs", () => {
+  test("min with trailing non-digits parses via the leading numeric prefix", () => {
+    expectMatches({min: "1abc", max: ""}, ["Note: ~b/o 1 chaos", "Note: ~b/o 999 chaos"]);
+    expectNotMatches({min: "1abc", max: ""}, ["Note: ~b/o 0 chaos"]);
+  });
+
+  test("max with trailing non-digits parses via the leading numeric prefix", () => {
+    expectMatches({min: "", max: "999x"}, [
+      "Note: ~b/o 0 chaos",
+      "Note: ~b/o 500 chaos",
+      "Note: ~b/o 999 chaos",
+    ]);
+    expectNotMatches({min: "", max: "999x"}, ["Note: ~b/o 1000 chaos"]);
+  });
 });
 
 describe("generatePriceNoteRegex - invalid input", () => {
@@ -225,34 +236,13 @@ describe("generatePriceNoteRegex - invalid input", () => {
     ["currency with space", {currency: "ancient orb"}],
     ["currency with digits", {currency: "chaos2"}],
     ["invalid max", {max: "chaos"}],
-    ["decimal max", {max: "1.5"}],
     ["max over 999", {max: "1000"}],
     ["invalid min", {min: "chaos", max: "100"}],
-    ["decimal min", {min: "1.5", max: "100"}],
     ["min over 999", {min: "1000", max: "1000"}],
     ["min greater than max", {min: "50", max: "10"}],
     ["both min and max empty", {min: "", max: ""}],
+    ["min 0 with empty max", {min: "0", max: ""}],
   ])("%s returns empty string", (_name, options) => {
     expectNoPriceNote(options);
-  });
-});
-
-describe("isValidPriceCurrencyInput", () => {
-  test.each(["", "chaos", "Divine", "EXALTED"])("valid %p", (raw) => {
-    expect(isValidPriceCurrencyInput(raw)).toBe(true);
-  });
-
-  test.each(["chaos2", "ancient orb", "a.*+?", "1"])("invalid %p", (raw) => {
-    expect(isValidPriceCurrencyInput(raw)).toBe(false);
-  });
-});
-
-describe("isValidPriceAmount", () => {
-  test.each(["", "   ", "0", "50", " 250 ", "999"])("valid %p", (raw) => {
-    expect(isValidPriceAmount(raw)).toBe(true);
-  });
-
-  test.each(["chaos", "1.5", "-5", "1000"])("invalid %p", (raw) => {
-    expect(isValidPriceAmount(raw)).toBe(false);
   });
 });

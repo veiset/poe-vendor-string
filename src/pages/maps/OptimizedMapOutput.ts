@@ -11,10 +11,7 @@ export interface PriceNoteOptions {
   optimize: boolean;
 }
 
-const PRICE_AMOUNT_RE = /^\d+$/;
 const CURRENCY_RE = /^[A-Za-z]+$/;
-const PARTIAL_CURRENCY_RE = /^[A-Za-z]*$/;
-const PRICE_AMOUNT_MAX = 999;
 
 export function generateMapModRegex(settings: MapSettings, regex: Regex<any>, language: RepoeLanguageKey): string {
   const exclusions = generateBadMods(settings, regex, language);
@@ -44,35 +41,21 @@ export function generatePriceNoteRegex(options: PriceNoteOptions): string {
   const maxRaw = options.max.trim();
   if (minRaw.length === 0 && maxRaw.length === 0) return "";
 
-  if (!isValidPriceAmount(minRaw)) return "";
-  if (!isValidPriceAmount(maxRaw)) return "";
-
   const rawMin = minRaw.length === 0 ? 0 : Number.parseInt(minRaw, 10);
   const minPrice = optimizedMin(rawMin, options.optimize);
 
+  let priceRegex: string;
   if (maxRaw.length === 0) {
-    const priceRegex = minPrice === 0
-      ? generateIntegerRangeRegex(0, PRICE_AMOUNT_MAX)
-      : generateNumberRegex(String(minPrice), false);
-    return noteRegex(priceRegex, currency);
+    if (minPrice === 0) return "";
+    priceRegex = generateNumberRegex(String(minPrice), false);
+  } else {
+    const rawMax = Number.parseInt(maxRaw, 10);
+    if (rawMin > rawMax) return "";
+    priceRegex = generateIntegerRangeRegex(minPrice, optimizedMax(rawMax, options.optimize));
   }
 
-  const rawMax = Number.parseInt(maxRaw, 10);
-  if (rawMin > rawMax) return "";
-
-  const maxPrice = optimizedMax(rawMax, options.optimize);
-  return noteRegex(generateIntegerRangeRegex(minPrice, maxPrice), currency);
-}
-
-export function isValidPriceAmount(raw: string): boolean {
-  const v = raw.trim();
-  if (v.length === 0) return true;
-  if (!PRICE_AMOUNT_RE.test(v)) return false;
-  return Number.parseInt(v, 10) <= PRICE_AMOUNT_MAX;
-}
-
-export function isValidPriceCurrencyInput(raw: string): boolean {
-  return PARTIAL_CURRENCY_RE.test(raw);
+  if (priceRegex === "") return "";
+  return noteRegex(priceRegex, currency);
 }
 
 function noteRegex(priceRegex: string, currency: string): string {
