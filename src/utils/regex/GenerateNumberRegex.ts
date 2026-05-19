@@ -124,12 +124,12 @@ const INTEGER_RANGE_MAX = 9999;
 
 export function generateIntegerMinRegex(min: number): string {
   if (!Number.isInteger(min) || min > INTEGER_RANGE_MAX) return "";
-  if (min <= 0) return atLeastDigitsRegex(1);
+  if (min <= 0) return String.raw`\d\d*`;
 
   const length = String(min).length;
   const sameLengthMax = Math.pow(10, length) - 1;
   const sameLengthPart = rangeRegexAtLength(length, min, sameLengthMax);
-  const longerLengthPart = atLeastDigitsRegex(length + 1);
+  const longerLengthPart = digitN(length + 1) + String.raw`\d*`;
 
   return `${sameLengthPart}|${longerLengthPart}`;
 }
@@ -137,7 +137,7 @@ export function generateIntegerMinRegex(min: number): string {
 export function generateIntegerRangeRegex(min: number, max: number): string {
   if (!Number.isInteger(min) || !Number.isInteger(max)) return "";
   if (min < 0 || max < 0 || min > max || max > INTEGER_RANGE_MAX) return "";
-  if (min === 0) return maxIntegerRegex(max);
+  if (min === 0) return maxDigitsRegex(max, String(max).length);
 
   const minLength = String(min).length;
   const maxLength = String(max).length;
@@ -146,7 +146,7 @@ export function generateIntegerRangeRegex(min: number, max: number): string {
   let fullRangeStartLength: number | undefined;
   const addFullRangePart = (endLength: number) => {
     if (fullRangeStartLength === undefined) return;
-    parts.push(fullLengthRegex(fullRangeStartLength, endLength));
+    parts.push(String.raw`[1-9]` + digitN(fullRangeStartLength - 1) + String.raw`\d?`.repeat(endLength - fullRangeStartLength));
     fullRangeStartLength = undefined;
   };
 
@@ -168,16 +168,6 @@ export function generateIntegerRangeRegex(min: number, max: number): string {
   addFullRangePart(maxLength);
 
   return parts.join("|");
-}
-
-function fullLengthRegex(fromLength: number, toLength: number): string {
-  const fixedDigits = Math.max(0, fromLength - 1);
-  const optionalDigits = Math.max(0, toLength - fromLength);
-  return String.raw`[1-9]` + digitN(fixedDigits) + String.raw`\d?`.repeat(optionalDigits);
-}
-
-function atLeastDigitsRegex(minLength: number): string {
-  return digitN(minLength) + String.raw`\d*`;
 }
 
 function rangeRegexAtLength(length: number, min: number, max: number): string {
@@ -223,7 +213,7 @@ function rangeRegexAtLength(length: number, min: number, max: number): string {
     if (minRest === 0) {
       parts.push(prefix + minDigit + digitN(restLength));
     } else {
-      parts.push(prefix + minDigit + groupBranch(minRestRegex(restLength, minRest)));
+      parts.push(prefix + minDigit + groupBranch(rangeRegexAtLength(restLength, minRest, fullRestMax)));
     }
   }
 
@@ -241,7 +231,7 @@ function rangeRegexAtLength(length: number, min: number, max: number): string {
     if (maxRest === fullRestMax) {
       parts.push(prefix + maxDigit + digitN(restLength));
     } else {
-      parts.push(prefix + maxDigit + groupBranch(maxRestRegex(restLength, maxRest)));
+      parts.push(prefix + maxDigit + groupBranch(rangeRegexAtLength(restLength, 0, maxRest)));
     }
   }
 
@@ -261,39 +251,13 @@ function groupBranch(s: string): string {
   return s.includes("|") ? `(${s})` : s;
 }
 
-function minRestRegex(length: number, min: number): string {
-  if (length === 0) return "";
-  if (length === 1) {
-    if (min === 9) return "9";
-    return `[${min}-9]`;
-  }
-  return rangeRegexAtLength(length, min, Math.pow(10, length) - 1);
-}
-
-function maxRestRegex(length: number, max: number): string {
-  if (length === 0) return "";
-  if (length === 1) {
-    if (max === 0) return "0";
-    return `[0-${max}]`;
-  }
-  return rangeRegexAtLength(length, 0, max);
-}
-
-function maxIntegerRegex(max: number): string {
-  if (max === 0) return "0";
-  if (max === 9) return String.raw`\d`;
-  if (max <= 9) return `[0-${max}]`;
-  if (max === 99) return String.raw`\d\d?`;
-  if (max === 999) return String.raw`\d\d?\d?`;
-  if (max === 9999) return String.raw`\d\d?\d?\d?`;
-  if (max === 100) return String.raw`\d\d?|100`;
-
-  return maxDigitsRegex(max, String(max).length);
-}
-
 function maxDigitsRegex(max: number, length: number): string {
+  if (max === Math.pow(10, length) - 1) {
+    return String.raw`\d` + String.raw`\d?`.repeat(length - 1);
+  }
+
   const digits = String(max).split("").map((d) => parseInt(d, 10));
-  const parts: string[] = [String.raw`\d` + String.raw`\d?`.repeat(length - 2)];
+  const parts: string[] = length > 1 ? [String.raw`\d` + String.raw`\d?`.repeat(length - 2)] : [];
 
   for (let pos = 0; pos < length; pos++) {
     const digit = digits[pos];
