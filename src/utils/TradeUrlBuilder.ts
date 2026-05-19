@@ -1,4 +1,5 @@
 import tradeStatIds from "../generated/mapmods/trade/TradeStatIdMatching.json";
+import {MapSettings} from "./SavedSettings";
 
 const WORKER_URL = "https://poe-trade-proxy.veiset.workers.dev";
 const TRADE_URL_BASE = "https://www.pathofexile.com/trade/search";
@@ -25,7 +26,14 @@ export interface TradeSettings {
   eightModOnly: boolean;
   excludeValdo: boolean;
   excludeShaperElder: boolean;
+  mapDropChance: string;
+  quality: Omit<MapSettings["quality"], "regular">;
+  anyQuality: boolean;
   corrupted: {
+    enabled: boolean;
+    include: boolean;
+  };
+  unidentified: {
     enabled: boolean;
     include: boolean;
   };
@@ -56,6 +64,7 @@ interface TradeQuery {
         disabled: boolean;
         filters: {
           corrupted?: { option: "true" | "false" };
+          identified?: { option: "true" | "false" };
           foil_variation?: { option: "none" };
         };
       };
@@ -112,7 +121,7 @@ function parseMinFilter(value: string): { min: number } | undefined {
   return !isNaN(num) && num > 0 ? { min: num } : undefined;
 }
 
-function buildTradeQuery(settings: TradeSettings): TradeQuery {
+export function buildTradeQuery(settings: TradeSettings): TradeQuery {
   const query: TradeQuery = {
     query: {
       status: { option: "securable" },
@@ -158,6 +167,32 @@ function buildTradeQuery(settings: TradeSettings): TradeQuery {
     });
   }
 
+  const mapDropMin = parseMinFilter(settings.mapDropChance);
+  if (mapDropMin) {
+    stats.push({
+      type: "and",
+      filters: [{ id: "pseudo.pseudo_map_more_map_drops", value: mapDropMin }],
+    });
+  }
+
+  const qualityFilters: StatFilter[] = [];
+  const pushQuality = (raw: string, id: string) => {
+    const min = parseMinFilter(raw);
+    if (min) qualityFilters.push({ id, value: min });
+  };
+  pushQuality(settings.quality.currency, "pseudo.pseudo_map_quality_currency");
+  pushQuality(settings.quality.divination, "pseudo.pseudo_map_quality_cards");
+  pushQuality(settings.quality.scarab, "pseudo.pseudo_map_quality_scarabs");
+  pushQuality(settings.quality.rarity, "pseudo.pseudo_map_quality_rarity");
+  pushQuality(settings.quality.packSize, "pseudo.pseudo_map_quality_pack_size");
+  if (qualityFilters.length > 0) {
+    if (settings.anyQuality && qualityFilters.length > 1) {
+      stats.push({ type: "count", filters: qualityFilters, value: { min: 1 } });
+    } else {
+      stats.push({ type: "and", filters: qualityFilters });
+    }
+  }
+
   if (settings.excludeShaperElder) {
     stats.push({
       type: "not",
@@ -182,12 +217,15 @@ function buildTradeQuery(settings: TradeSettings): TradeQuery {
     };
   }
 
-  if (settings.corrupted.enabled || settings.excludeValdo) {
+  if (settings.corrupted.enabled || settings.unidentified.enabled || settings.excludeValdo) {
     query.query.filters.misc_filters = {
       disabled: false,
       filters: {
         ...(settings.corrupted.enabled && {
           corrupted: { option: settings.corrupted.include ? "true" : "false" },
+        }),
+        ...(settings.unidentified.enabled && {
+          identified: { option: settings.unidentified.include ? "false" : "true" },
         }),
         ...(settings.excludeValdo && { foil_variation: { option: "none" } }),
       },

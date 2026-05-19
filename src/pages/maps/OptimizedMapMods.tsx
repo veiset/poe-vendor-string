@@ -67,7 +67,11 @@ const OptimizedMapMods = () => {
         eightModOnly: tradeEightModOnly && !eightModDisabled,
         excludeValdo: tradeExcludeValdo,
         excludeShaperElder: tradeExcludeShaperElder,
+        mapDropChance,
+        quality,
+        anyQuality,
         corrupted,
+        unidentified,
       };
       const tradeResult = await openTradeSearch(settings);
       if (tradeResult.success) {
@@ -191,13 +195,13 @@ const OptimizedMapMods = () => {
                     }>
           <NumberField id="quantity" label="Quantity of at least" value={quantity} onChange={setQuantity} trade/>
           <NumberField id="pack-size" label="Pack Size of at least" value={packsize} onChange={setPacksize} trade/>
-          <NumberField id="mapdrop" label="More maps of at least" value={mapDropChance} onChange={setMapDropChance}/>
+          <NumberField id="mapdrop" label="More maps of at least" value={mapDropChance} onChange={setMapDropChance} trade/>
           <NumberField id="itemRarity" label="Item rarity of at least" value={itemRarity} onChange={setItemRarity} trade/>
         </FilterCard>
         
         <FilterCard title="Map State">
           <div className={`mm-state-row${corrupted.enabled ? "" : " mm-state-row-off"}`}>
-            <Checkbox label="Filter corrupted" value={corrupted.enabled}
+            <Checkbox label={<>Filter corrupted<TradeAsterisk/></>} value={corrupted.enabled}
                       onChange={() => setCorrupted({...corrupted, enabled: !corrupted.enabled})}/>
             <IncludeExcludeToggle name="corrupted" include={corrupted.include}
                                   setInclude={(v) => setCorrupted({...corrupted, include: v})}/>
@@ -213,7 +217,7 @@ const OptimizedMapMods = () => {
                                   setInclude={(v) => setRarity({...rarity, include: v})}/>
           </div>
           <div className={`mm-state-row${unidentified.enabled ? "" : " mm-state-row-off"}`}>
-            <Checkbox label="Filter unidentified" value={unidentified.enabled}
+            <Checkbox label={<>Filter unidentified<TradeAsterisk/></>} value={unidentified.enabled}
                       onChange={() => setUnidentified({...unidentified, enabled: !unidentified.enabled})}/>
             <IncludeExcludeToggle name="unidentified" include={unidentified.include}
                                   setInclude={(v) => setUnidentified({...unidentified, include: v})}/>
@@ -230,15 +234,15 @@ const OptimizedMapMods = () => {
             <NumberField id="qregular" label="Quality of" value={quality.regular} primary
                          onChange={(v) => setQuality({...quality, regular: v})}/>
             <NumberField id="qpacksize" label="• Pack size" value={quality.packSize}
-                         onChange={(v) => setQuality({...quality, packSize: v})}/>
+                         onChange={(v) => setQuality({...quality, packSize: v})} trade/>
             <NumberField id="qrarity" label="• Rarity" value={quality.rarity}
-                         onChange={(v) => setQuality({...quality, rarity: v})}/>
+                         onChange={(v) => setQuality({...quality, rarity: v})} trade/>
             <NumberField id="qcurrency" label="• Currency" value={quality.currency}
-                         onChange={(v) => setQuality({...quality, currency: v})}/>
+                         onChange={(v) => setQuality({...quality, currency: v})} trade/>
             <NumberField id="qdiv" label="• Divination" value={quality.divination}
-                         onChange={(v) => setQuality({...quality, divination: v})}/>
+                         onChange={(v) => setQuality({...quality, divination: v})} trade/>
             <NumberField id="qscarab" label="• Scarab" value={quality.scarab}
-                         onChange={(v) => setQuality({...quality, scarab: v})}/>
+                         onChange={(v) => setQuality({...quality, scarab: v})} trade/>
           </div>
           <Checkbox label="Match any of the quality types (disable to match ALL selected qualities)"
                     value={anyQuality}
