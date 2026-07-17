@@ -61,6 +61,7 @@ const Vendor = () => {
   const [specLinkColorsG, setSpecLinkColorsG] = React.useState<number | undefined>(profile.vendor.colors.specLinkColors.g);
   const [specLinkColorsB, setSpecLinkColorsB] = React.useState<number | undefined>(profile.vendor.colors.specLinkColors.b);
 
+  const [anyTwoLink, setAnyTwoLink] = React.useState(profile.vendor.anyTwoLink);
   const [anyThreeLink, setAnyThreeLink] = React.useState(profile.vendor.anyThreeLink);
   const [anyFourLink, setAnyFourLink] = React.useState(profile.vendor.anyFourLink);
   const [anyFiveLink, setAnyFiveLink] = React.useState(profile.vendor.anyFiveLink);
@@ -105,7 +106,7 @@ const Vendor = () => {
     setRrA, setGgA, setBbA, setRrg, setRrb, setGgr, setGgb, setBbr, setBbg, setRgb, setRaa, setGaa, setBaa,
     setRr, setGg, setBb, setRb, setGr, setBg,
     setSpecLink,
-    setAnyThreeLink, setAnyFourLink, setAnyFiveLink, setAnySixLink,
+    setAnyTwoLink, setAnyThreeLink, setAnyFourLink, setAnyFiveLink, setAnySixLink,
     setAnyTwoColorLink, setAnyThreeColorLink, setAnyFourColorLink, setAnyFiveColorLink, setAnySixColorLink,
     setAnySixSocket,
     setMovement10, setMovement15, setLightning,
@@ -123,7 +124,7 @@ const Vendor = () => {
     rrA, ggA, bbA, rrg, rrb, ggr, ggb, bbr, bbg, rgb, raa, gaa, baa,
     rr, gg, bb, rb, gr, bg,
     specLink, specLinkColorsR, specLinkColorsG, specLinkColorsB,
-    anyThreeLink, anyFourLink, anyFiveLink, anySixLink, anySixSocket,
+    anyTwoLink, anyThreeLink, anyFourLink, anyFiveLink, anySixLink, anySixSocket,
     anyTwoColorLink, anyThreeColorLink, anyFourColorLink, anyFiveColorLink, anySixColorLink,
     movement10, movement15, lightning,
     fire, cold, phys, chaos, anyGem,
@@ -133,6 +134,7 @@ const Vendor = () => {
   ]
 
   let settings: VendorSettings = {
+    anyTwoLink,
     anyThreeLink,
     anyFourLink,
     anyFiveLink,
@@ -255,6 +257,7 @@ const Vendor = () => {
           <SocketCheckbox label="b-g" value={bg} onChange={setBg}/>
 
           <div className="column-header"> Any links</div>
+          <SocketCheckbox label="" value={anyTwoLink} onChange={setAnyTwoLink} link="*-*"/>
           <SocketCheckbox label="" value={anyThreeLink} onChange={setAnyThreeLink} link="*-*-*"/>
           <SocketCheckbox label="" value={anyFourLink} onChange={setAnyFourLink} link="*-*-*-*"/>
           <SocketCheckbox label="" value={anyFiveLink} onChange={setAnyFiveLink} link="*-*-*-*-*"/>
