@@ -279,6 +279,11 @@ export interface VendorSettings {
   anyFourLink: boolean;
   anyFiveLink: boolean;
   anySixLink: boolean;
+  anyTwoColorLink: boolean
+  anyThreeColorLink: boolean
+  anyFourColorLink: boolean
+  anyFiveColorLink: boolean
+  anySixColorLink: boolean
   anySixSocket: boolean;
   movement: {
     ten: boolean;
@@ -451,6 +456,11 @@ export const defaultSettings: SavedSettings = {
     anyFourLink: false,
     anyFiveLink: false,
     anySixLink: false,
+    anyTwoColorLink: false,
+    anyThreeColorLink: false,
+    anyFourColorLink: false,
+    anyFiveColorLink: false,
+    anySixColorLink: false,
     anySixSocket: false,
     movement: {
       ten: false,

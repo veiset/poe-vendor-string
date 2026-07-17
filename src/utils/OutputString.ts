@@ -5,6 +5,11 @@ export interface PoeStringSettings {
   anyFourLink: boolean
   anyFiveLink: boolean
   anySixLink: boolean
+  anyTwoColorLink: boolean
+  anyThreeColorLink: boolean
+  anyFourColorLink: boolean
+  anyFiveColorLink: boolean
+  anySixColorLink: boolean
   anySixSocket: boolean
   movement: {
     ten: boolean
@@ -79,6 +84,7 @@ export interface PoeStringSettings {
 export function generateResultString(settings: PoeStringSettings): string {
   let result = ""
   result = addExpression(result, generate6Socket(settings));
+  result = addExpression(result, generateAnyColoredLinkStr(settings));
   result = addExpression(result, generate4LinkStr(settings));
   result = addExpression(result, generate5LinkStr(settings));
   result = addExpression(result, generate6LinkStr(settings));
@@ -160,6 +166,15 @@ export function generate5LinkStr(settings: PoeStringSettings): string {
 
 export function generate6LinkStr(settings: PoeStringSettings): string {
   return settings.anySixLink ? "(-\\w){5}" : "";
+}
+
+export function generateAnyColoredLinkStr(settings: PoeStringSettings): string {
+  if (settings.anyTwoColorLink) return "[rgb]-[rgb]";
+  if (settings.anyThreeColorLink) return "([rgb]-){2}[rgb]";
+  if (settings.anyFourColorLink) return "([rgb]-){3}[rgb]";
+  if (settings.anyFiveColorLink) return "([rgb]-){4}[rgb]";
+  if (settings.anySixColorLink) return "([rgb]-){5}[rgb]";
+  return "";
 }
 
 export function generateSpecLinkStr(settings: PoeStringSettings): string {
