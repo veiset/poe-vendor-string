@@ -5,6 +5,7 @@ import socketGreen from '../../img/green-socket.png';
 import socketBlue from '../../img/blue-socket.png';
 import socketAny from '../../img/any-socket.png';
 import socketLink from '../../img/link.png';
+import socketAnyColor from '../../img/color-socket.png';
 
 import {generateResultString, generateWarnings} from "../../utils/OutputString";
 import ResultBox from "../../components/ResultBox";
@@ -70,6 +71,11 @@ const Vendor = () => {
   const [anyFourLink, setAnyFourLink] = React.useState(profile.vendor.anyFourLink);
   const [anyFiveLink, setAnyFiveLink] = React.useState(profile.vendor.anyFiveLink);
   const [anySixLink, setAnySixLink] = React.useState(profile.vendor.anySixLink);
+  const [anyTwoColorLink, setAnyTwoColorLink] = React.useState(profile.vendor.anyTwoColorLink);
+  const [anyThreeColorLink, setAnyThreeColorLink] = React.useState(profile.vendor.anyThreeColorLink);
+  const [anyFourColorLink, setAnyFourColorLink] = React.useState(profile.vendor.anyFourColorLink);
+  const [anyFiveColorLink, setAnyFiveColorLink] = React.useState(profile.vendor.anyFiveColorLink);
+  const [anySixColorLink, setAnySixColorLink] = React.useState(profile.vendor.anySixColorLink);
   const [anySixSocket, setAnySixSocket] = React.useState(profile.vendor.anySixSocket);
   const [movement10, setMovement10] = React.useState(profile.vendor.movement.ten);
   const [movement15, setMovement15] = React.useState(profile.vendor.movement.fifteen);
@@ -104,7 +110,9 @@ const Vendor = () => {
     setRrA, setGgA, setBbA, setRrg, setRrb, setGgr, setGgb, setBbr, setBbg, setRgb, setRaa, setGaa, setBaa,
     setRr, setGg, setBb, setRb, setGr, setBg,
     setSpecLink,
-    setAnyThreeLink, setAnyFourLink, setAnyFiveLink, setAnySixLink, setAnySixSocket,
+    setAnyThreeLink, setAnyFourLink, setAnyFiveLink, setAnySixLink,
+    setAnyTwoColorLink, setAnyThreeColorLink, setAnyFourColorLink, setAnyFiveColorLink, setAnySixColorLink,
+    setAnySixSocket,
     setMovement10, setMovement15, setLightning,
     setFire, setCold, setPhys, setChaos, setAnyGem,
     setDmgPhys, setFireMult, setColdMult, setChaosMult,
@@ -121,6 +129,7 @@ const Vendor = () => {
     rr, gg, bb, rb, gr, bg,
     specLink, specLinkColorsR, specLinkColorsG, specLinkColorsB,
     anyThreeLink, anyFourLink, anyFiveLink, anySixLink, anySixSocket,
+    anyTwoColorLink, anyThreeColorLink, anyFourColorLink, anyFiveColorLink, anySixColorLink,
     movement10, movement15, lightning,
     fire, cold, phys, chaos, anyGem,
     dmgPhys, fireMult, coldMult, chaosMult,
@@ -133,6 +142,11 @@ const Vendor = () => {
     anyFourLink,
     anyFiveLink,
     anySixLink,
+    anyTwoColorLink,
+    anyThreeColorLink,
+    anyFourColorLink,
+    anyFiveColorLink,
+    anySixColorLink,
     anySixSocket,
     movement: {
       ten: movement10,
@@ -229,6 +243,13 @@ const Vendor = () => {
           <SocketCheckbox label="b-*-*" value={baa} onChange={setBaa}/>
         </div>
         <div className="eq-col-3">
+          <div className="column-header small-padding"> Any colored links</div>
+          <SocketCheckbox label="Any 2" value={anyTwoColorLink} onChange={setAnyTwoColorLink} link="c-c"/>
+          <SocketCheckbox label="Any 3" value={anyThreeColorLink} onChange={setAnyThreeColorLink} link="c-c-c"/>
+          <SocketCheckbox label="" value={anyFourColorLink} onChange={setAnyFourColorLink} link="c-c-c-c"/>
+          <SocketCheckbox label="" value={anyFiveColorLink} onChange={setAnyFiveColorLink} link="c-c-c-c-c"/>
+          <SocketCheckbox label="" value={anySixColorLink} onChange={setAnySixColorLink} link="c-c-c-c-c-c"/>
+
           <div className="column-header small-padding"> Link colors (2L)</div>
           <SocketCheckbox label="r-r" value={rr} onChange={setRr}/>
           <SocketCheckbox label="g-g" value={gg} onChange={setGg}/>
@@ -394,6 +415,8 @@ function imgFromChar(c: string) {
       return socketBlue;
     case "-":
       return socketLink;
+    case "c":
+      return socketAnyColor;
     default:
       return socketAny;
   }
