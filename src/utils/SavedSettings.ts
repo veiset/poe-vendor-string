@@ -275,6 +275,7 @@ export interface JewelSettings {
 }
 
 export interface VendorSettings {
+  anyTwoLink: boolean;
   anyThreeLink: boolean;
   anyFourLink: boolean;
   anyFiveLink: boolean;
@@ -452,6 +453,7 @@ export const defaultSettings: SavedSettings = {
     mapTabSearch: false,
   },
   vendor: {
+    anyTwoLink: false,
     anyThreeLink: false,
     anyFourLink: false,
     anyFiveLink: false,

@@ -1,6 +1,7 @@
 import {regexGems} from "../generated/gems/Generated.Gems.English";
 
 export interface PoeStringSettings {
+  anyTwoLink: boolean
   anyThreeLink: boolean
   anyFourLink: boolean
   anyFiveLink: boolean
@@ -132,8 +133,7 @@ export function generate3LinkStr(settings: PoeStringSettings): string {
   if (settings.anyThreeLink) {
     result = addExpression(result, "-\\w-");
     return result
-  }
-  ;
+  };
   if (rrr) result = addExpression(result, "r-r-r");
   if (ggg) result = addExpression(result, "g-g-g");
   if (bbb) result = addExpression(result, "b-b-b");
@@ -204,6 +204,7 @@ function oneAndAnyAny(c: string): string {
 export function generate2Link(settings: PoeStringSettings) {
   const {rr, gg, bb, rb, gr, bg} = settings.colors;
   let result = "";
+  if (settings.anyTwoLink) result = addExpression(result, "\"ts: \\w-\"");
   if (rr) result = addExpression(result, "r-r");
   if (gg) result = addExpression(result, "g-g");
   if (bb) result = addExpression(result, "b-b");
