@@ -83,11 +83,7 @@ export interface PoeStringSettings {
 export function generateResultString(settings: PoeStringSettings): string {
   let result = ""
   result = addExpression(result, generate6Socket(settings));
-  result = addExpression(result, generateAnyColoredLinkStr(settings, 2));
-  result = addExpression(result, generateAnyColoredLinkStr(settings, 3));
-  result = addExpression(result, generateAnyColoredLinkStr(settings, 4));
-  result = addExpression(result, generateAnyColoredLinkStr(settings, 5));
-  result = addExpression(result, generateAnyColoredLinkStr(settings, 6));
+  result = addExpression(result, generateAnyColoredLinkStr(settings));
   result = addExpression(result, generate4LinkStr(settings));
   result = addExpression(result, generate5LinkStr(settings));
   result = addExpression(result, generate6LinkStr(settings));
@@ -171,17 +167,13 @@ export function generate6LinkStr(settings: PoeStringSettings): string {
   return settings.anySixLink ? "(-\\w){5}" : "";
 }
 
-export function generateAnyColoredLinkStr(settings: PoeStringSettings, length: 2 | 3 | 4 | 5 | 6): string {
-  const enabled = {
-    2: settings.anyTwoColorLink,
-    3: settings.anyThreeColorLink,
-    4: settings.anyFourColorLink,
-    5: settings.anyFiveColorLink,
-    6: settings.anySixColorLink,
-  }[length];
-
-  if (!enabled) return "";
-  return length === 2 ? "[rgb]-[rgb]" : `([rgb]-){${length - 1}}[rgb]`;
+export function generateAnyColoredLinkStr(settings: PoeStringSettings): string {
+  if (settings.anyTwoColorLink) return "[rgb]-[rgb]";
+  if (settings.anyThreeColorLink) return "([rgb]-){2}[rgb]";
+  if (settings.anyFourColorLink) return "([rgb]-){3}[rgb]";
+  if (settings.anyFiveColorLink) return "([rgb]-){4}[rgb]";
+  if (settings.anySixColorLink) return "([rgb]-){5}[rgb]";
+  return "";
 }
 
 export function generateSpecLinkStr(settings: PoeStringSettings): string {
