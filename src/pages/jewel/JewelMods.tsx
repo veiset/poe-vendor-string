@@ -14,27 +14,27 @@ const JewelMods = (props: JewelModsProps) => {
 
   return (
     <>
-      <div className="eq-col-2">
-        <div className="flask-checkbox-padding">
-          <div className="column-header">Prefix</div>
-          <JewelModList
-            id="prefix"
-            affixes={mods.filter((e) => e.isPrefix)}
-            selected={selected}
-            setSelected={setSelected}
-          />
+      <div className="jewel-mod-column">
+        <div className="jewel-mod-column-header">
+          <span className="jewel-mod-column-title">Prefix</span>
         </div>
+        <JewelModList
+          id="prefix"
+          affixes={mods.filter((e) => e.isPrefix)}
+          selected={selected}
+          setSelected={setSelected}
+        />
       </div>
-      <div className="eq-col-2">
-        <div className="flask-checkbox-padding">
-          <div className="column-header">Suffix</div>
-          <JewelModList
-            id="suffix"
-            affixes={mods.filter((e) => !e.isPrefix)}
-            selected={selected}
-            setSelected={setSelected}
-          />
+      <div className="jewel-mod-column">
+        <div className="jewel-mod-column-header">
+          <span className="jewel-mod-column-title">Suffix</span>
         </div>
+        <JewelModList
+          id="suffix"
+          affixes={mods.filter((e) => !e.isPrefix)}
+          selected={selected}
+          setSelected={setSelected}
+        />
       </div>
     </>
   )

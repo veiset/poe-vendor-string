@@ -1,4 +1,4 @@
-import { gems } from "../generated/GeneratedGems"
+import {regexGems} from "../generated/gems/Generated.Gems.English";
 
 export interface PoeStringSettings {
   anyThreeLink: boolean
@@ -76,8 +76,9 @@ export interface PoeStringSettings {
     dagger: boolean
     staff: boolean
     wand: boolean
+    shield: boolean
   }
-  gems?: string[] // GeneratedGems keys
+  gems: number[] // GeneratedGems keys
 }
 
 export function generateResultString(settings: PoeStringSettings): string {
@@ -384,7 +385,7 @@ export function generateWeaponDamage(settings: PoeStringSettings): string {
 }
 
 export function generateWeaponType(settings: PoeStringSettings): string {
-  const {sceptre, mace, axe, sword, bow, claw, dagger, staff, wand} = settings.weapon;
+  const {sceptre, mace, axe, sword, bow, claw, dagger, staff, wand, shield} = settings.weapon;
   let result = "";
   if (sceptre) result = addExpression(result, "sc");
   if (mace) result = addExpression(result, "mac");
@@ -393,8 +394,9 @@ export function generateWeaponType(settings: PoeStringSettings): string {
   if (bow) result = addExpression(result, "bow");
   if (claw) result = addExpression(result, "cl");
   if (dagger) result = addExpression(result, "da");
-  if (staff) result = addExpression(result, "staf");
+  if (staff) result = addExpression(result, "stave");
   if (wand) result = addExpression(result, "wa");
+  if (shield) result = addExpression(result, "sh");
   if (result.includes("|")) {
     return `s:.+(${result})`;
   } else if (result) {
@@ -405,10 +407,17 @@ export function generateWeaponType(settings: PoeStringSettings): string {
 }
 
 export function generateGems(settings: PoeStringSettings): string {
-  if (!settings.gems?.length) {
+  if (!settings.gems.length) {
     return "";
   }
-  return settings.gems.reduce((expr, gemKey) => 
-    addExpression(expr, gems[gemKey]?.regex)
-  )
+  const tokensById = new Map(
+    regexGems.tokens.map(token => [token.id, token.regex])
+  );
+
+  const gems = settings.gems
+    .map((id) => tokensById.get(id)).filter((e) => e !== null) as string[];
+
+  return gems.reduce((expr, gemKey) =>
+    addExpression(expr, gemKey as string)
+  );
 }

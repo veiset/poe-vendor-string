@@ -101,7 +101,7 @@ export const regexMapModifierT17: Regex<MapModifierT17TokenOption> = {
     {id: 1261702218, regex: "mpo", rawText: "Players are Cursed with Temporal Chains", generalizedText: "^players are cursed with temporal chains$", options: {tier17: false, scary: 360}},
     {id: 1270766659, regex: "^buf", rawText: "Buffs on Players expire 100% faster", generalizedText: "^buffs on players expire #% faster$", options: {tier17: true, scary: 1315}},
     {id: 1275003885, regex: "r el", rawText: "+25% Monster Chaos Resistance|+40% Monster Elemental Resistances", generalizedText: "^#% monster chaos resistance$|^#% monster elemental resistances$", options: {tier17: false, scary: 100}},
-    {id: 1303025587, regex: "lm", rawText: "Monsters have 70% chance to Avoid Elemental Ailments", generalizedText: "^monsters have #% chance to avoid elemental ailments$", options: {tier17: false, scary: 150}},
+    {id: 1303025587, regex: "ail", rawText: "Monsters have 70% chance to Avoid Elemental Ailments", generalizedText: "^monsters have #% chance to avoid elemental ailments$", options: {tier17: false, scary: 150}},
     {id: 1320742524, regex: "emons", rawText: "Area is inhabited by Demons", generalizedText: "^area is inhabited by demons$", options: {tier17: false, scary: 4}},
     {id: 1349832036, regex: "yn", rawText: "Map Boss is accompanied by a Synthesis Boss", generalizedText: "^map boss is accompanied by a synthesis boss$", options: {tier17: true, scary: 1217}},
     {id: 1409464152, regex: "osts", rawText: "Area is inhabited by Ghosts", generalizedText: "^area is inhabited by ghosts$", options: {tier17: false, scary: 4}},

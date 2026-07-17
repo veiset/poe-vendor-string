@@ -2,12 +2,13 @@ import React, {useReducer} from "react";
 import './CoffeeBanner.css';
 
 const CoffeeBanner = () => {
+  const currentBannerId = "banner03";
 
-  const dismissedBanner = localStorage.getItem("banner02");
+  const dismissedBanner = localStorage.getItem(currentBannerId);
   const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
 
   const dismissBanner = () => {
-    localStorage.setItem("banner02", "clicked");
+    localStorage.setItem(currentBannerId, "clicked");
     forceUpdate();
   }
 
@@ -21,10 +22,6 @@ const CoffeeBanner = () => {
                                           href="https://www.buymeacoffee.com/veiset"
                                           rel="noreferrer">donate</a>
         </p>
-        <p className="coffee-text">
-          I’ve disabled the ads. This should make the page <b>faster</b> and more <b>privacy</b> friendly.
-        </p>
-
       </div>
       <div>
         <span onClick={dismissBanner} className="close-banner">&lt;close&gt;</span>

@@ -8,17 +8,27 @@ import {
   selectedProfile,
   setSelectedProfile
 } from "../../utils/LocalStorage";
-import {defaultSettings} from "../../utils/SavedSettings";
+import {defaultSettings, SavedSettings} from "../../utils/SavedSettings";
 import {ProfileContext} from "./ProfileContext";
+import {RepoeLanguage, RepoeLanguageData, RepoeLanguageKey} from "../../utils/Languages";
+import ExportDialog from "./ProfileExportBox";
+import ProfileImportBox from "./ProfileImportBox";
+
+interface ProfileProps {
+  languageSelect?: boolean
+}
 
 
-const Profile = () => {
-  const {setGlobalProfile} = useContext(ProfileContext);
+const Profile = (props: ProfileProps) => {
+  const {languageSelect} = props;
+  const {setGlobalProfile, lang, setLang} = useContext(ProfileContext);
   const [profiles, setProfiles] = useState(loadProfileNames());
   const [profile, setProfile] = useState(selectedProfile());
   const [showNew, setShowNew] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const [showExport, setShowExport] = useState(false);
+  const [showImport, setShowImport] = useState(false);
   const [editName, setEditName] = useState("");
   const [warning, setWarning] = useState<string | undefined>(undefined);
 
@@ -56,7 +66,14 @@ const Profile = () => {
   useEffect(() => {
     setSelectedProfile(profile);
     setGlobalProfile(profile);
+    setLang(loadSettings(profile).language);
   }, [setGlobalProfile, profile]);
+
+  useEffect(() => {
+    const profileSettings = loadSettings(profile);
+    saveSettings({...profileSettings, language: lang});
+    setSelectedProfile(profile);
+  }, [lang]);
 
   const confirmAdd = () => {
     console.log(`Adding new profile: ${editName}`)
@@ -87,10 +104,22 @@ const Profile = () => {
     setShowDelete(false);
   }
 
+  const handleImportProfile = (importedSettings: SavedSettings) => {
+    console.log(`Saving profile: ${importedSettings.name}`);
+
+    if (!profiles.includes(importedSettings.name)) {
+      setProfiles(profiles.concat(importedSettings.name));
+    }
+
+    setProfile(importedSettings.name);
+    saveSettings(importedSettings);
+    setShowImport(false);
+  };
+
   return (
     <div className="profile-container">
       <div>Profile:</div>
-      <select name="league" className="dropdown-select dropdown-md" value={profile}
+      <select name="profile" className="dropdown-select dropdown-md" value={profile}
               onChange={(e) => setProfile(e.target.value)}>
         {profiles.map((profile) => {
           return <option className="option-league" key={profile} value={profile}>{profile}</option>;
@@ -116,36 +145,71 @@ const Profile = () => {
         setShowDelete(true);
       }}>✕
       </div>
+      {languageSelect &&
+        <select
+          name="language"
+          className="dropdown-select dropdown-sm"
+          value={lang}
+          onChange={(e) => setLang(e.target.value as RepoeLanguageKey)}
+        >
+          {Object.entries(RepoeLanguage).map(([key, data]) => (
+            <option
+              className="option-language"
+              key={key}
+              value={key}
+            >
+              {data.flag} {data.name}
+            </option>
+          ))}
+        </select>
+      }
+      <div>
+        <button className="export-button" onClick={() => {
+          setShowImport(false);
+          setShowExport(true);
+        }}>Export</button>
+        <button className="import-button" onClick={() => {
+          setShowExport(false);
+          setShowImport(true);
+        }}>Import</button>
+      </div>
+
+      {showExport &&
+        <ExportDialog settings={loadSettings(profile)} setShow={setShowExport}></ExportDialog>
+      }
+      {showImport &&
+        <ProfileImportBox setShow={setShowImport} existingProfiles={profiles} onImport={handleImportProfile} />
+      }
 
       {showNew &&
-          <ProfileEditBox
-              header={"Create new profile"}
-              editValue={editName}
-              setEditValue={setEditName}
-              show={setShowNew}
-              confirm={confirmAdd}
-              warning={warning}
-          />
+        <ProfileEditBox
+          header={"Create new profile"}
+          editValue={editName}
+          setEditValue={setEditName}
+          show={setShowNew}
+          confirm={confirmAdd}
+          warning={warning}
+        />
       }
       {showEdit &&
-          <ProfileEditBox
-              header={"Edit profile name"}
-              editValue={editName}
-              setEditValue={setEditName}
-              show={setShowEdit}
-              confirm={confirmEdit}
-              warning={warning}
-          />
+        <ProfileEditBox
+          header={"Edit profile name"}
+          editValue={editName}
+          setEditValue={setEditName}
+          show={setShowEdit}
+          confirm={confirmEdit}
+          warning={warning}
+        />
       }
       {showDelete &&
-          <ProfileEditBox
-              header={`Delete profile`}
-              editValue={""}
-              show={setShowDelete}
-              confirm={confirmDelete}
-              warning={warning}
-              saveText={"Confirm"}
-          />
+        <ProfileEditBox
+          header={`Delete profile`}
+          editValue={""}
+          show={setShowDelete}
+          confirm={confirmDelete}
+          warning={warning}
+          saveText={"Confirm"}
+        />
       }
     </div>
   )

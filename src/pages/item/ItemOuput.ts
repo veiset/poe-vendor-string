@@ -88,17 +88,30 @@ export function generateRareItemRegex(
         .map((f) => generateNumberRegex(f, false).replaceAll(".", "\\d"))
         .join(".*");
 
-      return [numbersBefore, regex, numbersAfter]
+      const regexStr = [numbersBefore, regex, numbersAfter]
         .filter((e) => e !== undefined && e !== "")
         .join(".*");
 
-    })
+      return {
+        str: regexStr,
+        affixtype: e.regex.affixtype
+      };
+    });
 
-  if (settings.rareSettings.matchAnyMod) {
-    const regex = result.join("|");
+  if (settings.rareSettings.matchPrefixAndSuffix) {
+    const prefixes = result.filter(e => e.affixtype === "PREFIX").map(e => e.str).join("|");
+    const suffixes = result.filter(e => e.affixtype === "SUFFIX").map(e => e.str).join("|");
+    
+    if (prefixes && suffixes) {
+      return `"${prefixes}" "${suffixes}"`;
+    }
+    // Fallback to default behavior if one of the categories is empty
+    return result.map((e) => `"${e.str}"`).join(" ");
+  } else if (settings.rareSettings.matchAnyMod) {
+    const regex = result.map(e => e.str).join("|");
     return regex.length > 0 ? `"${regex}"` : "";
   } else {
-    return result.map((e) => `"${e}"`).join(" ");
+    return result.map((e) => `"${e.str}"`).join(" ");
   }
   // return result.join("|");
 }

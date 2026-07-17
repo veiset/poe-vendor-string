@@ -14,6 +14,8 @@ export interface RegexResultBoxProps {
   error?: string
   maxLength?: number
   enableBug?: boolean
+  onTradeSearch?: () => void
+  tradeSearchLoading?: boolean
 }
 
 const RegexResultBox = (props: RegexResultBoxProps) => {
@@ -28,6 +30,8 @@ const RegexResultBox = (props: RegexResultBoxProps) => {
     setEnableCustomText,
     maxLength,
     enableBug,
+    onTradeSearch,
+    tradeSearchLoading,
   } = props;
 
   const maxLen = maxLength ?? 250;
@@ -41,11 +45,13 @@ const RegexResultBox = (props: RegexResultBoxProps) => {
     : result;
 
   useEffect(() => {
-    if (autoCopy) {
-      navigator.clipboard.writeText(result);
-      setCopied(result);
-    }
-  }, [result, autoCopy]);
+    if (!autoCopy) return;
+    if (finalResult === copied) return;
+
+    navigator.clipboard.writeText(finalResult)
+      .then(() => setCopied(finalResult))
+      .catch(() => { /* permission denied; retry on next change */ });
+  }, [finalResult, autoCopy, copied]);
 
   return (
     <div className="rrb-layout">
@@ -78,6 +84,15 @@ const RegexResultBox = (props: RegexResultBoxProps) => {
         }}>
           Reset
         </button>
+        {onTradeSearch && (
+          <button
+            className="rrb-trade-button"
+            onClick={onTradeSearch}
+            disabled={tradeSearchLoading}
+          >
+            {tradeSearchLoading ? "Loading..." : "Trade"}
+          </button>
+        )}
         <button className="rrb-option-button" onClick={() => {
           setShowOptions(!showOptions)
         }}>
