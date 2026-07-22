@@ -2,7 +2,7 @@ import React, {useReducer} from "react";
 import './CoffeeBanner.css';
 
 const CoffeeBanner = () => {
-  const currentBannerId = "banner03";
+  const currentBannerId = "banner04";
 
   const dismissedBanner = localStorage.getItem(currentBannerId);
   const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
