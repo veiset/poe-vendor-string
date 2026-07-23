@@ -60,7 +60,7 @@ function generateJewel(
   lookup: Map<string, JewelRegex>
 ): string {
   const regex = selectedMods.map((mod) => {
-    return lookup.get(mod)!!.regex;
+    return lookup.get(mod)!!.regex.replace("\\d+", "\\d+(\\.\\d+)?");
   });
   if (regex.length === 0) return "";
   return settings.allMatch
