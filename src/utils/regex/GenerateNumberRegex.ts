@@ -119,3 +119,119 @@ function threeDigitMin(n: number): string {
   }
   return D0 === 9 ? head : `(${head}|[${D0 + 1}-9]..)`;
 }
+
+export function generateIntegerRangeRegex(min: number, max: number): string {
+  if (!Number.isInteger(min) || !Number.isInteger(max)) return "";
+  if (min < 0 || max < 0 || min > max) return "";
+
+  const minLength = String(min).length;
+  const maxLength = String(max).length;
+
+  const parts: string[] = [];
+  let fullRangeStartLength: number | undefined;
+  const addFullRangePart = (endLength: number) => {
+    if (fullRangeStartLength === undefined) return;
+    parts.push(String.raw`[1-9]` + digitN(fullRangeStartLength - 1) + ".?".repeat(endLength - fullRangeStartLength));
+    fullRangeStartLength = undefined;
+  };
+
+  for (let length = minLength; length <= maxLength; length++) {
+    const rangeMin = length === minLength ? min : Math.pow(10, length - 1);
+    const rangeMax = length === maxLength ? max : Math.pow(10, length) - 1;
+    const fullMin = length === 1 ? 1 : Math.pow(10, length - 1);
+    const fullMax = Math.pow(10, length) - 1;
+
+    if (rangeMin === fullMin && rangeMax === fullMax) {
+      fullRangeStartLength ??= length;
+      continue;
+    }
+
+    addFullRangePart(length - 1);
+    parts.push(rangeRegexAtLength(length, rangeMin, rangeMax));
+  }
+
+  addFullRangePart(maxLength);
+
+  return parts.join("|");
+}
+
+function rangeRegexAtLength(length: number, min: number, max: number): string {
+  if (min > max) return "";
+  if (min === max) return integerText(min, length);
+
+  const lengthMin = length === 1 ? 0 : Math.pow(10, length - 1);
+  const lengthMax = Math.pow(10, length) - 1;
+  if (length >= 2 && min === lengthMin && max === lengthMax) {
+    return String.raw`[1-9]` + digitN(length - 1);
+  }
+
+  const minText = integerText(min, length);
+  const maxText = integerText(max, length);
+
+  let prefixLength = 0;
+  while (prefixLength < length && minText[prefixLength] === maxText[prefixLength]) {
+    prefixLength++;
+  }
+
+  const prefix = minText.slice(0, prefixLength);
+  const remainingLength = length - prefixLength;
+  const minDigit = parseInt(minText[prefixLength], 10);
+  const maxDigit = parseInt(maxText[prefixLength], 10);
+  const restLength = remainingLength - 1;
+  const minRest = remainingLength > 1 ? parseInt(minText.slice(prefixLength + 1), 10) : 0;
+  const maxRest = remainingLength > 1 ? parseInt(maxText.slice(prefixLength + 1), 10) : 0;
+  const fullRestMax = Math.pow(10, restLength) - 1;
+
+  if (minRest === 0 && maxRest === fullRestMax) {
+    if (maxDigit === minDigit) return prefix + minDigit + digitN(restLength);
+    if (minDigit === 0 && maxDigit === 9) return prefix + digitN(remainingLength);
+    return prefix + `[${minDigit}-${maxDigit}]` + digitN(restLength);
+  }
+
+  const parts: string[] = [];
+  const betweenSpan = maxDigit - minDigit - 1;
+  const hasBetweenPart = betweenSpan > 0;
+  const includeMinInBetweenPart = minRest === 0 && hasBetweenPart;
+  const includeMaxInBetweenPart = maxRest === fullRestMax && hasBetweenPart;
+
+  if (!includeMinInBetweenPart) {
+    if (minRest === 0) {
+      parts.push(prefix + minDigit + digitN(restLength));
+    } else {
+      parts.push(prefix + minDigit + groupBranch(rangeRegexAtLength(restLength, minRest, fullRestMax)));
+    }
+  }
+
+  if (hasBetweenPart) {
+    const betweenStart = includeMinInBetweenPart ? minDigit : minDigit + 1;
+    const betweenEnd = includeMaxInBetweenPart ? maxDigit : maxDigit - 1;
+    if (betweenEnd === betweenStart) {
+      parts.push(prefix + betweenStart + digitN(restLength));
+    } else {
+      parts.push(prefix + `[${betweenStart}-${betweenEnd}]` + digitN(restLength));
+    }
+  }
+
+  if (!includeMaxInBetweenPart) {
+    if (maxRest === fullRestMax) {
+      parts.push(prefix + maxDigit + digitN(restLength));
+    } else {
+      parts.push(prefix + maxDigit + groupBranch(rangeRegexAtLength(restLength, 0, maxRest)));
+    }
+  }
+
+  return parts.join("|");
+}
+
+function digitN(n: number): string {
+  return ".".repeat(n);
+}
+
+function integerText(value: number, length: number): string {
+  const text = String(value);
+  return "0".repeat(Math.max(0, length - text.length)) + text;
+}
+
+function groupBranch(s: string): string {
+  return s.includes("|") ? `(${s})` : s;
+}

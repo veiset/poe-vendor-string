@@ -47,6 +47,11 @@ const OptimizedMapMods = () => {
   const [tradeExcludeShaperElder, setTradeExcludeShaperElder] = useState(profile.map.tradeExcludeShaperElder);
   const eightModDisabled = corrupted.enabled && !corrupted.include;
 
+  const [priceFilterMin, setPriceFilterMin] = useState(profile.map.price.min);
+  const [priceFilterMax, setPriceFilterMax] = useState(profile.map.price.max);
+  const [priceFilterCurrency, setPriceFilterCurrency] = useState(profile.map.price.currency);
+  const [priceFilterOptimize, setPriceFilterOptimize] = useState(profile.map.price.optimize);
+
   const [customTextStr, setCustomTextStr] = useState(profile.map.customText.value);
   const [enableCustomText, setEnableCustomText] = useState(profile.map.customText.enabled);
   const [tradeSearchLoading, setTradeSearchLoading] = useState(false);
@@ -107,6 +112,12 @@ const OptimizedMapMods = () => {
       tradeEightModOnly,
       tradeExcludeValdo,
       tradeExcludeShaperElder,
+      price: {
+        min: priceFilterMin,
+        max: priceFilterMax,
+        currency: priceFilterCurrency,
+        optimize: priceFilterOptimize,
+      },
       customText: {
         value: customTextStr,
         enabled: enableCustomText,
@@ -118,7 +129,7 @@ const OptimizedMapMods = () => {
       map: {...settings},
     });
     setResult(generateMapModRegex(settings, regex, profile.language));
-  }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly, tradeExcludeValdo, tradeExcludeShaperElder]);
+  }, [rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly, tradeExcludeValdo, tradeExcludeShaperElder, priceFilterMin, priceFilterMax, priceFilterCurrency, priceFilterOptimize]);
 
   const renderAffixTag = displayAffixBadges
     ? (token: Token<MapModsTokenOption>) => (
@@ -173,6 +184,10 @@ const OptimizedMapMods = () => {
           setTradeEightModOnly(defaultSettings.map.tradeEightModOnly);
           setTradeExcludeValdo(defaultSettings.map.tradeExcludeValdo);
           setTradeExcludeShaperElder(defaultSettings.map.tradeExcludeShaperElder);
+          setPriceFilterMin(defaultSettings.map.price.min);
+          setPriceFilterMax(defaultSettings.map.price.max);
+          setPriceFilterCurrency(defaultSettings.map.price.currency);
+          setPriceFilterOptimize(defaultSettings.map.price.optimize);
         }}
       />
       {tradeMessage && (
@@ -247,6 +262,17 @@ const OptimizedMapMods = () => {
           <Checkbox label="Match any of the quality types (disable to match ALL selected qualities)"
                     value={anyQuality}
                     onChange={setAnyQuality}/>
+        </FilterCard>
+
+        <FilterCard title="Price"
+                    headerControl={
+                      <ExactOptimizedToggle name="price-mode"
+                                            optimized={priceFilterOptimize}
+                                            setOptimized={setPriceFilterOptimize}/>
+                    }>
+          <NumberField id="price-min" label="Min" value={priceFilterMin} onChange={setPriceFilterMin}/>
+          <NumberField id="price-max" label="Max" value={priceFilterMax} onChange={setPriceFilterMax}/>
+          <NumberField id="price-currency" label="Currency" value={priceFilterCurrency} onChange={setPriceFilterCurrency}/>
         </FilterCard>
 
         <FilterCard title="Trade Search">
