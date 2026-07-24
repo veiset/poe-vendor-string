@@ -1,6 +1,6 @@
 import {Checkbox} from "../vendor/Vendor";
 import {Dispatch, SetStateAction} from "react";
-import {leagueName} from "./Expedition";
+import {leagueName} from "../../utils/SavedSettings";
 
 interface ExpeditionOptionProps {
     expensiveUniques: boolean

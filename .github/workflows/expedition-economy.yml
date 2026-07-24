@@ -5,7 +5,7 @@ on:
     - cron: '0 */4 * * *'
 
 env:
-  LEAGUE: Mirage
+  LEAGUE: Allflame
 
 jobs:
   build:
