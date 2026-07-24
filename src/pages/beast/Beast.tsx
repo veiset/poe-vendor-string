@@ -2,13 +2,12 @@ import Header from "../../components/Header";
 import ResultBox from "../../components/ResultBox";
 import React, {useContext, useEffect, useState} from "react";
 import {beastRegex} from "../../generated/GeneratedBeastRegex";
-import {leagueName} from "../expedition/Expedition";
 import "./Beast.css";
 import Collapsable from "../../components/collapsable/Collapsable";
 import {dateTextFromString} from "../expedition/ExpeditionUtils";
 import {Checkbox} from "../vendor/Vendor";
 import {loadSettings, saveSettings} from "../../utils/LocalStorage";
-import {defaultSettings} from "../../utils/SavedSettings";
+import {defaultSettings, leagueName} from "../../utils/SavedSettings";
 import {ProfileContext} from "../../components/profile/ProfileContext";
 import FilterCard from "../../components/FilterCard/FilterCard";
 
