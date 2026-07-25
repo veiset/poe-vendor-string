@@ -7,9 +7,8 @@ import "./Scarab.css";
 import {Scarab, scarabs} from "../../generated/GeneratedScarabs";
 import ScarabElement from "./ScarabElement";
 import {dateTextFromString} from "../expedition/ExpeditionUtils";
-import {leagueName} from "../expedition/Expedition";
 import ModSearchBox from "../../components/ModSearchBox";
-import {defaultSettings, ScarabSettings} from "../../utils/SavedSettings";
+import {defaultSettings, leagueName, ScarabSettings} from "../../utils/SavedSettings";
 import {generateScarabRegex} from "./ScarabOutput";
 import FilterCard from "../../components/FilterCard/FilterCard";
 

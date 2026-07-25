@@ -1,12 +1,11 @@
 import Header from "../../components/Header";
 import ResultBox from "../../components/ResultBox";
 import React, { useContext, useEffect, useState } from "react";
-import { leagueName } from "../expedition/Expedition";
 import "./Tattoo.css";
 import Collapsable from "../../components/collapsable/Collapsable";
 import { dateTextFromString } from "../expedition/ExpeditionUtils";
 import { loadSettings, saveSettings } from "../../utils/LocalStorage";
-import { defaultSettings } from "../../utils/SavedSettings";
+import {defaultSettings, leagueName} from "../../utils/SavedSettings";
 import { ProfileContext } from "../../components/profile/ProfileContext";
 import { tattooRegex } from "../../generated/GeneratedTattoo";
 import FilterCard from "../../components/FilterCard/FilterCard";

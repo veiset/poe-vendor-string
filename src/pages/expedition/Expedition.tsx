@@ -30,8 +30,6 @@ import {ProfileContext} from "../../components/profile/ProfileContext";
 
 dayjs.extend(relativeTime);
 
-export const leagueName = "Mirage";
-
 const allItemsFromGeneratedItems = (baseTypeRegex: { [key: string]: BaseTypeRegex }): Item[] => {
   const baseTypes: string[] = Array.from(Object.keys(baseTypeRegex));
   return baseTypes.flatMap((baseType) => {
