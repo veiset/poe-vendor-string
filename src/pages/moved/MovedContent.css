@@ -1,0 +1,11 @@
+.moved-content {
+    padding: 20px 20px 10px;
+    font-size: 24px;
+}
+.moved-content-extra {
+    padding: 0 20px 10px;
+}
+.moved-link {
+    color: #58fae7;
+    text-decoration: underline;
+}

@@ -55,7 +55,6 @@ const PageLinks = () => {
       <PageLink text="Map names" icon={mapNameIcon} route={"/mapnames"} currentPage={currentPage} />
       <PageLink text="Expedition" icon={expeditionIcon} route={"/expedition"} currentPage={currentPage} />
       <PageLink text="Heist" icon={heistIcon} route={"/heist"} currentPage={currentPage} />
-      <PageLink text="Flasks" icon={flaskIcon} route={"/flasks"} currentPage={currentPage} />
       <PageLink text="Bestiary" icon={beastIcon} route={"/beast"} currentPage={currentPage} />
       <PageLink text="Tattoo" icon={tattooIcon} route={"/tattoo"} currentPage={currentPage} />
       <PageLink text="Runegraft" icon={runegraftIcon} route={"/runegraft"} currentPage={currentPage} />
