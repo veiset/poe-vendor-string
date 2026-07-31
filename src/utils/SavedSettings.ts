@@ -556,7 +556,7 @@ export const defaultSettings: SavedSettings = {
       matchPrefixAndSuffix: false,
     },
     magicSettings: {
-      onlyIfBothPrefixAndSuffix: true,
+      onlyIfBothPrefixAndSuffix: false,
       matchOpenAffix: true,
     },
     customText: {

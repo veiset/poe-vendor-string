@@ -190,13 +190,21 @@ const Item = () => {
                          }}/>
                   <label htmlFor="magic-mods-both" className="radio-button-map">Match at least 1 Prefix AND 1 Suffix</label>
                   <input type="radio" id="magic-mods-open" name="Magic mod matching"
-                         defaultChecked={matchOpenAffix}
-                         checked={matchOpenAffix}
+                         defaultChecked={matchOpenAffix && !onlyIfBothPrefixAndSuffix}
+                         checked={matchOpenAffix && !onlyIfBothPrefixAndSuffix}
                          onChange={v => {
                              setMatchOpenAffix(true);
                              setOnlyIfBothPrefixAndSuffix(false);
                          }}/>
                   <label htmlFor="magic-mods-open" className="radio-button-map">Match an open prefix or suffix</label>
+                  <input type="radio" id="magic-mods-open-and-correct-affix" name="Magic mod matching"
+                         defaultChecked={matchOpenAffix && onlyIfBothPrefixAndSuffix}
+                         checked={matchOpenAffix && onlyIfBothPrefixAndSuffix}
+                         onChange={v => {
+                           setMatchOpenAffix(true);
+                           setOnlyIfBothPrefixAndSuffix(true);
+                         }}/>
+                  <label htmlFor="magic-mods-open-and-correct-affix" className="radio-button-map">Match both affixes, but allow for open prefix or suffix</label>
               </div>
               <MagicItemSelect
                   itemRegex={regexMods}
