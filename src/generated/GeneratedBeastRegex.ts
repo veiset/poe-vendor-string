@@ -51,7 +51,7 @@ export const beastRegex: BeastRegex[] = [
   { beast: "Saqawine Cobra", recipe: "Create a Unique - Mace or Sceptre; Modify Mods on an Item - Add a Mod to a Rare Map", regex: "ne co", harvest: false, red: true},
   { beast: "Saqawine Retch", recipe: "Create a Unique - Boots", regex: "ne re", harvest: false, red: true},
   { beast: "Saqawine Rhex", recipe: "Open a Portal - to Saqawal's Roost", regex: "e rhe", harvest: false, red: true},
-  { beast: "Saqawine Rhoa", recipe: "Create a Rare - Four-Linked Helmet", regex: "e rho", harvest: false, red: true},
+  { beast: "Saqawine Rhoa", recipe: "Create a Rare - Four-Linked Helmet", regex: "ine rho", harvest: false, red: true},
   { beast: "Saqawine Vulture", recipe: "Create an Item - Fully-linked Six-socket Rare", regex: "ne v", harvest: false, red: true},
   { beast: "Vivid Abberarach", recipe: "Create an Item - Shaper Guardian, Elder Guardian or Conqueror Map", regex: "d ab", harvest: true, red: true},
   { beast: "Vivid Vulture", recipe: "Transform an Item - Reroll a Synthesis Implicit Modifier on a Unique Item", regex: "id v", harvest: true, red: true},
