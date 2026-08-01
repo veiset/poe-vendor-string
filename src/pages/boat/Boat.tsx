@@ -52,7 +52,7 @@ const boatAreaOptions = [
     description: "Area contains Sunken Loot",
   },
   {
-    regex: "Infested Bathysphreres",
+    regex: "Infested Bathyspheres",
     description: "Area contains random rewards (sunken loot, gold)",
   },
 ];
