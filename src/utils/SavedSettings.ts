@@ -120,6 +120,7 @@ export interface SavedSettings {
   flask: FlaskSettings;
   expedition: ExpeditionSettings;
   map: MapSettings;
+  boat: BoatSettings;
   item: ItemSettings;
   vendor: VendorSettings;
   mapNames: MapNameSettings;
@@ -246,6 +247,16 @@ export interface MapT17Settings {
   packsize: string;
   optimizeQuant: boolean;
   optimizePacksize: boolean;
+}
+
+export interface BoatSettings {
+  selectedGoodIds: number[];
+  allGoodMods: boolean;
+  adjacentModifier: {
+    enabled: boolean;
+    include: boolean;
+  };
+  selectedAreaRegexes: string[];
 }
 
 export interface MapNameSettings {
@@ -447,6 +458,15 @@ export const defaultSettings: SavedSettings = {
       enabled: true,
     },
     mapDropChance: "",
+  },
+  boat: {
+    selectedGoodIds: [],
+    allGoodMods: false,
+    adjacentModifier: {
+      enabled: false,
+      include: true,
+    },
+    selectedAreaRegexes: [],
   },
   mapNames: {
     selected: [],

@@ -1,6 +1,7 @@
 import './PageLinks.css';
 import vendorIcon from '../img/linkicons/fusing.png';
 import mapIcon from '../img/linkicons/crimson_temple_map.png';
+import boatIcon from '../img/chart.png';
 import alterationIcon from '../img/linkicons/alteration.png';
 import mapNameIcon from '../img/linkicons/chateau_map.png';
 import flaskIcon from '../img/linkicons/glassblower.png';
@@ -51,6 +52,7 @@ const PageLinks = () => {
       </p>
       <PageLink text="Vendor" icon={vendorIcon} route={"/"} currentPage={currentPage} />
       <PageLink text="Map mods" icon={mapIcon} route={"/maps"} currentPage={currentPage} />
+      <PageLink text="Boat" icon={boatIcon} route={"/boat"} currentPage={currentPage} />
       <PageLink text="Items" icon={alterationIcon} route={"/items"} currentPage={currentPage} />
       <PageLink text="Map names" icon={mapNameIcon} route={"/mapnames"} currentPage={currentPage} />
       <PageLink text="Expedition" icon={expeditionIcon} route={"/expedition"} currentPage={currentPage} />
