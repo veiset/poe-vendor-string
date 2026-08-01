@@ -17,6 +17,7 @@ import Tattoo from "../pages/tattoo/Tattoo";
 import Runegraft from "../pages/runegraft/Runegraft";
 import {useRefreshFromInitialLoad, useRefreshOnFocus} from "../utils/RefreshOnFocus";
 import MovedContent from "../pages/moved/MovedContent";
+import Boat from "../pages/boat/Boat";
 
 
 const Pages = () => {
@@ -39,6 +40,7 @@ const Pages = () => {
         <Route path="/" element={<Vendor key={`vendor-${profile.name}-${profile.language}`}/>}/>
         <Route path="/vendor" element={<Vendor key={`vendor-${profile.name}-${profile.language}`}/>}/>
         <Route path="/maps" element={<OptimizedMapMods key={`map-${profile.name}-${profile.language}`}/>}/>
+        <Route path="/boat" element={<Boat key={`boat-${profile.name}-${profile.language}`}/>}/>
         <Route path="/items" element={<Item key={`items-${profile.name}-${profile.language}`}/>}/>
         <Route path="/mapnames" element={<MapNames key={`mapnames-${profile.name}-${profile.language}`}/>}/>
         <Route path="/flasks" element={

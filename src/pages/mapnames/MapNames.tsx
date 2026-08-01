@@ -7,7 +7,7 @@ import Header from "../../components/Header";
 import ResultBox from "../../components/ResultBox";
 import {MapNameSettings} from "../../utils/SavedSettings";
 import {generateMapNameStr} from "../../utils/MapNameOutput";
-import {Checkbox} from "../vendor/Vendor";
+import {Checkbox} from "../../components/Checkbox/Checkbox";
 import "./MapNames.css";
 
 const MapNames = () => {

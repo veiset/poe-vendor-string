@@ -4,7 +4,7 @@ import {loadSettings, saveSettings} from "../../utils/LocalStorage";
 import Header from "../../components/Header";
 import ResultBox from "../../components/ResultBox";
 import {defaultSettings, JewelSettings} from "../../utils/SavedSettings";
-import {Checkbox} from "../vendor/Vendor";
+import {Checkbox} from "../../components/Checkbox/Checkbox";
 import {jewelAbyss, jewelRegular} from "../../generated/GeneratedJewel";
 import JewelMods from "./JewelMods";
 import {generateJewelRegex} from "./JewelOutput";

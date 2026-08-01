@@ -10,7 +10,7 @@ import { ProfileContext } from "../../components/profile/ProfileContext";
 import { runegraftRegex } from "../../generated/GeneratedRunegraft";
 import { tattooRegex } from "../../generated/GeneratedTattoo";
 import FilterCard from "../../components/FilterCard/FilterCard";
-import { Checkbox } from "../vendor/Vendor";
+import {Checkbox} from "../../components/Checkbox/Checkbox";
 
 interface PoeNinjaRunegraftLine {
     id: string

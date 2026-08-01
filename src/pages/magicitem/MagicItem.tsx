@@ -9,7 +9,7 @@ import {ItemAffixRegex, magicItemGroups, problemBases} from "../../generated/Gen
 import GroupedTokenList, {GroupedTokens} from "../../components/GroupedTokenList/GroupedTokenList";
 import Infobox from "../../components/infobox/Infobox";
 import {generateMagicItemRegex} from "./MagicItemOutput";
-import {Checkbox} from "../vendor/Vendor";
+import {Checkbox} from "../../components/Checkbox/Checkbox";
 import "./MagicItem.css";
 
 export interface ItemCategory {

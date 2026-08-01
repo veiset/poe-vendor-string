@@ -1,4 +1,4 @@
-import React, {Dispatch, ReactNode, SetStateAction, useContext, useEffect} from 'react';
+import React, {Dispatch, SetStateAction, useContext, useEffect} from 'react';
 import './Vendor.css';
 import socketRed from '../../img/red-socket.png';
 import socketGreen from '../../img/green-socket.png';
@@ -18,6 +18,7 @@ import GemNameList from './GemNameList';
 import Infobox from '../../components/infobox/Infobox';
 import {regexGems} from "../../generated/gems/Generated.Gems.English";
 import FilterCard from "../../components/FilterCard/FilterCard";
+import {Checkbox} from "../../components/Checkbox/Checkbox";
 
 
 const Vendor = () => {
@@ -325,14 +326,6 @@ const Vendor = () => {
 }
 
 
-interface CheckboxProps {
-  label: ReactNode
-  value: boolean
-  onChange: Dispatch<SetStateAction<boolean>>
-  className?: string
-  disabled?: boolean
-}
-
 interface LinkCheckboxProps {
   label: string
   link?: string
@@ -347,19 +340,6 @@ interface NumberInputProps {
   image?: string
   onChange: Dispatch<SetStateAction<number | undefined>>
   className?: string
-}
-
-export const Checkbox = (props: CheckboxProps) => {
-  return (
-    <div className={props.className}>
-      <label className={`checkbox checkbox-text${props.disabled ? " checkbox-disabled" : ""}`}>
-        <input className="checkbox-input" type="checkbox" checked={props.value}
-               disabled={props.disabled}
-               onChange={e => props.onChange(e.target.checked)}/>
-        <span>{props.label}</span>
-      </label>
-    </div>
-  );
 }
 
 const SocketCheckbox = (props: LinkCheckboxProps) => {
