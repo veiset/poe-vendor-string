@@ -1,12 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.61151688.css",
-    "main.js": "/static/js/main.613ab9b2.js",
+    "main.css": "/static/css/main.013570b5.css",
+    "main.js": "/static/js/main.ccf7ac44.js",
     "static/media/bmc-logo-no-background.png": "/static/media/bmc-logo-no-background.d6e284bcf6fb5faa732f.png",
     "static/media/manrope-all-400-normal.woff": "/static/media/manrope-all-400-normal.29812aea39915b828ff1.woff",
     "static/media/chateau_map.png": "/static/media/chateau_map.6d9adf2898e74a310f15.png",
     "static/media/crimson_temple_map.png": "/static/media/crimson_temple_map.5208156016ae6fab47b7.png",
     "static/media/manrope-latin-400-normal.woff2": "/static/media/manrope-latin-400-normal.2cfae0fb4662deefa552.woff2",
+    "static/media/chart.png": "/static/media/chart.dca8aec338e810412dfa.png",
     "static/media/Chaos_Orb_inventory_icon.png": "/static/media/Chaos_Orb_inventory_icon.52201c2ac11824366958.png",
     "static/media/expeidition_reroll.png": "/static/media/expeidition_reroll.c0a103cfca560e13cad8.png",
     "static/media/alteration.png": "/static/media/alteration.4af5ba0c2afd65c922ce.png",
@@ -17,11 +18,11 @@
     "static/media/manrope-vietnamese-400-normal.woff2": "/static/media/manrope-vietnamese-400-normal.4bb1be8af765fce74e9b.woff2",
     "static/media/manrope-cyrillic-ext-400-normal.woff2": "/static/media/manrope-cyrillic-ext-400-normal.a26a46564e052e1282fa.woff2",
     "index.html": "/index.html",
-    "main.61151688.css.map": "/static/css/main.61151688.css.map",
-    "main.613ab9b2.js.map": "/static/js/main.613ab9b2.js.map"
+    "main.013570b5.css.map": "/static/css/main.013570b5.css.map",
+    "main.ccf7ac44.js.map": "/static/js/main.ccf7ac44.js.map"
   },
   "entrypoints": [
-    "static/css/main.61151688.css",
-    "static/js/main.613ab9b2.js"
+    "static/css/main.013570b5.css",
+    "static/js/main.ccf7ac44.js"
   ]
 }
