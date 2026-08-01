@@ -1,4 +1,4 @@
-import {Checkbox} from "../vendor/Vendor";
+import {Checkbox} from "../../components/Checkbox/Checkbox";
 import {Dispatch, SetStateAction} from "react";
 import {leagueName} from "../../utils/SavedSettings";
 

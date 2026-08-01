@@ -4,7 +4,7 @@ import {loadSettings, saveSettings} from "../../utils/LocalStorage";
 import {HeaderWithLanguage} from "../../components/Header";
 import SelectableTokenList from "../../components/SelectableTokenList/SelectableTokenList";
 import {defaultSettings, MapSettings} from "../../utils/SavedSettings";
-import {Checkbox} from "../vendor/Vendor";
+import {Checkbox} from "../../components/Checkbox/Checkbox";
 import {generateMapModRegex} from "./OptimizedMapOutput";
 import "./OptimizedMapMods.css";
 import RegexResultBox from "../../components/RegexResultBox/RegexResultBox";

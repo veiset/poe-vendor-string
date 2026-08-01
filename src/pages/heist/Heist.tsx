@@ -4,7 +4,7 @@ import {HeistContractType, heistTargetValues} from "../../generated/GeneratedHei
 import {useContext, useEffect, useState} from "react";
 import './Heist.css';
 import HeistContractSelect, {changeVal} from "./HeistContractSelect";
-import {Checkbox} from "../vendor/Vendor";
+import {Checkbox} from "../../components/Checkbox/Checkbox";
 import {addExpression} from "../../utils/OutputString";
 import {defaultSettings} from "../../utils/SavedSettings";
 import {loadSettings, saveSettings} from "../../utils/LocalStorage";

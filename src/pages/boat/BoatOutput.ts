@@ -32,7 +32,9 @@ export function generateBoatModRegex(
     result.push(`"!${adjacentModifierRegex}"`);
   }
 
-  result.push(...selectedAreaRegexes.map((areaRegex) => `"${areaRegex}"`));
+  if (selectedAreaRegexes.length > 0) {
+    result.push(`"${selectedAreaRegexes.join("|")}"`);
+  }
 
   return result.join(" ");
 }

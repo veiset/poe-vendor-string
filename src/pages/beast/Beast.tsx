@@ -5,7 +5,7 @@ import {beastRegex} from "../../generated/GeneratedBeastRegex";
 import "./Beast.css";
 import Collapsable from "../../components/collapsable/Collapsable";
 import {dateTextFromString} from "../expedition/ExpeditionUtils";
-import {Checkbox} from "../vendor/Vendor";
+import {Checkbox} from "../../components/Checkbox/Checkbox";
 import {loadSettings, saveSettings} from "../../utils/LocalStorage";
 import {defaultSettings, leagueName} from "../../utils/SavedSettings";
 import {ProfileContext} from "../../components/profile/ProfileContext";

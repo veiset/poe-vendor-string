@@ -5,7 +5,7 @@ import React, {useContext, useEffect} from "react";
 import FlaskModList from "../../components/FlaskModList";
 import {flaskPrefix, flaskSuffix} from "../../generated/GeneratedFlaskMods";
 import {loadSettings, saveSettings} from "../../utils/LocalStorage";
-import {Checkbox} from "../vendor/Vendor";
+import {Checkbox} from "../../components/Checkbox/Checkbox";
 import {generateFlaskOutput, minItemLevel} from "../../utils/FlaskOuput";
 import {defaultSettings, FlaskSettings} from "../../utils/SavedSettings";
 import {ProfileContext} from "../../components/profile/ProfileContext";

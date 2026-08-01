@@ -5,13 +5,14 @@ import RegexResultBox from "../../components/RegexResultBox/RegexResultBox";
 import SelectableTokenList from "../../components/SelectableTokenList/SelectableTokenList";
 import {BoatModsTokenOption, regexBoatModsENGLISH, Token} from "../../generated/GeneratedBoatMods";
 import {generateBoatModRegex} from "./BoatOutput";
-import {Checkbox} from "../vendor/Vendor";
+import {Checkbox} from "../../components/Checkbox/Checkbox";
 import FilterCard from "../../components/FilterCard/FilterCard";
 import IncludeExcludeToggle from "../../components/IncludeExcludeToggle/IncludeExcludeToggle";
 import {ProfileContext} from "../../components/profile/ProfileContext";
 import {loadSettings, saveSettings} from "../../utils/LocalStorage";
 import {BoatSettings, defaultSettings} from "../../utils/SavedSettings";
 import "../maps/OptimizedMapMods.css";
+import "../boat/Boat.css";
 
 const boatAreaOptions = [
   {
@@ -121,21 +122,11 @@ const Boat = () => {
 
       <div className="break"/>
       <div className="filter-card-grid">
-        <FilterCard title="Boat Config">
-          <div className={`mm-state-row${adjacentModifier.enabled ? "" : " mm-state-row-off"}`}>
-            <Checkbox label="Filter adjacent modifier"
-                      value={adjacentModifier.enabled}
-                      onChange={() => setAdjacentModifier({...adjacentModifier, enabled: !adjacentModifier.enabled})}/>
-            <IncludeExcludeToggle name="boat-adjacent"
-                                  include={adjacentModifier.include}
-                                  setInclude={(v) => setAdjacentModifier({...adjacentModifier, include: v})}/>
-          </div>
-        </FilterCard>
         <FilterCard title="Boat Areas">
           {boatAreaOptions.map((option) => (
             <Checkbox
               key={option.regex}
-              label={`${option.regex} | ${option.description}`}
+              label={<><span className="chart-area-color">{option.regex}</span> | {option.description}</>}
               value={selectedAreaRegexes.includes(option.regex)}
               onChange={(checked) => {
                 if (checked) {
@@ -146,6 +137,16 @@ const Boat = () => {
               }}
             />
           ))}
+        </FilterCard>
+        <FilterCard title="Boat Config">
+          <div className={`mm-state-row${adjacentModifier.enabled ? "" : " mm-state-row-off"}`}>
+            <Checkbox label="Filter adjacent modifier"
+                      value={adjacentModifier.enabled}
+                      onChange={() => setAdjacentModifier({...adjacentModifier, enabled: !adjacentModifier.enabled})}/>
+            <IncludeExcludeToggle name="boat-adjacent"
+                                  include={adjacentModifier.include}
+                                  setInclude={(v) => setAdjacentModifier({...adjacentModifier, include: v})}/>
+          </div>
         </FilterCard>
       </div>
 

@@ -1,6 +1,6 @@
 import "./RegexResultBox.css";
 import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
-import {Checkbox} from "../../pages/vendor/Vendor";
+import {Checkbox} from "../Checkbox/Checkbox";
 import {BugReport} from "../bugreport/BugReport";
 
 export interface RegexResultBoxProps {
