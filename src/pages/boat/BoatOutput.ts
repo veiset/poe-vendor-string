@@ -11,16 +11,19 @@ export function generateBoatModRegex(
 ): string {
   const result: string[] = [];
   const adjacentModifierRegex = "adjacent";
+  const selectedTokens = selectedIds
+    .map((id) => idToRegex(id, regex))
+    .filter((e) => e !== undefined) as string[];
 
-  if (selectedIds.length > 0) {
-    const tokens = selectedIds
-      .map((id) => idToRegex(id, regex))
-      .filter((e) => e !== undefined) as string[];
-
-    if (allSelectedMods) {
-      result.push(...tokens.map((token) => token.includes(" ") ? `"${token}"` : token));
-    } else {
-      result.push(`"${tokens.join("|")}"`);
+  if (!allSelectedMods) {
+    const combinedExpressions = [...selectedTokens, ...selectedAreaRegexes];
+    if (combinedExpressions.length > 0) {
+      result.push(`"${combinedExpressions.join("|")}"`);
+    }
+  } else {
+    result.push(...selectedTokens.map((token) => token.includes(" ") ? `"${token}"` : token));
+    if (selectedAreaRegexes.length > 0) {
+      result.push(`"${selectedAreaRegexes.join("|")}"`);
     }
   }
 
@@ -30,10 +33,6 @@ export function generateBoatModRegex(
 
   if (matchChartsWithoutAdjacentModifier) {
     result.push(`"!${adjacentModifierRegex}"`);
-  }
-
-  if (selectedAreaRegexes.length > 0) {
-    result.push(`"${selectedAreaRegexes.join("|")}"`);
   }
 
   return result.join(" ");
