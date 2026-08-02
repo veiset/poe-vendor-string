@@ -55,6 +55,10 @@ const boatAreaOptions = [
     regex: "Infested Bathyspheres",
     description: "Area contains random rewards (sunken loot, gold)",
   },
+  {
+    regex: "Eldritch Depths",
+    description: "Area contains scary monsters",
+  },
 ];
 
 const Boat = () => {
