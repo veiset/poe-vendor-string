@@ -36,7 +36,7 @@ const boatAreaOptions = [
     description: "Rare monsters within are have \"The Pantheon\" Brine King mod",
   },
   {
-    regex: "Clam Infested-shelf",
+    regex: "Clam-Infested shelf",
     description: "Area contains large amount of Treasure clams",
   },
   {
