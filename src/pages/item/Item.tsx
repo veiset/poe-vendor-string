@@ -5,7 +5,7 @@ import Header from "../../components/Header";
 import RegexResultBox from "../../components/RegexResultBox/RegexResultBox";
 import ItemBaseSelector, {Itembase} from "./ItemBaseSelector";
 import "./Item.css";
-import {ItemAffixRegex, ItemRegex, itemRegex} from "../../generated/GeneratedItemMods";
+import {ItemAffixRegex, ItemRegex, itemRegex} from "../../generated/GeneratedItemModsPOE1";
 import RareItemSelect, {RareModSelection} from "./RareItemSelect";
 import ModWarning from "./ModWarning";
 import {generateMagicItemRegex, generateRareItemRegex} from "./ItemOuput";

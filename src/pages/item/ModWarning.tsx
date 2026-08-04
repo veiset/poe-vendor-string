@@ -1,4 +1,4 @@
-import {ItemRegex} from "../../generated/GeneratedItemMods";
+import {ItemRegex} from "../../generated/GeneratedItemModsPOE1";
 import Collapsable from "../../components/collapsable/Collapsable";
 
 interface ModWarningProps {

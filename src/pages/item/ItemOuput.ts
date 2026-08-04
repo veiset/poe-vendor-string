@@ -1,6 +1,6 @@
 import {Itembase} from "./ItemBaseSelector";
 import {RareModSelection} from "./RareItemSelect";
-import {ItemAffixRegex} from "../../generated/GeneratedItemMods";
+import {ItemAffixRegex} from "../../generated/GeneratedItemModsPOE1";
 import {generateNumberRegex} from "../../utils/regex/GenerateNumberRegex";
 import {ItemCraftingSettings} from "../../utils/SavedSettings";
 

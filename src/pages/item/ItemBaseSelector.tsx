@@ -2,7 +2,7 @@ import Dropdown from "../../components/dropdown/Dropdown";
 import React, {useEffect, useState} from "react";
 import {ReactSearchAutocomplete} from 'react-search-autocomplete';
 import "./ItemBaseSelector.css";
-import {basetypes} from "../../generated/GeneratedItemBases";
+import {basetypes} from "../../generated/GeneratedItemBasesPOE1";
 
 type Rarity = "Magic" | "Rare";
 

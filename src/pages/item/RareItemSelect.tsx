@@ -1,4 +1,4 @@
-import {CategoryRegex, ItemAffixRegex, ItemRegex} from "../../generated/GeneratedItemMods";
+import {CategoryRegex, ItemAffixRegex, ItemRegex} from "../../generated/GeneratedItemModsPOE1";
 import {Itembase} from "./ItemBaseSelector";
 import classNames from "classnames";
 import {categoryOrder, cleanCategoryName, groupedCategory} from "./GroupUtils";

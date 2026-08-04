@@ -1,8 +1,8 @@
-import {Affix, CategoryRegex, ItemRegex} from "../../generated/GeneratedItemMods";
+import {Affix, CategoryRegex, ItemRegex} from "../../generated/GeneratedItemModsPOE1";
 import {Itembase} from "./ItemBaseSelector";
 import GroupedTokenList, {GroupedTokens} from "../../components/GroupedTokenList/GroupedTokenList";
 import React from "react";
-import {ItemAffixRegex} from "../../generated/GeneratedItemMods";
+import {ItemAffixRegex} from "../../generated/GeneratedItemModsPOE1";
 import {categoryOrder, cleanCategoryName, groupedCategory} from "./GroupUtils";
 
 interface MagicItemSelectProps {

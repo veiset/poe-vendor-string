@@ -1,4 +1,4 @@
-import {CategoryRegex} from "../../generated/GeneratedItemMods";
+import {CategoryRegex} from "../../generated/GeneratedItemModsPOE1";
 
 export const cleanCategoryName = (category: string): string => category
   .replace(RegExp("suffix_?"), "Suffix")
