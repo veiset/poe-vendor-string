@@ -1,5 +1,5 @@
 import tradeStatIds from "../generated/mapmods/trade/TradeStatIdMatching.json";
-import {MapSettings} from "./SavedSettings";
+import { MapSettings } from "./SavedSettings";
 
 const WORKER_URL = "https://poe-trade-proxy.veiset.workers.dev";
 const TRADE_URL_BASE = "https://www.pathofexile.com/trade/search";
@@ -22,6 +22,7 @@ export interface TradeSettings {
   quantity: string;
   packsize: string;
   itemRarity: string;
+  currency: string;
   regex: string;
   eightModOnly: boolean;
   excludeValdo: boolean;
@@ -160,18 +161,28 @@ export function buildTradeQuery(settings: TradeSettings): TradeQuery {
     }
   }
 
+  const andFilters: StatFilter[] = [];
+
   if (settings.eightModOnly) {
-    stats.push({
-      type: "and",
-      filters: [{ id: "pseudo.pseudo_number_of_affix_mods", value: { min: 8 } }],
+    andFilters.push({
+      id: "pseudo.pseudo_number_of_affix_mods",
+      value: { min: 8 },
     });
   }
 
   const mapDropMin = parseMinFilter(settings.mapDropChance);
   if (mapDropMin) {
-    stats.push({
-      type: "and",
-      filters: [{ id: "pseudo.pseudo_map_more_map_drops", value: mapDropMin }],
+    andFilters.push({
+      id: "pseudo.pseudo_map_more_map_drops",
+      value: mapDropMin,
+    });
+  }
+
+  const currencyMin = parseMinFilter(settings.currency);
+  if (currencyMin) {
+    andFilters.push({
+      id: "pseudo.pseudo_map_more_currency_drops",
+      value: currencyMin,
     });
   }
 
@@ -180,23 +191,39 @@ export function buildTradeQuery(settings: TradeSettings): TradeQuery {
     const min = parseMinFilter(raw);
     if (min) qualityFilters.push({ id, value: min });
   };
+
   pushQuality(settings.quality.currency, "pseudo.pseudo_map_quality_currency");
   pushQuality(settings.quality.divination, "pseudo.pseudo_map_quality_cards");
   pushQuality(settings.quality.scarab, "pseudo.pseudo_map_quality_scarabs");
   pushQuality(settings.quality.rarity, "pseudo.pseudo_map_quality_rarity");
   pushQuality(settings.quality.packSize, "pseudo.pseudo_map_quality_pack_size");
+
   if (qualityFilters.length > 0) {
     if (settings.anyQuality && qualityFilters.length > 1) {
-      stats.push({ type: "count", filters: qualityFilters, value: { min: 1 } });
+      stats.push({
+        type: "count",
+        filters: qualityFilters,
+        value: { min: 1 },
+      });
     } else {
-      stats.push({ type: "and", filters: qualityFilters });
+      andFilters.push(...qualityFilters);
     }
   }
 
   if (settings.excludeShaperElder) {
     stats.push({
       type: "not",
-      filters: [{ id: "implicit.stat_1792283443" }],
+      filters: [
+        { id: "implicit.stat_1792283443|1" },
+        { id: "implicit.stat_1792283443|2" },
+      ],
+    });
+  }
+
+  if (andFilters.length > 0) {
+    stats.push({
+      type: "and",
+      filters: andFilters,
     });
   }
 
@@ -217,7 +244,11 @@ export function buildTradeQuery(settings: TradeSettings): TradeQuery {
     };
   }
 
-  if (settings.corrupted.enabled || settings.unidentified.enabled || settings.excludeValdo) {
+  if (
+    settings.corrupted.enabled ||
+    settings.unidentified.enabled ||
+    settings.excludeValdo
+  ) {
     query.query.filters.misc_filters = {
       disabled: false,
       filters: {
@@ -225,9 +256,13 @@ export function buildTradeQuery(settings: TradeSettings): TradeQuery {
           corrupted: { option: settings.corrupted.include ? "true" : "false" },
         }),
         ...(settings.unidentified.enabled && {
-          identified: { option: settings.unidentified.include ? "false" : "true" },
+          identified: {
+            option: settings.unidentified.include ? "false" : "true",
+          },
         }),
-        ...(settings.excludeValdo && { foil_variation: { option: "none" } }),
+        ...(settings.excludeValdo && {
+          foil_variation: { option: "none" },
+        }),
       },
     };
   }

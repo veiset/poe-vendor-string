@@ -12,12 +12,13 @@ export function generateMapModRegex(settings: MapSettings, regex: Regex<any>, la
   const packsize = addQuantifier(statRegex.packsize, generateNumberRegex(settings.packsize, settings.optimizePacksize));
   const mapDrop = addQuantifier(statRegex.mapdrop, generateNumberRegex(settings.mapDropChance, settings.optimizeQuant));
   const itemRarity = addQuantifier(statRegex.itemrarity, generateNumberRegex(settings.itemRarity, settings.optimizeQuant));
+  const currency = addQuantifier(statRegex.currency, generateNumberRegex(settings.currency, settings.optimizeQuant));
   const quality = qualityQualifier(settings, language);
   const rarity = addRarityRegex(settings.rarity.normal, settings.rarity.magic, settings.rarity.rare, settings.rarity.include, language);
   const corrupted = corruptedMapCheck(settings, language);
   const unidentified = unidentifiedMap(settings, language);
 
-  const result = `${exclusions} ${inclusions} ${quantity} ${packsize} ${itemRarity} ${quality} ${rarity} ${mapDrop} ${corrupted} ${unidentified}`
+  const result = `${exclusions} ${inclusions} ${quantity} ${packsize} ${itemRarity} ${currency} ${quality} ${rarity} ${mapDrop} ${corrupted} ${unidentified}`
     .trim().replaceAll(/\s{2,}/g, ' ');
 
   return optimize(result);
