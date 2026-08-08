@@ -202,6 +202,7 @@ export interface MapSettings {
   quantity: string;
   packsize: string;
   itemRarity: string;
+  currency: string;
   optimizeQuant: boolean;
   optimizePacksize: boolean;
   optimizeQuality: boolean;
@@ -421,6 +422,7 @@ export const defaultSettings: SavedSettings = {
     quantity: "",
     packsize: "",
     itemRarity: "",
+    currency: "",
     optimizeQuant: false,
     optimizePacksize: false,
     optimizeQuality: false,

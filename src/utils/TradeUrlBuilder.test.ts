@@ -7,6 +7,7 @@ const baseSettings = (overrides: Partial<TradeSettings> = {}): TradeSettings => 
   quantity: "",
   packsize: "",
   itemRarity: "",
+  currency: "",
   regex: "",
   eightModOnly: false,
   excludeValdo: false,
@@ -130,4 +131,16 @@ describe("buildTradeQuery", () => {
       },
     });
   });
+
+  describe("when using more currency setting", () => {
+    test("it should translate to pseudo more currency", () => {
+      const q = buildTradeQuery(baseSettings({currency: "80"}));
+      expect(q.query.stats).toEqual([
+        {
+          type: "and",
+          filters: [{id: "pseudo.pseudo_map_more_currency_drops", value: {min: 80}}],
+        },
+      ]);
+    })
+  })
 });
