@@ -18,6 +18,7 @@ import Runegraft from "../pages/runegraft/Runegraft";
 import {useRefreshFromInitialLoad, useRefreshOnFocus} from "../utils/RefreshOnFocus";
 import MovedContent from "../pages/moved/MovedContent";
 import Boat from "../pages/boat/Boat";
+import DivinationCards from "../pages/divination/DivinationCards";
 
 
 const Pages = () => {
@@ -51,6 +52,7 @@ const Pages = () => {
         <Route path="/expedition" element={<Expedition key={`expedition-${profile.name}-${profile.language}`}/>}/>
         <Route path="/beast" element={<Beast key={`beast-${profile.name}-${profile.language}`}/>}/>
         <Route path="/scarab" element={<Scarabs key={`scarab-${profile.name}-${profile.language}`}/>}/>
+        <Route path="/divination" element={<DivinationCards key={`divination-${profile.name}-${profile.language}`}/>}/>
         <Route path="/tattoo" element={<Tattoo key={`tattoo-${profile.name}-${profile.language}`}/>}/>
         <Route path="/runegraft" element={<Runegraft key={`runegraft-${profile.name}-${profile.language}`}/>}/>
         <Route path="/jewel" element={<Jewel key={`jewel-${profile.name}-${profile.language}`}/>}/>

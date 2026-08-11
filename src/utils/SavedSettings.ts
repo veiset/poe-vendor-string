@@ -125,6 +125,7 @@ export interface SavedSettings {
   vendor: VendorSettings;
   mapNames: MapNameSettings;
   scarab: ScarabSettings;
+  divination: DivinationSettings;
   jewel: JewelSettings;
   itemCrafting: ItemCraftingSettings;
   tattoo: TattooSettings;
@@ -268,6 +269,11 @@ export interface ScarabSettings {
   selected: string[];
   maxPrice: string;
   minPrice: string;
+}
+
+export interface DivinationSettings {
+  minPrice: string;
+  maxPrice: string;
 }
 
 export interface TattooSettings {
@@ -557,6 +563,10 @@ export const defaultSettings: SavedSettings = {
     selected: [],
     maxPrice: "0.81",
     minPrice: "0.00",
+  },
+  divination: {
+    minPrice: "0",
+    maxPrice: "999",
   },
   jewel: {
     allMatch: false,
