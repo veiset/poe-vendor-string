@@ -29,6 +29,7 @@ const OptimizedMapMods = () => {
   const [quantity, setQuantity] = useState(profile.map.quantity);
   const [packsize, setPacksize] = useState(profile.map.packsize);
   const [itemRarity, setItemRarity] = useState(profile.map.itemRarity);
+  const [currency, setCurrency] = useState(profile.map.currency);
   const [optimizeQuant, setOptimizeQuant] = useState(profile.map.optimizeQuant);
   const [optimizePacksize, setOptimizePacksize] = useState(profile.map.optimizePacksize);
   const [optimizeQuality, setOptimizeQuality] = useState(profile.map.optimizeQuality);
@@ -63,6 +64,7 @@ const OptimizedMapMods = () => {
         quantity,
         packsize,
         itemRarity,
+        currency,
         regex: result,
         eightModOnly: tradeEightModOnly && !eightModDisabled,
         excludeValdo: tradeExcludeValdo,
@@ -93,6 +95,7 @@ const OptimizedMapMods = () => {
       quantity,
       packsize,
       itemRarity,
+      currency,
       optimizeQuant,
       optimizePacksize,
       optimizeQuality,
@@ -118,7 +121,7 @@ const OptimizedMapMods = () => {
       map: {...settings},
     });
     setResult(generateMapModRegex(settings, regex, profile.language));
-  }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly, tradeExcludeValdo, tradeExcludeShaperElder]);
+  }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, currency, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly, tradeExcludeValdo, tradeExcludeShaperElder]);
 
   const renderAffixTag = displayAffixBadges
     ? (token: Token<MapModsTokenOption>) => (
@@ -160,6 +163,7 @@ const OptimizedMapMods = () => {
           setQuantity(defaultSettings.map.quantity);
           setPacksize(defaultSettings.map.packsize);
           setItemRarity(defaultSettings.map.itemRarity);
+          setCurrency(defaultSettings.map.currency);
           setRarity(defaultSettings.map.rarity);
           setCorrupted(defaultSettings.map.corrupted);
           setUnidentified(defaultSettings.map.unidentified);
@@ -197,6 +201,7 @@ const OptimizedMapMods = () => {
           <NumberField id="pack-size" label="Pack Size of at least" value={packsize} onChange={setPacksize} trade/>
           <NumberField id="mapdrop" label="More maps of at least" value={mapDropChance} onChange={setMapDropChance} trade/>
           <NumberField id="itemRarity" label="Item rarity of at least" value={itemRarity} onChange={setItemRarity} trade/>
+          <NumberField id="currency" label="More currency of at least" value={currency} onChange={setCurrency} trade/>
         </FilterCard>
         
         <FilterCard title="Map State">
