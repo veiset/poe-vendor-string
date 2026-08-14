@@ -26,9 +26,6 @@ const MagicItemSelect = (props: MagicItemSelectProps) => {
   const {itembase, itemRegex, selected, setSelected} = props;
 
   const filteredCategories: CategoryRegex[] = itemRegex.categoryRegex
-    .filter((e) => e.category !== "searing_exarch_implicit")
-    .filter((e) => e.category !== "searing_exarch_implicit");
-
   const groupedCategories = groupedCategory(filteredCategories);
 
   return (<>

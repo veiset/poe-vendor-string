@@ -24,8 +24,6 @@ const RareItemSelect = (props: RateItemSelectProps) => {
   const {itemRegex, selected, setSelected, itembase, displayTiers} = props;
 
   const filteredCategories: CategoryRegex[] = itemRegex.categoryRegex
-    .filter((e) => e.category !== "searing_exarch_implicit")
-    .filter((e) => e.category !== "searing_exarch_implicit");
   const groupedCategories = groupedCategory(filteredCategories);
 
   return (<>
