@@ -70,13 +70,10 @@ export function generateRareItemRegex(
       const hasRangeInsideRegex = rangeInRegex !== undefined
         && e.value.values[rangeInRegex] !== ""
         && e.value.values[rangeInRegex] !== undefined;
-      const regex = hasRangeInsideRegex
-        ? e.regex.regex
-          .replace(
-            "\\d+",
-            generateNumberRegex(e.value.values[rangeInRegex], false).replaceAll(".", "\\d")
-          )
-        : e.regex.regex;
+      const numberPattern = hasRangeInsideRegex
+        ? generateNumberRegex(e.value.values[rangeInRegex], false).replaceAll(".", "\\d")
+        : "\\d+";
+      const regex = e.regex.regex.replace("\\d+", `${numberPattern}(\\.\\d+)?`);
       const numbersBefore = e.regex.before
         .map((number) => e.value.values[number])
         .filter((e) => e !== undefined && e !== "")
