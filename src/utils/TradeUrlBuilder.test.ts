@@ -8,6 +8,7 @@ const baseSettings = (overrides: Partial<TradeSettings> = {}): TradeSettings => 
   packsize: "",
   itemRarity: "",
   currency: "",
+  scarabs: "",
   regex: "",
   eightModOnly: false,
   excludeValdo: false,
@@ -139,6 +140,18 @@ describe("buildTradeQuery", () => {
         {
           type: "and",
           filters: [{id: "pseudo.pseudo_map_more_currency_drops", value: {min: 80}}],
+        },
+      ]);
+    })
+  })
+
+  describe("when using more scarabs setting", () => {
+    test("it should translate to pseudo more scarabs", () => {
+      const q = buildTradeQuery(baseSettings({scarabs: "80"}));
+      expect(q.query.stats).toEqual([
+        {
+          type: "and",
+          filters: [{id: "pseudo.pseudo_map_more_scarab_drops", value: {min: 80}}],
         },
       ]);
     })

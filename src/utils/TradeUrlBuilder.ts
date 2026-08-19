@@ -23,6 +23,7 @@ export interface TradeSettings {
   packsize: string;
   itemRarity: string;
   currency: string;
+  scarabs: string;
   regex: string;
   eightModOnly: boolean;
   excludeValdo: boolean;
@@ -183,6 +184,14 @@ export function buildTradeQuery(settings: TradeSettings): TradeQuery {
     andFilters.push({
       id: "pseudo.pseudo_map_more_currency_drops",
       value: currencyMin,
+    });
+  }
+
+  const scarabsMin = parseMinFilter(settings.scarabs);
+  if (scarabsMin) {
+    andFilters.push({
+      id: "pseudo.pseudo_map_more_scarab_drops",
+      value: scarabsMin,
     });
   }
 
