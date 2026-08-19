@@ -152,6 +152,14 @@ jobs:
           target: scarab/
           filename: "scarab_poe_ninja.json"
 
+      # Divination Card Economy
+      - uses: suisei-cn/actions-download-file@v1.3.0
+        id: divination_cards
+        with:
+          url: "https://poe.ninja/poe1/api/economy/exchange/current/overview?league=${{ env.LEAGUE }}&type=DivinationCard"
+          target: divination/
+          filename: "divination_poe_ninja.json"
+
       - run: |
           date > generated.txt
           git config user.name github-actions

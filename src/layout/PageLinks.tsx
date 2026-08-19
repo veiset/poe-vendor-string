@@ -12,6 +12,7 @@ import beastIcon from '../img/BestiaryOrbFull.png';
 import scarabIcon from '../img/scarab.png';
 import tattooIcon from '../img/tattoo.png';
 import runegraftIcon from '../img/runegraft.png';
+import divinationCardIcon from '../img/divination-card.png';
 import coffeeIcon from '../img/bmc-logo-no-background.png';
 import githubIcon from '../img/github-mark-white.png';
 import plausibleIcon from '../img/plausible_logo_sm.png';
@@ -61,6 +62,7 @@ const PageLinks = () => {
       <PageLink text="Tattoo" icon={tattooIcon} route={"/tattoo"} currentPage={currentPage} />
       <PageLink text="Runegraft" icon={runegraftIcon} route={"/runegraft"} currentPage={currentPage} />
       <PageLink text="Scarab" icon={scarabIcon} route={"/scarab"} currentPage={currentPage} />
+      <PageLink text="Divination Card" icon={divinationCardIcon} route={"/divination"} currentPage={currentPage} />
       <PageLink text="Jewel" icon={jewelIcon} route={"/jewel"} currentPage={currentPage} />
       <p></p>
       <p className="support-link">

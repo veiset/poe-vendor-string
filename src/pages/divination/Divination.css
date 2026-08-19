@@ -1,0 +1,12 @@
+.divination-price-info { font-size: 13px; padding: 0 14px; margin: 4px 12px 0; color: var(--color-text-muted); }
+.divination-options-row { display: flex; flex-wrap: wrap; align-items: end; gap: 10px; }
+.divination-field { display: flex; flex-direction: column; gap: 5px; }
+.divination-field label { font-size: 14px; color: var(--color-text); }
+.divination-field-input { width: 90px; padding: 6px 10px; font-size: 13px; font-family: monospace; }
+.divination-action-button { background-color: var(--color-accent); color: #fff; border: 0; border-radius: 3px; padding: 8px 14px; font-size: 14px; cursor: pointer; }
+.divination-action-button:hover { background-color: var(--color-accent-hover); }
+.divination-card { background-color: var(--color-card-bg); border: 1px solid var(--color-border-strong); border-radius: 4px; padding: 14px 12px 10px; margin: 14px 12px; }
+.divination-card-header { padding: 0 4px 12px; margin-bottom: 8px; border-bottom: 1px solid var(--color-border-soft); font-size: 16px; font-weight: 600; color: var(--color-deep-text); }
+.divination-list { display: grid; grid-template-columns: minmax(180px, 1fr) minmax(100px, 1fr) 70px; gap: 12px; padding: 6px 4px; border-bottom: 1px solid var(--color-border-soft); }
+.divination-list-header { font-weight: 600; }
+.divination-list-selected { background-color: #c0ecfa; color: #000; }
