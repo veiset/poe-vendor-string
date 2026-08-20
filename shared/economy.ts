@@ -1,6 +1,4 @@
-// Temporary public R2 development endpoint. Override with VITE_ECONOMY_URL
-// when the production custom domain is available.
-const defaultEconomyUrl = "https://pub-6fc6dffa80cc434b8ac3676cb7140714.r2.dev";
+const defaultEconomyUrl = "https://economy.poe.re";
 
 const economyBaseUrl = (import.meta.env.VITE_ECONOMY_URL ?? defaultEconomyUrl)
   .replace(/\/$/, "");
