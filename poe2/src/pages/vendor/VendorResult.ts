@@ -119,7 +119,7 @@ function itemMods(settings: VendorGroup["itemMods"]): (string | null)[] {
     settings.skillLevelChaos ? "^\\+.*os sp.*ls$" : null,
     settings.skillLevelPhysical ? "^\\+.*al sp.*ls$" : null,
     settings.skillLevelProjectile ? "^\\+.*ile skills$" : null,
-    settings.spirit ? "spiri" : null,
+    settings.spirit ? "o sp" : null,
     settings.rarity ? "d rari" : null,
     settings.attackSpeed ? "ck spe" : null,
     settings.castSpeed ? "st spe" : null,
