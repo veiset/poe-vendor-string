@@ -12,6 +12,7 @@ import {ProfileContext} from "@poe/components/profile/ProfileContext";
 import FilterCard from "@shared/components/FilterCard/FilterCard";
 import {economyUrl, fetchEconomyFile} from "@shared/economy";
 import {usePoe1League} from "@shared/core/LeagueContext";
+import PriceRangeSlider from "@poe/components/PriceRangeSlider/PriceRangeSlider";
 
 export interface PoeNinjaBeast {
   name: string
@@ -137,20 +138,9 @@ const Beast = () => {
       <p className="beast-price-info">Using price data from the {league} League. Last updated: {lastUpdated}</p>
       <div className="filter-card-grid">
         <FilterCard title="Settings">
-          <div className="beast-fields">
-            <div className="beast-field">
-              <label htmlFor="beast-min">Min chaos value</label>
-              <input type="search" className="beast-field-input" id="beast-min" name="search-mod"
-                     value={minChaosValue}
-                     onChange={v => setMinChaosValue(v.target.value)}/>
-            </div>
-            <div className="beast-field">
-              <label htmlFor="beast-max">Max chaos value</label>
-              <input type="search" className="beast-field-input" id="beast-max" name="search-mod"
-                     value={maxChaosValue}
-                     onChange={v => setMaxChaosValue(v.target.value)}/>
-            </div>
-          </div>
+          <PriceRangeSlider id="beast-price" minValue={minChaosValue} maxValue={maxChaosValue}
+                            onMinChange={setMinChaosValue} onMaxChange={setMaxChaosValue}
+                            availablePrices={beastPrices.map((beast) => beast.chaosValue)}/>
           <div className="beast-card-divider"/>
           <Checkbox label="Include harvest beasts" value={includeHarvest} onChange={setIncludeHarvest}/>
           <Checkbox label="Use menagerie regex character limit (100)" value={menagerieLimit}
