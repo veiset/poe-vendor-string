@@ -146,9 +146,4 @@ back to the default worker URL if unset.
 ### Economy storage
 
 The R2 bucket, `economy.poe.re` custom domain, CORS policy, and CDN cache rule
-are managed in [`infra/cloudflare/`](infra/cloudflare/README.md). Apply that
-Terraform before deploying the Worker. Until the production custom domain is
-available, the frontend uses the public R2 development endpoint
-`https://pub-6fc6dffa80cc434b8ac3676cb7140714.r2.dev`. Set
-`VITE_ECONOMY_URL` to the production hostname when it is available, or to use
-another endpoint.
+are managed in [`infra/cloudflare/`](infra/cloudflare/README.md).
