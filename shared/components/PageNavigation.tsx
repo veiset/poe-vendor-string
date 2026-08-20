@@ -12,6 +12,7 @@ export interface NavigationItem {
 }
 
 interface PageNavigationProps {
+  title: string;
   otherGameLabel: string;
   otherGameUrl: string;
   statsUrl: string;
@@ -25,12 +26,12 @@ const SupportLink = ({href, icon, text}: {href: string; icon: string; text: stri
   </p>
 );
 
-export const PageNavigation = ({otherGameLabel, otherGameUrl, statsUrl, items}: PageNavigationProps) => {
+export const PageNavigation = ({title, otherGameLabel, otherGameUrl, statsUrl, items}: PageNavigationProps) => {
   const currentPage = useLocation().pathname;
 
   return (
     <div className="page-link-wrapper">
-      <div className="page-link-header">Path of Regex</div>
+      <div className="page-link-header">{title}</div>
       <div className="page-links">
         <p className="poe2-link">
           <a className="source-link" href={otherGameUrl}>{otherGameLabel}</a>

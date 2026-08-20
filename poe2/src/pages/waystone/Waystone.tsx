@@ -11,6 +11,7 @@ import RegexResultBox from "@shared/components/RegexResultBox/RegexResultBox";
 import Poe2Header from "@poe2/components/Poe2Header";
 import FilterCard from "@shared/components/FilterCard/FilterCard";
 import NumberField from "@shared/components/NumberField/NumberField";
+import MatchAnyAllToggle from "@shared/components/MatchAnyAllToggle/MatchAnyAllToggle";
 
 export function Waystone() {
   const {currentProfile} = useContext(Poe2ProfileContext);
@@ -206,26 +207,13 @@ export function Waystone() {
           />
         </FilterCard>
         <FilterCard title="I want these mods" headerControl={
-            <div className="mm-mod-grouping">
-              <span className="mm-mod-grouping-label">Match</span>
-              <div className="radio-button-modgroup">
-                <input type="radio" className="radio-button-map" id="mods-any" name="mods" value="any"
-                      checked={settings.modifier.wantedModsSelectType === "any"}
-                      onChange={() => {
-                        setSettings({
-                          ...settings, modifier: {...settings.modifier, wantedModsSelectType: "any"}
-                        })
-                      }}/>
-                <label htmlFor="mods-any" className="radio-button-map radio-first-ele">Any</label>
-                <input type="radio" id="mods-all" name="mods" value="all" checked={settings.modifier.wantedModsSelectType === "all"}
-                      onChange={() => {
-                        setSettings({
-                          ...settings, modifier: {...settings.modifier, wantedModsSelectType: "all"}
-                        })
-                      }}/>
-                <label htmlFor="mods-all" className="radio-button-map">All</label>
-              </div>
-            </div>
+          <MatchAnyAllToggle
+            id="waystone-mods"
+            value={settings.modifier.wantedModsSelectType}
+            onChange={(wantedModsSelectType) => setSettings({
+              ...settings, modifier: {...settings.modifier, wantedModsSelectType}
+            })}
+          />
         }>
           <SelectList
             id="wanted-mods"
