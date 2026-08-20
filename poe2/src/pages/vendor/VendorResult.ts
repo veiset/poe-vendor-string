@@ -119,6 +119,7 @@ function itemMods(settings: VendorGroup["itemMods"]): (string | null)[] {
     settings.skillLevelFire ? "^\\+.*re sp.*ls$" : null,
     settings.skillLevelCold ? "^\\+.*ld sp.*ls$" : null,
     settings.skillLevelLightning ? "^\\+.*ng sp.*ls$" : null,
+    settings.skillLevelChaos ? "^\\+.*os sp.*ls$" : null,
     settings.skillLevelPhysical ? "^\\+.*al sp.*ls$" : null,
     settings.skillLevelProjectile ? "^\\+.*ile skills$" : null,
     settings.spirit ? "spiri" : null,
