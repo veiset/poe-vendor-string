@@ -3,55 +3,42 @@
   "version": "0.1.0",
   "homepage": "https://poe.re",
   "private": true,
+  "type": "module",
+  "repository": "https://github.com/veiset/poe-vendor-string.git",
   "dependencies": {
     "@fontsource/manrope": "^4.5.12",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.1.1",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.4.1",
-    "@types/node": "^16.11.32",
-    "@types/react": "^18.0.8",
-    "@types/react-dom": "^18.0.3",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.7",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.0.0",
     "react-search-autocomplete": "^8.5.2",
-    "typescript": "^4.6.4",
+    "typescript": "^5.7.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "fetch-trade-stats": "npx ts-node --project scripts/tsconfig.json scripts/fetch-trade-stats.ts"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "dev": "vite",
+    "dev:poe2": "vite --config vite.config.poe2.ts",
+    "build": "pnpm run typecheck && pnpm run build:poe && pnpm run build:poe2",
+    "build:poe": "vite build --config vite.config.poe.ts",
+    "build:poe2": "vite build --config vite.config.poe2.ts",
+    "typecheck": "tsc -b",
+    "preview": "vite preview",
+    "preview:poe2": "vite preview --config vite.config.poe2.ts",
+    "test": "vitest run",
+    "fetch-trade-stats": "pnpm exec ts-node --esm --project scripts/tsconfig.json scripts/fetch-trade-stats.ts"
   },
   "devDependencies": {
-    "@types/testing-library__jest-dom": "^5.14.3",
-    "gh-pages": "^4.0.0",
-    "ts-node": "^10.9.2"
+    "@testing-library/jest-dom": "~6.9.1",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.6.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "jsdom": "^26.0.0",
+    "ts-node": "^10.9.2",
+    "vite": "^7.0.0",
+    "vitest": "^3.0.0"
   }
 }

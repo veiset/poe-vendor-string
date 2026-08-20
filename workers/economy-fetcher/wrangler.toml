@@ -1,0 +1,14 @@
+name = "economy-fetcher"
+main = "src/index.ts"
+compatibility_date = "2026-08-17"
+
+[triggers]
+crons = ["0 * * * *"]
+
+[[r2_buckets]]
+binding = "ECONOMY"
+bucket_name = "poe-economy"
+
+[observability.logs]
+enabled = true
+invocation_logs = true

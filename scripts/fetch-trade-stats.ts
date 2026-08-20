@@ -1,21 +1,19 @@
-/**
- * Script to fetch trade stats from PoE API and match them to map mod entries.
- *
- * This script:
- * 1. Fetches all stats from https://www.pathofexile.com/api/trade/data/stats
- * 2. Filters to only get "explicit" category entries
- * 3. Matches them against generalizedText in Generated.MapModsV3.ENGLISH.ts
- * 4. Outputs a JSON mapping file: { tokenId: tradeStatId }
- *
- * Run with: npm run fetch-trade-stats
- */
-
 import * as fs from 'fs';
 import * as path from 'path';
+import {fileURLToPath} from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const STATS_API_URL = 'https://www.pathofexile.com/api/trade/data/stats';
-const MAP_MODS_FILE = path.join(__dirname, '../src/generated/mapmods/Generated.MapModsV3.ENGLISH.ts');
-const OUTPUT_FILE = path.join(__dirname, '../src/generated/mapmods/trade/TradeStatIdMatching.json');
+const STATS_2_API_URL = 'https://www.pathofexile.com/api/trade2/data/stats';
+const MAP_MODS_FILE = path.join(__dirname, '../poe/src/generated/mapmods/Generated.MapModsV3.ENGLISH.ts');
+const OUTPUT_FILE = path.join(__dirname, '../poe/src/generated/mapmods/trade/TradeStatIdMatching.json');
+
+const WAYSTONE_FILE = path.join(__dirname, '../poe2/public/generated/Generated.Waystone.min.json');
+const TABLET_FILE = path.join(__dirname, '../poe2/public/generated/Generated.Tablet.min.json');
+const POE2_OUTPUT_DIR = path.join(__dirname, '../poe2/public/generated/trade');
+const WAYSTONE_OUTPUT = path.join(POE2_OUTPUT_DIR, 'WaystoneTradeStatIds.json');
+const TABLET_OUTPUT = path.join(POE2_OUTPUT_DIR, 'TabletTradeStatIds.json');
 
 interface TradeStatEntry {
   id: string;
@@ -39,20 +37,60 @@ interface MapModToken {
   rawText: string;
 }
 
-function normalizeText(text: string): string {
-  return text
+type MatchMode = 'exact' | 'fuzzy' | 'aggressive';
+
+// PoE2 locatives: collapse "Area"/"Your Maps" to "Map" for matching.
+function normalizePoe2(text: string, aggressive = false): string {
+  let out = text
     .toLowerCase()
-    .replace(/\^|\$/g, '') // Remove regex anchors
-    .replace(/\([^)]*\)/g, '#') // Replace (XX-YY) with #
-    .replace(/\+/g, '') // Remove + signs
-    .replace(/#%?/g, 'NUM') // Replace # or #% with NUM
-    .replace(/[^\w\s]/g, ' ') // Replace special chars with space
-    .replace(/\s+/g, ' ') // Normalize whitespace
+    .replace(/\([\D]*\)/g, '')
+    .replace(/\^|\$/g, '')
+    .replace(/\([^)]*\)/g, '#')
+    .replace(/\[([^\]]+)\]/g, '$1')
+    .replace(/\+/g, '')
+    .replace(/\b\d+%?\b/g, 'NUM')
+    .replace(/##?%?/g, 'NUM')
+    .replace(/\bnum\b/gi, 'NUM')
+    .replace(/\byour maps?\b/g, 'map')
+    .replace(/\bareas?\b/g, 'map')
+    .replace(/\bmaps\b/g, 'map')
+    .replace(/\bin map (?=\S)/g, ' ')
+    .replace(/\bmap which contains? \w+ (?:have|has)\b/g, 'map has')
+    .replace(/\bmap contain\b/g, 'map contains')
+    .replace(/\bmap have\b/g, 'map has')
+    .replace(/\bmap are\b/g, 'map is')
+    .replace(/\bmap spawn\b/g, 'map spawns')
+    .replace(/\bmap allow\b/g, 'map allows')
+    .replace(/\bmap dissipate\b/g, 'map dissipates')
+    .replace(/\ban additional\b/g, 'NUM additional')
+    .replace(/\ba additional\b/g, 'NUM additional');
+
+  if (aggressive) {
+    out = out
+      .replace(/\bin map\b/g, ' ')
+      .replace(/\bexpedition\b/g, ' ');
+  }
+
+  return out
+    .replace(/[^\w\s]/g, ' ')
+    .replace(/\s+/g, ' ')
     .trim();
 }
 
 function depluralize(text: string): string {
   return text.replace(/([^s])s(?=\s|$)/g, '$1');
+}
+
+function normalizeText(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/\^|\$/g, '')
+    .replace(/\([^)]*\)/g, '#')
+    .replace(/\+/g, '')
+    .replace(/#%?/g, 'NUM')
+    .replace(/[^\w\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 function textsMatch(generalizedText: string, tradeText: string, exactOnly: boolean): boolean {
@@ -62,69 +100,85 @@ function textsMatch(generalizedText: string, tradeText: string, exactOnly: boole
     const normalizedMod = normalizeText(alt);
     const normalizedTrade = normalizeText(tradeText);
 
-    if (normalizedMod === normalizedTrade) {
-      return true;
-    }
+    if (normalizedMod === normalizedTrade) return true;
+    if (depluralize(normalizedMod) === depluralize(normalizedTrade)) return true;
 
-    // Handle singular/plural differences (e.g. "Grasping Vines" vs "Grasping Vine")
-    if (depluralize(normalizedMod) === depluralize(normalizedTrade)) {
-      return true;
-    }
+    if (exactOnly) continue;
 
-    if (exactOnly) {
-      continue;
-    }
-
-    // Check if one contains the other (for partial matches)
     if (normalizedMod.includes(normalizedTrade) || normalizedTrade.includes(normalizedMod)) {
       const lenRatio = Math.min(normalizedMod.length, normalizedTrade.length) /
                        Math.max(normalizedMod.length, normalizedTrade.length);
-      if (lenRatio > 0.7) {
-        return true;
-      }
+      if (lenRatio > 0.7) return true;
     }
 
-    // Handle map mods that don't have "have #% chance to" prefix
-    // More specific patterns first: "have chance to be X" = "are X", "have chance to have a X" = "have X"
     const tradeWithoutChance = normalizedTrade
       .replace(/monsters have NUM chance to have a /i, 'monsters have ')
       .replace(/monsters have NUM chance to /i, 'monsters ')
       .replace(/players have NUM chance to be /i, 'players are ')
       .replace(/players have NUM chance to /i, 'players ');
 
-    if (normalizedMod === tradeWithoutChance) {
-      return true;
-    }
-
-    if (depluralize(normalizedMod) === depluralize(tradeWithoutChance)) {
-      return true;
-    }
+    if (normalizedMod === tradeWithoutChance) return true;
+    if (depluralize(normalizedMod) === depluralize(tradeWithoutChance)) return true;
 
     const mapModWithChance = normalizedMod.replace(/^monsters /, 'monsters have NUM chance to ');
-    if (mapModWithChance === normalizedTrade) {
-      return true;
-    }
+    if (mapModWithChance === normalizedTrade) return true;
 
-    // Handle negative map mods mapped to positive trade stats
     const modWithPositive = normalizedMod
       .replace(/ less /g, ' more ')
       .replace(/ reduced /g, ' increased ');
 
-    if (modWithPositive === normalizedTrade) {
-      return true;
-    }
+    if (modWithPositive === normalizedTrade) return true;
   }
 
   return false;
 }
 
-async function fetchTradeStats(): Promise<TradeStatEntry[]> {
-  console.log('Fetching trade stats from PoE API...');
+function textsMatchPoe2(modText: string, tradeText: string, mode: MatchMode): boolean {
+  if (mode === 'aggressive') {
+    const normMod = normalizePoe2(modText, true);
+    const normTrade = normalizePoe2(tradeText, true);
+    return normMod === normTrade || depluralize(normMod) === depluralize(normTrade);
+  }
 
-  const response = await fetch(STATS_API_URL, {
-    headers: {
-      'User-Agent': 'poe-vendor-string/1.0 (https://poe.re)',
-    },
+  const normMod = normalizePoe2(modText);
+  const normTrade = normalizePoe2(tradeText);
+
+  if (normMod === normTrade) return true;
+  if (depluralize(normMod) === depluralize(normTrade)) return true;
+
+  if (mode === 'exact') return false;
+
+  const tradeWithoutChance = normTrade
+    .replace(/monsters have NUM chance to have a /i, 'monsters have ')
+    .replace(/monsters have NUM chance to /i, 'monsters ')
+    .replace(/players have NUM chance to be /i, 'players are ')
+    .replace(/players have NUM chance to /i, 'players ');
+  if (normMod === tradeWithoutChance) return true;
+  if (depluralize(normMod) === depluralize(tradeWithoutChance)) return true;
+
+  const modWithChance = normMod.replace(/^monsters /, 'monsters have NUM chance to ');
+  if (modWithChance === normTrade) return true;
+
+  const modPositive = normMod
+    .replace(/ less /g, ' more ')
+    .replace(/ reduced /g, ' increased ')
+    .replace(/\bslower\b/g, 'faster');
+  if (modPositive === normTrade) return true;
+  if (depluralize(modPositive) === depluralize(normTrade)) return true;
+
+  if (normMod.includes(normTrade) || normTrade.includes(normMod)) {
+    const ratio = Math.min(normMod.length, normTrade.length) / Math.max(normMod.length, normTrade.length);
+    if (ratio > 0.7) return true;
+  }
+
+  return false;
+}
+
+async function fetchTradeStats(apiUrl: string, userAgent: string): Promise<TradeStatEntry[]> {
+  console.log(`Fetching trade stats from ${apiUrl}...`);
+
+  const response = await fetch(apiUrl, {
+    headers: { 'User-Agent': userAgent },
   });
 
   if (!response.ok) {
@@ -132,7 +186,6 @@ async function fetchTradeStats(): Promise<TradeStatEntry[]> {
   }
 
   const data: TradeStatsResponse = await response.json();
-
   const explicitGroup = data.result.find(group => group.id === 'explicit');
 
   if (!explicitGroup) {
@@ -161,69 +214,139 @@ function parseMapModsFile(content: string): MapModToken[] {
   return tokens;
 }
 
-async function main() {
-  try {
-    console.log(`Reading ${MAP_MODS_FILE}...`);
-    const fileContent = fs.readFileSync(MAP_MODS_FILE, 'utf-8');
+function loadPoe2Tokens(file: string) {
+  const data = JSON.parse(fs.readFileSync(file, 'utf-8'));
+  return data.tokens;
+}
 
-    const tokens = parseMapModsFile(fileContent);
-    const tradeStats = await fetchTradeStats();
+function modClauses(token: any): string[] {
+  const source = token.rawText || token.generalizedText || '';
+  return source
+    .split(/[\n|]/)
+    .map((s: string) => s.trim())
+    .filter(Boolean);
+}
 
-    console.log('\nMatching tokens to trade stats...\n');
+function findStatForPoe2Token(token: any, tradeStats: TradeStatEntry[]): TradeStatEntry | null {
+  const clauses = modClauses(token);
 
-    const mapping: Record<string, string> = {};
-    const unmatched: MapModToken[] = [];
-
-    for (const token of tokens) {
-      // Two-pass matching: prefer exact matches over fuzzy/partial matches
-      let bestMatch: TradeStatEntry | null = null;
-
-      // Pass 1: exact match only
+  for (const mode of ['exact', 'fuzzy', 'aggressive'] as MatchMode[]) {
+    for (let i = clauses.length - 1; i >= 0; i--) {
       for (const stat of tradeStats) {
-        if (textsMatch(token.generalizedText, stat.text, true)) {
+        if (textsMatchPoe2(clauses[i], stat.text, mode)) {
+          return stat;
+        }
+      }
+    }
+  }
+  return null;
+}
+
+function buildPoe2Mapping(label: string, tokens: any[], tradeStats: TradeStatEntry[]) {
+  const mapping: Record<string, string> = {};
+  const unmatched: any[] = [];
+
+  for (const token of tokens) {
+    const found = findStatForPoe2Token(token, tradeStats);
+    if (found) {
+      mapping[String(token.id)] = found.id;
+    } else {
+      unmatched.push(token);
+    }
+  }
+
+  const matched = Object.keys(mapping).length;
+  console.log(`\n[${label}] Matched: ${matched}/${tokens.length} (${((matched / Math.max(tokens.length, 1)) * 100).toFixed(1)}%)`);
+  if (unmatched.length > 0) {
+    console.log(`[${label}] Unmatched:`);
+    for (const t of unmatched) {
+      console.log(`  - id=${t.id}: ${t.rawText.replace(/\n/g, ' / ').slice(0, 100)}`);
+    }
+  }
+  return mapping;
+}
+
+async function runPoe1(tradeStats: TradeStatEntry[]) {
+  console.log(`Reading ${MAP_MODS_FILE}...`);
+  const fileContent = fs.readFileSync(MAP_MODS_FILE, 'utf-8');
+  const tokens = parseMapModsFile(fileContent);
+
+  console.log('\nMatching tokens to trade stats...\n');
+
+  const mapping: Record<string, string> = {};
+  const unmatched: MapModToken[] = [];
+
+  for (const token of tokens) {
+    let bestMatch: TradeStatEntry | null = null;
+
+    for (const stat of tradeStats) {
+      if (textsMatch(token.generalizedText, stat.text, true)) {
+        bestMatch = stat;
+        break;
+      }
+    }
+
+    if (!bestMatch) {
+      for (const stat of tradeStats) {
+        if (textsMatch(token.generalizedText, stat.text, false)) {
           bestMatch = stat;
           break;
         }
       }
-
-      // Pass 2: fuzzy/partial match (only if no exact match found)
-      if (!bestMatch) {
-        for (const stat of tradeStats) {
-          if (textsMatch(token.generalizedText, stat.text, false)) {
-            bestMatch = stat;
-            break;
-          }
-        }
-      }
-
-      if (bestMatch) {
-        mapping[token.id] = bestMatch.id;
-        console.log(`✓ Matched: "${token.rawText.substring(0, 50)}..." -> ${bestMatch.id}`);
-      } else {
-        unmatched.push(token);
-      }
     }
 
-    const matchedCount = Object.keys(mapping).length;
-
-    // Write JSON mapping file
-    fs.writeFileSync(OUTPUT_FILE, JSON.stringify(mapping, null, 2) + '\n', 'utf-8');
-
-    console.log('\n' + '='.repeat(60));
-    console.log(`Results:`);
-    console.log(`  Matched: ${matchedCount}/${tokens.length} (${((matchedCount/tokens.length)*100).toFixed(1)}%)`);
-    console.log(`  Unmatched: ${unmatched.length}`);
-
-    if (unmatched.length > 0) {
-      console.log('\nUnmatched mods (generalizedText -> normalized):');
-      unmatched.forEach(token => {
-        console.log(`  - "${token.generalizedText}"`);
-        console.log(`    normalized: "${normalizeText(token.generalizedText)}"`);
-      });
+    if (bestMatch) {
+      mapping[token.id] = bestMatch.id;
+      console.log(`✓ Matched: "${token.rawText.substring(0, 50)}..." -> ${bestMatch.id}`);
+    } else {
+      unmatched.push(token);
     }
+  }
 
-    console.log(`\nOutput: ${OUTPUT_FILE}`);
+  const matchedCount = Object.keys(mapping).length;
+  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(mapping, null, 2) + '\n', 'utf-8');
 
+  console.log('\n' + '='.repeat(60));
+  console.log('PoE1 Results:');
+  console.log(`  Matched: ${matchedCount}/${tokens.length} (${((matchedCount / tokens.length) * 100).toFixed(1)}%)`);
+  console.log(`  Unmatched: ${unmatched.length}`);
+  if (unmatched.length > 0) {
+    console.log('\nUnmatched mods (generalizedText -> normalized):');
+    unmatched.forEach(token => {
+      console.log(`  - "${token.generalizedText}"`);
+      console.log(`    normalized: "${normalizeText(token.generalizedText)}"`);
+    });
+  }
+  console.log(`\nOutput: ${OUTPUT_FILE}`);
+}
+
+async function runPoe2(tradeStats: TradeStatEntry[]) {
+  if (!fs.existsSync(POE2_OUTPUT_DIR)) {
+    fs.mkdirSync(POE2_OUTPUT_DIR, { recursive: true });
+  }
+
+  const waystoneTokens = loadPoe2Tokens(WAYSTONE_FILE);
+  console.log(`Parsed ${waystoneTokens.length} waystone tokens`);
+  const tabletTokens = loadPoe2Tokens(TABLET_FILE);
+  console.log(`Parsed ${tabletTokens.length} tablet tokens`);
+
+  writeJson(WAYSTONE_OUTPUT, buildPoe2Mapping('waystone', waystoneTokens, tradeStats));
+  writeJson(TABLET_OUTPUT, buildPoe2Mapping('tablet', tabletTokens, tradeStats));
+}
+
+function writeJson(filePath: string, mapping: Record<string, string>) {
+  fs.writeFileSync(filePath, JSON.stringify(mapping, null, 2) + '\n', 'utf-8');
+  console.log(`Output: ${filePath}`);
+}
+
+async function main() {
+  try {
+    // PoE1 uses the trade API; PoE2 uses trade2 endpoint. They return identical shapes today.
+    const poe1Stats = await fetchTradeStats(STATS_API_URL, 'poe.re/1.0 (https://poe.re)');
+    await runPoe1(poe1Stats);
+
+    const poe2Stats = await fetchTradeStats(STATS_2_API_URL, 'poe.re/1.0 (https://poe.re)');
+    await runPoe2(poe2Stats);
   } catch (error) {
     console.error('Error:', error);
     process.exit(1);

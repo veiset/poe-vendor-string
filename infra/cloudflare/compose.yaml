@@ -1,0 +1,16 @@
+services:
+  terraform:
+    image: hashicorp/terraform:1.15.8
+    working_dir: /workspace
+    entrypoint: ["terraform"]
+    environment:
+      CLOUDFLARE_API_TOKEN: ${CLOUDFLARE_API_TOKEN:?Set CLOUDFLARE_API_TOKEN in .env}
+      TF_VAR_cloudflare_api_token: ${CLOUDFLARE_API_TOKEN:?Set CLOUDFLARE_API_TOKEN in .env}
+      TF_VAR_cloudflare_account_id: ${TF_VAR_cloudflare_account_id:?Set TF_VAR_cloudflare_account_id in .env}
+      TF_PLUGIN_CACHE_DIR: /root/.terraform.d/plugin-cache
+    volumes:
+      - .:/workspace
+      - terraform-plugin-cache:/root/.terraform.d/plugin-cache
+
+volumes:
+  terraform-plugin-cache:
