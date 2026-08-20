@@ -47,6 +47,13 @@ describe("poe2 generateVendorRegex", () => {
     expect(generateVendorRegex(g)).toBe(`"m level: (8[6-9]|9[0-9])\\b"`);
   });
 
+  test("chaos spell skill level emits chaos spell skills regex", () => {
+    const g = vendorGroup({
+      itemMods: {...defaultSettings.vendor.vendorGroups[0].itemMods, skillLevelChaos: true},
+    });
+    expect(generateVendorRegex(g)).toBe(`"^\\+.*os sp.*ls$"`);
+  });
+
   test("groups are space-joined and custom text appended", () => {
     const settings: Settings["vendor"] = {
       resultSettings: {customText: "\"^com\"", autoCopy: false, customTextEnabled: true},

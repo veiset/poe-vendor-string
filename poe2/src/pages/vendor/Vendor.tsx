@@ -327,6 +327,11 @@ export function Vendor() {
                       ...selectedGroup, itemMods: {...selectedGroup.itemMods, skillLevelLightning: b}
                     })}
           />
+          <Checkbox label="+# to level of chaos spell skills" value={selectedGroup.itemMods.skillLevelChaos}
+                    onChange={(b) => setSelectedGroup({
+                      ...selectedGroup, itemMods: {...selectedGroup.itemMods, skillLevelChaos: b}
+                    })}
+          />
           <Checkbox label="+# to level of physical spell skills" value={selectedGroup.itemMods.skillLevelPhysical}
                     onChange={(b) => setSelectedGroup({
                       ...selectedGroup, itemMods: {...selectedGroup.itemMods, skillLevelPhysical: b}
