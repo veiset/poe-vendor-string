@@ -1,5 +1,5 @@
 import React, {useReducer} from "react";
-import './CoffeeBanner.css';
+import './Banner.css';
 
 const CoffeeBanner = () => {
   const currentBannerId = "banner04";
