@@ -70,7 +70,7 @@ export const ExpeditionHelp = (props: ExpeditionHelpProps) => {
             <div className="expedition-help-heading">Missing items</div>
             <div>
                 If you find any items missing, or items that shouldn't show up, such as an item that cannot be chanced please
-                report them at <a className="source-link" href="https://github.com/veiset/poe-vendor-string/issues">the issue tracker</a>.
+                report them at <a className="source-link" href="https://github.com/veiset/poe.re/issues">the issue tracker</a>.
                 <br/>
                 There are currently <span className="span-help-number">{numberOfUniques}</span> uniques known by the generator,
                 of which <span className="span-help-number">{obtainableItems}</span> are obtainable from Gwennen.

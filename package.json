@@ -1,10 +1,10 @@
 {
-  "name": "poe-vendor-string",
+  "name": "poe.re",
   "version": "0.1.0",
   "homepage": "https://poe.re",
   "private": true,
   "type": "module",
-  "repository": "https://github.com/veiset/poe-vendor-string.git",
+  "repository": "https://github.com/veiset/poe.re.git",
   "dependencies": {
     "@fontsource/manrope": "^4.5.12",
     "classnames": "^2.5.1",

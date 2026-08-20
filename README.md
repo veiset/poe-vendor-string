@@ -42,7 +42,7 @@ A tool for generating vendor search strings. With no false positives matches and
 ## Reporting a bug
 
 If you encounter a bug or have a suggestion:
-1. Go to the [Issues](https://github.com/veiset/poe-vendor-string/issues) tab.
+1. Go to the [Issues](https://github.com/veiset/poe.re/issues) tab.
 2. Open a "New Issue".
 3. Describe the problem and provide steps to reproduce it.
 
@@ -52,7 +52,7 @@ Contributions are always welcome. To keep things organized:
 
 * **Join the discord server:** https://discord.gg/AR9AxAYudF
 * **Discuss first:** It's best to discuss ideas or planned changes on discord before starting the work.
-* **Check Issues:** Take a look at the [open issues](https://github.com/veiset/poe-vendor-string/issues) to see what needs help or to make sure a topic isn't already being worked on.
+* **Check Issues:** Take a look at the [open issues](https://github.com/veiset/poe.re/issues) to see what needs help or to make sure a topic isn't already being worked on.
 * **Fork and PR:** Once everything is ready, fork the project and submit a pull request.
 
 ## Development Setup
@@ -61,8 +61,8 @@ This project uses [pnpm](https://pnpm.io/) and [Vite](https://vitejs.dev/).
 
 ```bash
 # Clone the repo
-git clone git@github.com:veiset/poe-vendor-string.git
-cd poe-vendor-string
+git clone git@github.com:veiset/poe.re.git
+cd poe.re
 
 # Install dependencies
 pnpm install

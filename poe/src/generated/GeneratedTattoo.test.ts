@@ -1,7 +1,7 @@
 import {tattooRegex} from "./GeneratedTattoo";
 
 // Help text rendered on every tattoo in-game. Source: screenshot in
-// https://github.com/veiset/poe-vendor-string/issues/338.
+// https://github.com/veiset/poe.re/issues/338.
 const SHARED_HELP_TEXT =
   "Right click this item then left click an allocated Passive Skill. " +
   "Maximum 50 Tattoos. Shift click to unstack.";

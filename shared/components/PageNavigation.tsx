@@ -38,7 +38,7 @@ export const PageNavigation = ({title, otherGameLabel, otherGameUrl, statsUrl, i
         </p>
         {items.map((item) => <PageLink key={item.route} {...item} currentPage={currentPage}/>)}
         <p/>
-        <SupportLink href="https://github.com/veiset/poe-vendor-string/issues" icon={githubIcon} text="Report issue"/>
+        <SupportLink href="https://github.com/veiset/poe.re/issues" icon={githubIcon} text="Report issue"/>
         <SupportLink href="https://www.buymeacoffee.com/veiset" icon={coffeeIcon} text="Buy me a coffee"/>
         <SupportLink href={statsUrl} icon={plausibleIcon} text="Website stats"/>
       </div>

@@ -3,7 +3,7 @@ interface Env { ECONOMY: R2Bucket; }
 const POE_TRADE_API = "https://www.pathofexile.com/api/trade";
 const POE_NINJA_API = "https://poe.ninja";
 const ECONOMY_FETCH_CONCURRENCY = 4;
-const userAgent = "poe-vendor-string/1.0 (https://poe.re)";
+const userAgent = "poe.re/1.0 (https://poe.re)";
 
 interface EconomyFile { key: string; url: string; }
 interface TradeLeagueResponse { result?: { id?: string }[]; }

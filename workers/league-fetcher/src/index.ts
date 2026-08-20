@@ -4,7 +4,7 @@ interface Env {
 
 const POE_TRADE_API = "https://www.pathofexile.com/api/trade";
 const POE2_TRADE_API = "https://www.pathofexile.com/api/trade2";
-const userAgent = "poe-vendor-string/1.0 (https://poe.re)";
+const userAgent = "pore.re/1.0 (https://poe.re)";
 
 function parseAllowedOrigins(allowedOrigin: string): string[] {
   return allowedOrigin.split(",").map((origin) => origin.trim()).filter(Boolean);

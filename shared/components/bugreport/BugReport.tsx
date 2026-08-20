@@ -14,7 +14,7 @@ export const BugReport = (props: BugreportPros) => {
   return (<a
     className="bug-report"
     target="_blank"
-    href={`https://github.com/veiset/poe-vendor-string/issues/new?template=bug-report.md&title=${encodedTitle}`}>
+    href={`https://github.com/veiset/poe.re/issues/new?template=bug-report.md&title=${encodedTitle}`}>
     <svg xmlns="http://www.w3.org/2000/svg" height="1em" fill="currentColor" viewBox="0 0 512 512"
          className="bug-report-icon">
       <path
