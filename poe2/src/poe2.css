@@ -1,0 +1,144 @@
+/* ---------- PoE2-specific bits not covered by the shared design system ---------- */
+
+:root {
+    --bg-color: #0d0d12;
+    --color-bg: var(--bg-color);
+}
+
+.poe2-section-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 0 8px 0;
+}
+
+.poe2-section-label-spaced {
+    padding-top: 14px;
+}
+
+/* Mod rows with a value input (extends shared .selectable-item) */
+.poe2-mod-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.poe2-mod-name {
+    cursor: pointer;
+    flex: 1;
+}
+
+.poe2-mod-value-input {
+    flex-shrink: 0;
+    width: 80px !important;
+    margin: 0 !important;
+}
+
+/* Vendor group "match text" preview */
+.poe2-match-text {
+    width: 100%;
+    padding: 10px 12px 4px 12px;
+    font-size: 14px;
+    line-height: 2;
+    box-sizing: border-box;
+}
+
+.poe2-or-group {
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid transparent;
+}
+
+.poe2-or-group:hover {
+    border-color: var(--color-border-strong);
+}
+
+.poe2-or-group.selected {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-soft);
+}
+
+.poe2-match-text .condition-separator {
+    font-weight: 700;
+    margin: 0 4px;
+    color: var(--color-deep-text);
+}
+
+.poe2-match-buttons {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    width: 100%;
+    padding: 0 12px 10px 12px;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+
+.poe2-condition-toggle-label {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    padding-right: 4px;
+}
+
+/* Item base selector dropdown */
+.poe2-item-search-wrapper {
+    position: relative;
+    max-width: 420px;
+}
+
+.poe2-item-dropdown {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    background-color: var(--color-area-2);
+    border: 1px solid var(--color-border-strong);
+    border-radius: 4px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+.poe2-item-dropdown-row {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.poe2-item-dropdown-row:hover {
+    background-color: var(--color-area-hover);
+}
+
+.poe2-selected-base {
+    padding-top: 8px;
+    font-size: 15px;
+    margin: 0;
+}
+
+.poe2-selected-base-name {
+    font-weight: 600;
+    color: var(--color-text-warn);
+}
+
+/* Rare item modifier picker */
+.poe2-item-mod-affix {
+    display: inline-block;
+    font-size: 12px;
+    color: var(--color-text-muted);
+    background-color: var(--color-bg);
+    border-radius: 3px;
+    padding: 2px 6px;
+    margin: 2px 6px 0 0;
+}
+
+.poe2-item-mod-input {
+    width: 70px !important;
+    padding: 2px 6px !important;
+    margin: 0 4px !important;
+}
+
+.poe2-item-mod {
+    padding: 4px 6px;
+}

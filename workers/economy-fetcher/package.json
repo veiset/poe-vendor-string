@@ -1,0 +1,17 @@
+{
+  "name": "economy-fetcher",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cloudflare Worker that refreshes PoE economy data in R2",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240117.0",
+    "typescript": "^5.3.3",
+    "wrangler": "^4.81.1"
+  }
+}

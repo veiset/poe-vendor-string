@@ -2,7 +2,7 @@
 
 # dependencies
 /node_modules
-/worker/node_modules
+/workers/**/node_modules
 /.pnp
 .pnp.js
 
@@ -11,6 +11,7 @@
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
@@ -27,6 +28,8 @@ yarn-error.log*
 .env
 
 build/
+dist/
+*.tsbuildinfo
 .gradle
 gradlew
 gradlew.bat
@@ -34,3 +37,9 @@ gradle/
 !gradle-wrapper.jar
 .*iml
 /.vs
+
+# Terraform state and local runtime files
+infra/cloudflare/.terraform/
+infra/cloudflare/terraform.tfstate
+infra/cloudflare/terraform.tfstate.backup
+infra/cloudflare/.env
