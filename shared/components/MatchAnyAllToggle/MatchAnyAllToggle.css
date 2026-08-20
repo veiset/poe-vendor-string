@@ -1,0 +1,13 @@
+.match-any-all-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.match-any-all-toggle-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}

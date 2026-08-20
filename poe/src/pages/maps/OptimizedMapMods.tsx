@@ -19,6 +19,7 @@ import PillToggle from "@poe/components/PillToggle/PillToggle";
 import ExactOptimizedToggle from "@poe/components/ExactOptimizedToggle/ExactOptimizedToggle";
 import {mapModTokenColor} from "@poe/utils/MapModColor";
 import {usePoe1League} from "@shared/core/LeagueContext";
+import MatchAnyAllToggle from "@shared/components/MatchAnyAllToggle/MatchAnyAllToggle";
 
 const OptimizedMapMods = () => {
   const {globalProfile} = useContext(ProfileContext);
@@ -305,18 +306,11 @@ const OptimizedMapMods = () => {
         <div className="mm-mod-column">
           <div className="mm-mod-column-header">
             <span className="mm-mod-column-title mm-mod-column-title-good">I want these mods</span>
-            <div className="mm-mod-grouping">
-              <span className="mm-mod-grouping-label">Match</span>
-              <div className="radio-button-modgroup">
-                <input type="radio" className="radio-button-map" id="mods-any" name="mods" value="any"
-                       checked={!modGrouping}
-                       onChange={v => setModGrouping(!v.target.checked)}/>
-                <label htmlFor="mods-any" className="radio-button-map radio-first-ele">Any</label>
-                <input type="radio" id="mods-all" name="mods" value="all" checked={modGrouping}
-                       onChange={v => setModGrouping(v.target.checked)}/>
-                <label htmlFor="mods-all" className="radio-button-map">All</label>
-              </div>
-            </div>
+            <MatchAnyAllToggle
+              id="map-mods"
+              value={modGrouping ? "all" : "any"}
+              onChange={(value) => setModGrouping(value === "all")}
+            />
           </div>
           <SelectableTokenList
             sortFn={(a, b) => a.options.scary - b.options.scary}
