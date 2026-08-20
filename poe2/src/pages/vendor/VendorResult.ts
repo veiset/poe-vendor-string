@@ -53,18 +53,15 @@ function itemType(settings: VendorGroup["itemType"]): string | null {
 
 function resistances(settings: VendorGroup["resistances"]): string | null {
   const res = [
-    settings.fire ? "fi" : null,
-    settings.cold ? "co" : null,
-    settings.lightning ? "li" : null,
-    settings.chaos ? "ch" : null,
+    settings.fire ? "re" : null,
+    settings.cold ? "ld" : null,
+    settings.lightning ? "ng" : null,
+    settings.chaos ? "os" : null,
   ].filter((e) => e !== null);
 
   if (res.length === 0) return null;
-  if (res.length === 4) return `resi`;
-  if (res.length > 1) return `(${res.join("|")}).+res`;
 
-  return `${res.join("|")}.+res`
-
+  return res.length > 1 ? `(${res.join("|")}) res` : `${res[0]} res`;
 }
 
 function movement(settings: VendorGroup["movementSpeed"]): string | null {
