@@ -14,7 +14,7 @@
     background-color: #6fa6c3;
 }
 
-.coffee-banner-text-big {
+.banner-text-big {
     font-size: 20px;
 }
 
@@ -22,11 +22,11 @@
     font-size: 16px;
 }
 
-.coffee-text {
+.banner-text {
     margin: 4px;
 }
 
-.coffee-banner-text {
+.banner-content {
     margin: auto;
 }
 

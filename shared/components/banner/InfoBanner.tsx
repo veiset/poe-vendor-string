@@ -16,8 +16,8 @@ const PoeInfoBanner = () => {
 
   return (
     <div className="info-banner">
-      <div className="full-size coffee-banner-text">
-        <p className="coffee-text banner-text-medium">
+      <div className="full-size banner-content">
+        <p className="banner-text banner-text-medium">
           Prices might not load due to architecture migration (dns propagation), this should fix itself in a few hours at most.
         </p>
       </div>

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Outlet} from "react-router-dom";
 import CoffeeBanner from "@shared/components/banner/CoffeeBanner";
-import PoeInfoBanner from "@shared/components/banner/InfoBanner";
 import PageLinks from "./PageLinks";
 import {loadSettings, selectedProfile} from "@poe/utils/LocalStorage";
 import {ProfileContext} from "@poe/components/profile/ProfileContext";
@@ -25,7 +24,6 @@ export const Poe1Layout = () => {
   return (
     <ProfileContext.Provider value={{globalProfile, setGlobalProfile, lang, setLang}}>
       <LeagueProvider>
-        <PoeInfoBanner/>
         <CoffeeBanner/>
         <div className="content-height-wrapper">
           <div className="content-container">

@@ -16,8 +16,8 @@ const CoffeeBanner = () => {
 
   return (
     <div className="coffee-banner">
-      <div className="full-size coffee-banner-text">
-        <p className="coffee-text coffee-banner-text-big">
+      <div className="full-size banner-content">
+        <p className="banner-text banner-text-big">
           Please consider donating: <a className="banner-link" target="_blank"
                                           href="https://www.buymeacoffee.com/veiset"
                                           rel="noreferrer">donate</a> to help out with server costs. Thank you!
