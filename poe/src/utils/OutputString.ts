@@ -377,10 +377,10 @@ export function plusGemsStr(settings: PoeStringSettings): string {
 export function generateWeaponDamage(settings: PoeStringSettings): string {
   const {phys, firemult, coldmult, chaosmult} = settings.damage;
   let result = "";
-  if (phys) result = addExpression(result, "Glint|Heav");
-  if (firemult) result = addExpression(result, "Earn");
-  if (coldmult) result = addExpression(result, "Incl");
-  if (chaosmult) result = addExpression(result, "Wani");
+  if (phys) result = addExpression(result, "d.+cal d");
+  if (firemult) result = addExpression(result, "fi.+d.+er$");
+  if (coldmult) result = addExpression(result, "co.+d.+er$");
+  if (chaosmult) result = addExpression(result, "ch.+d.+er$");
 
   return result;
 }
