@@ -1,9 +1,11 @@
 interface Env { ECONOMY: R2Bucket; }
 
 const POE_TRADE_API = "https://www.pathofexile.com/api/trade";
+const POE2_TRADE_API = "https://www.pathofexile.com/api/trade2";
 const POE_NINJA_API = "https://poe.ninja";
 const ECONOMY_FETCH_CONCURRENCY = 4;
 const userAgent = "poe.re/1.0 (https://poe.re)";
+const LEAGUE_FILES = ["leagues.txt", "poe2-leagues.txt"] as const;
 
 interface EconomyFile { key: string; url: string; }
 interface TradeLeagueResponse { result?: { id?: string }[]; }
@@ -35,11 +37,11 @@ function economyFiles(leagues: string[]): EconomyFile[] {
   })));
 }
 
-async function getPoe1Leagues(): Promise<string[]> {
-  const response = await fetch(`${POE_TRADE_API}/data/leagues`, {
+async function getLeagues(apiBase: string): Promise<string[]> {
+  const response = await fetch(`${apiBase}/data/leagues`, {
     headers: { "User-Agent": userAgent },
   });
-  if (!response.ok) throw new Error(`Could not fetch PoE leagues: ${response.status}`);
+  if (!response.ok) throw new Error(`Could not fetch leagues from ${apiBase}: ${response.status}`);
   const data = await response.json() as TradeLeagueResponse;
   const leagues = [...new Set(
     (data.result ?? [])
@@ -47,8 +49,18 @@ async function getPoe1Leagues(): Promise<string[]> {
       .filter((id): id is string => Boolean(id))
       .filter((id) => !id.includes("Ruthless")),
   )];
-  if (leagues.length === 0) throw new Error("PoE returned no leagues");
+  if (leagues.length === 0) throw new Error(`PoE returned no leagues from ${apiBase}`);
   return leagues;
+}
+
+async function saveLeagueFile(env: Env, key: string, leagues: string[], cacheExpiry: Date): Promise<void> {
+  await env.ECONOMY.put(key, `${leagues.join("\n")}\n`, {
+    httpMetadata: {
+      contentType: "text/plain; charset=utf-8",
+      cacheControl: "public",
+      cacheExpiry,
+    },
+  });
 }
 
 async function fetchEconomyFile(
@@ -85,7 +97,15 @@ async function fetchEconomyFile(
 async function refreshEconomy(env: Env): Promise<void> {
   const executionTime = new Date();
   const cacheExpiry = new Date(executionTime.getTime() + 2 * 60 * 60 * 1000);
-  const files = economyFiles(await getPoe1Leagues());
+  const [poe1Leagues, poe2Leagues] = await Promise.all([
+    getLeagues(POE_TRADE_API),
+    getLeagues(POE2_TRADE_API),
+  ]);
+  await Promise.all([
+    saveLeagueFile(env, LEAGUE_FILES[0], poe1Leagues, cacheExpiry),
+    saveLeagueFile(env, LEAGUE_FILES[1], poe2Leagues, cacheExpiry),
+  ]);
+  const files = economyFiles(poe1Leagues);
   if (files.length !== new Set(files.map(({ key }) => key)).size) {
     throw new Error("Economy refresh generated duplicate R2 keys");
   }
