@@ -122,7 +122,7 @@ export function generateWarnings(settings: PoeStringSettings): string | undefine
 }
 
 export function generate6Socket(settings: PoeStringSettings): string {
-  return settings.anySixSocket ? "(\\w\\W){5}" : "";
+  return settings.anySixSocket ? "(\\w[ -]){5}\\w" : "";
 }
 
 export function generate3LinkStr(settings: PoeStringSettings): string {
