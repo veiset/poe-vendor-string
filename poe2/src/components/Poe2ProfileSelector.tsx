@@ -71,48 +71,50 @@ const Poe2ProfileSelector = () => {
           <option className="option-league" key={profile} value={profile}>{profile}</option>
         ))}
       </select>
-      <div className="profile-icon profile-icon-large" onClick={() => {
-        setShowEdit(false);
-        setEditName("");
-        setWarning(undefined);
-        setShowNew(true);
-      }}>+
-      </div>
-      <div className="profile-icon" onClick={() => {
-        setShowNew(false);
-        setEditName(currentProfile);
-        setWarning(undefined);
-        setShowEdit(true);
-      }}>✎
-      </div>
-      <div className="profile-icon" onClick={confirmDelete}>✕</div>
+      <div className="profile-actions">
+        <div className="profile-icon profile-icon-large" onClick={() => {
+          setShowEdit(false);
+          setEditName("");
+          setWarning(undefined);
+          setShowNew(true);
+        }}>+
+        </div>
+        <div className="profile-icon" onClick={() => {
+          setShowNew(false);
+          setEditName(currentProfile);
+          setWarning(undefined);
+          setShowEdit(true);
+        }}>✎
+        </div>
+        <div className="profile-icon" onClick={confirmDelete}>✕</div>
 
-      {showNew &&
-        <ProfileEditBox
-          header={"Create new profile"}
-          editValue={editName}
-          setEditValue={(v) => {
-            setEditName(v);
-            setWarning(undefined);
-          }}
-          show={setShowNew}
-          confirm={confirmAdd}
-          warning={warning}
-        />
-      }
-      {showEdit &&
-        <ProfileEditBox
-          header={"Rename profile"}
-          editValue={editName}
-          setEditValue={(v) => {
-            setEditName(v);
-            setWarning(undefined);
-          }}
-          show={setShowEdit}
-          confirm={confirmEdit}
-          warning={warning}
-        />
-      }
+        {showNew &&
+          <ProfileEditBox
+            header={"Create new profile"}
+            editValue={editName}
+            setEditValue={(v) => {
+              setEditName(v);
+              setWarning(undefined);
+            }}
+            show={setShowNew}
+            confirm={confirmAdd}
+            warning={warning}
+          />
+        }
+        {showEdit &&
+          <ProfileEditBox
+            header={"Rename profile"}
+            editValue={editName}
+            setEditValue={(v) => {
+              setEditName(v);
+              setWarning(undefined);
+            }}
+            show={setShowEdit}
+            confirm={confirmEdit}
+            warning={warning}
+          />
+        }
+      </div>
     </div>
   );
 };
