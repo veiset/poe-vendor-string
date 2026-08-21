@@ -33,10 +33,12 @@ const OptimizedMapMods = () => {
   const [packsize, setPacksize] = useState(profile.map.packsize);
   const [itemRarity, setItemRarity] = useState(profile.map.itemRarity);
   const [currency, setCurrency] = useState(profile.map.currency);
+  const [scarab, setScarab] = useState(profile.map.scarab);
   const [optimizeQuant, setOptimizeQuant] = useState(profile.map.optimizeQuant);
   const [optimizePacksize, setOptimizePacksize] = useState(profile.map.optimizePacksize);
   const [optimizeQuality, setOptimizeQuality] = useState(profile.map.optimizeQuality);
   const [anyQuality, setAnyQuality] = useState(profile.map.anyQuality);
+  const [anyYield, setAnyYield] = useState(profile.map.anyYield);
   const [rarity, setRarity] = useState(profile.map.rarity);
   const [corrupted, setCorrupted] = useState(profile.map.corrupted);
   const [unidentified, setUnidentified] = useState(profile.map.unidentified);
@@ -72,6 +74,7 @@ const OptimizedMapMods = () => {
         packsize,
         itemRarity,
         currency,
+        scarab,
         regex: result,
         eightModOnly: tradeEightModOnly && !eightModDisabled,
         excludeValdo: tradeExcludeValdo,
@@ -79,6 +82,7 @@ const OptimizedMapMods = () => {
         mapDropChance,
         quality,
         anyQuality,
+        anyYield,
         corrupted,
         unidentified,
       };
@@ -103,6 +107,7 @@ const OptimizedMapMods = () => {
       packsize,
       itemRarity,
       currency,
+      scarab,
       optimizeQuant,
       optimizePacksize,
       optimizeQuality,
@@ -111,6 +116,7 @@ const OptimizedMapMods = () => {
       unidentified,
       quality,
       anyQuality,
+      anyYield,
       displayNightmareMods,
       displayAffixBadges,
       groupByAffix,
@@ -128,7 +134,7 @@ const OptimizedMapMods = () => {
       map: {...settings},
     });
     setResult(generateMapModRegex(settings, regex, profile.language));
-  }, [result, rarity, corrupted, unidentified, quality, anyQuality, itemRarity, currency, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly, tradeExcludeValdo, tradeExcludeShaperElder]);
+  }, [result, rarity, corrupted, unidentified, quality, anyQuality, anyYield, itemRarity, currency, scarab, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly, tradeExcludeValdo, tradeExcludeShaperElder]);
 
   const renderAffixTag = displayAffixBadges
     ? (token: Token<MapModsTokenOption>) => (
@@ -171,6 +177,8 @@ const OptimizedMapMods = () => {
           setPacksize(defaultSettings.map.packsize);
           setItemRarity(defaultSettings.map.itemRarity);
           setCurrency(defaultSettings.map.currency);
+          setScarab(defaultSettings.map.scarab);
+          setAnyYield(defaultSettings.map.anyYield);
           setRarity(defaultSettings.map.rarity);
           setCorrupted(defaultSettings.map.corrupted);
           setUnidentified(defaultSettings.map.unidentified);
@@ -204,11 +212,17 @@ const OptimizedMapMods = () => {
                                               setOptimizePacksize(v);
                                             }}/>
                     }>
-          <NumberField id="quantity" label="Quantity of at least" value={quantity} onChange={setQuantity} trade/>
-          <NumberField id="pack-size" label="Pack Size of at least" value={packsize} onChange={setPacksize} trade/>
-          <NumberField id="mapdrop" label="More maps of at least" value={mapDropChance} onChange={setMapDropChance} trade/>
-          <NumberField id="itemRarity" label="Item rarity of at least" value={itemRarity} onChange={setItemRarity} trade/>
-          <NumberField id="currency" label="More currency of at least" value={currency} onChange={setCurrency} trade/>
+          <div className="mm-field-grid">
+            <NumberField id="quantity" label="Quantity" value={quantity} onChange={setQuantity} trade/>
+            <NumberField id="pack-size" label="Pack Size" value={packsize} onChange={setPacksize} trade/>
+            <NumberField id="mapdrop" label="More maps" value={mapDropChance} onChange={setMapDropChance} trade/>
+            <NumberField id="itemRarity" label="Item rarity" value={itemRarity} onChange={setItemRarity} trade/>
+            <NumberField id="currency" label="More currency" value={currency} onChange={setCurrency} trade/>
+            <NumberField id="scarab" label="More scarab" value={scarab} onChange={setScarab} trade/>
+          </div>
+          <Checkbox label="Match any of the yield types (disable to match ALL selected yields)"
+                    value={anyYield}
+                    onChange={setAnyYield}/>
         </FilterCard>
         
         <FilterCard title="Map State">

@@ -1,6 +1,6 @@
 import tradeStatIds from "@poe/generated/mapmods/trade/TradeStatIdMatching.json";
 import { MapSettings } from "../utils/SavedSettings";
-import {tradeSearchBase} from "@shared/core/TradeUrlBuilder";
+import { tradeSearchBase } from "@shared/core/TradeUrlBuilder";
 
 interface StatFilter {
   id: string;
@@ -21,6 +21,7 @@ export interface TradeSettings {
   packsize: string;
   itemRarity: string;
   currency: string;
+  scarab: string;
   regex: string;
   eightModOnly: boolean;
   excludeValdo: boolean;
@@ -28,6 +29,7 @@ export interface TradeSettings {
   mapDropChance: string;
   quality: Omit<MapSettings["quality"], "regular">;
   anyQuality: boolean;
+  anyYield: boolean;
   corrupted: {
     enabled: boolean;
     include: boolean;
@@ -132,6 +134,7 @@ export function buildTradeQuery(settings: TradeSettings): TradeQuery {
   }
 
   const andFilters: StatFilter[] = [];
+  const yieldFilters: StatFilter[] = [];
 
   if (settings.eightModOnly) {
     andFilters.push({
@@ -142,7 +145,7 @@ export function buildTradeQuery(settings: TradeSettings): TradeQuery {
 
   const mapDropMin = parseMinFilter(settings.mapDropChance);
   if (mapDropMin) {
-    andFilters.push({
+    yieldFilters.push({
       id: "pseudo.pseudo_map_more_map_drops",
       value: mapDropMin,
     });
@@ -150,10 +153,31 @@ export function buildTradeQuery(settings: TradeSettings): TradeQuery {
 
   const currencyMin = parseMinFilter(settings.currency);
   if (currencyMin) {
-    andFilters.push({
+    yieldFilters.push({
       id: "pseudo.pseudo_map_more_currency_drops",
       value: currencyMin,
     });
+  }
+
+  const scarabMin = parseMinFilter(settings.scarab);
+  if (scarabMin) {
+    yieldFilters.push({
+      id: "pseudo.pseudo_map_more_scarab_drops",
+      value: scarabMin,
+    });
+  }
+
+  const mapIiq = parseMinFilter(settings.quantity);
+  const mapPacksize = parseMinFilter(settings.packsize);
+  const mapIir = parseMinFilter(settings.itemRarity);
+  if (settings.anyYield) {
+    if (mapIiq) yieldFilters.push({id: "pseudo.pseudo_map_item_quantity", value: mapIiq});
+    if (mapPacksize) yieldFilters.push({id: "pseudo.pseudo_map_pack_size", value: mapPacksize});
+    if (mapIir) yieldFilters.push({id: "pseudo.pseudo_map_item_rarity", value: mapIir});
+    if (yieldFilters.length > 1) stats.push({type: "count", filters: yieldFilters, value: {min: 1}});
+    else if (yieldFilters.length === 1) andFilters.push(...yieldFilters);
+  } else {
+    andFilters.push(...yieldFilters);
   }
 
   const qualityFilters: StatFilter[] = [];
@@ -201,11 +225,7 @@ export function buildTradeQuery(settings: TradeSettings): TradeQuery {
     query.query.stats = stats;
   }
 
-  const mapIiq = parseMinFilter(settings.quantity);
-  const mapPacksize = parseMinFilter(settings.packsize);
-  const mapIir = parseMinFilter(settings.itemRarity);
-
-  if (mapIiq || mapPacksize || mapIir) {
+  if (!settings.anyYield && (mapIiq || mapPacksize || mapIir)) {
     query.query.filters.map_filters.filters = {
       ...query.query.filters.map_filters.filters,
       ...(mapIiq && { map_iiq: mapIiq }),

@@ -8,20 +8,30 @@ export function generateMapModRegex(settings: MapSettings, regex: Regex<any>, la
   const exclusions = generateBadMods(settings, regex, language);
   const inclusions = generateGoodMods(settings, regex, language);
   const statRegex = MapStaticStatRegex[language] ?? MapStaticStatRegex.ENGLISH;
-  const quantity = addQuantifier(statRegex.quantity, generateNumberRegex(settings.quantity, settings.optimizeQuant));
-  const packsize = addQuantifier(statRegex.packsize, generateNumberRegex(settings.packsize, settings.optimizePacksize));
-  const mapDrop = addQuantifier(statRegex.mapdrop, generateNumberRegex(settings.mapDropChance, settings.optimizeQuant));
-  const itemRarity = addQuantifier(statRegex.itemrarity, generateNumberRegex(settings.itemRarity, settings.optimizeQuant));
-  const currency = addQuantifier(statRegex.currency, generateNumberRegex(settings.currency, settings.optimizeQuant));
+  const yieldRegex = yieldQualifier(settings, language);
   const quality = qualityQualifier(settings, language);
   const rarity = addRarityRegex(settings.rarity.normal, settings.rarity.magic, settings.rarity.rare, settings.rarity.include, language);
   const corrupted = corruptedMapCheck(settings, language);
   const unidentified = unidentifiedMap(settings, language);
 
-  const result = `${exclusions} ${inclusions} ${quantity} ${packsize} ${itemRarity} ${currency} ${quality} ${rarity} ${mapDrop} ${corrupted} ${unidentified}`
+  const result = `${exclusions} ${inclusions} ${yieldRegex} ${quality} ${rarity} ${corrupted} ${unidentified}`
     .trim().replaceAll(/\s{2,}/g, ' ');
 
   return optimize(result);
+}
+
+function yieldQualifier(settings: MapSettings, language: RepoeLanguageKey) {
+  const statRegex = MapStaticStatRegex[language] ?? MapStaticStatRegex.ENGLISH;
+  const result = [
+    addQuantifier(statRegex.quantity, generateNumberRegex(settings.quantity, settings.optimizeQuant)),
+    addQuantifier(statRegex.packsize, generateNumberRegex(settings.packsize, settings.optimizePacksize)),
+    addQuantifier(statRegex.mapdrop, generateNumberRegex(settings.mapDropChance, settings.optimizeQuant)),
+    addQuantifier(statRegex.itemrarity, generateNumberRegex(settings.itemRarity, settings.optimizeQuant)),
+    addQuantifier(statRegex.currency, generateNumberRegex(settings.currency, settings.optimizeQuant)),
+    addQuantifier(statRegex.scarab, generateNumberRegex(settings.scarab, settings.optimizeQuant)),
+  ].filter((e) => e !== "");
+  if (!settings.anyYield || result.length === 0) return result.join(" ");
+  return `"${result.map((e) => e.slice(1, -1)).join("|")}"`;
 }
 
 function unidentifiedMap(settings: MapSettings, language: RepoeLanguageKey) {

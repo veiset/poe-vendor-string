@@ -7,7 +7,7 @@
 }
 
 .nf-field-label {
-    font-size: 13px;
+    font-size: var(--font-size-field-label);
     color: var(--color-text-muted);
     flex-grow: 1;
     line-height: 1.3;

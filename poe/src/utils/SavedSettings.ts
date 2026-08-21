@@ -201,6 +201,7 @@ export interface MapSettings {
   packsize: string;
   itemRarity: string;
   currency: string;
+  scarab: string;
   optimizeQuant: boolean;
   optimizePacksize: boolean;
   optimizeQuality: boolean;
@@ -233,6 +234,7 @@ export interface MapSettings {
     scarab: string;
   };
   anyQuality: boolean;
+  anyYield: boolean;
   customText: {
     value: string;
     enabled: boolean;
@@ -420,6 +422,7 @@ export const defaultSettings: SavedSettings = {
     packsize: "",
     itemRarity: "",
     currency: "",
+    scarab: "",
     optimizeQuant: false,
     optimizePacksize: false,
     optimizeQuality: false,
@@ -452,6 +455,7 @@ export const defaultSettings: SavedSettings = {
       scarab: "",
     },
     anyQuality: true,
+    anyYield: false,
     customText: {
       value: "",
       enabled: true,

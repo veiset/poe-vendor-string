@@ -19,6 +19,8 @@
     --color-text-dim: #6a7782;
     --color-deep-text: #ffffff;
 
+    --font-size-field-label: 14px;
+
     /* Accents */
     --color-accent: #2d7a9c;
     --color-accent-hover: #3a9bc4;
@@ -593,4 +595,3 @@ input[type="search"] {
 .poe2-placeholder h2 {
     padding-left: 0;
 }
-
