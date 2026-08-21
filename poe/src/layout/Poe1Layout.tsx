@@ -25,7 +25,6 @@ export const Poe1Layout = () => {
   return (
     <ProfileContext.Provider value={{globalProfile, setGlobalProfile, lang, setLang}}>
       <LeagueProvider>
-        <PoeInfoBanner/>
         <CoffeeBanner/>
         <div className="content-height-wrapper">
           <div className="content-container">
