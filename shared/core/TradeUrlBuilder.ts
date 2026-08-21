@@ -1,6 +1,7 @@
+import {economyUrl} from "@shared/economy";
+
 export type Game = "poe1" | "poe2";
 
-const WORKER_URL = import.meta.env.VITE_TRADE_PROXY_URL || "https://league-fetcher.poe-re.workers.dev";
 const TRADE_BASE = {
   poe1: "https://www.pathofexile.com/trade/search",
   poe2: "https://www.pathofexile.com/trade2/search",
@@ -8,18 +9,17 @@ const TRADE_BASE = {
 
 export const tradeSearchBase = (game: Game): string => TRADE_BASE[game];
 
-export interface LeagueResponse {
-  result: { id: string }[];
-}
-
 export async function getLeagues(game: Game): Promise<string[]> {
-  const endpoint = game === "poe2" ? "/poe2/leagues" : "/leagues";
-  const response = await fetch(`${WORKER_URL}${endpoint}`);
+  const endpoint = game === "poe2" ? "poe2-leagues.txt" : "leagues.txt";
+  const response = await fetch(economyUrl(endpoint));
   if (!response.ok) {
     throw new Error(`Failed to fetch leagues: ${response.status}`);
   }
-  const data = await response.json() as LeagueResponse;
-  return data.result.map(({ id }) => id).filter(Boolean);
+  const leagues = (await response.text()).split(/\r?\n/).map((league) => league.trim()).filter(Boolean);
+  if (leagues.length === 0) {
+    throw new Error(`League file was empty: ${endpoint}`);
+  }
+  return leagues;
 }
 
 export function challengeLeague(leagues: string[]): string {

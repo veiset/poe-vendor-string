@@ -113,9 +113,9 @@ This updates:
 ## Deployment (Cloudflare)
 
 The apps deploy through **Cloudflare Pages native Git integration**, one Pages
-project per domain. Deployment does not use GitHub Actions. A separate
-Cloudflare Workers proxy the PoE trade league endpoints and refresh economy
-data into a public R2 bucket every hour.
+project per domain. Deployment does not use GitHub Actions. A scheduled
+Cloudflare Worker refreshes economy and league data into a public R2 bucket
+every hour.
 
 ### Cloudflare Pages projects
 
@@ -125,23 +125,21 @@ data into a public R2 bucket every hour.
 | poe2-re | `pnpm build:poe2` | `dist/poe2` | poe2.re  |
 
 Configure both Pages projects against this repository with the build commands
-and publish directories above. Set `VITE_POE1_URL`, `VITE_POE2_URL`,
-`VITE_TRADE_PROXY_URL`, and `VITE_ECONOMY_URL` in each Pages project's
-environment when overriding the defaults.
+and publish directories above. Set `VITE_POE1_URL`, `VITE_POE2_URL`, and
+`VITE_ECONOMY_URL` in each Pages project's environment when overriding the
+defaults.
 
 ### Cloudflare Workers
 
-Deploy the league proxy and scheduled economy refresher independently:
+Deploy the scheduled economy refresher:
 
 ```bash
-cd workers/league-fetcher && npm run deploy
-cd ../economy-fetcher && npm run deploy
+cd workers/economy-fetcher && npm run deploy
 ```
 
-Its `ALLOWED_ORIGIN` is set to `https://poe.re,https://poe2.re`
-(see `workers/league-fetcher/wrangler.toml`), so both domains are allowed by CORS. The frontend
-reads the proxy URL from the `VITE_TRADE_PROXY_URL` env var (`.env`), falling
-back to the default worker URL if unset.
+The worker writes the filtered PoE1 and PoE2 league lists to `leagues.txt` and
+`poe2-leagues.txt` in the R2 bucket. The frontend reads those files through
+the CDN-backed `VITE_ECONOMY_URL` endpoint.
 
 ### Economy storage
 
