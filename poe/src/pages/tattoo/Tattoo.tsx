@@ -52,7 +52,7 @@ const generateRegex = (
         .reduce((acc, e) => {
             const currentLength = acc.length;
             const newLength = currentLength + e.regex.length + (currentLength > 0 ? 1 : 0);
-            if (newLength > 100) return acc;
+            if (newLength > 250) return acc;
             return currentLength > 0 ? `${acc}|${e.regex}` : e.regex;
         }, "");
     return `"${regex}"`;
