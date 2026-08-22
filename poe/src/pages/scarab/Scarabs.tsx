@@ -13,6 +13,7 @@ import {generateScarabRegex} from "./ScarabOutput";
 import FilterCard from "@shared/components/FilterCard/FilterCard";
 import {economyUrl, fetchEconomyFile} from "@shared/economy";
 import {usePoe1League} from "@shared/core/LeagueContext";
+import PriceRangeSlider from "@poe/components/PriceRangeSlider/PriceRangeSlider";
 
 export interface PoeNinjaScarabLine {
   id: string
@@ -94,37 +95,22 @@ const Scarabs = () => {
         <FilterCard title="Auto select">
           <div className="scarab-options-row">
             <button className="scarab-action-button" onClick={() => {
-              const itemsToAdd = scarabList
+              const matchingScarabs = scarabList
                 .filter((scarab) => {
                   const priceOfScarab = priceLookup.get(scarab.name);
-                  if (!priceOfScarab) return false;
+                  if (priceOfScarab === undefined) return false;
                   const withinMaxPrice = Number(maxPrice) >= priceOfScarab;
                   const withinMinPrice = Number(minPrice) <= priceOfScarab;
                   return withinMinPrice && withinMaxPrice;
                 })
-                .filter((scarab) => !selected.includes(scarab.name))
                 .map((e) => e.name);
-              setSelected(selected.concat(itemsToAdd));
+              setSelected(matchingScarabs);
             }}>
               Auto select cheap scarabs between:
             </button>
-            <div className="scarab-field">
-              <label htmlFor="minprice">Min</label>
-              <input type="search" className="scarab-field-input" id="minprice" name="search-mod"
-                     value={minPrice}
-                     onChange={v => setMinPrice(v.target.value)}/>
-            </div>
-            <div className="scarab-field">
-              <label htmlFor="maxPrice">Max</label>
-              <input type="search" className="scarab-field-input" id="maxPrice" name="search-mod"
-                     value={maxPrice}
-                     onChange={v => setMaxPrice(v.target.value)}/>
-            </div>
-            <button className="scarab-action-button scarab-reset-button" onClick={() => {
-              setMinPrice(defaultSettings.scarab.minPrice);
-              setMaxPrice(defaultSettings.scarab.maxPrice);
-            }}>Reset
-            </button>
+            <PriceRangeSlider id="scarab-price" minValue={minPrice} maxValue={maxPrice}
+                              onMinChange={setMinPrice} onMaxChange={setMaxPrice}
+                              availablePrices={Array.from(priceLookup.values())}/>
           </div>
         </FilterCard>
       </div>

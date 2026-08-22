@@ -13,6 +13,7 @@ import FilterCard from "@shared/components/FilterCard/FilterCard";
 import {Checkbox} from "@shared/components/Checkbox/Checkbox";
 import {economyUrl, fetchEconomyFile} from "@shared/economy";
 import {usePoe1League} from "@shared/core/LeagueContext";
+import PriceRangeSlider from "@poe/components/PriceRangeSlider/PriceRangeSlider";
 
 interface PoeNinjaRunegraftLine {
     id: string
@@ -172,20 +173,9 @@ const Runegraft = () => {
             <p className="runegraft-price-info">Using price data from the {league} League. Last updated: {lastUpdated}</p>
             <div className="filter-card-grid">
                 <FilterCard title="Settings">
-                    <div className="runegraft-fields">
-                        <div className="runegraft-field">
-                            <label htmlFor="runegraft-min">Min chaos value</label>
-                            <input type="search" className="runegraft-field-input" id="runegraft-min" name="search-mod"
-                                   value={minChaosValue}
-                                   onChange={v => setMinChaosValue(v.target.value)} />
-                        </div>
-                        <div className="runegraft-field">
-                            <label htmlFor="runegraft-max">Max chaos value</label>
-                            <input type="search" className="runegraft-field-input" id="runegraft-max" name="search-mod"
-                                   value={maxChaosValue}
-                                   onChange={v => setMaxChaosValue(v.target.value)} />
-                        </div>
-                    </div>
+                    <PriceRangeSlider id="runegraft-price" minValue={minChaosValue} maxValue={maxChaosValue}
+                                      onMinChange={setMinChaosValue} onMaxChange={setMaxChaosValue}
+                                      availablePrices={displayedPrices.map((price) => price.chaosValue)}/>
                     <div className="runegraft-card-divider"/>
                     <Checkbox label="Include tattoos" value={includeTattoos} onChange={setIncludeTattoos}/>
                 </FilterCard>

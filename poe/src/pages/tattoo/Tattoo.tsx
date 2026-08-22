@@ -11,6 +11,7 @@ import { tattooRegex } from "@poe/generated/GeneratedTattoo";
 import FilterCard from "@shared/components/FilterCard/FilterCard";
 import {economyUrl, fetchEconomyFile} from "@shared/economy";
 import {usePoe1League} from "@shared/core/LeagueContext";
+import PriceRangeSlider from "@poe/components/PriceRangeSlider/PriceRangeSlider";
 
 interface PoeNinjaTattooLine {
     id: string
@@ -124,20 +125,9 @@ const Tattoo = () => {
             <p className="tattoo-price-info">Using price data from the {league} League. Last updated: {lastUpdated}</p>
             <div className="filter-card-grid">
                 <FilterCard title="Settings">
-                    <div className="tattoo-fields">
-                        <div className="tattoo-field">
-                            <label htmlFor="tattoo-min">Min chaos value</label>
-                            <input type="search" className="tattoo-field-input" id="tattoo-min" name="search-mod"
-                                   value={minChaosValue}
-                                   onChange={v => setMinChaosValue(v.target.value)} />
-                        </div>
-                        <div className="tattoo-field">
-                            <label htmlFor="tattoo-max">Max chaos value</label>
-                            <input type="search" className="tattoo-field-input" id="tattoo-max" name="search-mod"
-                                   value={maxChaosValue}
-                                   onChange={v => setMaxChaosValue(v.target.value)} />
-                        </div>
-                    </div>
+                    <PriceRangeSlider id="tattoo-price" minValue={minChaosValue} maxValue={maxChaosValue}
+                                      onMinChange={setMinChaosValue} onMaxChange={setMaxChaosValue}
+                                      availablePrices={tattooPrices.map((tattoo) => tattoo.chaosValue)}/>
                 </FilterCard>
             </div>
             <div className="row">
