@@ -1,5 +1,9 @@
-import { generateNumberRegex } from "./GenerateNumberRegex";
-import { generateBoundedValueRegex, generateNumberRangeRegex } from "./GenerateNumberRegex";
+import {
+  generateBoundedValueRegex,
+  generateIntegerRangeRegex,
+  generateNumberRangeRegex,
+  generateNumberRegex,
+} from "./GenerateNumberRegex";
 
 const testRegex = (n: number, optimize = false) => {
   const r = generateNumberRegex(String(n), optimize);
@@ -233,5 +237,51 @@ describe("generateBoundedValueRegex", () => {
     const regex = `${generateBoundedValueRegex("45", "45", false)}.*spi`;
     expect(new RegExp(regex, "i").test("+38(38-45) to Spirit")).toBe(false);
     expect(new RegExp(regex, "i").test("+45(38-45) to Spirit")).toBe(true);
+  });
+});
+
+describe("generateIntegerRangeRegex", () => {
+  const testRangeRegex = (min: number, max: number) =>
+    new RegExp("^(?:" + generateIntegerRangeRegex(min, max) + ")$");
+
+  test.each([
+    [0, 42, [0, 9, 42], [43, 100]],
+    [10, 50, [10, 25, 50], [9, 51]],
+    [156, 900, [156, 500, 900], [155, 901]],
+    [12, 999, [12, 500, 999], [11, 1000]],
+  ])("matches %i..%i inclusively", (min, max, matches, misses) => {
+    const re = testRangeRegex(min, max);
+
+    matches.forEach((value) => expect(re.test(String(value))).toBe(true));
+    misses.forEach((value) => expect(re.test(String(value))).toBe(false));
+  });
+
+  test("returns empty string for invalid ranges", () => {
+    expect(generateIntegerRangeRegex(50, 10)).toBe("");
+    expect(generateIntegerRangeRegex(-1, 10)).toBe("");
+    expect(generateIntegerRangeRegex(0, Number.NaN)).toBe("");
+  });
+
+  test.each([
+    [0, 42],
+    [1, 234],
+    [10, 50],
+    [156, 900],
+    [12, 999],
+    [999, 999],
+  ])("matches exactly every integer in %i..%i", (min, max) => {
+    const re = testRangeRegex(min, max);
+    const failures: string[] = [];
+
+    for (let value = 0; value <= 1000; value++) {
+      const shouldMatch = value >= min && value <= max;
+      const matches = re.test(String(value));
+      if (matches !== shouldMatch) {
+        failures.push(`value=${value} should=${shouldMatch} matches=${matches}`);
+        if (failures.length > 10) break;
+      }
+    }
+
+    expect(failures).toEqual([]);
   });
 });

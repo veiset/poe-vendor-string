@@ -1,8 +1,18 @@
 import {MapSettings} from "@poe/utils/SavedSettings";
 import {Regex} from "@poe/generated/GeneratedTypes";
 import {idToRegex, optimizeRegexFromIds} from "@poe/utils/regex/OptimizeRegexResult";
-import {generateNumberRegex} from "@shared/core/regex/GenerateNumberRegex";
+import {generateIntegerRangeRegex, generateNumberRegex} from "@shared/core/regex/GenerateNumberRegex";
 import {LanguageFiles, MapStaticStatRegex, RepoeLanguageKey} from "@poe/utils/Languages";
+
+export interface PriceNoteOptions {
+  currency: string;
+  min: string;
+  max: string;
+  optimize: boolean;
+}
+
+const CURRENCY_RE = /^[A-Za-z]+$/;
+const PRICE_AMOUNT_MAX = 999;
 
 export function generateMapModRegex(settings: MapSettings, regex: Regex<any>, language: RepoeLanguageKey): string {
   const exclusions = generateBadMods(settings, regex, language);
@@ -13,8 +23,9 @@ export function generateMapModRegex(settings: MapSettings, regex: Regex<any>, la
   const rarity = addRarityRegex(settings.rarity.normal, settings.rarity.magic, settings.rarity.rare, settings.rarity.include, language);
   const corrupted = corruptedMapCheck(settings, language);
   const unidentified = unidentifiedMap(settings, language);
+  const price = generatePriceNoteRegex(settings.price);
 
-  const result = `${exclusions} ${inclusions} ${yieldRegex} ${quality} ${rarity} ${corrupted} ${unidentified}`
+  const result = `${exclusions} ${inclusions} ${yieldRegex} ${quality} ${rarity} ${corrupted} ${unidentified} ${price}`
     .trim().replaceAll(/\s{2,}/g, ' ');
 
   return optimize(result);
@@ -32,6 +43,42 @@ function yieldQualifier(settings: MapSettings, language: RepoeLanguageKey) {
   ].filter((e) => e !== "");
   if (!settings.anyYield || result.length === 0) return result.join(" ");
   return `"${result.map((e) => e.slice(1, -1)).join("|")}"`;
+}
+
+export function generatePriceNoteRegex(options: PriceNoteOptions): string {
+  const currency = options.currency.trim();
+  if (!CURRENCY_RE.test(currency)) return "";
+
+  const minRaw = options.min.trim();
+  const maxRaw = options.max.trim();
+  if (minRaw.length === 0 && maxRaw.length === 0) return "";
+
+  let priceRegex: string;
+  if (maxRaw.length === 0) {
+    if (priceAmount(minRaw) > PRICE_AMOUNT_MAX) return "";
+    priceRegex = generateNumberRegex(minRaw, options.optimize);
+  } else {
+    const rawMin = minRaw.length === 0 ? 0 : priceAmount(minRaw);
+    const rawMax = priceAmount(maxRaw);
+    if (rawMin > PRICE_AMOUNT_MAX || rawMax > PRICE_AMOUNT_MAX || rawMin > rawMax) return "";
+    const minPrice = options.optimize ? Math.floor(rawMin / 10) * 10 : rawMin;
+    const maxPrice = options.optimize ? Math.floor(rawMax / 10) * 10 + 9 : rawMax;
+    priceRegex = generateIntegerRangeRegex(minPrice, maxPrice);
+  }
+
+  if (priceRegex === "") return "";
+  return noteRegex(priceRegex, currency);
+}
+
+// Pull the numeric value out of arbitrary user input, mirroring generateNumberRegex's digit extraction.
+function priceAmount(raw: string): number {
+  const digits = (raw.match(/\d/g) ?? []).join("");
+  return digits.length === 0 ? NaN : Number.parseInt(digits, 10);
+}
+
+function noteRegex(priceRegex: string, currency: string): string {
+  const amount = priceRegex.includes("|") ? `(${priceRegex})` : priceRegex;
+  return String.raw`"Note:.*? ${amount} ${currency}"`;
 }
 
 function unidentifiedMap(settings: MapSettings, language: RepoeLanguageKey) {
@@ -137,8 +184,12 @@ function addQuantifier(prefix: string, string: string) {
 function optimize(string: string): string {
   return string
     .replaceAll(`"!"`, "")
-    .replaceAll("[8-9]", "[89]")
-    .replaceAll("[9-9]", "9");
+    .replace(/\[(\d)-(\d)\]/g, (m, a, b) => {
+      const span = Number(b) - Number(a);
+      if (span === 0) return a;
+      if (span === 1) return `[${a}${b}]`;
+      return m;
+    });
 }
 
 function getSelectedIds(settings: MapSettings, ids: number[], language: RepoeLanguageKey) {
