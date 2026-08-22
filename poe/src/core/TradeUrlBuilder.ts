@@ -30,6 +30,7 @@ export interface TradeSettings {
   quality: Omit<MapSettings["quality"], "regular">;
   anyQuality: boolean;
   anyYield: boolean;
+  asyncPriceRange: MapSettings["asyncPriceRange"];
   corrupted: {
     enabled: boolean;
     include: boolean;
@@ -69,6 +70,15 @@ interface TradeQuery {
           foil_variation?: { option: "none" };
         };
       };
+      trade_filters?: {
+        filters: {
+          price: {
+            option: "chaos" | "divine";
+            min: number;
+            max: number;
+          };
+        };
+      };
     };
   };
   sort: { price: string };
@@ -92,6 +102,15 @@ function toStatFilters(ids: number[]): { id: string }[] {
 function parseMinFilter(value: string): { min: number } | undefined {
   const num = parseInt(value, 10);
   return !isNaN(num) && num > 0 ? { min: num } : undefined;
+}
+
+function parsePriceRange(settings: TradeSettings["asyncPriceRange"]) {
+  const rawMin = Number(settings.min);
+  const rawMax = Number(settings.max);
+  if (!Number.isInteger(rawMin) || !Number.isInteger(rawMax)) return undefined;
+  const min = Math.max(0, Math.min(999, Math.min(rawMin, rawMax)));
+  const max = Math.max(0, Math.min(999, Math.max(rawMin, rawMax)));
+  return {option: settings.currency, min, max};
 }
 
 export function buildTradeQuery(settings: TradeSettings): TradeQuery {
@@ -255,6 +274,13 @@ export function buildTradeQuery(settings: TradeSettings): TradeQuery {
         }),
       },
     };
+  }
+
+  if (settings.asyncPriceRange.tradeEnabled) {
+    const price = parsePriceRange(settings.asyncPriceRange);
+    if (price) {
+      query.query.filters.trade_filters = {filters: {price}};
+    }
   }
 
   return query;
