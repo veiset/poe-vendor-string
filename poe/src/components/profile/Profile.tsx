@@ -128,25 +128,58 @@ const Profile = (props: ProfileProps) => {
           return <option className="option-league" key={profile} value={profile}>{profile}</option>;
         })};
       </select>
-      <div className="profile-icon profile-icon-large" onClick={() => {
-        setShowEdit(false);
-        setShowDelete(false);
-        setEditName("");
-        setShowNew(true);
-      }}>+
-      </div>
-      <div className="profile-icon" onClick={() => {
-        setShowDelete(false);
-        setShowNew(false);
-        setEditName(profile);
-        setShowEdit(true);
-      }}>✎
-      </div>
-      <div className="profile-icon" onClick={() => {
-        setShowNew(false);
-        setShowEdit(false);
-        setShowDelete(true);
-      }}>✕
+      <div className="profile-actions">
+        <div className="profile-icon profile-icon-large" onClick={() => {
+          setShowEdit(false);
+          setShowDelete(false);
+          setEditName("");
+          setShowNew(true);
+        }}>+
+        </div>
+        <div className="profile-icon" onClick={() => {
+          setShowDelete(false);
+          setShowNew(false);
+          setEditName(profile);
+          setShowEdit(true);
+        }}>✎
+        </div>
+        <div className="profile-icon" onClick={() => {
+          setShowNew(false);
+          setShowEdit(false);
+          setShowDelete(true);
+        }}>✕
+        </div>
+
+        {showNew &&
+          <ProfileEditBox
+            header={"Create new profile"}
+            editValue={editName}
+            setEditValue={setEditName}
+            show={setShowNew}
+            confirm={confirmAdd}
+            warning={warning}
+          />
+        }
+        {showEdit &&
+          <ProfileEditBox
+            header={"Edit profile name"}
+            editValue={editName}
+            setEditValue={setEditName}
+            show={setShowEdit}
+            confirm={confirmEdit}
+            warning={warning}
+          />
+        }
+        {showDelete &&
+          <ProfileEditBox
+            header={`Delete profile`}
+            editValue={""}
+            show={setShowDelete}
+            confirm={confirmDelete}
+            warning={warning}
+            saveText={"Confirm"}
+          />
+        }
       </div>
       <select
         name="language"
@@ -183,36 +216,6 @@ const Profile = (props: ProfileProps) => {
         <ProfileImportBox setShow={setShowImport} existingProfiles={profiles} onImport={handleImportProfile} />
       }
 
-      {showNew &&
-        <ProfileEditBox
-          header={"Create new profile"}
-          editValue={editName}
-          setEditValue={setEditName}
-          show={setShowNew}
-          confirm={confirmAdd}
-          warning={warning}
-        />
-      }
-      {showEdit &&
-        <ProfileEditBox
-          header={"Edit profile name"}
-          editValue={editName}
-          setEditValue={setEditName}
-          show={setShowEdit}
-          confirm={confirmEdit}
-          warning={warning}
-        />
-      }
-      {showDelete &&
-        <ProfileEditBox
-          header={`Delete profile`}
-          editValue={""}
-          show={setShowDelete}
-          confirm={confirmDelete}
-          warning={warning}
-          saveText={"Confirm"}
-        />
-      }
     </div>
   )
 }
