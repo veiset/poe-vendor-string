@@ -161,5 +161,16 @@ describe("buildTradeQuery", () => {
       const q = buildTradeQuery(baseSettings());
       expect(q.query.filters.trade_filters).toBeUndefined();
     });
+
+    test("uses slider limits for empty endpoints", () => {
+      const q = buildTradeQuery(baseSettings({
+        asyncPriceRange: {min: "", max: "", currency: "chaos", enabled: false, tradeEnabled: true},
+      }));
+      expect(q.query.filters.trade_filters?.filters.price).toEqual({
+        option: "chaos",
+        min: 0,
+        max: 999,
+      });
+    });
   });
 });

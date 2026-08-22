@@ -3,7 +3,7 @@ import {generatePriceRangeRegex, PriceCurrency} from "./GeneratePriceRangeRegex"
 
 const matches = (regex: string, price: number, currency: PriceCurrency) => {
   const body = regex.slice(1, -1);
-  return new RegExp(body).test(`Note: ~price ${price} ${currency}`);
+  return new RegExp(body).test(`Note: ${price} ${currency}`);
 };
 
 describe("generatePriceRangeRegex", () => {
@@ -32,7 +32,14 @@ describe("generatePriceRangeRegex", () => {
 
   it("keeps the full selectable range compact", () => {
     const regex = generatePriceRangeRegex("0", "999", "chaos");
-    expect(regex).toBe('"~price (0|[1-9]\\d{0,2}) chaos"');
+    expect(regex).toBe('"(0|[1-9]\\d{0,2}) chaos"');
     expect(regex.length).toBeLessThan(40);
+  });
+
+  it("uses the slider limits for empty endpoints", () => {
+    expect(generatePriceRangeRegex("", "25", "chaos"))
+      .toBe(generatePriceRangeRegex("0", "25", "chaos"));
+    expect(generatePriceRangeRegex("25", "", "chaos"))
+      .toBe(generatePriceRangeRegex("25", "999", "chaos"));
   });
 });

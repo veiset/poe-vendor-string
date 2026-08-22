@@ -8,9 +8,11 @@ interface PriceRangeSliderProps {
   onMaxChange: (value: string) => void
   availablePrices: number[]
   unit?: string
+  allowZero?: boolean
 }
 
-const validPrices = (prices: number[]) => prices.filter((price) => Number.isFinite(price) && price >= 0);
+const validPrices = (prices: number[], allowZero: boolean) => prices.filter((price) =>
+  Number.isFinite(price) && (allowZero ? price >= 0 : price > 0));
 
 const parsePrice = (value: string): number | undefined => {
   if (value.trim() === "") return undefined;
@@ -26,8 +28,9 @@ const PriceRangeSlider = ({
   onMaxChange,
   availablePrices,
   unit = "chaos",
+  allowZero = false,
 }: PriceRangeSliderProps) => {
-  const prices = validPrices(availablePrices);
+  const prices = validPrices(availablePrices, allowZero);
   if (prices.length === 0) {
     return <div className="price-range-slider-loading">Loading available price range…</div>;
   }

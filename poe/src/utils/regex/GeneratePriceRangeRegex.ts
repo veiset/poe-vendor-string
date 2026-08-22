@@ -1,13 +1,13 @@
+import {normalizePriceRange} from "@poe/utils/PriceRange";
+
 export type PriceCurrency = "chaos" | "divine";
 
 export function generatePriceRangeRegex(min: string, max: string, currency: PriceCurrency): string {
-  const parsedMin = Number(min);
-  const parsedMax = Number(max);
-  if (!Number.isInteger(parsedMin) || !Number.isInteger(parsedMax)) return "";
-  const lo = Math.max(0, Math.min(999, Math.min(parsedMin, parsedMax)));
-  const hi = Math.max(0, Math.min(999, Math.max(parsedMin, parsedMax)));
+  const range = normalizePriceRange(min, max);
+  if (!range) return "";
+  const {min: lo, max: hi} = range;
   const broadRange = compactBroadPriceRange(lo, hi);
-  if (broadRange) return `"~price ${broadRange} ${currency}"`;
+  if (broadRange) return `"${broadRange} ${currency}"`;
   const alternatives: string[] = [];
 
   for (let digits = 1; digits <= 3; digits += 1) {
@@ -19,7 +19,7 @@ export function generatePriceRangeRegex(min: string, max: string, currency: Pric
   }
 
   const number = alternatives.length === 1 ? alternatives[0] : `(${alternatives.join("|")})`;
-  return `"~price ${number} ${currency}"`;
+  return `"${number} ${currency}"`;
 }
 
 function compactBroadPriceRange(lo: number, hi: number): string {

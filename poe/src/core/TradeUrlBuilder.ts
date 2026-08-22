@@ -1,6 +1,7 @@
 import tradeStatIds from "@poe/generated/mapmods/trade/TradeStatIdMatching.json";
 import { MapSettings } from "../utils/SavedSettings";
 import { tradeSearchBase } from "@shared/core/TradeUrlBuilder";
+import {normalizePriceRange} from "@poe/utils/PriceRange";
 
 interface StatFilter {
   id: string;
@@ -105,12 +106,8 @@ function parseMinFilter(value: string): { min: number } | undefined {
 }
 
 function parsePriceRange(settings: TradeSettings["asyncPriceRange"]) {
-  const rawMin = Number(settings.min);
-  const rawMax = Number(settings.max);
-  if (!Number.isInteger(rawMin) || !Number.isInteger(rawMax)) return undefined;
-  const min = Math.max(0, Math.min(999, Math.min(rawMin, rawMax)));
-  const max = Math.max(0, Math.min(999, Math.max(rawMin, rawMax)));
-  return {option: settings.currency, min, max};
+  const range = normalizePriceRange(settings.min, settings.max);
+  return range ? {option: settings.currency, ...range} : undefined;
 }
 
 export function buildTradeQuery(settings: TradeSettings): TradeQuery {

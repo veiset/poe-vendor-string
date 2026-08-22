@@ -1,9 +1,10 @@
 import {useEffect, useRef, useState} from "react";
 import {Checkbox} from "@shared/components/Checkbox/Checkbox";
 import PriceRangeSlider from "@poe/components/PriceRangeSlider/PriceRangeSlider";
+import {PRICE_RANGE_MAX, PRICE_RANGE_MIN} from "@poe/utils/PriceRange";
 import "./AsyncTradePriceRange.css";
 
-const PRICE_LIMITS = [0, 999];
+const PRICE_LIMITS = [PRICE_RANGE_MIN, PRICE_RANGE_MAX];
 
 export interface AsyncTradePriceRangeValue {
   min: string;
@@ -61,6 +62,7 @@ const AsyncTradePriceRange = ({value, onChange}: AsyncTradePriceRangeProps) => {
             onMaxChange={(max) => onChange({...value, max})}
             availablePrices={PRICE_LIMITS}
             unit={value.currency}
+            allowZero
           />
           <div className="async-price-modal-footer">
             <div className="async-price-currency" role="group" aria-label="Price currency">
