@@ -1,9 +1,7 @@
 import type {RepoeLanguageKey} from "@poe/utils/Languages";
+import type {MapSettings} from "@poe/utils/SavedSettings";
 
-export const MAP_TYPES = ["shaper", "elder", "conqueror", "originator", "blighted", "blightRavaged"] as const;
-export type MapType = typeof MAP_TYPES[number];
-export type MapTypeFilter = {enabled: boolean; include: boolean};
-export type MapTypeSettings = Record<MapType, MapTypeFilter>;
+export type MapType = keyof MapSettings["mapTypes"];
 
 export const MAP_TYPE_LABELS: Record<MapType, string> = {
   shaper: "Shaper",
@@ -14,26 +12,8 @@ export const MAP_TYPE_LABELS: Record<MapType, string> = {
   blightRavaged: "Blight-ravaged",
 };
 
-const off: MapTypeFilter = {enabled: false, include: false};
-const excluded: MapTypeFilter = {enabled: true, include: false};
-
-export const defaultMapTypes: MapTypeSettings = {
-  shaper: excluded, elder: excluded, conqueror: off, originator: off, blighted: off, blightRavaged: off,
-};
-
-// Settings saved before map types existed only had a trade checkbox for Shaper/Elder maps
-export const legacyMapTypes = (excludeShaperElder: boolean): MapTypeSettings => ({
-  shaper: excludeShaperElder ? excluded : off,
-  elder: excludeShaperElder ? excluded : off,
-  conqueror: off, originator: off, blighted: off, blightRavaged: off,
-});
-
-// Map favorites saved before map types existed had no map type in their regex; keep it that way
-export const withFavoriteMapTypes = <T extends {mapTypes?: MapTypeSettings}>(configuration: T): T =>
-  configuration.mapTypes ? configuration : {...configuration, mapTypes: legacyMapTypes(false)};
-
-// A part of each map type's line as the game shows it, found in no map mod and no other map
-// type's line (see MapTypes.test.ts). Case is kept as in the game text.
+// A part of each map type's line as the game shows it, found in no map mod (see MapTypes.test.ts).
+// Case is kept as in the game text.
 export const MapTypeRegex: Record<RepoeLanguageKey, Record<MapType, string>> = {
   ENGLISH: {shaper: "the shaper", elder: "the elder", conqueror: "citadel", originator: "originator", blighted: "25% value", blightRavaged: "50% value"},
   FRENCH: {shaper: "influence du", elder: "de l'Ancien", conqueror: "Citadelle", originator: "Instigateur", blighted: "à 20%", blightRavaged: "à 40%"},
@@ -47,10 +27,8 @@ export const MapTypeRegex: Record<RepoeLanguageKey, Record<MapType, string>> = {
   CHINESE: {shaper: "塑界者控制", elder: "異界尊師", conqueror: "的壁壘", originator: "開創者", blighted: "20% 的值", blightRavaged: "40% 的值"},
 };
 
-export const mapTypeTerms = (mapTypes: MapTypeSettings, language: RepoeLanguageKey, include: boolean): string[] => {
-  const terms = MapTypeRegex[language] ?? MapTypeRegex.ENGLISH;
-  return MAP_TYPES.filter((type) => mapTypes[type].enabled && mapTypes[type].include === include).map((type) => terms[type]);
-};
+export const selectedMapTypes = (mapTypes: MapSettings["mapTypes"], include: boolean): MapType[] =>
+  (Object.keys(MAP_TYPE_LABELS) as MapType[]).filter((type) => mapTypes[type].enabled && mapTypes[type].include === include);
 
 // The trade site finds map types by their implicit stat; blighted maps have their own map filters
 export const MAP_TYPE_TRADE_STATS: Partial<Record<MapType, string[]>> = {

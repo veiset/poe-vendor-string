@@ -2,7 +2,7 @@ import tradeStatIds from "@poe/generated/mapmods/trade/TradeStatIdMatching.json"
 import { MapSettings } from "../utils/SavedSettings";
 import { tradeSearchBase } from "@shared/core/TradeUrlBuilder";
 import {normalizePriceRange} from "@shared/core/PriceRange";
-import {MAP_TYPE_TRADE_FILTERS, MAP_TYPE_TRADE_STATS, MAP_TYPES, MapTypeSettings} from "@poe/pages/maps/MapTypes";
+import {MAP_TYPE_TRADE_FILTERS, MAP_TYPE_TRADE_STATS, selectedMapTypes} from "@poe/pages/maps/MapTypes";
 
 interface StatFilter {
   id: string;
@@ -28,7 +28,7 @@ export interface TradeSettings {
   regex: string;
   eightModOnly: boolean;
   excludeValdo: boolean;
-  mapTypes: MapTypeSettings;
+  mapTypes: MapSettings["mapTypes"];
   mapDropChance: string;
   quality: Omit<MapSettings["quality"], "regular">;
   anyQuality: boolean;
@@ -234,8 +234,7 @@ export function buildTradeQuery(settings: TradeSettings): TradeQuery {
 
   // Map types with an implicit stat: excluded ones are NOT-ed, included ones need any of them.
   // Blighted maps use map filters, which the trade site combines with AND.
-  const mapTypeStats = (include: boolean) => MAP_TYPES
-    .filter((type) => settings.mapTypes[type].enabled && settings.mapTypes[type].include === include)
+  const mapTypeStats = (include: boolean) => selectedMapTypes(settings.mapTypes, include)
     .flatMap((type) => MAP_TYPE_TRADE_STATS[type] ?? [])
     .map((id) => ({ id }));
   const excludedMapTypes = mapTypeStats(false);

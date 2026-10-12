@@ -4,13 +4,14 @@ import {idToRegex, optimizeRegexFromIds} from "@poe/utils/regex/OptimizeRegexRes
 import {generateNumberRegex} from "@shared/core/regex/GenerateNumberRegex";
 import {MapStaticStatRegex, RepoeLanguageKey} from "@poe/utils/Languages";
 import {generatePriceRangeRegex} from "@poe/utils/regex/GeneratePriceRangeRegex";
-import {mapTypeTerms} from "./MapTypes";
+import {MapTypeRegex, selectedMapTypes} from "./MapTypes";
 
 export function generateMapModRegex(settings: MapSettings, regex: Regex<any>, language: RepoeLanguageKey): string {
   // Excluded map types share the "!" term with the excluded mods; included map types match any of them
-  const exclusions = generateBadMods(settings, regex, mapTypeTerms(settings.mapTypes, language, false));
+  const mapTypeRegex = MapTypeRegex[language] ?? MapTypeRegex.ENGLISH;
+  const exclusions = generateBadMods(settings, regex, selectedMapTypes(settings.mapTypes, false).map((type) => mapTypeRegex[type]));
   const inclusions = generateGoodMods(settings, regex, language);
-  const includedMapTypes = mapTypeTerms(settings.mapTypes, language, true);
+  const includedMapTypes = selectedMapTypes(settings.mapTypes, true).map((type) => mapTypeRegex[type]);
   const mapTypes = includedMapTypes.length > 0 ? `"${includedMapTypes.join("|")}"` : "";
   const statRegex = MapStaticStatRegex[language] ?? MapStaticStatRegex.ENGLISH;
   const yieldRegex = yieldQualifier(settings, language);

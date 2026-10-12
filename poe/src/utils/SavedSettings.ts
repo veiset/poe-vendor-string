@@ -8,7 +8,6 @@ import {
 import { RepoeLanguageKey } from "./Languages";
 import type {FavoriteRecord} from "@poe/core/favorites/FavoriteTypes";
 import {itemCraftingDefault, ItemCraftingSettings} from "@shared/types/Settings.types";
-import {defaultMapTypes, MapTypeSettings} from "@poe/pages/maps/MapTypes";
 
 export const categories: ItemCategory[] = [
   {
@@ -197,9 +196,14 @@ export interface MapSettings {
   groupByAffix: boolean;
   tradeEightModOnly: boolean;
   tradeExcludeValdo: boolean;
-  // Replaced by mapTypes; only read to upgrade settings saved before map types existed
-  tradeExcludeShaperElder?: boolean;
-  mapTypes: MapTypeSettings;
+  mapTypes: {
+    shaper: {enabled: boolean; include: boolean};
+    elder: {enabled: boolean; include: boolean};
+    conqueror: {enabled: boolean; include: boolean};
+    originator: {enabled: boolean; include: boolean};
+    blighted: {enabled: boolean; include: boolean};
+    blightRavaged: {enabled: boolean; include: boolean};
+  };
   asyncPriceRange: {
     min: string;
     max: string;
@@ -440,7 +444,14 @@ export const defaultSettings: SavedSettings = {
     groupByAffix: false,
     tradeEightModOnly: false,
     tradeExcludeValdo: true,
-    mapTypes: defaultMapTypes,
+    mapTypes: {
+      shaper: {enabled: true, include: false},
+      elder: {enabled: true, include: false},
+      conqueror: {enabled: false, include: false},
+      originator: {enabled: false, include: false},
+      blighted: {enabled: false, include: false},
+      blightRavaged: {enabled: false, include: false},
+    },
     asyncPriceRange: {
       min: "0",
       max: "999",

@@ -22,12 +22,12 @@ import {usePoe1League} from "@shared/core/LeagueContext";
 import MatchAnyAllToggle from "@shared/components/MatchAnyAllToggle/MatchAnyAllToggle";
 import AsyncTradePriceRange from "@shared/components/AsyncTradePriceRange/AsyncTradePriceRange";
 import {useFavoritePage} from "@poe/core/favorites/useFavoritePage";
-import {MAP_TYPE_LABELS, MAP_TYPES, withFavoriteMapTypes} from "./MapTypes";
+import {MAP_TYPE_LABELS, MapType} from "./MapTypes";
 
 const OptimizedMapMods = () => {
   const {globalProfile} = useContext(ProfileContext);
   const storedProfile = loadSettings(globalProfile);
-  const favoritePage = useFavoritePage("maps", storedProfile.map, withFavoriteMapTypes);
+  const favoritePage = useFavoritePage("maps", storedProfile.map);
   const profile = {...storedProfile, map: favoritePage.initialConfiguration};
   const {league} = usePoe1League();
   const [result, setResult] = useState("");
@@ -245,11 +245,11 @@ const OptimizedMapMods = () => {
         </FilterCard>
 
         <FilterCard title="Map Type">
-          {MAP_TYPES.map((type) => {
+          {(Object.entries(MAP_TYPE_LABELS) as [MapType, string][]).map(([type, label]) => {
             const filter = mapTypes[type];
             return (
               <div key={type} className={`mm-state-row${filter.enabled ? "" : " mm-state-row-off"}`}>
-                <Checkbox label={<>{MAP_TYPE_LABELS[type]}<TradeAsterisk/></>} value={filter.enabled}
+                <Checkbox label={<>{label}<TradeAsterisk/></>} value={filter.enabled}
                           onChange={() => setMapTypes({...mapTypes, [type]: {...filter, enabled: !filter.enabled}})}/>
                 <IncludeExcludeToggle name={`map-type-${type}`} include={filter.include}
                                       setInclude={(v) => setMapTypes({...mapTypes, [type]: {...filter, include: v}})}/>

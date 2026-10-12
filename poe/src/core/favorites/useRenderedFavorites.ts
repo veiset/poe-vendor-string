@@ -1,6 +1,5 @@
 import {useEffect, useMemo, useState} from "react";
 import {generateMapModRegex} from "@poe/pages/maps/OptimizedMapOutput";
-import {withFavoriteMapTypes} from "@poe/pages/maps/MapTypes";
 import {defaultSettings, MapSettings} from "@poe/utils/SavedSettings";
 import {itemSettingsLanguage, loadBoatMods, loadGems, loadItemBasetypes, loadItemRegex, loadMapMods} from "@poe/utils/loadData";
 import {generateBoatModRegex} from "@poe/pages/boat/BoatOutput";
@@ -34,7 +33,7 @@ const normalizeMapSettings = (configuration: unknown): MapSettings => {
   // JSON serialization drops undefined legacy fields before merging them with
   // the current defaults, preventing old snapshots from reaching generators.
   const stored = JSON.parse(JSON.stringify(configuration)) as Partial<MapSettings>;
-  return merge(defaultSettings.map, withFavoriteMapTypes(stored));
+  return merge(defaultSettings.map, stored);
 };
 const normalizeBoatSettings = (configuration: unknown): BoatSettings => {
   if (configuration === null || typeof configuration !== "object" || Array.isArray(configuration)) return defaultSettings.boat;

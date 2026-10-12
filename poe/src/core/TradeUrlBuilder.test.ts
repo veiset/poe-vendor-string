@@ -1,5 +1,8 @@
 import {buildTradeQuery, TradeSettings} from "./TradeUrlBuilder";
-import {defaultMapTypes, legacyMapTypes, MapTypeSettings} from "@poe/pages/maps/MapTypes";
+import {defaultSettings, MapSettings} from "@poe/utils/SavedSettings";
+
+const off = {enabled: false, include: false};
+const noMapTypes: MapSettings["mapTypes"] = {shaper: off, elder: off, conqueror: off, originator: off, blighted: off, blightRavaged: off};
 
 const baseSettings = (overrides: Partial<TradeSettings> = {}): TradeSettings => ({
   badIds: [],
@@ -14,7 +17,7 @@ const baseSettings = (overrides: Partial<TradeSettings> = {}): TradeSettings => 
   regex: "",
   eightModOnly: false,
   excludeValdo: false,
-  mapTypes: legacyMapTypes(false),
+  mapTypes: noMapTypes,
   mapDropChance: "",
   quality: {currency: "", divination: "", scarab: "", rarity: "", packSize: ""},
   anyQuality: false,
@@ -148,10 +151,10 @@ describe("buildTradeQuery", () => {
   });
 
   describe("map types", () => {
-    const mapTypes = (overrides: Partial<MapTypeSettings>): MapTypeSettings => ({...legacyMapTypes(false), ...overrides});
+    const mapTypes = (overrides: Partial<MapSettings["mapTypes"]>): MapSettings["mapTypes"] => ({...noMapTypes, ...overrides});
 
     test("the default excludes Shaper and Elder maps, as the old checkbox did", () => {
-      const q = buildTradeQuery(baseSettings({mapTypes: defaultMapTypes}));
+      const q = buildTradeQuery(baseSettings({mapTypes: defaultSettings.map.mapTypes}));
       expect(q.query.stats).toEqual([
         {type: "not", filters: [{id: "implicit.stat_1792283443|1"}, {id: "implicit.stat_1792283443|2"}]},
       ]);

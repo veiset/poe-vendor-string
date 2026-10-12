@@ -1,6 +1,5 @@
 import {defaultSettings, SavedSettings} from "./SavedSettings";
 import {merge, safeLoad} from "@shared/core/utils";
-import {legacyMapTypes} from "@poe/pages/maps/MapTypes";
 
 interface SavedProfiles {
   [key: string]: SavedSettings
@@ -35,18 +34,10 @@ export const deleteProfile = (profile: string): void => {
   delete profiles[profile];
   localStorage.setItem("profiles", JSON.stringify(profiles));
 }
-const hydrateProfile = (stored: Partial<SavedSettings>): SavedSettings => {
-  const hydrated = merge(defaultSettings, stored);
-  hydrated.version = Math.max(Number(hydrated.version) || 1, defaultSettings.version);
-  // Map settings saved before map types existed keep what their Shaper/Elder trade checkbox did
-  if (stored.map && !stored.map.mapTypes) {
-    hydrated.map.mapTypes = legacyMapTypes(stored.map.tradeExcludeShaperElder ?? true);
-  }
-  return hydrated;
-};
-
 export const loadSettings = (profile: string): SavedSettings => {
-  const hydrated = hydrateProfile(loadProfiles()[profile] ?? {});
+  const settings = loadProfiles()[profile] ?? {};
+  const hydrated = merge(defaultSettings, settings);
+  hydrated.version = Math.max(Number(hydrated.version) || 1, defaultSettings.version);
   hydrated.favorites = Array.isArray(hydrated.favorites) ? hydrated.favorites : [];
   return hydrated;
 }
@@ -69,7 +60,8 @@ export const saveSettings = (settings: SavedSettings): void => {
 /** Atomically updates one profile from its latest persisted value. */
 export const updateSettings = (profileName: string, updater: (settings: SavedSettings) => SavedSettings): SavedSettings => {
   const profiles = loadProfiles();
-  const current = hydrateProfile(profiles[profileName] ?? {name: profileName});
+  const current = merge(defaultSettings, profiles[profileName] ?? {name: profileName});
+  current.version = Math.max(Number(current.version) || 1, defaultSettings.version);
   const next = updater(current);
   profiles[profileName] = next;
   localStorage.setItem("profiles", JSON.stringify(profiles));
