@@ -204,6 +204,7 @@ export interface MapSettings {
     blighted: {enabled: boolean; include: boolean};
     blightRavaged: {enabled: boolean; include: boolean};
   };
+  mapTypesInRegex: boolean;
   asyncPriceRange: {
     min: string;
     max: string;
@@ -447,11 +448,12 @@ export const defaultSettings: SavedSettings = {
     mapTypes: {
       shaper: {enabled: true, include: false},
       elder: {enabled: true, include: false},
-      conqueror: {enabled: false, include: false},
-      originator: {enabled: false, include: false},
-      blighted: {enabled: false, include: false},
-      blightRavaged: {enabled: false, include: false},
+      conqueror: {enabled: true, include: false},
+      originator: {enabled: true, include: false},
+      blighted: {enabled: true, include: false},
+      blightRavaged: {enabled: true, include: false},
     },
+    mapTypesInRegex: false,
     asyncPriceRange: {
       min: "0",
       max: "999",

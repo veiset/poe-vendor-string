@@ -34,16 +34,22 @@ describe("MapTypeRegex", () => {
 
 describe("map types in the map regex", () => {
   const noMods = {tokens: [], optimizationTable: {}} as unknown as RegexResult<any>;
-  const settings = (mapTypes: MapSettings["mapTypes"]): MapSettings => ({...defaultSettings.map, mapTypes});
+  const settings = (mapTypes: MapSettings["mapTypes"]): MapSettings => ({...defaultSettings.map, mapTypes, mapTypesInRegex: true});
 
-  test("the default excludes Shaper and Elder maps", () => {
-    expect(generateMapModRegex(settings(defaultSettings.map.mapTypes), noMods, "ENGLISH")).toBe(`"!the shaper|the elder"`);
+  test("by default map types are only used for the trade search", () => {
+    expect(generateMapModRegex(defaultSettings.map, noMods, "ENGLISH")).toBe("");
+  });
+
+  test("in the regex, the default excludes every map type", () => {
+    expect(generateMapModRegex(settings(defaultSettings.map.mapTypes), noMods, "ENGLISH"))
+      .toBe(`"!the shaper|the elder|citadel|originator|25% value|50% value"`);
   });
 
   test("excluded map types share the term of the excluded mods", () => {
     const english = JSON.parse(JSON.stringify(mapMods["../../../generated/mapmods/Generated.Map.ENGLISH.json"])) as RegexResult<any>;
     const taunted = english.tokens.find((token) => token.rawText.includes("Monsters cannot be Taunted"))!;
-    const regex = generateMapModRegex({...settings(defaultSettings.map.mapTypes), badIds: [taunted.id]}, english, "ENGLISH");
+    const mapTypes = {...noMapTypes, shaper: {enabled: true, include: false}, elder: {enabled: true, include: false}};
+    const regex = generateMapModRegex({...settings(mapTypes), badIds: [taunted.id]}, english, "ENGLISH");
     expect(regex).toBe(`"!taunte|the shaper|the elder"`);
   });
 

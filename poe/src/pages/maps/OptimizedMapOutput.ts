@@ -9,9 +9,12 @@ import {MapTypeRegex, selectedMapTypes} from "./MapTypes";
 export function generateMapModRegex(settings: MapSettings, regex: Regex<any>, language: RepoeLanguageKey): string {
   // Excluded map types share the "!" term with the excluded mods; included map types match any of them
   const mapTypeRegex = MapTypeRegex[language] ?? MapTypeRegex.ENGLISH;
-  const exclusions = generateBadMods(settings, regex, selectedMapTypes(settings.mapTypes, false).map((type) => mapTypeRegex[type]));
+  const mapTypeTerms = (include: boolean) => settings.mapTypesInRegex
+    ? selectedMapTypes(settings.mapTypes, include).map((type) => mapTypeRegex[type])
+    : [];
+  const exclusions = generateBadMods(settings, regex, mapTypeTerms(false));
   const inclusions = generateGoodMods(settings, regex, language);
-  const includedMapTypes = selectedMapTypes(settings.mapTypes, true).map((type) => mapTypeRegex[type]);
+  const includedMapTypes = mapTypeTerms(true);
   const mapTypes = includedMapTypes.length > 0 ? `"${includedMapTypes.join("|")}"` : "";
   const statRegex = MapStaticStatRegex[language] ?? MapStaticStatRegex.ENGLISH;
   const yieldRegex = yieldQualifier(settings, language);

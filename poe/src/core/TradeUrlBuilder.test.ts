@@ -153,12 +153,19 @@ describe("buildTradeQuery", () => {
   describe("map types", () => {
     const mapTypes = (overrides: Partial<MapSettings["mapTypes"]>): MapSettings["mapTypes"] => ({...noMapTypes, ...overrides});
 
-    test("the default excludes Shaper and Elder maps, as the old checkbox did", () => {
+    test("the default excludes every map type", () => {
       const q = buildTradeQuery(baseSettings({mapTypes: defaultSettings.map.mapTypes}));
       expect(q.query.stats).toEqual([
-        {type: "not", filters: [{id: "implicit.stat_1792283443|1"}, {id: "implicit.stat_1792283443|2"}]},
+        {type: "not", filters: [
+          {id: "implicit.stat_1792283443|1"}, {id: "implicit.stat_1792283443|2"},
+          {id: "implicit.stat_2563183002|1"}, {id: "implicit.stat_2563183002|2"},
+          {id: "implicit.stat_2563183002|3"}, {id: "implicit.stat_2563183002|4"},
+          {id: "implicit.stat_2696470877"},
+        ]},
       ]);
-      expect(q.query.filters.map_filters.filters).toEqual({map_tier: {min: 16}});
+      expect(q.query.filters.map_filters.filters).toEqual({
+        map_tier: {min: 16}, map_blighted: {option: "false"}, map_uberblighted: {option: "false"},
+      });
     });
 
     test("included map types need any one of them; Conqueror means any of the four citadels", () => {
