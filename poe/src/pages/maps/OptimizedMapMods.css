@@ -208,3 +208,30 @@
         align-items: flex-start;
     }
 }
+
+/* Map types sit in the Trade Search card, with a sub-heading like the card title */
+.mm-trade-map-types {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--color-border-soft);
+}
+
+.mm-trade-map-types-title {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+/* The Trade Search card is narrow; keep each toggle next to its label and let long labels wrap */
+.mm-trade-map-types .mm-state-row {
+    flex-wrap: nowrap;
+    padding: 2px 0;
+}
+
+.mm-trade-map-types .mm-state-row + .mm-state-row {
+    border-top: none;
+}

@@ -2,6 +2,7 @@ import tradeStatIds from "@poe/generated/mapmods/trade/TradeStatIdMatching.json"
 import { MapSettings } from "../utils/SavedSettings";
 import { tradeSearchBase } from "@shared/core/TradeUrlBuilder";
 import {normalizePriceRange} from "@shared/core/PriceRange";
+import {MAP_TYPE_TRADE_FILTERS, MAP_TYPE_TRADE_STATS, selectedMapTypes} from "@poe/pages/maps/MapTypes";
 
 interface StatFilter {
   id: string;
@@ -27,7 +28,7 @@ export interface TradeSettings {
   regex: string;
   eightModOnly: boolean;
   excludeValdo: boolean;
-  excludeShaperElder: boolean;
+  mapTypes: MapSettings["mapTypes"];
   mapDropChance: string;
   quality: Omit<MapSettings["quality"], "regular">;
   anyQuality: boolean;
@@ -55,6 +56,8 @@ interface TradeQuery {
           map_iiq?: { min: number };
           map_packsize?: { min: number };
           map_iir?: { min: number };
+          map_blighted?: { option: "true" | "false" };
+          map_uberblighted?: { option: "true" | "false" };
         };
       };
       type_filters?: {
@@ -229,14 +232,18 @@ export function buildTradeQuery(settings: TradeSettings): TradeQuery {
     }
   }
 
-  if (settings.excludeShaperElder) {
-    stats.push({
-      type: "not",
-      filters: [
-        { id: "implicit.stat_1792283443|1" },
-        { id: "implicit.stat_1792283443|2" },
-      ],
-    });
+  // Map types with an implicit stat: excluded ones are NOT-ed, included ones need any of them.
+  // Blighted maps use map filters, which the trade site combines with AND.
+  const mapTypeStats = (include: boolean) => selectedMapTypes(settings.mapTypes, include)
+    .flatMap((type) => MAP_TYPE_TRADE_STATS[type] ?? [])
+    .map((id) => ({ id }));
+  const excludedMapTypes = mapTypeStats(false);
+  if (excludedMapTypes.length > 0) {
+    stats.push({ type: "not", filters: excludedMapTypes });
+  }
+  const includedMapTypes = mapTypeStats(true);
+  if (includedMapTypes.length > 0) {
+    stats.push({ type: "count", filters: includedMapTypes, value: { min: 1 } });
   }
 
   if (andFilters.length > 0) {
@@ -257,6 +264,13 @@ export function buildTradeQuery(settings: TradeSettings): TradeQuery {
       ...(mapPacksize && { map_packsize: mapPacksize }),
       ...(mapIir && { map_iir: mapIir }),
     };
+  }
+
+  for (const type of ["blighted", "blightRavaged"] as const) {
+    const mapType = settings.mapTypes[type];
+    if (mapType.enabled) {
+      query.query.filters.map_filters.filters[MAP_TYPE_TRADE_FILTERS[type]] = { option: mapType.include ? "true" : "false" };
+    }
   }
 
   if (

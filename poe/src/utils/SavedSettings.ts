@@ -196,7 +196,15 @@ export interface MapSettings {
   groupByAffix: boolean;
   tradeEightModOnly: boolean;
   tradeExcludeValdo: boolean;
-  tradeExcludeShaperElder: boolean;
+  mapTypes: {
+    shaper: {enabled: boolean; include: boolean};
+    elder: {enabled: boolean; include: boolean};
+    conqueror: {enabled: boolean; include: boolean};
+    originator: {enabled: boolean; include: boolean};
+    blighted: {enabled: boolean; include: boolean};
+    blightRavaged: {enabled: boolean; include: boolean};
+  };
+  mapTypesInRegex: boolean;
   asyncPriceRange: {
     min: string;
     max: string;
@@ -437,7 +445,15 @@ export const defaultSettings: SavedSettings = {
     groupByAffix: false,
     tradeEightModOnly: false,
     tradeExcludeValdo: true,
-    tradeExcludeShaperElder: true,
+    mapTypes: {
+      shaper: {enabled: true, include: false},
+      elder: {enabled: true, include: false},
+      conqueror: {enabled: true, include: false},
+      originator: {enabled: true, include: false},
+      blighted: {enabled: true, include: false},
+      blightRavaged: {enabled: true, include: false},
+    },
+    mapTypesInRegex: false,
     asyncPriceRange: {
       min: "0",
       max: "999",

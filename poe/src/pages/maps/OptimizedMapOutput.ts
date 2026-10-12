@@ -4,10 +4,18 @@ import {idToRegex, optimizeRegexFromIds} from "@poe/utils/regex/OptimizeRegexRes
 import {generateNumberRegex} from "@shared/core/regex/GenerateNumberRegex";
 import {MapStaticStatRegex, RepoeLanguageKey} from "@poe/utils/Languages";
 import {generatePriceRangeRegex} from "@poe/utils/regex/GeneratePriceRangeRegex";
+import {MapTypeRegex, selectedMapTypes} from "./MapTypes";
 
 export function generateMapModRegex(settings: MapSettings, regex: Regex<any>, language: RepoeLanguageKey): string {
-  const exclusions = generateBadMods(settings, regex, language);
+  // Excluded map types share the "!" term with the excluded mods; included map types match any of them
+  const mapTypeRegex = MapTypeRegex[language] ?? MapTypeRegex.ENGLISH;
+  const mapTypeTerms = (include: boolean) => settings.mapTypesInRegex
+    ? selectedMapTypes(settings.mapTypes, include).map((type) => mapTypeRegex[type])
+    : [];
+  const exclusions = generateBadMods(settings, regex, mapTypeTerms(false));
   const inclusions = generateGoodMods(settings, regex, language);
+  const includedMapTypes = mapTypeTerms(true);
+  const mapTypes = includedMapTypes.length > 0 ? `"${includedMapTypes.join("|")}"` : "";
   const statRegex = MapStaticStatRegex[language] ?? MapStaticStatRegex.ENGLISH;
   const yieldRegex = yieldQualifier(settings, language);
   const quality = qualityQualifier(settings, language);
@@ -18,7 +26,7 @@ export function generateMapModRegex(settings: MapSettings, regex: Regex<any>, la
     ? generatePriceRangeRegex(settings.asyncPriceRange.min, settings.asyncPriceRange.max, settings.asyncPriceRange.currency)
     : "";
 
-  const result = `${exclusions} ${inclusions} ${yieldRegex} ${quality} ${rarity} ${corrupted} ${unidentified} ${price}`
+  const result = `${exclusions} ${inclusions} ${mapTypes} ${yieldRegex} ${quality} ${rarity} ${corrupted} ${unidentified} ${price}`
     .trim().replaceAll(/\s{2,}/g, ' ');
 
   return optimize(result);
@@ -84,12 +92,12 @@ function qualityQualifier(settings: MapSettings, language: RepoeLanguageKey) {
   }
 }
 
-function generateBadMods(settings: MapSettings, regex: Regex<any>, language: RepoeLanguageKey): string {
-  if (settings.badIds.length === 0) {
-    return "";
-  }
-  const tokens = optimizeRegexFromIds(getSelectedIds(settings, settings.badIds, regex), regex)
-  return `"!${tokens.join("|")}"`;
+function generateBadMods(settings: MapSettings, regex: Regex<any>, mapTypes: string[]): string {
+  const tokens = settings.badIds.length > 0
+    ? optimizeRegexFromIds(getSelectedIds(settings, settings.badIds, regex), regex)
+    : [];
+  const terms = [...tokens, ...mapTypes];
+  return terms.length > 0 ? `"!${terms.join("|")}"` : "";
 }
 
 function generateGoodMods(settings: MapSettings, regex: Regex<any>, language: RepoeLanguageKey): string {

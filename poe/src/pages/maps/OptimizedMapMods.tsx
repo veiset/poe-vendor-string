@@ -22,6 +22,7 @@ import {usePoe1League} from "@shared/core/LeagueContext";
 import MatchAnyAllToggle from "@shared/components/MatchAnyAllToggle/MatchAnyAllToggle";
 import AsyncTradePriceRange from "@shared/components/AsyncTradePriceRange/AsyncTradePriceRange";
 import {useFavoritePage} from "@poe/core/favorites/useFavoritePage";
+import {MAP_TYPE_LABELS, MapType} from "./MapTypes";
 
 const OptimizedMapMods = () => {
   const {globalProfile} = useContext(ProfileContext);
@@ -55,7 +56,8 @@ const OptimizedMapMods = () => {
   const [groupByAffix, setGroupByAffix] = useState(profile.map.groupByAffix);
   const [tradeEightModOnly, setTradeEightModOnly] = useState(profile.map.tradeEightModOnly);
   const [tradeExcludeValdo, setTradeExcludeValdo] = useState(profile.map.tradeExcludeValdo);
-  const [tradeExcludeShaperElder, setTradeExcludeShaperElder] = useState(profile.map.tradeExcludeShaperElder);
+  const [mapTypes, setMapTypes] = useState(profile.map.mapTypes);
+  const [mapTypesInRegex, setMapTypesInRegex] = useState(profile.map.mapTypesInRegex);
   const [asyncPriceRange, setAsyncPriceRange] = useState(profile.map.asyncPriceRange);
   const eightModDisabled = corrupted.enabled && !corrupted.include;
 
@@ -71,7 +73,7 @@ const OptimizedMapMods = () => {
     badIds: selectedBadIds, goodIds: selectedGoodIds, allGoodMods: modGrouping,
     quantity, packsize, itemRarity, currency, scarab, divination, optimizeQuant, optimizePacksize, optimizeQuality,
     rarity, corrupted, unidentified, quality, anyQuality, anyYield, displayNightmareMods, displayAffixBadges,
-    groupByAffix, tradeEightModOnly, tradeExcludeValdo, tradeExcludeShaperElder, asyncPriceRange,
+    groupByAffix, tradeEightModOnly, tradeExcludeValdo, mapTypes, mapTypesInRegex, asyncPriceRange,
     customText: {value: customTextStr, enabled: enableCustomText}, mapDropChance,
   };
 
@@ -96,7 +98,7 @@ const OptimizedMapMods = () => {
         regex: result,
         eightModOnly: tradeEightModOnly && !eightModDisabled,
         excludeValdo: tradeExcludeValdo,
-        excludeShaperElder: tradeExcludeShaperElder,
+        mapTypes,
         mapDropChance,
         quality,
         anyQuality,
@@ -120,7 +122,7 @@ const OptimizedMapMods = () => {
   useEffect(() => {
     if (!favoritePage.isEditingFavorite) updateSettings(globalProfile, (latest) => ({...latest, map: {...settings}}));
     setResult(regex ? generateMapModRegex(settings, regex, profile.language) : "");
-  }, [result, rarity, corrupted, unidentified, quality, anyQuality, anyYield, itemRarity, currency, scarab, divination, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly, tradeExcludeValdo, tradeExcludeShaperElder, asyncPriceRange]);
+  }, [result, rarity, corrupted, unidentified, quality, anyQuality, anyYield, itemRarity, currency, scarab, divination, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly, tradeExcludeValdo, mapTypes, mapTypesInRegex, asyncPriceRange]);
 
   const renderAffixTag = displayAffixBadges
     ? (token: Token<MapModsTokenOption>) => (
@@ -182,7 +184,8 @@ const OptimizedMapMods = () => {
           setGroupByAffix(defaultSettings.map.groupByAffix);
           setTradeEightModOnly(defaultSettings.map.tradeEightModOnly);
           setTradeExcludeValdo(defaultSettings.map.tradeExcludeValdo);
-          setTradeExcludeShaperElder(defaultSettings.map.tradeExcludeShaperElder);
+          setMapTypes(defaultSettings.map.mapTypes);
+          setMapTypesInRegex(defaultSettings.map.mapTypesInRegex);
           setAsyncPriceRange(defaultSettings.map.asyncPriceRange);
         }}
       />
@@ -241,6 +244,10 @@ const OptimizedMapMods = () => {
             <IncludeExcludeToggle name="unidentified" include={unidentified.include}
                                   setInclude={(v) => setUnidentified({...unidentified, include: v})}/>
           </div>
+          <div className="mm-state-row">
+            <Checkbox label="Filter on map types (selected under trade search filters)"
+                      value={mapTypesInRegex} onChange={setMapTypesInRegex}/>
+          </div>
         </FilterCard>
 
         <FilterCard title="Quality (Maven chisels)"
@@ -268,7 +275,7 @@ const OptimizedMapMods = () => {
                     onChange={setAnyQuality}/>
         </FilterCard>
 
-        <FilterCard title="Trade Search">
+        <FilterCard title="Trade Search Filters">
           <Checkbox label={<>Only 8-mod maps<TradeAsterisk/></>}
                     value={tradeEightModOnly}
                     onChange={setTradeEightModOnly}
@@ -276,9 +283,20 @@ const OptimizedMapMods = () => {
           <Checkbox label={<>Exclude Valdo maps<TradeAsterisk/></>}
                     value={tradeExcludeValdo}
                     onChange={setTradeExcludeValdo}/>
-          <Checkbox label={<>Exclude Shaper/Elder influenced maps<TradeAsterisk/></>}
-                    value={tradeExcludeShaperElder}
-                    onChange={setTradeExcludeShaperElder}/>
+          <div className="mm-trade-map-types">
+            <span className="mm-trade-map-types-title">Map types</span>
+            {(Object.entries(MAP_TYPE_LABELS) as [MapType, string][]).map(([type, label]) => {
+              const filter = mapTypes[type];
+              return (
+                <div key={type} className={`mm-state-row${filter.enabled ? "" : " mm-state-row-off"}`}>
+                  <Checkbox label={<>{label}<TradeAsterisk/></>} value={filter.enabled}
+                            onChange={() => setMapTypes({...mapTypes, [type]: {...filter, enabled: !filter.enabled}})}/>
+                  <IncludeExcludeToggle name={`map-type-${type}`} include={filter.include}
+                                        setInclude={(v) => setMapTypes({...mapTypes, [type]: {...filter, include: v}})}/>
+                </div>
+              );
+            })}
+          </div>
         </FilterCard>
 
       </div>
