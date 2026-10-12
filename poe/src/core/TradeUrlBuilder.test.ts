@@ -1,4 +1,5 @@
 import {buildTradeQuery, TradeSettings} from "./TradeUrlBuilder";
+import {defaultMapTypes, legacyMapTypes, MapTypeSettings} from "@poe/pages/maps/MapTypes";
 
 const baseSettings = (overrides: Partial<TradeSettings> = {}): TradeSettings => ({
   badIds: [],
@@ -13,7 +14,7 @@ const baseSettings = (overrides: Partial<TradeSettings> = {}): TradeSettings => 
   regex: "",
   eightModOnly: false,
   excludeValdo: false,
-  excludeShaperElder: false,
+  mapTypes: legacyMapTypes(false),
   mapDropChance: "",
   quality: {currency: "", divination: "", scarab: "", rarity: "", packSize: ""},
   anyQuality: false,
@@ -143,6 +144,51 @@ describe("buildTradeQuery", () => {
         identified: {option: "true"},
         foil_variation: {option: "none"},
       },
+    });
+  });
+
+  describe("map types", () => {
+    const mapTypes = (overrides: Partial<MapTypeSettings>): MapTypeSettings => ({...legacyMapTypes(false), ...overrides});
+
+    test("the default excludes Shaper and Elder maps, as the old checkbox did", () => {
+      const q = buildTradeQuery(baseSettings({mapTypes: defaultMapTypes}));
+      expect(q.query.stats).toEqual([
+        {type: "not", filters: [{id: "implicit.stat_1792283443|1"}, {id: "implicit.stat_1792283443|2"}]},
+      ]);
+      expect(q.query.filters.map_filters.filters).toEqual({map_tier: {min: 16}});
+    });
+
+    test("included map types need any one of them; Conqueror means any of the four citadels", () => {
+      const q = buildTradeQuery(baseSettings({mapTypes: mapTypes({
+        shaper: {enabled: true, include: true},
+        conqueror: {enabled: true, include: true},
+        originator: {enabled: true, include: false},
+      })}));
+      expect(q.query.stats).toEqual([
+        {type: "not", filters: [{id: "implicit.stat_2696470877"}]},
+        {type: "count", value: {min: 1}, filters: [
+          {id: "implicit.stat_1792283443|1"},
+          {id: "implicit.stat_2563183002|1"}, {id: "implicit.stat_2563183002|2"},
+          {id: "implicit.stat_2563183002|3"}, {id: "implicit.stat_2563183002|4"},
+        ]},
+      ]);
+    });
+
+    test("blighted map types use the map filters", () => {
+      const q = buildTradeQuery(baseSettings({mapTypes: mapTypes({
+        blighted: {enabled: true, include: true},
+        blightRavaged: {enabled: true, include: false},
+      })}));
+      expect(q.query.stats ?? []).toEqual([]);
+      expect(q.query.filters.map_filters.filters).toEqual({
+        map_tier: {min: 16}, map_blighted: {option: "true"}, map_uberblighted: {option: "false"},
+      });
+    });
+
+    test("map types that are off add nothing", () => {
+      const q = buildTradeQuery(baseSettings({mapTypes: mapTypes({shaper: {enabled: false, include: false}})}));
+      expect(q.query.stats ?? []).toEqual([]);
+      expect(q.query.filters.map_filters.filters).toEqual({map_tier: {min: 16}});
     });
   });
 

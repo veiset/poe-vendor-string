@@ -22,11 +22,12 @@ import {usePoe1League} from "@shared/core/LeagueContext";
 import MatchAnyAllToggle from "@shared/components/MatchAnyAllToggle/MatchAnyAllToggle";
 import AsyncTradePriceRange from "@shared/components/AsyncTradePriceRange/AsyncTradePriceRange";
 import {useFavoritePage} from "@poe/core/favorites/useFavoritePage";
+import {MAP_TYPE_LABELS, MAP_TYPES, withFavoriteMapTypes} from "./MapTypes";
 
 const OptimizedMapMods = () => {
   const {globalProfile} = useContext(ProfileContext);
   const storedProfile = loadSettings(globalProfile);
-  const favoritePage = useFavoritePage("maps", storedProfile.map);
+  const favoritePage = useFavoritePage("maps", storedProfile.map, withFavoriteMapTypes);
   const profile = {...storedProfile, map: favoritePage.initialConfiguration};
   const {league} = usePoe1League();
   const [result, setResult] = useState("");
@@ -55,7 +56,7 @@ const OptimizedMapMods = () => {
   const [groupByAffix, setGroupByAffix] = useState(profile.map.groupByAffix);
   const [tradeEightModOnly, setTradeEightModOnly] = useState(profile.map.tradeEightModOnly);
   const [tradeExcludeValdo, setTradeExcludeValdo] = useState(profile.map.tradeExcludeValdo);
-  const [tradeExcludeShaperElder, setTradeExcludeShaperElder] = useState(profile.map.tradeExcludeShaperElder);
+  const [mapTypes, setMapTypes] = useState(profile.map.mapTypes);
   const [asyncPriceRange, setAsyncPriceRange] = useState(profile.map.asyncPriceRange);
   const eightModDisabled = corrupted.enabled && !corrupted.include;
 
@@ -71,7 +72,7 @@ const OptimizedMapMods = () => {
     badIds: selectedBadIds, goodIds: selectedGoodIds, allGoodMods: modGrouping,
     quantity, packsize, itemRarity, currency, scarab, divination, optimizeQuant, optimizePacksize, optimizeQuality,
     rarity, corrupted, unidentified, quality, anyQuality, anyYield, displayNightmareMods, displayAffixBadges,
-    groupByAffix, tradeEightModOnly, tradeExcludeValdo, tradeExcludeShaperElder, asyncPriceRange,
+    groupByAffix, tradeEightModOnly, tradeExcludeValdo, mapTypes, asyncPriceRange,
     customText: {value: customTextStr, enabled: enableCustomText}, mapDropChance,
   };
 
@@ -96,7 +97,7 @@ const OptimizedMapMods = () => {
         regex: result,
         eightModOnly: tradeEightModOnly && !eightModDisabled,
         excludeValdo: tradeExcludeValdo,
-        excludeShaperElder: tradeExcludeShaperElder,
+        mapTypes,
         mapDropChance,
         quality,
         anyQuality,
@@ -120,7 +121,7 @@ const OptimizedMapMods = () => {
   useEffect(() => {
     if (!favoritePage.isEditingFavorite) updateSettings(globalProfile, (latest) => ({...latest, map: {...settings}}));
     setResult(regex ? generateMapModRegex(settings, regex, profile.language) : "");
-  }, [result, rarity, corrupted, unidentified, quality, anyQuality, anyYield, itemRarity, currency, scarab, divination, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly, tradeExcludeValdo, tradeExcludeShaperElder, asyncPriceRange]);
+  }, [result, rarity, corrupted, unidentified, quality, anyQuality, anyYield, itemRarity, currency, scarab, divination, selectedBadIds, selectedGoodIds, modGrouping, quantity, packsize, optimizeQuant, optimizePacksize, optimizeQuality, customTextStr, enableCustomText, regex, mapDropChance, displayNightmareMods, displayAffixBadges, groupByAffix, tradeEightModOnly, tradeExcludeValdo, mapTypes, asyncPriceRange]);
 
   const renderAffixTag = displayAffixBadges
     ? (token: Token<MapModsTokenOption>) => (
@@ -182,7 +183,7 @@ const OptimizedMapMods = () => {
           setGroupByAffix(defaultSettings.map.groupByAffix);
           setTradeEightModOnly(defaultSettings.map.tradeEightModOnly);
           setTradeExcludeValdo(defaultSettings.map.tradeExcludeValdo);
-          setTradeExcludeShaperElder(defaultSettings.map.tradeExcludeShaperElder);
+          setMapTypes(defaultSettings.map.mapTypes);
           setAsyncPriceRange(defaultSettings.map.asyncPriceRange);
         }}
       />
@@ -243,6 +244,20 @@ const OptimizedMapMods = () => {
           </div>
         </FilterCard>
 
+        <FilterCard title="Map Type">
+          {MAP_TYPES.map((type) => {
+            const filter = mapTypes[type];
+            return (
+              <div key={type} className={`mm-state-row${filter.enabled ? "" : " mm-state-row-off"}`}>
+                <Checkbox label={<>{MAP_TYPE_LABELS[type]}<TradeAsterisk/></>} value={filter.enabled}
+                          onChange={() => setMapTypes({...mapTypes, [type]: {...filter, enabled: !filter.enabled}})}/>
+                <IncludeExcludeToggle name={`map-type-${type}`} include={filter.include}
+                                      setInclude={(v) => setMapTypes({...mapTypes, [type]: {...filter, include: v}})}/>
+              </div>
+            );
+          })}
+        </FilterCard>
+
         <FilterCard title="Quality (Maven chisels)"
                     headerControl={
                       <ExactOptimizedToggle name="quality-mode"
@@ -276,9 +291,6 @@ const OptimizedMapMods = () => {
           <Checkbox label={<>Exclude Valdo maps<TradeAsterisk/></>}
                     value={tradeExcludeValdo}
                     onChange={setTradeExcludeValdo}/>
-          <Checkbox label={<>Exclude Shaper/Elder influenced maps<TradeAsterisk/></>}
-                    value={tradeExcludeShaperElder}
-                    onChange={setTradeExcludeShaperElder}/>
         </FilterCard>
 
       </div>

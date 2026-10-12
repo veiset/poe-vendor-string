@@ -14,7 +14,12 @@ export interface FavoritePageSession<T> {
   action: (configuration: T, context?: FavoriteContextData, disabledReason?: string) => RegexFavoriteAction;
 }
 
-export const useFavoritePage = <T extends object>(pageKey: Poe1FavoritePageKey, normalConfiguration: T): FavoritePageSession<T> => {
+export const useFavoritePage = <T extends object>(
+  pageKey: Poe1FavoritePageKey,
+  normalConfiguration: T,
+  // Brings a favorite saved by an older version of the page up to date before it is edited
+  upgradeFavorite: (configuration: Partial<T>) => Partial<T> = (configuration) => configuration,
+): FavoritePageSession<T> => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -59,7 +64,7 @@ export const useFavoritePage = <T extends object>(pageKey: Poe1FavoritePageKey, 
     if (!favorite || !favorite.configuration || typeof favorite.configuration !== "object" || Array.isArray(favorite.configuration)) {
       return cloneFavoriteConfiguration(normalConfiguration);
     }
-    return merge(cloneFavoriteConfiguration(normalConfiguration), cloneFavoriteConfiguration(favorite.configuration) as Partial<T>);
+    return merge(cloneFavoriteConfiguration(normalConfiguration), upgradeFavorite(cloneFavoriteConfiguration(favorite.configuration) as Partial<T>));
     // This value deliberately remains stable for the lifetime of the mounted editor.
   }, [favorite?.id]);
 

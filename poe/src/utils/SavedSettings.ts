@@ -8,6 +8,7 @@ import {
 import { RepoeLanguageKey } from "./Languages";
 import type {FavoriteRecord} from "@poe/core/favorites/FavoriteTypes";
 import {itemCraftingDefault, ItemCraftingSettings} from "@shared/types/Settings.types";
+import {defaultMapTypes, MapTypeSettings} from "@poe/pages/maps/MapTypes";
 
 export const categories: ItemCategory[] = [
   {
@@ -196,7 +197,9 @@ export interface MapSettings {
   groupByAffix: boolean;
   tradeEightModOnly: boolean;
   tradeExcludeValdo: boolean;
-  tradeExcludeShaperElder: boolean;
+  // Replaced by mapTypes; only read to upgrade settings saved before map types existed
+  tradeExcludeShaperElder?: boolean;
+  mapTypes: MapTypeSettings;
   asyncPriceRange: {
     min: string;
     max: string;
@@ -437,7 +440,7 @@ export const defaultSettings: SavedSettings = {
     groupByAffix: false,
     tradeEightModOnly: false,
     tradeExcludeValdo: true,
-    tradeExcludeShaperElder: true,
+    mapTypes: defaultMapTypes,
     asyncPriceRange: {
       min: "0",
       max: "999",
