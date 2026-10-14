@@ -462,7 +462,7 @@
         },
         {
             "id": 2039236504,
-            "regex": "eff",
+            "regex": "ses",
             "rawText": "(50-20)% less effect of Curses on Monsters",
             "generalizedText": "^#% less effect of curses on monsters$",
             "options": {
@@ -688,7 +688,7 @@
                 -1291605512,
                 -194879968
             ],
-            "regex": "per",
+            "regex": "rio",
             "weight": 3,
             "count": 3
         },
@@ -729,8 +729,8 @@
                 -1463814744,
                 1411067874
             ],
-            "regex": "gai",
-            "weight": 3,
+            "regex": "rs g",
+            "weight": 6,
             "count": 2
         },
         "-1430091794:-1427494180:-1389952336:-1062239040:345823526": {
@@ -957,8 +957,8 @@
                 1140153707,
                 1518963479
             ],
-            "regex": "han",
-            "weight": 3,
+            "regex": "% c",
+            "weight": 5,
             "count": 3
         },
         "-357737163:1140153707": {
