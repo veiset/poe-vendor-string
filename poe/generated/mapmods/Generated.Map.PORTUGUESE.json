@@ -272,7 +272,7 @@
         },
         {
             "id": -999805715,
-            "regex": "^cha",
+            "regex": "dura$",
             "rawText": "Chance de Bloqueio dos Jogadores reduzida em (20-40)%|Jogadores têm (20-30)% menos Armadura",
             "generalizedText": "^chance de bloqueio dos jogadores reduzida em #%$|^jogadores tem #% menos armadura$",
             "options": {
@@ -334,7 +334,7 @@
         },
         {
             "id": -887278806,
-            "regex": "rbe",
+            "regex": "fogad",
             "rawText": "Área contém Orbes Afogadores",
             "generalizedText": "^area contem orbes afogadores$",
             "options": {
@@ -552,7 +552,7 @@
         },
         {
             "id": -172005981,
-            "regex": "da de m",
+            "regex": "s vida d",
             "rawText": "(20-100)% mais Vida de Monstros",
             "generalizedText": "^#% mais vida de monstros$",
             "options": {
@@ -1332,7 +1332,7 @@
         },
         {
             "id": 1756122717,
-            "regex": "mav",
+            "regex": "rfe",
             "rawText": "A Maven interfere com os Jogadores",
             "generalizedText": "^a maven interfere com os jogadores$",
             "options": {
@@ -1541,40 +1541,6 @@
             "regex": "ros au",
             "weight": 8,
             "count": 7
-        },
-        "-1647756153:-683043845:-172005981:156744008:1541760497": {
-            "ids": [
-                -1647756153,
-                -683043845,
-                -172005981,
-                156744008,
-                1541760497
-            ],
-            "regex": "e monstros",
-            "weight": 12,
-            "count": 5
-        },
-        "-1647756153:-683043845:156744008:1541760497": {
-            "ids": [
-                -1647756153,
-                -683043845,
-                156744008,
-                1541760497
-            ],
-            "regex": "e monstros",
-            "weight": 12,
-            "count": 4
-        },
-        "-1647756153:-172005981:156744008:1541760497": {
-            "ids": [
-                -1647756153,
-                -172005981,
-                156744008,
-                1541760497
-            ],
-            "regex": "e monstros",
-            "weight": 12,
-            "count": 4
         },
         "-1647756153:-683043845:-580302769:1469490158:1899039946": {
             "ids": [
@@ -2207,8 +2173,8 @@
                 -172005981,
                 1541760497
             ],
-            "regex": "da de m",
-            "weight": 9,
+            "regex": "s vida d",
+            "weight": 10,
             "count": 2
         },
         "-166549521:-126908257": {
