@@ -35,10 +35,11 @@ export function generateNumberRegex(number: string, optimize: boolean): string {
 
 // Matches an affix's actual rolled value bounded to "(min-max)", anchored on "("
 // Falls back to an open-ended ">= min" match when the bounds don't fit a 2-digit range
-export function generateBoundedValueRegex(min: string, max: string, round10: boolean): string {
+// With decimals, the rolled value may carry a decimal part before the "(", e.g. "127.7(96.1-128)"
+export function generateBoundedValueRegex(min: string, max: string, round10: boolean, decimals = false): string {
   const ranged = generateNumberRangeRegex(min, max, round10);
   const number = ranged !== "" ? ranged : generateNumberRegex(min, round10);
-  return `${number.replace(/\./g, "\\d")}\\(`;
+  return `${number.replace(/\./g, "\\d")}${decimals ? "(\\.\\d+)?" : ""}\\(`;
 }
 
 // Generates the shortest regex matching an inclusive [min, max] integer range.

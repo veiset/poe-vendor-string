@@ -1,6 +1,9 @@
 import {JewelSettings} from "@poe/utils/SavedSettings";
 import type {Jewel, JewelRegex} from "@poe/types/generated/jewel";
 
+// Only mods with a fractional value range need the number match to allow a decimal part
+const decimalRange = /\d\.\d/;
+
 export function generateJewelRegex(settings: JewelSettings, jewel?: Jewel): string {
   if (!jewel) return "";
   const modLookupAbyss = new Map(jewel.abyss.map(i => [i.mod, i]));
@@ -59,7 +62,10 @@ function generateJewel(
   lookup: Map<string, JewelRegex>
 ): string {
   const regex = selectedMods.map((mod) => {
-    return lookup.get(mod)!!.regex;
+    const jewel = lookup.get(mod)!!;
+    return decimalRange.test(jewel.mod)
+      ? jewel.regex.replace("\\d+", "[\\d.]+")
+      : jewel.regex;
   });
   if (regex.length === 0) return "";
   return settings.allMatch
