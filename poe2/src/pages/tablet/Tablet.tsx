@@ -35,7 +35,8 @@ export function Tablet() {
     const sourceLanguage = loadedLanguageRef.current ?? favoritePage.initialLanguage;
     Promise.all([loadTabletAffixes(sourceLanguage), loadTabletAffixes(language)]).then(([source, data]) => {
       if (!active) return;
-      if (sourceLanguage !== language) setSettings((current) => rebaseTabletSettings(current, source, data));
+      // Also in the same language: saved mods get the current regex, old name-only mods get their id, removed mods are dropped
+      setSettings((current) => rebaseTabletSettings(current, source, data));
       loadedLanguageRef.current = language;
       setAffixes(data);
       setDataLanguage(language);
@@ -51,9 +52,9 @@ export function Tablet() {
       id: mod.id,
       name: mod.name,
       isSelected: settings.modifier.affixes
-        .some((e) => e.name === mod.name && e.isSelected),
+        .some((e) => e.id === mod.id && e.isSelected),
       value: settings.modifier.affixes
-        .find((e) => e.name === mod.name)?.value || null,
+        .find((e) => e.id === mod.id)?.value || null,
       ranges: mod.ranges,
       regex: mod.regex,
     }));

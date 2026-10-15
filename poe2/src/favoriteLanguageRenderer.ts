@@ -17,13 +17,14 @@ type AffixOption = {id: number; name: string; regex: string; ranges: number[][];
 const appendCustomText = (regex: string, text: string, enabled: boolean): string =>
   text && enabled ? `${regex} ${text}`.trim() : regex;
 
+// Saved mods are matched by id, or by name when saved before ids; mods no longer in the data are dropped
 const mapOptions = (options: SelectOption[], from: AffixOption[], to: AffixOption[]): SelectOption[] =>
-  options.map((option) => {
+  options.flatMap((option) => {
     const source = from.find((affix) => option.id !== undefined
       ? affix.id === option.id
       : affix.name === option.name || affix.regex === option.regex);
     const target = source && to.find((affix) => affix.sourceIndex === source.sourceIndex);
-    return target ? {...option, id: target.id, name: target.name, regex: target.regex, ranges: target.ranges} : option;
+    return target ? [{...option, id: target.id, name: target.name, regex: target.regex, ranges: target.ranges}] : [];
   });
 
 export const rebaseWaystoneSettings = (
@@ -67,8 +68,8 @@ export async function renderPoe2Favorite(favorite: Poe2RegexFavoriteRecord, lang
   const sourceLanguage = storedLanguage && Object.prototype.hasOwnProperty.call(RepoeLanguage, storedLanguage)
     ? storedLanguage as RepoeLanguageKey
     : "ENGLISH";
-  if (sourceLanguage === language) return favorite.regex;
 
+  // Waystone and tablet favorites are rendered from the loaded data in every language, so a saved mod never keeps an old regex
   if (favorite.pageKey === "waystone") {
     const [source, target] = await Promise.all([loadWaystoneAffixes(sourceLanguage), loadWaystoneAffixes(language)]);
     const settings = merge(defaultSettings.waystone, favorite.configuration as Partial<typeof defaultSettings.waystone>);
@@ -89,6 +90,7 @@ export async function renderPoe2Favorite(favorite: Poe2RegexFavoriteRecord, lang
     }});
     return appendCustomText(generated, customText, tablet.resultSettings.customTextEnabled);
   }
+  if (sourceLanguage === language) return favorite.regex;
   if (favorite.pageKey === "relic") {
     const [source, target] = await Promise.all([loadRelicRegex(sourceLanguage), loadRelicRegex(language)]);
     const settings = merge(defaultSettings.relic, favorite.configuration as Partial<typeof defaultSettings.relic>);

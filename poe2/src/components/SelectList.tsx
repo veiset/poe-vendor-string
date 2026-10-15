@@ -11,6 +11,10 @@ interface SelectElementProps {
   setSelected: (options: SelectOption[]) => void
 }
 
+// Mods are matched by id; relic mods have no id and fall back to the name
+const sameMod = (mod: SelectOption, option: SelectOption) =>
+  mod.id !== undefined ? option.id === mod.id : option.name === mod.name;
+
 export function SelectElement(props: SelectElementProps) {
   const {name, regex, ranges, current, selected, setSelected} = props;
   // Numeric regex generation currently supports integer rolls only
@@ -29,14 +33,14 @@ export function SelectElement(props: SelectElementProps) {
               value={current.value ?? ""}
               onChange={(e) => {
                 setSelected(selected
-                  .filter((e) => e.name !== name)
+                  .filter((e) => !sameMod(current, e))
                   .concat({...current, value: Number(e.target.value), isSelected: true}))
               }}
           />
       }
       <span className="poe2-mod-name" onClick={() =>
         setSelected(selected
-          .filter((e) => e.name !== name)
+          .filter((e) => !sameMod(current, e))
           .concat({...current, isSelected: !current.isSelected}))
       }>
         {hasRange && displayName.replace("#", "")}
@@ -59,10 +63,12 @@ export function SelectList(props: SelectListProps) {
   return (
     <div key={id}>
       {options.map((mod) => {
+        // Only the choice comes from the saved copy; the regex, name and ranges come from the loaded data
+        const saved = selected.find((e) => sameMod(mod, e));
         return (
           <div key={mod.name}>
             <SelectElement
-              current={selected.find((e) => e.name === mod.name) as SelectOption || mod}
+              current={saved ? {...mod, value: saved.value, isSelected: saved.isSelected} : mod}
               ranges={mod.ranges}
               name={mod.name}
               regex={mod.regex}

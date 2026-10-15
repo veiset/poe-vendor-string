@@ -34,7 +34,8 @@ export function Waystone() {
     const sourceLanguage = loadedLanguageRef.current ?? favoritePage.initialLanguage;
     Promise.all([loadWaystoneAffixes(sourceLanguage), loadWaystoneAffixes(language)]).then(([source, data]) => {
       if (!active) return;
-      if (sourceLanguage !== language) setSettings((current) => rebaseWaystoneSettings(current, source, data));
+      // Also in the same language: saved mods get the current regex, old name-only mods get their id, removed mods are dropped
+      setSettings((current) => rebaseWaystoneSettings(current, source, data));
       loadedLanguageRef.current = language;
       setAffixes(data);
       setDataLanguage(language);
@@ -48,9 +49,9 @@ export function Waystone() {
       id: mod.id,
       name: mod.name,
       isSelected: settings.modifier.wantedMods
-        .some((e) => e.name === mod.name && e.isSelected),
+        .some((e) => e.id === mod.id && e.isSelected),
       value: settings.modifier.wantedMods
-        .find((e) => e.name === mod.name)?.value || null,
+        .find((e) => e.id === mod.id)?.value || null,
       ranges: mod.ranges,
       regex: mod.regex,
     }));
@@ -60,9 +61,9 @@ export function Waystone() {
       id: mod.id,
       name: mod.name,
       isSelected: settings.modifier.unwantedMods
-        .some((e) => e.name === mod.name && e.isSelected),
+        .some((e) => e.id === mod.id && e.isSelected),
       value: settings.modifier.unwantedMods
-        .find((e) => e.name === mod.name)?.value || null,
+        .find((e) => e.id === mod.id)?.value || null,
       ranges: mod.ranges,
       regex: mod.regex,
     }));
