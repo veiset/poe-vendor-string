@@ -250,6 +250,7 @@ type VendorSettings = {
 export interface Settings {
   name: string
   language: RepoeLanguageKey
+  version: number
   favorites: Poe2FavoriteRecord[]
   vendor: VendorSettings
   waystone: WaystoneSettings,
@@ -356,6 +357,8 @@ export const defaultEmptyVendor = {
 export const defaultSettings: Settings = {
   name: "default",
   language: "ENGLISH",
+  // Bumped by each migration in migration/migrations.ts
+  version: 2,
   favorites: [],
   vendor: {
     resultSettings: defaultResultSettings,

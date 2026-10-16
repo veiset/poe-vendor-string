@@ -8,6 +8,7 @@ import {defaultSettings, Settings} from "../settings";
 import ProfileExportBox from "@shared/components/profile/ProfileExportBox";
 import ProfileImportBox from "@shared/components/profile/ProfileImportBox";
 import {decodeProfile, encodeProfile} from "./ProfileTransfer";
+import {migrateProfile} from "../migration/migrations";
 import {RepoeLanguage, RepoeLanguageKey} from "@poe/utils/Languages";
 
 interface Poe2ProfileSelectorProps {
@@ -78,10 +79,13 @@ const Poe2ProfileSelector = ({languageSelect = false}: Poe2ProfileSelectorProps)
   };
 
   const importProfile = (settings: Settings) => {
-    saveSettings(settings);
-    setProfiles(loadProfileNames());
-    changeProfile(settings.name);
-    setShowImport(false);
+    // If the migration fails, the profile is saved on its old version and migrated on the next visit
+    migrateProfile(settings).catch(() => settings).then((migrated) => {
+      saveSettings(migrated);
+      setProfiles(loadProfileNames());
+      changeProfile(migrated.name);
+      setShowImport(false);
+    });
   };
 
   return (

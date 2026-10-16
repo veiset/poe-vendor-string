@@ -21,6 +21,10 @@ export const loadProfiles = (): SavedProfiles => {
   return safeLoad(PROFILE_KEY);
 }
 
+export const saveProfiles = (profiles: SavedProfiles): void => {
+  localStorage.setItem(PROFILE_KEY, JSON.stringify(profiles));
+}
+
 export const loadWebSettings = (): WebSettings => {
   return {defaultWebSettings, ...safeLoad(WEB_SETTINGS_KEY)}
 }

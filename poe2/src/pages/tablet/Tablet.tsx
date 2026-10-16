@@ -35,7 +35,7 @@ export function Tablet() {
     const sourceLanguage = loadedLanguageRef.current ?? favoritePage.initialLanguage;
     Promise.all([loadTabletAffixes(sourceLanguage), loadTabletAffixes(language)]).then(([source, data]) => {
       if (!active) return;
-      // Also in the same language: saved mods get the current regex, old name-only mods get their id, removed mods are dropped
+      // Also in the same language, so saved mods get the current regex, name and ranges, and mods no longer in the data are dropped
       setSettings((current) => rebaseTabletSettings(current, source, data));
       loadedLanguageRef.current = language;
       setAffixes(data);
