@@ -12,10 +12,6 @@ Saved poe2.re profiles (`poe2.profiles` in localStorage) are brought up to date 
 
 ## Migrations
 
-| Version | File | Introduced | What it does |
+| Version | File | Introduced | What changed |
 |---|---|---|---|
-| 1 → 2 | `v02_migration.ts` | 2026-10-16 (#557) | Saved waystone and tablet mods get the ids of the current data |
-
-### 1 → 2: waystone and tablet mods by id
-
-Since #557, the waystone and tablet pages match saved mods to the data by id and take the regex from the data. The ids had changed when the data was regenerated in #536 (2026-09-27) and again in #549 (2026-10-08), and saved mods still had their old ids and regexes. This migration gives the saved waystone and tablet mods, in profiles and in favorites, the ids of the current data, and drops the mods that are no longer in it.
+| 1 → 2 | `v02_migration.ts` | 2026-10-16 (#557) | #557 made the waystone and tablet pages match saved mods to the data by id and take the regex from the data. The ids had changed when the data was regenerated in #536 (2026-09-27) and #549 (2026-10-08), and saved mods still had their old ids and regexes. This migration gives saved waystone and tablet mods, in profiles and in favorites, the ids of the current data, and drops the mods that are no longer in it. |

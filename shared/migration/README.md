@@ -1,6 +1,6 @@
 # Profile migrations
 
-poe.re and poe2.re save their profiles in localStorage, and migrations bring saved profiles up to date when what a profile saves changes. The runner is `ProfileMigrations.ts` in this folder. Each app has its own migrations in `src/migration/`: `migrations.ts` gives the runner the app's list of migrations, its defaults and its storage, and a README says what each migration does and lists the selectors for the app's pages:
+poe.re and poe2.re save their profiles in localStorage, and migrations bring saved profiles up to date when what a profile saves changes. The runner is `ProfileMigrations.ts` in this folder. Each app has its own migrations in `src/migration/`: `migrations.ts` gives the runner the app's list of migrations, its defaults and its storage, and a README has the selectors for the app's pages and a table of its migrations:
 
 | | poe.re | poe2.re |
 |---|---|---|
@@ -28,7 +28,7 @@ Favorites are saved in the profile, so a change to saved favorites is a profile 
 1. Write `vNN_migration.ts` with `migrateV<N-1>ToV<N>(settings): Promise<Settings>`. It can run on profiles of any age, so keep it self-contained.
 2. Add `{version: N, migrate: migrateV<N-1>ToV<N>}` to the end of the list in the app's `migrations.ts`.
 3. Bump `defaultSettings.version` to N.
-4. Add its test cases in `vNN_migration.test.ts`. In the app's README, add a row and a short section on what changed and why it needs a migration; what the migration does belongs in the code.
+4. Add its test cases in `vNN_migration.test.ts`, and a row to the table in the app's README on what changed and why it needs a migration. What the migration does belongs in the code.
 5. Verify it with real stored data, as described next.
 
 ## Verifying a migration
