@@ -9,11 +9,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const STATS_API_URL = 'https://www.pathofexile.com/api/trade/data/stats';
 const STATS_2_API_URL = 'https://www.pathofexile.com/api/trade2/data/stats';
-const MAP_MODS_FILE = path.join(__dirname, '../poe/generated/mapmods/Generated.Map.ENGLISH.json');
+// poe-item-gen's generated files, see "Generated data" in README.md
+const DATA_URL = process.env.VITE_DATA_URL ?? 'https://data.poe.re';
+const MAP_MODS_FILE = 'mapmods/Generated.Map.ENGLISH.min.json';
 const OUTPUT_FILE = path.join(__dirname, '../poe/src/generated/mapmods/trade/TradeStatIdMatching.json');
 
-const WAYSTONE_FILE = path.join(__dirname, '../poe2/public/generated/waystone/Generated.Waystone.ENGLISH.min.json');
-const TABLET_FILE = path.join(__dirname, '../poe2/public/generated/tablet/Generated.Tablet.ENGLISH.min.json');
+const WAYSTONE_FILE = 'waystone/Generated.Waystone.ENGLISH.min.json';
+const TABLET_FILE = 'tablet/Generated.Tablet.ENGLISH.min.json';
 const POE2_OUTPUT_DIR = path.join(__dirname, '../poe2/public/generated/trade');
 const WAYSTONE_OUTPUT = path.join(POE2_OUTPUT_DIR, 'WaystoneTradeStatIds.json');
 const TABLET_OUTPUT = path.join(POE2_OUTPUT_DIR, 'TabletTradeStatIds.json');
@@ -204,10 +206,24 @@ async function fetchTradeStats(apiUrl: string, userAgent: string): Promise<Trade
   return explicitGroup.entries;
 }
 
-function loadRegexResult<T>(file: string): RegexResult<T> {
-  const data: unknown = JSON.parse(fs.readFileSync(file, 'utf-8'));
+async function fetchJson<T>(url: string): Promise<T> {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
+  }
+  return response.json() as Promise<T>;
+}
+
+let history: Promise<{current: Record<string, {patch: string}>}> | undefined;
+
+// Reads a file of the game's latest upload; history.json names its patch
+async function loadRegexResult<T>(game: 'poe1' | 'poe2', file: string): Promise<RegexResult<T>> {
+  history ??= fetchJson(`${DATA_URL}/history.json`);
+  const url = `${DATA_URL}/generated/${game}/${(await history).current[game].patch}/${file}`;
+  console.log(`Reading ${url}...`);
+  const data: unknown = await fetchJson(url);
   if (!data || typeof data !== 'object' || !Array.isArray((data as RegexResult<T>).tokens)) {
-    throw new Error(`${file} does not look like a RegexResult (missing "tokens" array)`);
+    throw new Error(`${url} does not look like a RegexResult (missing "tokens" array)`);
   }
   return data as RegexResult<T>;
 }
@@ -260,8 +276,7 @@ function buildPoe2Mapping(label: string, tokens: Poe2Token[], tradeStats: TradeS
 }
 
 async function runPoe1(tradeStats: TradeStatEntry[]) {
-  console.log(`Reading ${MAP_MODS_FILE}...`);
-  const tokens: MapModToken[] = loadRegexResult<MapOption>(MAP_MODS_FILE).tokens;
+  const tokens: MapModToken[] = (await loadRegexResult<MapOption>('poe1', MAP_MODS_FILE)).tokens;
   console.log(`Parsed ${tokens.length} tokens from map mods file`);
 
   console.log('\nMatching tokens to trade stats...\n');
@@ -318,9 +333,9 @@ async function runPoe2(tradeStats: TradeStatEntry[]) {
     fs.mkdirSync(POE2_OUTPUT_DIR, { recursive: true });
   }
 
-  const waystoneTokens = loadRegexResult<WaystoneOption>(WAYSTONE_FILE).tokens;
+  const waystoneTokens = (await loadRegexResult<WaystoneOption>('poe2', WAYSTONE_FILE)).tokens;
   console.log(`Parsed ${waystoneTokens.length} waystone tokens`);
-  const tabletTokens = loadRegexResult<TabletOption>(TABLET_FILE).tokens;
+  const tabletTokens = (await loadRegexResult<TabletOption>('poe2', TABLET_FILE)).tokens;
   console.log(`Parsed ${tabletTokens.length} tablet tokens`);
 
   writeJson(WAYSTONE_OUTPUT, buildPoe2Mapping('waystone', waystoneTokens, tradeStats));

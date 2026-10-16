@@ -105,9 +105,10 @@ game's latest upload, and its files are read from `generated/<game>/<patch>/`. A
 used on the next page load, without a deploy. The typedefs in `<app>/src/types/generated` are
 still copied into this repo.
 
-The bucket's CORS policy allows https://poe.re, https://poe2.re, and `http://localhost:3000`
-and `http://localhost:4173` for `pnpm dev` and `pnpm preview`. Set `VITE_DATA_URL` to read the
-files from somewhere else.
+The bucket's CORS policy allows https://poe.re, https://poe2.re, the Cloudflare Pages
+deployments (`https://*.poe-production.pages.dev`, `https://*.poe2-production.pages.dev`) and
+`http://localhost` on any port. It's set with wrangler (`wrangler r2 bucket cors list
+poere-generated`). Set `VITE_DATA_URL` to read the files from somewhere else.
 
 ## Refreshing trade stat mappings
 
@@ -117,7 +118,8 @@ Trade search buttons rely on stat-ID mappings against the official trade APIs. T
 pnpm run fetch-trade-stats
 ```
 
-This updates:
+It matches the English map, waystone and tablet mods of the latest upload on R2 (see
+[Generated data](#generated-data)) with the trade API's stats, and updates:
 - `poe/src/generated/mapmods/trade/TradeStatIdMatching.json` (PoE1)
 - `poe2/public/generated/trade/WaystoneTradeStatIds.json` (PoE2)
 - `poe2/public/generated/trade/TabletTradeStatIds.json` (PoE2)
