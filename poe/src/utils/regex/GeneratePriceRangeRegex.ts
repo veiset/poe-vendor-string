@@ -7,7 +7,8 @@ export function generatePriceRangeRegex(min: string, max: string, currency: Pric
   if (!range) return "";
   const {min: lo, max: hi} = range;
   const broadRange = compactBroadPriceRange(lo, hi);
-  if (broadRange) return `"${broadRange} ${currency}"`;
+  // The leading space keeps 24 from matching the end of "~price 124 chaos"
+  if (broadRange) return `" ${broadRange} ${currency}"`;
   const alternatives: string[] = [];
 
   for (let digits = 1; digits <= 3; digits += 1) {
@@ -19,7 +20,7 @@ export function generatePriceRangeRegex(min: string, max: string, currency: Pric
   }
 
   const number = alternatives.length === 1 ? alternatives[0] : `(${alternatives.join("|")})`;
-  return `"${number} ${currency}"`;
+  return `" ${number} ${currency}"`;
 }
 
 function compactBroadPriceRange(lo: number, hi: number): string {

@@ -124,7 +124,7 @@ describe("poe2 generateWaystoneRegex", () => {
         },
       },
     });
-    expect(generateWaystoneRegex(s)).toBe(`"([1-9]|1\\d|2[0-5]) exalted"`);
+    expect(generateWaystoneRegex(s)).toBe(`" ([1-9]|1\\d|2[0-5]) exalted"`);
   });
 });
 
@@ -162,7 +162,7 @@ describe("poe2 generateTabletRegex", () => {
         },
       },
     });
-    expect(generateTabletRegex(s)).toBe(`"[1-9] divine"`);
+    expect(generateTabletRegex(s)).toBe(`" [1-9] divine"`);
   });
 
   test("single tablet type", () => {
