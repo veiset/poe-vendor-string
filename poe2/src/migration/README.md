@@ -14,7 +14,7 @@ Saved poe2.re profiles (`poe2.profiles` in localStorage) are brought up to date 
 1. Write `vNN_migration.ts` with `migrateV<N-1>ToV<N>(settings): Promise<Settings>`. It can run on profiles of any age, so keep it self-contained.
 2. Add `{version: N, migrate: migrateV<N-1>ToV<N>}` to the end of the list in `migrations.ts`.
 3. Bump `defaultSettings.version` to N.
-4. Add a test to `migrations.test.ts` and a section below.
+4. Add its test cases in `vNN_migration.test.ts`, and a section below.
 
 ## Migrations
 
