@@ -10,8 +10,11 @@ const renderPage = (page: React.ReactElement) =>
   render(<MemoryRouter><FavoritesProvider>{page}</FavoritesProvider></MemoryRouter>);
 
 describe("poe2 pages render", () => {
-  // The relic page loads its data when it renders. Unstubbed, the fetch of a relative URL rejects after the test.
-  beforeEach(() => { vi.stubGlobal("fetch", vi.fn(async () => ({ok: true, json: async () => []}))); });
+  // The relic page loads its data from R2 when it renders. Unstubbed, the fetch rejects after the test.
+  const history = {current: {poe2: {patch: "0.5.5.4.2", commit: "d1bab48"}}};
+  beforeEach(() => {
+    vi.stubGlobal("fetch", vi.fn(async (url: string) => ({ok: true, json: async () => url.endsWith("/history.json") ? history : []})));
+  });
   afterEach(() => { vi.unstubAllGlobals(); });
 
   test("Vendor renders header, result box and filter cards", () => {

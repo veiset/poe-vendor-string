@@ -14,7 +14,9 @@ const tokens: Record<string, object[]> = {
     {id: 690095601, regex: "k o", rawText: "1 extra pack of Monsters around Vaal Beacons in Map", options: {}},
   ],
 };
-const fetchMock = vi.fn(async (url: string) => ({ok: true, json: async () => ({tokens: tokens[url.split("/")[2]]})}));
+const history = {current: {poe2: {patch: "0.5.5.4.2", commit: "d1bab48"}}};
+const fetchMock = vi.fn(async (url: string) => ({ok: true, json: async () =>
+  url.endsWith("/history.json") ? history : {tokens: tokens[url.match(/\/(waystone|tablet)\//)![1]]}}));
 
 const option = (name: string, extra: Partial<SelectOption>): SelectOption =>
   ({name, value: null, isSelected: true, ranges: [], regex: "", ...extra});

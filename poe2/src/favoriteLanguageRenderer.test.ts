@@ -31,9 +31,10 @@ describe("refreshing saved waystone mods from the loaded data", () => {
   });
 
   it("renders a favorite in its own language with the current regex", async () => {
-    vi.stubGlobal("fetch", vi.fn(async () => ({ok: true, json: async () => ({tokens: [
+    const history = {current: {poe2: {patch: "0.5.5.4.2", commit: "d1bab48"}}};
+    vi.stubGlobal("fetch", vi.fn(async (url: string) => ({ok: true, json: async () => url.endsWith("/history.json") ? history : {tokens: [
       {id: curses.id, regex: "ses", rawText: "(50-20)% less effect of Curses on Monsters", options: {prefix: false}},
-    ]})})));
+    ]}})));
     const favorite: Poe2RegexFavoriteRecord = {
       schemaVersion: 1, id: "favorite", name: "Favorite", description: "", color: "#c6930a", tags: [],
       createdAt: "2026-01-01T00:00:00.000Z", updatedAt: "2026-01-01T00:00:00.000Z",
