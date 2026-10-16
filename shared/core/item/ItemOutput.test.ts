@@ -81,3 +81,70 @@ describe("generateRareItemRegex", () => {
     expect(result).toBe(`"${generateBoundedValueRegex("1", "", false)}.*damage$"`);
   });
 });
+
+describe("generateRareItemRegex with mods that display a decimal value (#264)", () => {
+  const generate = (affix: ItemAffixRegex, values: Record<number, string> = {}) =>
+    generateRareItemRegex({"Test Bases-prefix-Test modifier": affix}, settings(values));
+  const matcher = (result: string) => new RegExp(result.replace(/^"|"$/g, ""), "i");
+
+  // The value range in the affix names is fractional: "(2.1-8) Life per second"
+  const lifeRegen = modifier({
+    regex: "te \\d+ l",
+    on: [0],
+    stats: [{id: "base_life_regeneration_rate_per_minute", min: 60, max: 10560, numberIndex: 0, hasRange: true}],
+    affixes: [
+      {name: "Regenerate (1-2) Life per second", desc: "of the Newt"},
+      {name: "Regenerate (2.1-8) Life per second", desc: "of the Lizard"},
+    ],
+  });
+
+  test("matches a decimal value above the minimum", () => {
+    const regex = matcher(generate(lifeRegen, {0: "90"}));
+    expect(regex.test("Regenerate 127.7(96.1-128) Life per second")).toBe(true);
+    expect(regex.test("Regenerate 127(96.1-128) Life per second")).toBe(true);
+  });
+
+  test("does not match a decimal value below the minimum", () => {
+    expect(matcher(generate(lifeRegen, {0: "90"})).test("Regenerate 89.9(64.1-96) Life per second")).toBe(false);
+  });
+
+  test("matches a decimal value when no minimum is set", () => {
+    expect(matcher(generate(lifeRegen)).test("Regenerate 127.7 Life per second")).toBe(true);
+  });
+
+  test("matches a decimal value when only the per minute stat reveals it", () => {
+    // Every tier range ends on a whole number, but 540-1200 per minute rolls like 625 show up as "10.4"
+    const abyssLifeRegen = modifier({
+      regex: "^regenerate \\d+ l",
+      on: [0],
+      stats: [{id: "base_life_regeneration_rate_per_minute", min: 540, max: 1200, numberIndex: 0, hasRange: true}],
+      affixes: [
+        {name: "Regenerate (9-12) Life per second", desc: "Youthful"},
+        {name: "Regenerate (17-20) Life per second", desc: "Vivacious"},
+      ],
+    });
+    expect(matcher(generate(abyssLifeRegen)).test("Regenerate 10.4 Life per second")).toBe(true);
+  });
+
+  test("leaves mods with whole number values unchanged", () => {
+    const penetration = modifier({
+      regex: "s \\d+% e",
+      on: [0],
+      stats: [{id: "reduce_enemy_elemental_resistance_%", min: 4, max: 6, numberIndex: 0, hasRange: false}],
+      affixes: [{name: "Damage Penetrates 4% Elemental Resistances", desc: "The Shaper's"}],
+    });
+    expect(generate(penetration, {0: "5"})).toBe(`"s ${generateBoundedValueRegex("5", "6", false)}[^ ]+% e"`);
+    expect(generate(penetration)).toBe(`"s \\d+% e"`);
+  });
+
+  test("leaves a per minute stat without a range unchanged", () => {
+    // 60 per minute is always exactly "1%"
+    const fixedLifeRegen = modifier({
+      regex: "^regenerate \\d+%",
+      on: [0],
+      stats: [{id: "life_regeneration_rate_per_minute_%", min: 60, max: 60, numberIndex: 0, hasRange: false}],
+      affixes: [{name: "Regenerate 1% of Life per second", desc: "of the Underground"}],
+    });
+    expect(generate(fixedLifeRegen)).toBe(`"^regenerate \\d+%"`);
+  });
+});
