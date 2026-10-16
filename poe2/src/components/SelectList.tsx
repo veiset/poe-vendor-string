@@ -20,13 +20,19 @@ export function SelectElement(props: SelectElementProps) {
     .replace(/\|/g, " • ");
 
   return (
-    <div className={`poe2-mod-row ${current.isSelected ? "selectable-item selected-mod" : "selectable-item"}`}>
+    <div className={`poe2-mod-row ${current.isSelected ? "selectable-item selected-mod" : "selectable-item"}`}
+         onClick={() =>
+           setSelected(selected
+             .filter((e) => e.name !== name)
+             .concat({...current, isSelected: !current.isSelected}))
+         }>
       {hasRange &&
           <input
               className="numberinput-input poe2-mod-value-input"
               type="text"
               placeholder={ranges[0][0] + "-" + ranges[0][1]}
               value={current.value ?? ""}
+              onClick={(e) => e.stopPropagation()}
               onChange={(e) => {
                 setSelected(selected
                   .filter((e) => e.name !== name)
@@ -34,11 +40,7 @@ export function SelectElement(props: SelectElementProps) {
               }}
           />
       }
-      <span className="poe2-mod-name" onClick={() =>
-        setSelected(selected
-          .filter((e) => e.name !== name)
-          .concat({...current, isSelected: !current.isSelected}))
-      }>
+      <span className="poe2-mod-name">
         {hasRange && displayName.replace("#", "")}
         {!hasRange && displayName.replace(/##/g, "#")}
       </span>
