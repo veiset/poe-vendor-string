@@ -46,15 +46,14 @@ export function Tablet() {
   }, [language, favoritePage.initialLanguage]);
 
   const normalizedSearch = affixSearch.trim().toLowerCase();
+  // SelectList takes each mod's choice and value from the saved selection
   const affixOptions: SelectOption[] = affixes
     .filter((mod) => normalizedSearch === "" || mod.name.toLowerCase().includes(normalizedSearch))
     .map((mod) => ({
       id: mod.id,
       name: mod.name,
-      isSelected: settings.modifier.affixes
-        .some((e) => e.id === mod.id && e.isSelected),
-      value: settings.modifier.affixes
-        .find((e) => e.id === mod.id)?.value || null,
+      isSelected: false,
+      value: null,
       ranges: mod.ranges,
       regex: mod.regex,
     }));

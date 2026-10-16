@@ -44,26 +44,13 @@ export function Waystone() {
     return () => { active = false; };
   }, [language, favoritePage.initialLanguage]);
 
-  const wantedMods: SelectOption[] = affixes
+  // SelectList takes each mod's choice and value from the saved selection
+  const modOptions: SelectOption[] = affixes
     .map((mod) => ({
       id: mod.id,
       name: mod.name,
-      isSelected: settings.modifier.wantedMods
-        .some((e) => e.id === mod.id && e.isSelected),
-      value: settings.modifier.wantedMods
-        .find((e) => e.id === mod.id)?.value || null,
-      ranges: mod.ranges,
-      regex: mod.regex,
-    }));
-
-  const unwantedMods: SelectOption[] = affixes
-    .map((mod) => ({
-      id: mod.id,
-      name: mod.name,
-      isSelected: settings.modifier.unwantedMods
-        .some((e) => e.id === mod.id && e.isSelected),
-      value: settings.modifier.unwantedMods
-        .find((e) => e.id === mod.id)?.value || null,
+      isSelected: false,
+      value: null,
       ranges: mod.ranges,
       regex: mod.regex,
     }));
@@ -225,7 +212,7 @@ export function Waystone() {
         <FilterCard title="I don't want any of these mods">
           <SelectList
             id="unwanted-mods"
-            options={unwantedMods}
+            options={modOptions}
             selected={settings.modifier.unwantedMods}
             setSelected={(modifiers) => {
               setSettings({
@@ -246,7 +233,7 @@ export function Waystone() {
         }>
           <SelectList
             id="wanted-mods"
-            options={wantedMods}
+            options={modOptions}
             selected={settings.modifier.wantedMods}
             setSelected={(modifiers) => {
               setSettings({

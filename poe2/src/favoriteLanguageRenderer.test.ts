@@ -17,20 +17,14 @@ const waystone = (unwantedMods: SelectOption[]) => ({
 describe("refreshing saved waystone mods from the loaded data", () => {
   afterEach(() => { vi.unstubAllGlobals(); });
 
-  it("gives a saved mod the current regex and name", () => {
-    const settings = rebaseWaystoneSettings(waystone([saved({id: curses.id, name: "Old name", regex: "eff"})]), data, data);
+  it("gives a saved mod the current regex, name and ranges", () => {
+    const settings = rebaseWaystoneSettings(waystone([saved({id: curses.id, name: "Old name", regex: "eff", ranges: [[60, 30]]})]), data, data);
     expect(settings.modifier.unwantedMods).toEqual([saved({id: curses.id})]);
-  });
-
-  it("maps a mod saved by name to its id", () => {
-    const settings = rebaseWaystoneSettings(waystone([saved({regex: "eff", value: 30})]), data, data);
-    expect(settings.modifier.unwantedMods).toEqual([saved({id: curses.id, value: 30})]);
   });
 
   it("drops saved mods that are no longer in the data", () => {
     const settings = rebaseWaystoneSettings(waystone([
       saved({id: 123, name: "Removed mod", regex: "rem"}),
-      saved({name: "Removed mod saved by name", regex: "old"}),
       saved({id: curses.id}),
     ]), data, data);
     expect(settings.modifier.unwantedMods).toEqual([saved({id: curses.id})]);

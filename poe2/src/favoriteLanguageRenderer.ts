@@ -17,12 +17,10 @@ type AffixOption = {id: number; name: string; regex: string; ranges: number[][];
 const appendCustomText = (regex: string, text: string, enabled: boolean): string =>
   text && enabled ? `${regex} ${text}`.trim() : regex;
 
-// Saved mods are matched by id, or by name when saved before ids; mods no longer in the data are dropped
+// Saved mods are matched by id (older formats are migrated in migration/); mods no longer in the data are dropped
 const mapOptions = (options: SelectOption[], from: AffixOption[], to: AffixOption[]): SelectOption[] =>
   options.flatMap((option) => {
-    const source = from.find((affix) => option.id !== undefined
-      ? affix.id === option.id
-      : affix.name === option.name || affix.regex === option.regex);
+    const source = from.find((affix) => affix.id === option.id);
     const target = source && to.find((affix) => affix.sourceIndex === source.sourceIndex);
     return target ? [{...option, id: target.id, name: target.name, regex: target.regex, ranges: target.ranges}] : [];
   });
