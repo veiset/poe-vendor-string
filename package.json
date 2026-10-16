@@ -27,8 +27,7 @@
     "preview": "vite preview",
     "preview:poe2": "vite preview --config vite.config.poe2.ts",
     "test": "vitest run",
-    "fetch-trade-stats": "pnpm exec ts-node --esm --project scripts/tsconfig.json scripts/fetch-trade-stats.ts",
-    "generated-data": "pnpm exec ts-node --esm --project scripts/tsconfig.json scripts/generated-data.ts"
+    "fetch-trade-stats": "pnpm exec ts-node --esm --project scripts/tsconfig.json scripts/fetch-trade-stats.ts"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "~6.9.1",
