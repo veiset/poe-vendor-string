@@ -334,7 +334,7 @@
         },
         {
             "id": -887278806,
-            "regex": "rbes",
+            "regex": "ne o",
             "rawText": "El área contiene orbes de ahogamiento",
             "generalizedText": "^el area contiene orbes de ahogamiento$",
             "options": {
@@ -1548,29 +1548,6 @@
             "regex": "d de mons",
             "weight": 11,
             "count": 3
-        },
-        "-1647756153:-1629200695:-683043845:156744008:583869527": {
-            "ids": [
-                -1647756153,
-                -1629200695,
-                -683043845,
-                156744008,
-                583869527
-            ],
-            "regex": "e monstruos",
-            "weight": 13,
-            "count": 5
-        },
-        "-1647756153:-1629200695:156744008:583869527": {
-            "ids": [
-                -1647756153,
-                -1629200695,
-                156744008,
-                583869527
-            ],
-            "regex": "e monstruos",
-            "weight": 13,
-            "count": 4
         },
         "-1647756153:-683043845:583869527": {
             "ids": [
