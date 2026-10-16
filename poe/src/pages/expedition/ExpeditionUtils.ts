@@ -1,7 +1,10 @@
 import {distinct, groupBy} from "@poe/utils/ListUtils";
 import type {BaseTypeRegex, Item} from "@poe/types/generated/expedition";
 import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import {PoeNinjaItem, PriceData, PricedBaseType, PricedItemWithFallback} from "./ExpeditionTypes";
+
+dayjs.extend(relativeTime);
 
 const sortByValue = (a: PricedItemWithFallback, b: PricedItemWithFallback): number => b.displayPrice - a.displayPrice
 
