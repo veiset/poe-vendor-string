@@ -1,6 +1,6 @@
 # Profile migrations
 
-poe.re and poe2.re save their profiles in localStorage, and migrations bring saved profiles up to date when what a profile saves changes. The runner is `ProfileMigrations.ts` in this folder. Each app has its own migrations in `src/migration/`: `migrations.ts` gives the runner the app's list of migrations, its defaults and its storage, and a README says what each migration does and what is particular to that app:
+poe.re and poe2.re save their profiles in localStorage, and migrations bring saved profiles up to date when what a profile saves changes. The runner is `ProfileMigrations.ts` in this folder. Each app has its own migrations in `src/migration/`: `migrations.ts` gives the runner the app's list of migrations, its defaults and its storage, and a README says what each migration does and lists the selectors for the app's pages:
 
 | | poe.re | poe2.re |
 |---|---|---|
@@ -20,6 +20,8 @@ poe.re and poe2.re save their profiles in localStorage, and migrations bring sav
 5. **Only migrations raise the version.** Loading, saving, importing and exporting a profile keep the version it has. A profile whose version is raised anywhere else would never get the migrations in between.
 
 A new setting with a default needs no migration: a profile is merged with `defaultSettings` whenever it's loaded, so it gets the default. A migration is for changing what is already saved, e.g. renaming a setting or giving saved mods new ids.
+
+Favorites are saved in the profile, so a change to saved favorites is a profile migration too. Each favorite also has its own `schemaVersion` (1), which the migrations leave alone: a favorite with any other `schemaVersion` is dropped when favorites are read.
 
 ## Adding a migration
 

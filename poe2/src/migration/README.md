@@ -1,14 +1,14 @@
 # poe2.re profile migrations
 
-Saved poe2.re profiles (`poe2.profiles` in localStorage) are brought up to date by the migrations in this folder. How migrations run, how to add one and how to verify one is in the [shared README](../../../shared/migration/README.md). This one has what is particular to poe2.re, and the migrations.
+Saved poe2.re profiles (`poe2.profiles` in localStorage) are brought up to date by the migrations in this folder. How migrations run, how to add one and how to verify one is in the [shared README](../../../shared/migration/README.md).
 
-## poe2.re
+## Where to look
 
-- **Settings.** `defaultSettings.version` is in `../settings.ts`, and profiles are loaded and saved in `../localStorage.ts`. The selected profile is `poe2.selectedProfile` in localStorage.
-- **Oldest profiles.** Profiles saved before versions came in with 1 → 2 (#557) have no version and are on version 1.
-- **Favorites.** Favorites are saved in the profile, so a change to saved favorites is a profile migration here, as in 1 → 2. Each favorite also has its own `schemaVersion` (1, in `../favorites.ts`), which these migrations leave alone. A favorite with any other `schemaVersion` is dropped when favorites are read.
-- **Verifying.** The new build is a local `pnpm dev:poe2` run (http://localhost:3000), or the PR's Cloudflare preview (linked in the "Deploying poe2-production" comment on the PR, `https://<hash>.poe2-production.pages.dev`). The log is `Running poe2 profile migration <N-1> -> <N> for '<profile>'`.
-- **Selectors for agents.** Cards `section.filter-card` with a `.filter-card-title-text` ("I don't want any of these mods", "I want these mods"), mods `.poe2-mod-name`, and ticked rows `.selected-mod`. On every page, the regex `.rrb-result-text`, and saving a favorite `.rrb-favorite-button`, `.favorite-dialog input` and `.favorite-dialog-save`. On /favorites, `.favorite-card-copy[aria-label='Copy <name> regex']` (stub `navigator.clipboard.writeText` to read what it copies).
+`defaultSettings.version` is in `../settings.ts`, and profiles are loaded and saved in `../localStorage.ts`. The selectors for checking a migration on the pages:
+
+- **/waystone, /tablet and /relic:** mods `.poe2-mod-name`, and ticked rows `.selected-mod`. On /waystone the cards are `section.filter-card` with a `.filter-card-title-text` ("I don't want any of these mods", "I want these mods").
+- **Every page:** the regex `.rrb-result-text`, and saving a favorite `.rrb-favorite-button`, `.favorite-dialog input` and `.favorite-dialog-save`.
+- **/favorites:** `.favorite-card-copy[aria-label='Copy <name> regex']` (stub `navigator.clipboard.writeText` to read what it copies).
 
 ## Migrations
 
