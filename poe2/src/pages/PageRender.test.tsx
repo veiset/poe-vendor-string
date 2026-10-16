@@ -1,4 +1,5 @@
 import React from "react";
+import {afterEach, beforeEach, vi} from "vitest";
 import {render, screen} from "@testing-library/react";
 import {MemoryRouter} from "react-router-dom";
 import {FavoritesProvider} from "../FavoritesContext";
@@ -9,6 +10,10 @@ const renderPage = (page: React.ReactElement) =>
   render(<MemoryRouter><FavoritesProvider>{page}</FavoritesProvider></MemoryRouter>);
 
 describe("poe2 pages render", () => {
+  // The relic page loads its data when it renders. Unstubbed, the fetch of a relative URL rejects after the test.
+  beforeEach(() => { vi.stubGlobal("fetch", vi.fn(async () => ({ok: true, json: async () => []}))); });
+  afterEach(() => { vi.unstubAllGlobals(); });
+
   test("Vendor renders header, result box and filter cards", () => {
     renderPage(<Vendor/>);
     expect(screen.getByText("Vendor Regex")).toBeInTheDocument();

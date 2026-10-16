@@ -2,6 +2,7 @@ import {defaultSettings, SavedSettings} from "../../utils/SavedSettings";
 import {createProfileDelta, hydrateProfileDelta} from "@shared/components/profile/ProfileDelta";
 import {decodeProfilePayload} from "@shared/components/profile/ProfileGame";
 import {parseFavoriteRecords} from "@poe/core/favorites/FavoriteTypes";
+import {profileVersion} from "@shared/migration/ProfileMigrations";
 
 interface PoeProfilePayload {
   game: "poe";
@@ -37,6 +38,7 @@ export const decodeProfile = (value: string): SavedSettings => {
     throw new Error("Profile name is missing");
   }
   profile.favorites = parseFavoriteRecords(profile.favorites);
-  profile.version = Math.max(profile.version || 1, defaultSettings.version);
+  // Exports without a version are migrated on import
+  profile.version = profileVersion(settings);
   return profile;
 };
