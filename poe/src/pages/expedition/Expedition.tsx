@@ -8,8 +8,6 @@ import "./Expedition.css";
 import ExpeditionOptions from "./ExpeditionOptions";
 import ModSearchBox from "@shared/components/ModSearchBox";
 import Collapsable from "@poe/components/collapsable/Collapsable";
-import relativeTime from 'dayjs/plugin/relativeTime'
-import dayjs from "dayjs";
 import {
   cleanUpPoeNinjaItems,
   filterPricedItems,
@@ -31,8 +29,6 @@ import {ProfileContext} from "@poe/components/profile/ProfileContext";
 import {economyUrl, fetchEconomyFile} from "@shared/economy";
 import {usePoe1League} from "@shared/core/LeagueContext";
 import {useFavoritePage} from "@poe/core/favorites/useFavoritePage";
-
-dayjs.extend(relativeTime);
 
 const allItemsFromGeneratedItems = (baseTypeRegex: { [key: string]: BaseTypeRegex }): Item[] => {
   const baseTypes: string[] = Array.from(Object.keys(baseTypeRegex));
