@@ -67,7 +67,12 @@ describe("profile transfer", () => {
   });
 
   it("imports legacy default exports that omitted the name", () => {
-    expect(decodeProfile(btoa("{}"))).toEqual(defaultSettings);
+    expect(decodeProfile(btoa("{}"))).toEqual({...defaultSettings, version: 1});
+  });
+
+  it("keeps the profile version, and reads an export without one as version 1", () => {
+    expect(decodeProfile(encodeProfile({...defaultSettings, version: 1})).version).toBe(1);
+    expect(decodeProfile(btoa(JSON.stringify({game: "poe", settings: {name: "old"}}))).version).toBe(1);
   });
 
   it("rejects non-object payloads", () => {

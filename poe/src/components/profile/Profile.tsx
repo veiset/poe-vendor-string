@@ -14,6 +14,7 @@ import {RepoeLanguage, RepoeLanguageData, RepoeLanguageKey} from "../../utils/La
 import ProfileExportBox from "@shared/components/profile/ProfileExportBox";
 import ProfileImportBox from "@shared/components/profile/ProfileImportBox";
 import {decodeProfile, encodeProfile} from "./ProfileTransfer";
+import {migrateProfile} from "../../migration/migrations";
 import LeagueSelect from "@shared/components/LeagueSelect";
 import {useLocation, useNavigate} from "react-router-dom";
 
@@ -119,15 +120,18 @@ const Profile = (props: ProfileProps) => {
   }
 
   const handleImportProfile = (importedSettings: SavedSettings) => {
-    console.log(`Saving profile: ${importedSettings.name}`);
+    // If the migration fails, the profile is saved on its old version and migrated on the next visit
+    migrateProfile(importedSettings).catch(() => importedSettings).then((migrated) => {
+      console.log(`Saving profile: ${migrated.name}`);
 
-    if (!profiles.includes(importedSettings.name)) {
-      setProfiles(profiles.concat(importedSettings.name));
-    }
+      if (!profiles.includes(migrated.name)) {
+        setProfiles(profiles.concat(migrated.name));
+      }
 
-    setProfile(importedSettings.name);
-    saveSettings(importedSettings);
-    setShowImport(false);
+      setProfile(migrated.name);
+      saveSettings(migrated);
+      setShowImport(false);
+    });
   };
 
   return (

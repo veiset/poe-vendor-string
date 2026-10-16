@@ -97,9 +97,9 @@ describe("favorite storage", () => {
     expect(() => updateStaticFavorite("mapping", "missing", '"changed"', {name: "Missing", description: "", color: DEFAULT_FAVORITE_COLOR, tags: []})).toThrow("Static favorite not found.");
   });
 
-  it("hydrates legacy profiles with the current schema and an empty collection", () => {
+  it("hydrates legacy profiles with an empty collection, keeping their version for the migrations", () => {
     localStorage.setItem("profiles", JSON.stringify({legacy: {name: "legacy", version: 1}}));
-    expect(loadSettings("legacy").version).toBe(defaultSettings.version);
+    expect(loadSettings("legacy").version).toBe(1);
     expect(loadSettings("legacy").favorites).toEqual([]);
   });
 });

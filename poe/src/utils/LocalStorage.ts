@@ -17,6 +17,10 @@ export const loadProfiles = (): SavedProfiles => {
   return safeLoad("profiles");
 }
 
+export const saveProfiles = (profiles: SavedProfiles): void => {
+  localStorage.setItem("profiles", JSON.stringify(profiles));
+}
+
 export const loadProfileNames = (): string[] => {
   return Object.keys(loadProfiles());
 }
@@ -37,7 +41,6 @@ export const deleteProfile = (profile: string): void => {
 export const loadSettings = (profile: string): SavedSettings => {
   const settings = loadProfiles()[profile] ?? {};
   const hydrated = merge(defaultSettings, settings);
-  hydrated.version = Math.max(Number(hydrated.version) || 1, defaultSettings.version);
   hydrated.favorites = Array.isArray(hydrated.favorites) ? hydrated.favorites : [];
   return hydrated;
 }
@@ -61,7 +64,6 @@ export const saveSettings = (settings: SavedSettings): void => {
 export const updateSettings = (profileName: string, updater: (settings: SavedSettings) => SavedSettings): SavedSettings => {
   const profiles = loadProfiles();
   const current = merge(defaultSettings, profiles[profileName] ?? {name: profileName});
-  current.version = Math.max(Number(current.version) || 1, defaultSettings.version);
   const next = updater(current);
   profiles[profileName] = next;
   localStorage.setItem("profiles", JSON.stringify(profiles));
