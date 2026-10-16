@@ -14,8 +14,8 @@ Saved poe.re profiles (`profiles` in localStorage) are brought up to date by the
 
 | Version | File | Introduced | What it does |
 |---|---|---|---|
-| 1 → 2 | `v02_migration.ts` | 2026-08-30 (#496) | Only the version: favorites and the boat custom text get their defaults when the profile is merged with `defaultSettings` |
+| 1 → 2 | `v02_migration.ts` | 2026-08-30 (#496) | Only the version: favorites and the boat custom text are new settings with a default |
 
 ### 1 → 2: favorites
 
-#496 added `favorites` to the profile and `customText` to the boat settings, and bumped `defaultSettings.version` to 2, without a migration step. Both are new settings with a default, which a version 1 profile gets when `migrateProfile` merges it with `defaultSettings`. So this migration changes nothing, and only takes the profile to version 2.
+#496 added favorites to the profile and a custom text to the boat page, and bumped the version to 2 without a migration step. Both are new settings with a default, so nothing in a saved profile changes; this migration only records the version.

@@ -28,7 +28,7 @@ Favorites are saved in the profile, so a change to saved favorites is a profile 
 1. Write `vNN_migration.ts` with `migrateV<N-1>ToV<N>(settings): Promise<Settings>`. It can run on profiles of any age, so keep it self-contained.
 2. Add `{version: N, migrate: migrateV<N-1>ToV<N>}` to the end of the list in the app's `migrations.ts`.
 3. Bump `defaultSettings.version` to N.
-4. Add its test cases in `vNN_migration.test.ts`, and a row and a section in the app's README.
+4. Add its test cases in `vNN_migration.test.ts`. In the app's README, add a row and a short section on what changed and why it needs a migration; what the migration does belongs in the code.
 5. Verify it with real stored data, as described next.
 
 ## Verifying a migration

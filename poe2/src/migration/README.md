@@ -18,11 +18,4 @@ Saved poe2.re profiles (`poe2.profiles` in localStorage) are brought up to date 
 
 ### 1 → 2: waystone and tablet mods by id
 
-The pages match saved mods to the data by id and take the regex from the data. But the ids changed when the data was regenerated in #536 (2026-09-27) and again in #549 (2026-10-08), and saved mods kept their old id and regex. Mods saved between those two dates also have `#` in their name where the data now has `##`.
-
-For the waystone wanted and unwanted mods and the tablet affixes, in the profile and in each waystone or tablet favorite:
-
-1. Load the current data in the profile's language, or the favorite's language (English if it has none). This is skipped when there are no saved mods.
-2. Match each saved mod by id; if the id isn't in the data, by name (`#` and `##` alike), or else by its old regex.
-3. Give a matched mod the current id, name, regex and ranges. Its ticked state and value are kept.
-4. Drop mods that are no longer in the data, and keep a mod saved twice only once, preferring the ticked copy.
+Since #557, the waystone and tablet pages match saved mods to the data by id and take the regex from the data. The ids had changed when the data was regenerated in #536 (2026-09-27) and again in #549 (2026-10-08), and saved mods still had their old ids and regexes. This migration gives the saved waystone and tablet mods, in profiles and in favorites, the ids of the current data, and drops the mods that are no longer in it.
