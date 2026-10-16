@@ -1,6 +1,6 @@
 # Profile migrations
 
-poe.re and poe2.re save their profiles in localStorage, and migrations bring saved profiles up to date when what a profile saves changes. Each app has its own migrations in `src/migration/`, with a README on what each one does and what is particular to that app:
+poe.re and poe2.re save their profiles in localStorage, and migrations bring saved profiles up to date when what a profile saves changes. The runner is `ProfileMigrations.ts` in this folder. Each app has its own migrations in `src/migration/`: `migrations.ts` gives the runner the app's list of migrations, its defaults and its storage, and a README says what each migration does and what is particular to that app:
 
 | | poe.re | poe2.re |
 |---|---|---|
@@ -13,8 +13,8 @@ poe.re and poe2.re save their profiles in localStorage, and migrations bring sav
 
 ## How it works
 
-1. **Versions.** Every profile has a `version`. A profile saved without one counts as version 1. New profiles start on `defaultSettings.version`.
-2. **At startup.** `migrateStoredProfiles` (`migrations.ts`) runs in `index.tsx` before the app renders, so no page reads an old profile. For each profile below `defaultSettings.version`, it runs every migration newer than the profile's version, in order, then saves the profiles.
+1. **Versions.** Every profile has a `version`. A profile saved without one counts as version 1 (`profileVersion`). New profiles start on `defaultSettings.version`.
+2. **At startup.** The app's `migrateStoredProfiles` (from `migrations.ts`) runs in `index.tsx` before the app renders, so no page reads an old profile. For each profile below `defaultSettings.version`, it runs every migration newer than the profile's version, in order, then saves the profiles.
 3. **On import.** An imported profile goes through `migrateProfile` before it's saved. Exports include the version, and an export without one is version 1.
 4. **On failure.** If a migration fails (e.g. the data can't be fetched), the profile keeps its version and is migrated again on the next visit. A page that loads its data before then works with the old profile.
 5. **Only migrations raise the version.** Loading, saving, importing and exporting a profile keep the version it has. A profile whose version is raised anywhere else would never get the migrations in between.
@@ -24,7 +24,7 @@ A new setting with a default needs no migration: a profile is merged with `defau
 ## Adding a migration
 
 1. Write `vNN_migration.ts` with `migrateV<N-1>ToV<N>(settings): Promise<Settings>`. It can run on profiles of any age, so keep it self-contained.
-2. Add `{version: N, migrate: migrateV<N-1>ToV<N>}` to the end of the list in `migrations.ts`.
+2. Add `{version: N, migrate: migrateV<N-1>ToV<N>}` to the end of the list in the app's `migrations.ts`.
 3. Bump `defaultSettings.version` to N.
 4. Add its test cases in `vNN_migration.test.ts`, and a row and a section in the app's README.
 5. Verify it with real stored data, as described next.

@@ -2,7 +2,7 @@ import {defaultSettings, SavedSettings} from "../../utils/SavedSettings";
 import {createProfileDelta, hydrateProfileDelta} from "@shared/components/profile/ProfileDelta";
 import {decodeProfilePayload} from "@shared/components/profile/ProfileGame";
 import {parseFavoriteRecords} from "@poe/core/favorites/FavoriteTypes";
-import {UNVERSIONED} from "../../migration/migrations";
+import {profileVersion} from "@shared/migration/ProfileMigrations";
 
 interface PoeProfilePayload {
   game: "poe";
@@ -39,6 +39,6 @@ export const decodeProfile = (value: string): SavedSettings => {
   }
   profile.favorites = parseFavoriteRecords(profile.favorites);
   // Exports without a version are migrated on import
-  profile.version = Number((settings as Partial<SavedSettings>).version) || UNVERSIONED;
+  profile.version = profileVersion(settings);
   return profile;
 };
