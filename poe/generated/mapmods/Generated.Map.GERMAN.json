@@ -2,7 +2,7 @@
     "tokens": [
         {
             "id": -2064669900,
-            "regex": "^ka",
+            "regex": "tet$",
             "rawText": "Kartenboss wird von einem Synthese-Boss begleitet",
             "generalizedText": "^kartenboss wird von einem synthese-boss begleitet$",
             "options": {
@@ -334,7 +334,7 @@
         },
         {
             "id": -887278806,
-            "regex": "sph",
+            "regex": "rtran",
             "rawText": "Gebiet enthält Ertränkende Sphären",
             "generalizedText": "^gebiet enthalt ertrankende spharen$",
             "options": {
@@ -736,7 +736,7 @@
         },
         {
             "id": 151806012,
-            "regex": "ur m",
+            "regex": "derten",
             "rawText": "Spieler haben -(10-20)% zur Menge des verhinderten unterdrückten Zauberschadens|Monster haben (30-50)% erhöhte Treffgenauigkeit",
             "generalizedText": "^spieler haben -#% zur menge des verhinderten unterdruckten zauberschadens$|^monster haben #% erhohte treffgenauigkeit$",
             "options": {
@@ -1132,7 +1132,7 @@
         },
         {
             "id": 1313044496,
-            "regex": "lten$",
+            "regex": "ss s",
             "rawText": "25% Chance, dass sich seltene Monster bei Tod spalten",
             "generalizedText": "^#% chance, dass sich seltene monster bei tod spalten$",
             "options": {

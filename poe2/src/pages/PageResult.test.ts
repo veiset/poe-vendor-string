@@ -27,7 +27,7 @@ describe("poe2 generateVendorRegex", () => {
       itemType: {rare: true, magic: true, normal: false},
       resistances: {fire: true, cold: false, lightning: false, chaos: false},
     });
-    expect(generateVendorRegex(g)).toBe(`"y: (r|m)|fi.+res"`);
+    expect(generateVendorRegex(g)).toBe(`"y: (r|m)|re res"`);
   });
 
   test("AND condition emits each term as its own quoted group", () => {
@@ -36,7 +36,7 @@ describe("poe2 generateVendorRegex", () => {
       itemType: {rare: true, magic: true, normal: false},
       resistances: {fire: true, cold: false, lightning: false, chaos: false},
     });
-    expect(generateVendorRegex(g)).toBe(`"y: (r|m)" "fi.+res"`);
+    expect(generateVendorRegex(g)).toBe(`"y: (r|m)" "re res"`);
   });
 
   test("empty group returns empty string", () => {
@@ -124,7 +124,7 @@ describe("poe2 generateWaystoneRegex", () => {
         },
       },
     });
-    expect(generateWaystoneRegex(s)).toBe(`"([1-9]|1[0-9]|2[0-5]) exalted"`);
+    expect(generateWaystoneRegex(s)).toBe(`"\\s([1-9]|1\\d|2[0-5]) exalted"`);
   });
 });
 
@@ -162,7 +162,7 @@ describe("poe2 generateTabletRegex", () => {
         },
       },
     });
-    expect(generateTabletRegex(s)).toBe(`"[1-9] divine"`);
+    expect(generateTabletRegex(s)).toBe(`"\\s[1-9] divine"`);
   });
 
   test("single tablet type", () => {

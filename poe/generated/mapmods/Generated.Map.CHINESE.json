@@ -1332,7 +1332,7 @@
         },
         {
             "id": 1756122717,
-            "regex": "^釋",
+            "regex": "界干",
             "rawText": "釋界干擾玩家",
             "generalizedText": "^釋界干擾玩家$",
             "options": {

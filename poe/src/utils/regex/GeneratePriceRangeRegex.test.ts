@@ -32,7 +32,7 @@ describe("generatePriceRangeRegex", () => {
 
   it("keeps the full selectable range compact", () => {
     const regex = generatePriceRangeRegex("0", "999", "chaos");
-    expect(regex).toBe('"(0|[1-9]\\d{0,2}) chaos"');
+    expect(regex).toBe('"\\s(0|[1-9]\\d{0,2}) chaos"');
     expect(regex.length).toBeLessThan(40);
   });
 

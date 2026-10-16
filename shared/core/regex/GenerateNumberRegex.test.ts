@@ -234,4 +234,11 @@ describe("generateBoundedValueRegex", () => {
     expect(new RegExp(regex, "i").test("+38(38-45) to Spirit")).toBe(false);
     expect(new RegExp(regex, "i").test("+45(38-45) to Spirit")).toBe(true);
   });
+
+  test("with decimals, also matches a rolled value that has a decimal part", () => {
+    const regex = new RegExp(generateBoundedValueRegex("45", "50", false, true), "i");
+    expect(regex.test("45.5(45-50)")).toBe(true);
+    expect(regex.test("45(45-50)")).toBe(true);
+    expect(regex.test("44.9(40-50)")).toBe(false);
+  });
 });

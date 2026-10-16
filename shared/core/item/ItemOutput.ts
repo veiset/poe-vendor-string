@@ -4,7 +4,7 @@ import {countWords} from "@shared/core/utils";
 import {SelectedMagicMod} from "@shared/core/item/MagicItemSelect";
 import {Itembase} from "@shared/core/item/ItemBaseSelector";
 import {wordRegex} from "@shared/core/regex/NumberOfWordsRegex";
-import type {AffixStat, BaseType, ItemAffixRegex} from "@shared/generated/item";
+import type {BaseType, ItemAffixRegex} from "@shared/generated/item";
 import {ItemCraftingSettings} from "@shared/types/Settings.types";
 
 type RareModSelectionEntry = {
@@ -17,10 +17,19 @@ type RareModSelectionEntry = {
 const openPrefix = (item: string) => `^${item}`;
 const openSuffix = (item: string) => `${item}$`;
 
-function boundedValueRegex(value: string, numberIndex: number, stats: AffixStat[]): string {
-  const max = stats.find((stat) => stat.numberIndex === numberIndex)?.max
-    ?? stats[numberIndex]?.max;
-  return generateBoundedValueRegex(value, max?.toString() ?? "", false);
+const decimalRange = /\d\.\d/;
+
+// Some mods are displayed with a decimal: either the value range itself is fractional, or the value is stored
+// per minute and displayed per second (a 625/min roll shows up as "10.4"). Only those need the number match to
+// allow a decimal part, for every other mod it would just be extra regex length.
+const displaysDecimals = (affix: ItemAffixRegex) =>
+  affix.affixes.some((a) => decimalRange.test(a.name))
+  || affix.stats.some((s) => s.id.includes("per_minute") && s.hasRange);
+
+function boundedValueRegex(value: string, numberIndex: number, affix: ItemAffixRegex): string {
+  const max = affix.stats.find((stat) => stat.numberIndex === numberIndex)?.max
+    ?? affix.stats[numberIndex]?.max;
+  return generateBoundedValueRegex(value, max?.toString() ?? "", false, displaysDecimals(affix));
 }
 
 export function generateMagicItemRegex(
@@ -113,14 +122,16 @@ export function generateRareItemRegex(
         ? e.regex.regex
           .replace(
             "\\d+",
-            boundedValueRegex(e.value.values[rangeInRegex], rangeInRegex, e.regex.stats) + "[^ ]+"
+            boundedValueRegex(e.value.values[rangeInRegex], rangeInRegex, e.regex) + "[^ ]+"
           )
-        : e.regex.regex;
+        : displaysDecimals(e.regex)
+          ? e.regex.regex.replace("\\d+", "[\\d.]+")
+          : e.regex.regex;
       const numbersBefore = e.regex.before
         .flatMap((numberIndex) => {
           const value = e.value.values[numberIndex];
           return value !== undefined && value !== ""
-            ? [boundedValueRegex(value, numberIndex, e.regex.stats)]
+            ? [boundedValueRegex(value, numberIndex, e.regex)]
             : [];
         })
         .join(".*");
@@ -128,7 +139,7 @@ export function generateRareItemRegex(
         .flatMap((numberIndex) => {
           const value = e.value.values[numberIndex];
           return value !== undefined && value !== ""
-            ? [boundedValueRegex(value, numberIndex, e.regex.stats)]
+            ? [boundedValueRegex(value, numberIndex, e.regex)]
             : [];
         })
         .join(".*");
