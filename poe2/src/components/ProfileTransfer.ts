@@ -2,6 +2,7 @@ import {defaultSettings, Settings} from "../settings";
 import {createProfileDelta, hydrateProfileDelta} from "@shared/components/profile/ProfileDelta";
 import {decodeProfilePayload} from "@shared/components/profile/ProfileGame";
 import {parseFavorites} from "../favorites";
+import {UNVERSIONED} from "../migration/migrations";
 
 interface Poe2ProfilePayload {
   game: "poe2";
@@ -11,6 +12,7 @@ interface Poe2ProfilePayload {
 export const encodeProfile = (settings: Settings): string => {
   const deltas = (createProfileDelta(settings, defaultSettings) ?? {}) as Partial<Settings>;
   deltas.name = settings.name;
+  deltas.version = settings.version;
 
   const payload: Poe2ProfilePayload = {
     game: "poe2",
@@ -36,5 +38,7 @@ export const decodeProfile = (value: string): Settings => {
     throw new Error("Profile name is missing");
   }
   profile.favorites = parseFavorites(profile.favorites);
+  // Exports made before profiles had a version are migrated on import
+  profile.version = Number(payload.settings.version) || UNVERSIONED;
   return profile;
 };

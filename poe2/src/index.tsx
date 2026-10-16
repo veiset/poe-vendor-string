@@ -8,6 +8,7 @@ import {Poe2Routes} from "./layout/Poe2Routes";
 import {migrateHashRoute} from "@shared/core/migrateHashRoute";
 import {recoverFromDynamicImportFailure} from "@shared/core/recoverFromDynamicImportFailure";
 import {installNitroAdsDetection} from "@shared/core/nitroAdsDetect";
+import {migrateStoredProfiles} from "./migration/migrations";
 
 migrateHashRoute();
 recoverFromDynamicImportFailure();
@@ -16,10 +17,10 @@ installNitroAdsDetection();
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-root.render(
+migrateStoredProfiles().finally(() => root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Poe2Routes/>
     </BrowserRouter>
   </React.StrictMode>
-);
+));

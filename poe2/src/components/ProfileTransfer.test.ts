@@ -40,7 +40,12 @@ describe("PoE2 profile transfer", () => {
     };
     const encoded = btoa(JSON.stringify({game: "poe2", settings}));
 
-    expect(decodeProfile(encoded)).toEqual({...defaultSettings, ...settings});
+    expect(decodeProfile(encoded)).toEqual({...defaultSettings, ...settings, version: 1});
+  });
+
+  it("keeps the profile version, and reads an export without one as version 1", () => {
+    expect(decodeProfile(encodeProfile({...defaultSettings, version: 1})).version).toBe(1);
+    expect(decodeProfile(btoa(JSON.stringify({game: "poe2", settings: {name: "old"}}))).version).toBe(1);
   });
 
   it("rejects exports for another game", () => {

@@ -34,7 +34,8 @@ export function Waystone() {
     const sourceLanguage = loadedLanguageRef.current ?? favoritePage.initialLanguage;
     Promise.all([loadWaystoneAffixes(sourceLanguage), loadWaystoneAffixes(language)]).then(([source, data]) => {
       if (!active) return;
-      if (sourceLanguage !== language) setSettings((current) => rebaseWaystoneSettings(current, source, data));
+      // Also in the same language, so saved mods get the current regex, name and ranges, and mods no longer in the data are dropped
+      setSettings((current) => rebaseWaystoneSettings(current, source, data));
       loadedLanguageRef.current = language;
       setAffixes(data);
       setDataLanguage(language);
@@ -43,26 +44,13 @@ export function Waystone() {
     return () => { active = false; };
   }, [language, favoritePage.initialLanguage]);
 
-  const wantedMods: SelectOption[] = affixes
+  // SelectList takes each mod's choice and value from the saved selection
+  const modOptions: SelectOption[] = affixes
     .map((mod) => ({
       id: mod.id,
       name: mod.name,
-      isSelected: settings.modifier.wantedMods
-        .some((e) => e.name === mod.name && e.isSelected),
-      value: settings.modifier.wantedMods
-        .find((e) => e.name === mod.name)?.value || null,
-      ranges: mod.ranges,
-      regex: mod.regex,
-    }));
-
-  const unwantedMods: SelectOption[] = affixes
-    .map((mod) => ({
-      id: mod.id,
-      name: mod.name,
-      isSelected: settings.modifier.unwantedMods
-        .some((e) => e.name === mod.name && e.isSelected),
-      value: settings.modifier.unwantedMods
-        .find((e) => e.name === mod.name)?.value || null,
+      isSelected: false,
+      value: null,
       ranges: mod.ranges,
       regex: mod.regex,
     }));
@@ -224,7 +212,7 @@ export function Waystone() {
         <FilterCard title="I don't want any of these mods">
           <SelectList
             id="unwanted-mods"
-            options={unwantedMods}
+            options={modOptions}
             selected={settings.modifier.unwantedMods}
             setSelected={(modifiers) => {
               setSettings({
@@ -245,7 +233,7 @@ export function Waystone() {
         }>
           <SelectList
             id="wanted-mods"
-            options={wantedMods}
+            options={modOptions}
             selected={settings.modifier.wantedMods}
             setSelected={(modifiers) => {
               setSettings({

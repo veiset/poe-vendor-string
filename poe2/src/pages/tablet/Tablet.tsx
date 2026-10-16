@@ -35,7 +35,8 @@ export function Tablet() {
     const sourceLanguage = loadedLanguageRef.current ?? favoritePage.initialLanguage;
     Promise.all([loadTabletAffixes(sourceLanguage), loadTabletAffixes(language)]).then(([source, data]) => {
       if (!active) return;
-      if (sourceLanguage !== language) setSettings((current) => rebaseTabletSettings(current, source, data));
+      // Also in the same language, so saved mods get the current regex, name and ranges, and mods no longer in the data are dropped
+      setSettings((current) => rebaseTabletSettings(current, source, data));
       loadedLanguageRef.current = language;
       setAffixes(data);
       setDataLanguage(language);
@@ -45,15 +46,14 @@ export function Tablet() {
   }, [language, favoritePage.initialLanguage]);
 
   const normalizedSearch = affixSearch.trim().toLowerCase();
+  // SelectList takes each mod's choice and value from the saved selection
   const affixOptions: SelectOption[] = affixes
     .filter((mod) => normalizedSearch === "" || mod.name.toLowerCase().includes(normalizedSearch))
     .map((mod) => ({
       id: mod.id,
       name: mod.name,
-      isSelected: settings.modifier.affixes
-        .some((e) => e.name === mod.name && e.isSelected),
-      value: settings.modifier.affixes
-        .find((e) => e.name === mod.name)?.value || null,
+      isSelected: false,
+      value: null,
       ranges: mod.ranges,
       regex: mod.regex,
     }));
