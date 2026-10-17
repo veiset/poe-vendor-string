@@ -105,15 +105,11 @@ game's latest upload, and its files are read from `generated/<game>/<patch>/`. A
 used on the next page load, without a deploy. The typedefs in `<app>/src/types/generated` are
 still copied into this repo.
 
-The copies in `<app>/public/generated` are deployed with the app as the "local" source. To
-switch between them and R2:
-
-- **In the browser:** add `?data-source=local` or `?data-source=r2` to the URL. The tab remembers it.
-- **For a build or `pnpm dev`:** set `VITE_DATA_SOURCE=local` (the default is `r2`).
+The copies in `<app>/public/generated` are still deployed with the app. To read them instead of
+R2, change `dataSource` in `shared/generatedData.ts` to `"local"`.
 
 `GeneratedDataProvider` (`shared/components/GeneratedData/`) finds the data before it renders a
-page. It shows an error, with a button to try again or use the other source, when it can't find
-the data or a file fails to load.
+page, and shows an error with a button to try again when it can't, or when a file fails to load.
 
 The bucket's CORS policy allows https://poe.re, https://poe2.re, the Cloudflare Pages
 deployments (`https://*.poe-production.pages.dev`, `https://*.poe2-production.pages.dev`) and

@@ -8,14 +8,6 @@
     border-radius: 3px;
 }
 
-.generated-data-message.notice {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
-    border-left-color: var(--color-text-warn);
-}
-
 .generated-data-message p {
     margin: 0 0 8px;
 }
@@ -24,12 +16,6 @@
     color: var(--color-text-muted);
     font-size: 13px;
     overflow-wrap: anywhere;
-}
-
-.generated-data-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
 }
 
 .generated-data-message button {

@@ -3,15 +3,18 @@ const defaultDataUrl = "https://data.poe.re";
 const dataBaseUrl = (import.meta.env.VITE_DATA_URL ?? defaultDataUrl)
   .replace(/\/$/, "");
 
-/** The games poe-item-gen uploads to R2, each to generated/<game>/<patch>/. */
-export type Game = "poe1" | "poe2";
-
 /**
  * Where the generated files are read from:
  * - "r2": poe-item-gen's latest upload to R2, which history.json names;
  * - "local": the copies in <app>/public/generated, deployed with the app.
  */
 export type DataSource = "r2" | "local";
+
+// Change to "local" to read the copies deployed with the app instead of R2.
+export const dataSource = "r2" as DataSource;
+
+/** The games poe-item-gen uploads to R2, each to generated/<game>/<patch>/. */
+export type Game = "poe1" | "poe2";
 
 /** The generated files of a game: their source, and for R2 the upload's patch and poe-item-gen commit. */
 export type GeneratedData = {source: "local"} | {source: "r2", patch: string, commit: string};
@@ -20,57 +23,6 @@ export type GeneratedData = {source: "local"} | {source: "r2", patch: string, co
 export interface GeneratedDataError {
   file: string;
   message: string;
-}
-
-const sourceParam = "data-source";
-const sourceKey = "generatedDataSource";
-
-const isDataSource = (value: unknown): value is DataSource => value === "r2" || value === "local";
-
-function rememberedSource(): string | null {
-  try {
-    return sessionStorage.getItem(sourceKey);
-  } catch {
-    return null;
-  }
-}
-
-function pickSource(): DataSource {
-  const requested = new URLSearchParams(window.location.search).get(sourceParam);
-  if (isDataSource(requested)) {
-    try {
-      sessionStorage.setItem(sourceKey, requested);
-    } catch {
-      // The URL still has it
-    }
-    return requested;
-  }
-  const remembered = rememberedSource();
-  return isDataSource(remembered) ? remembered : defaultDataSource();
-}
-
-/** The source the app is built with: VITE_DATA_SOURCE, or R2. */
-export function defaultDataSource(): DataSource {
-  const configured = import.meta.env.VITE_DATA_SOURCE;
-  return isDataSource(configured) ? configured : "r2";
-}
-
-let source: DataSource | undefined;
-
-/**
- * The source for this page load: `?data-source=local` or `?data-source=r2` picks it for the tab,
- * otherwise VITE_DATA_SOURCE does, and R2 is the default.
- */
-export function dataSource(): DataSource {
-  source ??= pickSource();
-  return source;
-}
-
-/** Switches the tab to the other source by reloading the page with it. */
-export function switchDataSource(next: DataSource): void {
-  const url = new URL(window.location.href);
-  url.searchParams.set(sourceParam, next);
-  window.location.assign(url);
 }
 
 const listeners = new Set<(error: GeneratedDataError) => void>();
@@ -114,7 +66,7 @@ function loadHistory(): Promise<History> {
 
 /** Finds the game's generated files: for R2, the latest upload in history.json. */
 export async function loadGeneratedData(game: Game): Promise<GeneratedData> {
-  if (dataSource() === "local") return {source: "local"};
+  if (dataSource === "local") return {source: "local"};
   const upload = (await loadHistory()).current?.[game];
   if (!upload) {
     throw new Error(`${dataBaseUrl}/history.json has no upload for ${game}`);

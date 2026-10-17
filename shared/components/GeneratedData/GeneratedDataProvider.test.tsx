@@ -5,9 +5,10 @@ const history = {current: {poe1: {patch: "3.29.3.3", commit: "d1bab48"}}};
 const ok = (body: unknown) => ({ok: true, json: async () => body});
 const failed = (status: number, statusText: string) => ({ok: false, status, statusText});
 // history.json, and a 404 for every file
-const fetchMock = vi.fn(async (url: string) => url.endsWith("/history.json") ? ok(history) : failed(404, "Not Found"));
+const answer = async (url: string) => url.endsWith("/history.json") ? ok(history) : failed(404, "Not Found");
+const fetchMock = vi.fn(answer);
 
-// Each test imports the modules again, so they pick the source and read history.json again
+// Each test imports the modules again, so they read history.json again
 async function renderPage() {
   const {GeneratedDataProvider} = await import("./GeneratedDataProvider");
   await act(async () => {
@@ -20,13 +21,12 @@ describe("GeneratedDataProvider", () => {
   beforeEach(() => {
     vi.resetModules();
     vi.stubGlobal("fetch", fetchMock);
-    sessionStorage.clear();
-    window.history.replaceState(null, "", "/maps");
   });
   afterEach(() => {
     cleanup();
     vi.unstubAllGlobals();
-    fetchMock.mockClear();
+    fetchMock.mockReset();
+    fetchMock.mockImplementation(answer);
   });
 
   it("shows a spinner until it has found the data, then the page", async () => {
@@ -47,9 +47,8 @@ describe("GeneratedDataProvider", () => {
     fetchMock.mockResolvedValueOnce(failed(503, "Service Unavailable") as never);
     await renderPage();
     const alert = screen.getByRole("alert");
-    expect(alert).toHaveTextContent("Couldn't find the latest game data.");
+    expect(alert).toHaveTextContent("Couldn't load the game data.");
     expect(alert).toHaveTextContent("503 Service Unavailable");
-    expect(screen.getByRole("button", {name: "Use the game data bundled with the site"})).toBeInTheDocument();
     expect(screen.queryByText("Page")).not.toBeInTheDocument();
 
     await act(async () => fireEvent.click(screen.getByRole("button", {name: "Try again"})));
@@ -63,17 +62,8 @@ describe("GeneratedDataProvider", () => {
       await expect(fetchGeneratedFile("poe1", "mapmods/Generated.Map.FRENCH.min.json")).rejects.toThrow("404");
     });
     const alert = screen.getByRole("alert");
-    expect(alert).toHaveTextContent("Some of the latest game data failed to load (mapmods/Generated.Map.FRENCH.min.json)");
+    expect(alert).toHaveTextContent("Some of the game data failed to load (mapmods/Generated.Map.FRENCH.min.json)");
     expect(alert).toHaveTextContent("404 Not Found");
     expect(screen.getByText("Page")).toBeInTheDocument();
-  });
-
-  it("shows the bundled data with ?data-source=local, and how to switch back", async () => {
-    window.history.replaceState(null, "", "/maps?data-source=local");
-    await renderPage();
-    expect(screen.getByText("Page")).toBeInTheDocument();
-    expect(screen.getByRole("status")).toHaveTextContent("Showing the game data bundled with the site.");
-    expect(screen.getByRole("button", {name: "Use the latest game data"})).toBeInTheDocument();
-    expect(fetchMock).not.toHaveBeenCalled();
   });
 });
