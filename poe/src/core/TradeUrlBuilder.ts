@@ -1,8 +1,9 @@
-import tradeStatIds from "@poe/generated/mapmods/trade/TradeStatIdMatching.json";
 import { MapSettings } from "../utils/SavedSettings";
 import { tradeSearchBase } from "@shared/core/TradeUrlBuilder";
 import {normalizePriceRange} from "@shared/core/PriceRange";
 import {MAP_TYPE_TRADE_FILTERS, MAP_TYPE_TRADE_STATS, selectedMapTypes} from "@poe/pages/maps/MapTypes";
+import {loadMapTradeIds} from "@poe/utils/loadData";
+import type {TradeIds} from "@shared/typedefs/TradeIds";
 
 interface StatFilter {
   id: string;
@@ -95,11 +96,9 @@ export interface TradeSearchResult {
   error?: string;
 }
 
-const tradeStatMap = tradeStatIds as Record<string, string>;
-
-function toStatFilters(ids: number[]): { id: string }[] {
+function toStatFilters(ids: number[], tradeIds: TradeIds): { id: string }[] {
   return ids
-    .map((id) => tradeStatMap[id.toString()])
+    .map((id) => tradeIds[id.toString()])
     .filter((statId): statId is string => statId !== undefined)
     .map((id) => ({ id }));
 }
@@ -114,7 +113,8 @@ function parsePriceRange(settings: TradeSettings["asyncPriceRange"]) {
   return range ? {option: settings.currency, ...range} : undefined;
 }
 
-export function buildTradeQuery(settings: TradeSettings): TradeQuery {
+/** The trade query for the settings; tradeIds maps the map mods' ids to the trade API's stat ids. */
+export function buildTradeQuery(settings: TradeSettings, tradeIds: TradeIds): TradeQuery {
   const query: TradeQuery = {
     query: {
       status: { option: "securable" },
@@ -139,12 +139,12 @@ export function buildTradeQuery(settings: TradeSettings): TradeQuery {
 
   const stats: StatGroup[] = [];
 
-  const badFilters = toStatFilters(settings.badIds);
+  const badFilters = toStatFilters(settings.badIds, tradeIds);
   if (badFilters.length > 0) {
     stats.push({ type: "not", filters: badFilters });
   }
 
-  const goodFilters = toStatFilters(settings.goodIds);
+  const goodFilters = toStatFilters(settings.goodIds, tradeIds);
   if (goodFilters.length > 0) {
     if (settings.allGoodMods) {
       stats.push({ type: "and", filters: goodFilters });
@@ -310,9 +310,8 @@ export async function createTradeSearch(
   settings: TradeSettings,
   league: string,
 ): Promise<TradeSearchResult> {
-  const query = buildTradeQuery(settings);
-
   try {
+    const query = buildTradeQuery(settings, await loadMapTradeIds());
     const encodedQuery = encodeURIComponent(JSON.stringify(query));
     const url = `${tradeSearchBase("poe1")}/${encodeURIComponent(league)}?q=${encodedQuery}`;
 

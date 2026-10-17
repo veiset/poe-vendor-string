@@ -7,6 +7,7 @@ import type {MapModsRegex} from "@shared/typedefs/poe1/MapMods";
 import type {Scarabs} from "@shared/typedefs/poe1/Scarabs";
 import type {GemsRegex} from "@shared/typedefs/poe1/Gems";
 import type {Language} from "@shared/typedefs/Language";
+import type {TradeIds} from "@shared/typedefs/TradeIds";
 import {createLanguageDataLoader} from "@shared/core/LanguageDataLoader";
 import {fetchGeneratedFile} from "@shared/generatedData";
 import {hasItem} from "@shared/core/item/RebaseItemSettings";
@@ -37,6 +38,7 @@ const itemRegex = createLanguageDataLoader<Language, ItemRegex[]>((language) =>
 const boatMods = lazy(() => fetchGeneratedFile<BoatModsRegex>("boatmods/Generated.BoatMods.ENGLISH.min.json"));
 const expedition = lazy(() => fetchGeneratedFile<Expedition>(`expedition/Generated.Expedition.min.json`));
 const jewel = lazy(() => fetchGeneratedFile<Jewel>(`jewel/Generated.Jewel.min.json`));
+const mapTradeIds = lazy(() => fetchGeneratedFile<TradeIds>("trade-ids/Generated.TradeIds.Map.min.json"));
 const beastRegexes = createLanguageDataLoader<Language, BeastRegex>((language) =>
   fetchGeneratedFile<BeastRegex>(`beast/Generated.BeastRegex.${language}.min.json`),
 );
@@ -61,6 +63,7 @@ export const loadBeastRegex = (language: Language): Promise<BeastRegex> => beast
 export const loadBoatMods = (): Promise<BoatModsRegex> => boatMods();
 export const loadExpedition = (): Promise<Expedition> => expedition();
 export const loadJewel = (): Promise<Jewel> => jewel();
+export const loadMapTradeIds = (): Promise<TradeIds> => mapTradeIds();
 export const loadScarabs = (language: Language): Promise<Scarabs> => scarabData(language);
 export const loadMapMods = (language: Language): Promise<MapModsRegex> => mapMods(language);
 export function loadGems(language: Language = "ENGLISH"): Promise<GemsRegex> {

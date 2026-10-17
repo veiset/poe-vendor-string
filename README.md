@@ -130,12 +130,13 @@ poere-generated`). Set `VITE_DATA_URL` to read the files from somewhere else.
 
 ## Trade stat mappings
 
-Trade search buttons rely on mappings from mod ids to the official trade APIs' stat ids. They are
-moving to poe-item-gen, which will publish them with the rest of the generated data, under
-`generated/<game>/<patch>/trade-ids/`. Until the apps read them from there, they use the copies in:
-- `poe/src/generated/mapmods/trade/TradeStatIdMatching.json` (PoE1)
-- `poe2/public/generated/trade/WaystoneTradeStatIds.json` (PoE2)
-- `poe2/public/generated/trade/TabletTradeStatIds.json` (PoE2)
+Trade search buttons rely on mappings from mod ids to the official trade APIs' stat ids.
+poe-item-gen generates them with the rest of the data, and the apps load them from R2 like the
+other generated files: `trade-ids/Generated.TradeIds.Map.min.json` (PoE1), and
+`trade-ids/Generated.TradeIds.Waystone.min.json` and `Generated.TradeIds.Tablet.min.json` (PoE2).
+
+The old copies in `poe/src/generated/mapmods/trade/` and `poe2/public/generated/trade/` aren't used
+anymore. Other projects still read them, so they stay for a while.
 
 ## Deployment (Cloudflare)
 

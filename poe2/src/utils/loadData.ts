@@ -3,24 +3,13 @@ import type {RelicRegex} from "@shared/typedefs/poe2/Relic";
 import type {TabletRegex} from "@shared/typedefs/poe2/Tablet";
 import type {WaystoneRegex} from "@shared/typedefs/poe2/Waystone";
 import type {Language} from "@shared/typedefs/Language";
+import type {TradeIds} from "@shared/typedefs/TradeIds";
 import {ParsedAffix, parseAffixToken} from "./parseAffixToken";
 import {createLanguageDataLoader} from "@shared/core/LanguageDataLoader";
 import {fetchGeneratedFile} from "@shared/generatedData";
 
 export type WaystoneAffix = ParsedAffix & { prefix: boolean };
 export type TabletAffix = ParsedAffix;
-export type TradeStatIdMap = Record<string, string>;
-
-// The trade stat ids are still the copies in public/generated/trade, see "Trade stat mappings" in README.md
-const tradePath = "/generated/trade";
-
-async function fetchJson<T>(path: string): Promise<T> {
-  const response = await fetch(path);
-  if (!response.ok) {
-    throw new Error(`Failed to load ${path}: ${response.status} ${response.statusText}`);
-  }
-  return response.json() as T;
-}
 
 function lazy<T>(load: () => Promise<T>): () => Promise<T> {
   let value: Promise<T> | null = null;
@@ -76,26 +65,19 @@ export function loadRelicRegex(language: Language): Promise<RelicRegex[]> {
   return relicRegexes(language);
 }
 
-async function loadTradeFile(file: string): Promise<TradeStatIdMap> {
-  try {
-    return await fetchJson<TradeStatIdMap>(file);
-  } catch {
-    return {};
-  }
-}
-
-const waystoneTradeStatIds = lazy(() =>
-  loadTradeFile(`${tradePath}/WaystoneTradeStatIds.json`),
+// Without them, a trade search still opens, without the mod filters
+const waystoneTradeIds = lazy(() =>
+  fetchGeneratedFile<TradeIds>("trade-ids/Generated.TradeIds.Waystone.min.json").catch((): TradeIds => ({})),
 );
 
-const tabletTradeStatIds = lazy(() =>
-  loadTradeFile(`${tradePath}/TabletTradeStatIds.json`),
+const tabletTradeIds = lazy(() =>
+  fetchGeneratedFile<TradeIds>("trade-ids/Generated.TradeIds.Tablet.min.json").catch((): TradeIds => ({})),
 );
 
-export function loadWaystoneTradeStatIds(): Promise<TradeStatIdMap> {
-  return waystoneTradeStatIds();
+export function loadWaystoneTradeIds(): Promise<TradeIds> {
+  return waystoneTradeIds();
 }
 
-export function loadTabletTradeStatIds(): Promise<TradeStatIdMap> {
-  return tabletTradeStatIds();
+export function loadTabletTradeIds(): Promise<TradeIds> {
+  return tabletTradeIds();
 }

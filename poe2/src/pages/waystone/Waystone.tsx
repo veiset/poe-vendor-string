@@ -4,7 +4,8 @@ import {Poe2ProfileContext} from "../../layout/Poe2ProfileContext";
 import {defaultSettings, SelectOption, Settings} from "../../settings";
 import {generateWaystoneRegex} from "./WaystoneResult";
 import {openWaystoneTradeSearch} from "../../utils/TradeUrlBuilder";
-import {loadWaystoneAffixes, loadWaystoneTradeStatIds, TradeStatIdMap, WaystoneAffix} from "../../utils/loadData";
+import {loadWaystoneAffixes, loadWaystoneTradeIds, WaystoneAffix} from "../../utils/loadData";
+import type {TradeIds} from "@shared/typedefs/TradeIds";
 import {Checkbox} from "@shared/components/Checkbox/Checkbox";
 import {SelectList} from "@poe2/components/SelectList";
 import RegexResultBox from "@shared/components/RegexResultBox/RegexResultBox";
@@ -23,7 +24,7 @@ export function Waystone() {
   const [settings, setSettings] = useState<Settings["waystone"]>(favoritePage.initialConfiguration);
   const [result, setResult] = useState("");
   const [affixes, setAffixes] = useState<WaystoneAffix[]>([]);
-  const [tradeStatIds, setTradeStatIds] = useState<TradeStatIdMap>({});
+  const [tradeStatIds, setTradeStatIds] = useState<TradeIds>({});
   const loadedLanguageRef = useRef<typeof language | undefined>(undefined);
   const [dataLanguage, setDataLanguage] = useState<typeof language>();
 
@@ -40,7 +41,7 @@ export function Waystone() {
       setAffixes(data);
       setDataLanguage(language);
     });
-    loadWaystoneTradeStatIds().then(setTradeStatIds);
+    loadWaystoneTradeIds().then(setTradeStatIds);
     return () => { active = false; };
   }, [language, favoritePage.initialLanguage]);
 

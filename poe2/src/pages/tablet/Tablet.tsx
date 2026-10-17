@@ -4,7 +4,8 @@ import {Poe2ProfileContext} from "../../layout/Poe2ProfileContext";
 import {defaultSettings, SelectOption, Settings} from "../../settings";
 import {generateTabletRegex} from "./TabletResult";
 import {openTabletTradeSearch} from "../../utils/TradeUrlBuilder";
-import {loadTabletAffixes, loadTabletTradeStatIds, TabletAffix, TradeStatIdMap} from "../../utils/loadData";
+import {loadTabletAffixes, loadTabletTradeIds, TabletAffix} from "../../utils/loadData";
+import type {TradeIds} from "@shared/typedefs/TradeIds";
 import {Checkbox} from "@shared/components/Checkbox/Checkbox";
 import {SelectList} from "@poe2/components/SelectList";
 import RegexResultBox from "@shared/components/RegexResultBox/RegexResultBox";
@@ -24,7 +25,7 @@ export function Tablet() {
   const [result, setResult] = useState("");
   const [affixes, setAffixes] = useState<TabletAffix[]>([]);
   const [affixSearch, setAffixSearch] = useState("");
-  const [tradeStatIds, setTradeStatIds] = useState<TradeStatIdMap>({});
+  const [tradeStatIds, setTradeStatIds] = useState<TradeIds>({});
   const loadedLanguageRef = useRef<typeof language | undefined>(undefined);
   const [dataLanguage, setDataLanguage] = useState<typeof language>();
 
@@ -41,7 +42,7 @@ export function Tablet() {
       setAffixes(data);
       setDataLanguage(language);
     });
-    loadTabletTradeStatIds().then(setTradeStatIds);
+    loadTabletTradeIds().then(setTradeStatIds);
     return () => { active = false; };
   }, [language, favoritePage.initialLanguage]);
 
