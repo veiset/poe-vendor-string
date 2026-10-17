@@ -54,7 +54,7 @@ describe("GeneratedDataProvider", () => {
     fetchMock.mockResolvedValueOnce(failed(503, "Service Unavailable") as never);
     await act(renderApp);
     const alert = screen.getByRole("alert");
-    expect(alert).toHaveTextContent("Couldn't load the game data");
+    expect(alert).toHaveTextContent("Error loading data");
     expect(alert).toHaveTextContent("503 Service Unavailable");
     expect(screen.getByRole("link", {name: "Report on Discord"})).toHaveAttribute("href", "https://discord.gg/T8BzKnatY6");
     expect(screen.getByRole("link", {name: "Report on GitHub"}).getAttribute("href"))

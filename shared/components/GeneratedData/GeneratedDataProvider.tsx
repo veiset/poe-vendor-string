@@ -67,12 +67,12 @@ export const GeneratedDataProvider = ({game, children}: {game: Game, children: R
       {typeof state === "object" && (
         <div className="generated-data-error" role="alert">
           <div className="generated-data-error-card">
-            <h2>Couldn't load the game data</h2>
-            <p>This page needs mod and item data that couldn't be loaded right now. Try again in a moment.</p>
-            <p>If this keeps happening for more than a few minutes, please let us know on Discord or GitHub.</p>
+            <h2>Error loading data</h2>
+            <p>This page has data that couldn't be loaded right now.</p>
+            <p>Please try again in a few moments, if that fails report the issue on github or discord.</p>
             <div className="generated-data-actions">
               <button type="button" className="generated-data-primary" onClick={retry}>Try again</button>
-              <ReportLinks problem={`Couldn't load the game data (${state.failed})`}/>
+              <ReportLinks problem={`Error loading data (${state.failed})`}/>
             </div>
             <p className="generated-data-detail">{state.failed}</p>
           </div>
