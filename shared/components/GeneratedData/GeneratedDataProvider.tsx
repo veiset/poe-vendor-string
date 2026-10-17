@@ -1,12 +1,30 @@
 import {ReactNode, Suspense, useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 import {Spinner} from "@shared/components/Spinner/Spinner";
+import {getBugReportUrl} from "@shared/core/issueTracker";
 import {dataSource, Game, GeneratedDataError, loadGeneratedData, onGeneratedDataError} from "@shared/generatedData";
+import discordIcon from "@shared/img/discord.svg";
+import githubIcon from "@shared/img/github-mark-white.png";
 import "./GeneratedData.css";
 
 type State = "loading" | "ready" | {failed: string};
 
+const discordUrl = "https://discord.gg/T8BzKnatY6";
+
 const messageOf = (error: unknown) => error instanceof Error ? error.message : String(error);
+
+const ReportLinks = ({problem}: {problem: string}) => (
+  <>
+    <a href={discordUrl} target="_blank" rel="noopener noreferrer">
+      <img src={discordIcon} alt="" className="generated-data-icon generated-data-icon-discord"/>
+      Report on Discord
+    </a>
+    <a href={getBugReportUrl(problem)} target="_blank" rel="noopener noreferrer">
+      <img src={githubIcon} alt="" className="generated-data-icon"/>
+      Report on GitHub
+    </a>
+  </>
+);
 
 /** Finds the game's generated data before it renders the page, and says what failed to load. */
 export const GeneratedDataProvider = ({game, children}: {game: Game, children: ReactNode}) => {
@@ -39,15 +57,25 @@ export const GeneratedDataProvider = ({game, children}: {game: Game, children: R
         <div className="generated-data-message" role="alert">
           <p>Some of the game data failed to load ({fileError.file}), so this page may be incomplete.</p>
           <p className="generated-data-detail">{fileError.message}</p>
-          <button type="button" onClick={() => window.location.reload()}>Try again</button>
+          <div className="generated-data-actions">
+            <button type="button" onClick={() => window.location.reload()}>Try again</button>
+            <ReportLinks problem={`Game data failed to load: ${fileError.file}`}/>
+          </div>
         </div>
       )}
       {state === "loading" && <Spinner label="Loading game data…"/>}
       {typeof state === "object" && (
-        <div className="generated-data-message" role="alert">
-          <p>Couldn't load the game data.</p>
-          <p className="generated-data-detail">{state.failed}</p>
-          <button type="button" onClick={retry}>Try again</button>
+        <div className="generated-data-error" role="alert">
+          <div className="generated-data-error-card">
+            <h2>Couldn't load the game data</h2>
+            <p>This page needs mod and item data that couldn't be loaded right now. Try again in a moment.</p>
+            <p>If this keeps happening for more than a few minutes, please let us know on Discord or GitHub.</p>
+            <div className="generated-data-actions">
+              <button type="button" className="generated-data-primary" onClick={retry}>Try again</button>
+              <ReportLinks problem={`Couldn't load the game data (${state.failed})`}/>
+            </div>
+            <p className="generated-data-detail">{state.failed}</p>
+          </div>
         </div>
       )}
       {/* The page's own code loads here too, so the layout stays while it does */}

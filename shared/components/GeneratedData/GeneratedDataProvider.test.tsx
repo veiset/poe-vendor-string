@@ -54,8 +54,11 @@ describe("GeneratedDataProvider", () => {
     fetchMock.mockResolvedValueOnce(failed(503, "Service Unavailable") as never);
     await act(renderApp);
     const alert = screen.getByRole("alert");
-    expect(alert).toHaveTextContent("Couldn't load the game data.");
+    expect(alert).toHaveTextContent("Couldn't load the game data");
     expect(alert).toHaveTextContent("503 Service Unavailable");
+    expect(screen.getByRole("link", {name: "Report on Discord"})).toHaveAttribute("href", "https://discord.gg/T8BzKnatY6");
+    expect(screen.getByRole("link", {name: "Report on GitHub"}).getAttribute("href"))
+      .toMatch(/^https:\/\/github\.com\/veiset\/poe\.re\/issues\/new\?.*title=.*503/);
     expect(screen.queryByText("Boat")).not.toBeInTheDocument();
 
     await act(async () => fireEvent.click(screen.getByRole("button", {name: "Try again"})));
