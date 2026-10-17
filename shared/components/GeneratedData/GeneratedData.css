@@ -40,7 +40,7 @@
     max-width: 600px;
     padding: 20px 32px 28px;
     font-size: 15px;
-    line-height: 1.5;
+    line-height: 1.7;
     color: var(--color-text);
     background-color: var(--color-card-bg);
     border: 1px solid var(--color-border-strong);
@@ -51,7 +51,7 @@
 /* Three lines of regex that fade out downwards into the card */
 .generated-data-error-regex {
     max-height: 4.5em;
-    margin: 0 0 8px;
+    margin: 0 0 16px;
     overflow: hidden;
     font-family: ui-monospace, "SF Mono", Menlo, monospace;
     font-size: 9px;
@@ -64,13 +64,13 @@
 }
 
 .generated-data-error-card h2 {
-    margin: 0 0 8px;
+    margin: 0 0 14px;
     padding-left: 0;
     font-size: 22px;
 }
 
 .generated-data-error-card p {
-    margin: 0 0 14px;
+    margin: 0 0 20px;
 }
 
 .generated-data-actions {
@@ -89,6 +89,7 @@
     padding: 9px 18px;
     font-family: inherit;
     font-size: 13px;
+    line-height: normal;
     letter-spacing: 0.02em;
     color: var(--color-text);
     text-decoration: none;
