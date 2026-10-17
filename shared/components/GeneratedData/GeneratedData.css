@@ -1,29 +1,5 @@
 /* Styled like the filter cards and the result box buttons */
 
-.generated-data-message {
-    width: 100%;
-    margin: 12px 0;
-    padding: 10px 14px;
-    font-size: 14px;
-    color: var(--color-text);
-    background-color: var(--color-card-bg);
-    border: 1px solid var(--color-border-strong);
-    border-left: 3px solid var(--color-text-error);
-    border-radius: 4px;
-}
-
-.generated-data-message p {
-    margin: 0 0 8px;
-}
-
-.generated-data-detail {
-    margin: 0 0 14px;
-    color: var(--color-text-dim);
-    font-family: ui-monospace, "SF Mono", Menlo, monospace;
-    font-size: 12px;
-    overflow-wrap: anywhere;
-}
-
 /* history.json failed, so there is no page to show: the error takes its place */
 .generated-data-error {
     display: flex;
@@ -35,7 +11,16 @@
     box-sizing: border-box;
 }
 
-.generated-data-error-card {
+/* A file failed: the error sits above the page */
+.generated-data-file-error {
+    display: flex;
+    flex: 1 1 100%;
+    justify-content: center;
+    padding: 28px 16px 32px;
+    box-sizing: border-box;
+}
+
+.generated-data-card {
     width: 100%;
     max-width: 600px;
     padding: 20px 32px 28px;
@@ -49,7 +34,7 @@
 }
 
 /* Three lines of regex that fade out downwards into the card */
-.generated-data-error-regex {
+.generated-data-regex {
     max-height: 4.5em;
     margin: 0 0 16px;
     overflow: hidden;
@@ -63,14 +48,26 @@
     user-select: none;
 }
 
-.generated-data-error-card h2 {
+.generated-data-card.partial .generated-data-regex {
+    color: var(--color-text-warn);
+}
+
+.generated-data-card h2 {
     margin: 0 0 14px;
     padding-left: 0;
     font-size: 22px;
 }
 
-.generated-data-error-card p {
+.generated-data-card p {
     margin: 0 0 20px;
+}
+
+.generated-data-detail {
+    color: var(--color-text-dim);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
 }
 
 .generated-data-actions {

@@ -73,7 +73,7 @@ describe("GeneratedDataProvider", () => {
       await expect(data.fetchGeneratedFile("poe1", "boatmods/Generated.BoatMods.FRENCH.min.json")).rejects.toThrow("404");
     });
     const alert = screen.getByRole("alert");
-    expect(alert).toHaveTextContent("Some data for this page couldn't be loaded");
+    expect(alert).toHaveTextContent("Some data couldn't be loaded");
     expect(alert).toHaveTextContent("404 Not Found");
     expect(screen.getByText("Boat")).toBeInTheDocument();
 
