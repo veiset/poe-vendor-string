@@ -48,13 +48,13 @@
     box-sizing: border-box;
 }
 
-/* Two lines of regex that fade out downwards into the card */
+/* Three lines of regex that fade out downwards into the card */
 .generated-data-error-regex {
-    max-height: 3em;
+    max-height: 4.5em;
     margin: 0 0 8px;
     overflow: hidden;
     font-family: ui-monospace, "SF Mono", Menlo, monospace;
-    font-size: 11px;
+    font-size: 9px;
     line-height: 1.5;
     word-break: break-all;
     color: var(--color-text-error);
