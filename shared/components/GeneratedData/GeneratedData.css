@@ -1,12 +1,11 @@
 /* Styled like the filter cards and the result box buttons */
 
-/* history.json failed, so there is no page to show: the error takes its place */
-.generated-data-error {
+/* Before the app renders: the spinner while the data is found, or the error when it can't be */
+.generated-data-page {
     display: flex;
-    flex: 1 1 100%;
     align-items: center;
     justify-content: center;
-    min-height: 60vh;
+    min-height: 100vh;
     padding: 24px 16px;
     box-sizing: border-box;
 }

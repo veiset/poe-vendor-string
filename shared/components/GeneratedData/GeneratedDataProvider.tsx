@@ -1,105 +1,74 @@
-import {ReactNode, Suspense, useEffect, useState} from "react";
-import {useLocation} from "react-router-dom";
+import {createContext, ReactNode, useContext, useEffect, useRef, useState} from "react";
 import {Spinner} from "@shared/components/Spinner/Spinner";
-import {getBugReportUrl} from "@shared/core/issueTracker";
-import {dataSource, Game, GeneratedDataError, loadGeneratedData, onGeneratedDataError} from "@shared/generatedData";
-import discordIcon from "@shared/img/discord.svg";
-import githubIcon from "@shared/img/github-mark-white.png";
-import "./GeneratedData.css";
+import {Game, GeneratedData, loadGeneratedData} from "@shared/generatedData";
+import {ErrorCard, errorMessage} from "./ErrorCard";
 
-type State = "loading" | "ready" | {failed: string};
+type State = "loading" | {data: GeneratedData} | {failed: string};
 
-const discordUrl = "https://discord.gg/T8BzKnatY6";
+const GeneratedDataContext = createContext<GeneratedData | undefined>(undefined);
 
-// A broken regex across the top of the error, in place of a coloured border
-const brokenRegex = String.raw`"!ir p|au c|ss lo" "^(?=.*?ma(?!ps))[^\d]{2,}" "!nt$|ce\b|\(1[0-9]" "rr(?<=o)r|lo?ad.*d(at|a)?$" "[^x]+?|¿?|$^" "(?!data)|\[\]{,}" "!err|or!|(?=" "m(?:ap|od)s?\s{0}[^]" "^tr.*y(\d+)?ag(?:ain)?$" "!(?<=x)y|\b\B|.{-1}" "wa?ys?t(on)?e|ta?bl.t|re?l[i!]c" "(?=(?=(?=" "![\x00-\x1f]|\p{?}|$$" "lo+a+d+i+n+g+" "!ex(?!p)|ed.*n(?=$" "^^" "|||" "[a-Z]|\2|(?#)" "fai?l(ed)?.*4[0o]4"`;
-
-const messageOf = (error: unknown) => error instanceof Error ? error.message : String(error);
-
-interface ErrorCardProps {
-  title: string;
-  text: string;
-  detail: string;
-  onRetry: () => void;
-  /** The GitHub issue's title */
-  problem: string;
-  /** Orange instead of red: the page still shows, without some of its data */
-  partial?: boolean;
+/** Where the game's generated files are: the data source, and for R2 the patch and commit the page uses. */
+export function useGeneratedData(): GeneratedData {
+  const data = useContext(GeneratedDataContext);
+  if (!data) throw new Error("useGeneratedData must be used within GeneratedDataProvider");
+  return data;
 }
 
-const ErrorCard = ({title, text, detail, onRetry, problem, partial}: ErrorCardProps) => (
-  <section className={partial ? "generated-data-card partial" : "generated-data-card"}>
-    <div className="generated-data-regex" aria-hidden="true">{brokenRegex}</div>
-    <h2>{title}</h2>
-    <p>{text}</p>
-    <p className="generated-data-detail">{detail}</p>
-    <div className="generated-data-actions">
-      <button type="button" className="generated-data-retry" onClick={onRetry}>Try again</button>
-      <a href={discordUrl} target="_blank" rel="noopener noreferrer">
-        <img src={discordIcon} alt="" className="generated-data-icon generated-data-icon-discord"/>
-        Discord
-      </a>
-      <a href={getBugReportUrl(problem)} target="_blank" rel="noopener noreferrer">
-        <img src={githubIcon} alt="" className="generated-data-icon"/>
-        GitHub
-      </a>
-    </div>
-  </section>
-);
+interface GeneratedDataProviderProps {
+  game: Game;
+  /** Runs once the data is found, before the app renders: the profile migrations. */
+  beforeRender?: () => Promise<unknown>;
+  children: ReactNode;
+}
 
-/** Finds the game's generated data before it renders the page, and says what failed to load. */
-export const GeneratedDataProvider = ({game, language, children}: {game: Game, language: string, children: ReactNode}) => {
-  const [state, setState] = useState<State>(dataSource === "local" ? "ready" : "loading");
+/**
+ * The first thing the app renders: it finds the game's generated data (history.json for R2), runs
+ * beforeRender, and then renders the app, which can count on the data's patch. When the data can't
+ * be found, it shows an error instead, since no page works without it.
+ */
+export const GeneratedDataProvider = ({game, beforeRender, children}: GeneratedDataProviderProps) => {
+  const [state, setState] = useState<State>("loading");
   const [attempt, setAttempt] = useState(0);
-  const [fileError, setFileError] = useState<GeneratedDataError>();
-  const {pathname} = useLocation();
+  // Started once per attempt, also when StrictMode runs the effect twice
+  const started = useRef<Promise<GeneratedData>>(undefined);
 
   useEffect(() => {
     let active = true;
-    loadGeneratedData(game).then(
-      () => active && setState("ready"),
-      (error) => active && setState({failed: messageOf(error)}),
+    started.current ??= loadGeneratedData(game).then(async (data) => {
+      // As before the provider: a failed migration is tried again on the next visit, and the app still renders
+      await beforeRender?.().catch((error) => console.error(error));
+      return data;
+    });
+    started.current.then(
+      (data) => active && setState({data}),
+      (error) => {
+        started.current = undefined;
+        if (active) setState({failed: errorMessage(error)});
+      },
     );
     return () => { active = false; };
-  }, [game, attempt]);
-
-  useEffect(() => onGeneratedDataError(setFileError), []);
-  // A failed file belongs to the page and language that loaded it
-  useEffect(() => setFileError(undefined), [pathname, language]);
+  }, [game, beforeRender, attempt]);
 
   const retry = () => {
     setState("loading");
     setAttempt((count) => count + 1);
   };
 
-  return (
-    <>
-      {fileError && (
-        <div className="generated-data-file-error" role="alert">
-          <ErrorCard
-            partial
-            title="Some data couldn't be loaded"
-            text="This page may be incomplete. Try again in a few minutes, and if it still fails, let us know on Discord or GitHub."
-            detail={fileError.message}
-            onRetry={() => window.location.reload()}
-            problem={`Error loading data: ${fileError.file}`}
-          />
-        </div>
-      )}
-      {state === "loading" && <Spinner label="Loading game data…"/>}
-      {typeof state === "object" && (
-        <div className="generated-data-error" role="alert">
-          <ErrorCard
-            title="Error loading data"
-            text="This page's data couldn't be loaded. Try again in a few minutes, and if it still fails, let us know on Discord or GitHub."
-            detail={state.failed}
-            onRetry={retry}
-            problem={`Error loading data (${state.failed})`}
-          />
-        </div>
-      )}
-      {/* The page's own code loads here too, so the layout stays while it does */}
-      {state === "ready" && <Suspense fallback={<Spinner label="Loading game data…"/>}>{children}</Suspense>}
-    </>
-  );
+  if (state === "loading") {
+    return <div className="generated-data-page"><Spinner label="Loading game data…"/></div>;
+  }
+  if ("failed" in state) {
+    return (
+      <div className="generated-data-page" role="alert">
+        <ErrorCard
+          title="Error loading data"
+          text="The site's data couldn't be loaded. Try again in a few minutes, and if it still fails, let us know on Discord or GitHub."
+          detail={state.failed}
+          onRetry={retry}
+          problem={`Error loading data (${state.failed})`}
+        />
+      </div>
+    );
+  }
+  return <GeneratedDataContext.Provider value={state.data}>{children}</GeneratedDataContext.Provider>;
 };

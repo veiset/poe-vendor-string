@@ -2,6 +2,7 @@ import {afterEach, describe, expect, it, vi} from "vitest";
 import {defaultSettings} from "./settings";
 import type {Poe2RegexFavoriteRecord, SelectOption} from "./settings";
 import {rebaseWaystoneSettings, renderPoe2Favorite} from "./favoriteLanguageRenderer";
+import {loadGeneratedData} from "@shared/generatedData";
 
 const curses = {id: 2039236504, name: "##% less effect of Curses on Monsters", regex: "ses", ranges: [[50, 20]], sourceIndex: 0};
 const stun = {id: -1307791168, name: "Monsters have ##% increased Stun Buildup", regex: "bui", ranges: [[50, 110]], sourceIndex: 1};
@@ -35,6 +36,8 @@ describe("refreshing saved waystone mods from the loaded data", () => {
     vi.stubGlobal("fetch", vi.fn(async (url: string) => ({ok: true, json: async () => url.endsWith("/history.json") ? history : {tokens: [
       {id: curses.id, regex: "ses", rawText: "(50-20)% less effect of Curses on Monsters", options: {prefix: false}},
     ]}})));
+    // The app finds the data before anything loads it, see GeneratedDataProvider
+    await loadGeneratedData("poe2");
     const favorite: Poe2RegexFavoriteRecord = {
       schemaVersion: 1, id: "favorite", name: "Favorite", description: "", color: "#c6930a", tags: [],
       createdAt: "2026-01-01T00:00:00.000Z", updatedAt: "2026-01-01T00:00:00.000Z",

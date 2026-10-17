@@ -3,6 +3,7 @@ import {defaultSettings} from "../settings";
 import type {Poe2RegexFavoriteRecord, SelectOption, Settings} from "../settings";
 import {migrateProfile} from "./migrations";
 import {migrateV1ToV2} from "./v02_migration";
+import {loadGeneratedData} from "@shared/generatedData";
 
 const tokens: Record<string, object[]> = {
   waystone: [
@@ -117,7 +118,11 @@ const expectedV2Structure: DeepPartial<Settings> = {
 };
 
 describe("v1 -> v2 migration", () => {
-  beforeEach(() => { vi.stubGlobal("fetch", fetchMock); });
+  beforeEach(async () => {
+    vi.stubGlobal("fetch", fetchMock);
+    // The app finds the data before anything loads it, see GeneratedDataProvider
+    await loadGeneratedData("poe2");
+  });
   afterEach(() => { vi.unstubAllGlobals(); fetchMock.mockClear(); });
 
   it("migrates a stored v1 profile to the v2 structure", async () => {

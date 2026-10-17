@@ -11,8 +11,6 @@ import {fetchGeneratedFile} from "@shared/generatedData";
 import {hasItem} from "@shared/core/item/RebaseItemSettings";
 import type {Itembase} from "@shared/core/item/ItemBaseSelector";
 
-const fetchGenerated = <T>(file: string): Promise<T> => fetchGeneratedFile<T>("poe1", file);
-
 function lazy<T>(load: () => Promise<T>): () => Promise<T> {
   let value: Promise<T> | null = null;
   return () => {
@@ -27,29 +25,29 @@ function lazy<T>(load: () => Promise<T>): () => Promise<T> {
 }
 
 const itemBasetypes = createLanguageDataLoader<string, ItemBase[]>((language) =>
-  fetchGenerated<ItemBase[]>(`item/Generated.Basetypes.Item.${language}.min.json`),
+  fetchGeneratedFile<ItemBase[]>(`item/Generated.Basetypes.Item.${language}.min.json`),
 );
 
 const itemRegex = createLanguageDataLoader<string, ItemRegex[]>((language) =>
-  fetchGenerated<ItemRegex[]>(`item/Generated.Item.${language}.min.json`),
+  fetchGeneratedFile<ItemRegex[]>(`item/Generated.Item.${language}.min.json`),
 );
 
 const boatMods = createLanguageDataLoader<string, BoatModsRegex>((language) =>
-  fetchGenerated<BoatModsRegex>(`boatmods/Generated.BoatMods.${language}.min.json`),
+  fetchGeneratedFile<BoatModsRegex>(`boatmods/Generated.BoatMods.${language}.min.json`),
 );
-const expedition = lazy(() => fetchGenerated<Expedition>(`expedition/Generated.Expedition.min.json`));
-const jewel = lazy(() => fetchGenerated<Jewel>(`jewel/Generated.Jewel.min.json`));
+const expedition = lazy(() => fetchGeneratedFile<Expedition>(`expedition/Generated.Expedition.min.json`));
+const jewel = lazy(() => fetchGeneratedFile<Jewel>(`jewel/Generated.Jewel.min.json`));
 const beastRegexes = createLanguageDataLoader<string, BeastRegex>((language) =>
-  fetchGenerated<BeastRegex>(`beast/Generated.BeastRegex.${language}.min.json`),
+  fetchGeneratedFile<BeastRegex>(`beast/Generated.BeastRegex.${language}.min.json`),
 );
 const scarabData = createLanguageDataLoader<string, Scarabs>((language) =>
-  fetchGenerated<Scarabs>(`scarabs/Generated.Scarabs.${language}.min.json`),
+  fetchGeneratedFile<Scarabs>(`scarabs/Generated.Scarabs.${language}.min.json`),
 );
 const mapMods = createLanguageDataLoader<string, MapModsRegex>((language) =>
-  fetchGenerated<MapModsRegex>(`mapmods/Generated.Map.${language}.min.json`),
+  fetchGeneratedFile<MapModsRegex>(`mapmods/Generated.Map.${language}.min.json`),
 );
 const gems = createLanguageDataLoader<string, GemsRegex>((language) =>
-  fetchGenerated<GemsRegex>(`gems/Generated.Gems.${language}.min.json`),
+  fetchGeneratedFile<GemsRegex>(`gems/Generated.Gems.${language}.min.json`),
 );
 
 export const loadItemBasetypes = (language: string): Promise<ItemBase[]> => itemBasetypes(language);

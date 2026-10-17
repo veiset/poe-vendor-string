@@ -108,9 +108,11 @@ still copied into this repo.
 The copies in `<app>/public/generated` are still deployed with the app. To read them instead of
 R2, change `dataSource` in `shared/generatedData.ts` to `"local"`.
 
-`GeneratedDataProvider` (`shared/components/GeneratedData/`) wraps every page in `Poe1Layout.tsx`
-and `Poe2Layout.tsx`. It finds the data before it renders the page, and shows an error with a
-button to try again when it can't, or when a file fails to load.
+`GeneratedDataProvider` (`shared/components/GeneratedData/`) is the first thing each app renders
+(`index.tsx`). It finds the data (`history.json`), runs the profile migrations, and then renders the
+app, so everything after it can count on the patch; `useGeneratedData()` gives it to components.
+When the data can't be found, it shows an error instead. `GeneratedDataFileError`, above the pages
+in the layouts, says when a single file fails to load.
 
 The bucket's CORS policy allows https://poe.re, https://poe2.re, the Cloudflare Pages
 deployments (`https://*.poe-production.pages.dev`, `https://*.poe2-production.pages.dev`) and
