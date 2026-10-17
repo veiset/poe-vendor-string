@@ -1,0 +1,47 @@
+.generated-data-message {
+    margin: 12px 0;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: var(--color-text);
+    background-color: var(--color-card-bg);
+    border-left: 3px solid var(--color-text-error);
+    border-radius: 3px;
+}
+
+.generated-data-message.notice {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    border-left-color: var(--color-text-warn);
+}
+
+.generated-data-message p {
+    margin: 0 0 8px;
+}
+
+.generated-data-detail {
+    color: var(--color-text-muted);
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.generated-data-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.generated-data-message button {
+    padding: 6px 12px;
+    font-size: 14px;
+    color: var(--color-text);
+    background-color: var(--color-area-2);
+    border: 1px solid var(--color-border-strong);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.generated-data-message button:hover {
+    background-color: var(--color-area-hover);
+}

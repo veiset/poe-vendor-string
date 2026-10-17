@@ -8,6 +8,7 @@ import type {RepoeLanguageKey} from "@poe/utils/Languages";
 import {useRefreshFromInitialLoad, useRefreshOnFocus} from "@shared/core/RefreshOnFocus";
 import {Poe2LeagueProvider} from "./Poe2LeagueContext";
 import {FavoritesProvider} from "../FavoritesContext";
+import {GeneratedDataProvider} from "@shared/components/GeneratedData/GeneratedDataProvider";
 import "../poe2.css";
 
 export const Poe2Layout = () => {
@@ -38,7 +39,9 @@ export const Poe2Layout = () => {
                 <div className="content-left-gfx"/>
                 <div className="content-main-area">
                   <div className="page-content" key={`poe2-${currentProfile}`}>
-                    <Outlet/>
+                    <GeneratedDataProvider game="poe2">
+                      <Outlet/>
+                    </GeneratedDataProvider>
                   </div>
                 </div>
                 <div className="content-right-gfx"/>

@@ -7,6 +7,7 @@ import {ProfileContext} from "@poe/components/profile/ProfileContext";
 import {useRefreshFromInitialLoad, useRefreshOnFocus} from "@shared/core/RefreshOnFocus";
 import {LeagueProvider} from "@shared/core/LeagueContext";
 import {FavoritesProvider} from "@poe/core/favorites/FavoritesContext";
+import {GeneratedDataProvider} from "@shared/components/GeneratedData/GeneratedDataProvider";
 
 export const Poe1Layout = () => {
   const [globalProfile, setGlobalProfile] = useState(() => {
@@ -39,7 +40,9 @@ export const Poe1Layout = () => {
                 <div className="content-left-gfx"/>
                 <div className="content-main-area">
                   <div className="page-content" key={`poe1-${profile.name}`}>
-                    <Outlet/>
+                    <GeneratedDataProvider game="poe1">
+                      <Outlet/>
+                    </GeneratedDataProvider>
                   </div>
                 </div>
                 <div className="content-right-gfx"/>
