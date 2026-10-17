@@ -1,5 +1,6 @@
 import React, {lazy, Suspense} from "react";
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Navigate, Outlet, Route, Routes} from "react-router-dom";
+import {GeneratedDataProvider} from "@shared/components/GeneratedData/GeneratedDataProvider";
 import {Poe1Layout} from "./Poe1Layout";
 
 const PobCodesImport = lazy(() => import("../pages/import/PobCodesImport"));
@@ -22,25 +23,28 @@ export const Poe1Routes = () => (
   <Suspense fallback={<div className="route-loading" role="status" aria-live="polite">Loading…</div>}>
     <Routes>
     <Route element={<Poe1Layout/>}>
-      <Route index element={<Favorites/>}/>
-      <Route path="favorites" element={<Favorites/>}/>
+      {/* The pages that read poe-item-gen's generated data */}
+      <Route element={<GeneratedDataProvider game="poe1"><Outlet/></GeneratedDataProvider>}>
+        <Route index element={<Favorites/>}/>
+        <Route path="favorites" element={<Favorites/>}/>
+        <Route path="gems" element={<Gems/>}/>
+        <Route path="import-pob-codes" element={<PobCodesImport/>}/>
+        <Route path="maps" element={<OptimizedMapMods/>}/>
+        <Route path="boat" element={<Boat/>}/>
+        <Route path="items" element={<Item/>}/>
+        <Route path="expedition" element={<Expedition/>}/>
+        <Route path="beast" element={<Beast/>}/>
+        <Route path="scarab" element={<Scarabs/>}/>
+        <Route path="jewel" element={<Jewel/>}/>
+      </Route>
       <Route path="vendor" element={<Vendor/>}/>
-      <Route path="gems" element={<Gems/>}/>
-      <Route path="import-pob-codes" element={<PobCodesImport/>}/>
-      <Route path="maps" element={<OptimizedMapMods/>}/>
-      <Route path="boat" element={<Boat/>}/>
-      <Route path="items" element={<Item/>}/>
       <Route path="flasks" element={
         <MovedContent title="[Moved] Flasks" newPath="/items" linkText="Items"
                       extraInfo="Under the item section, select the flask base you want to craft and then select mods."/>
       }/>
       <Route path="heist" element={<Heist/>}/>
-      <Route path="expedition" element={<Expedition/>}/>
-      <Route path="beast" element={<Beast/>}/>
-      <Route path="scarab" element={<Scarabs/>}/>
       <Route path="tattoo" element={<Tattoo/>}/>
       <Route path="runegraft" element={<Runegraft/>}/>
-      <Route path="jewel" element={<Jewel/>}/>
     </Route>
 
     <Route path="*" element={<Navigate to="/vendor" replace/>}/>

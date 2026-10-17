@@ -1,4 +1,5 @@
-import {ReactNode, useEffect, useState} from "react";
+import {ReactNode, Suspense, useEffect, useState} from "react";
+import {useLocation} from "react-router-dom";
 import {Spinner} from "@shared/components/Spinner/Spinner";
 import {dataSource, Game, GeneratedDataError, loadGeneratedData, onGeneratedDataError} from "@shared/generatedData";
 import "./GeneratedData.css";
@@ -12,6 +13,7 @@ export const GeneratedDataProvider = ({game, children}: {game: Game, children: R
   const [state, setState] = useState<State>(dataSource === "local" ? "ready" : "loading");
   const [attempt, setAttempt] = useState(0);
   const [fileError, setFileError] = useState<GeneratedDataError>();
+  const {pathname} = useLocation();
 
   useEffect(() => {
     let active = true;
@@ -23,6 +25,8 @@ export const GeneratedDataProvider = ({game, children}: {game: Game, children: R
   }, [game, attempt]);
 
   useEffect(() => onGeneratedDataError(setFileError), []);
+  // A failed file belongs to the page that loaded it
+  useEffect(() => setFileError(undefined), [pathname]);
 
   const retry = () => {
     setState("loading");
@@ -46,7 +50,8 @@ export const GeneratedDataProvider = ({game, children}: {game: Game, children: R
           <button type="button" onClick={retry}>Try again</button>
         </div>
       )}
-      {state === "ready" && children}
+      {/* The page's own code loads here too, so the layout stays while it does */}
+      {state === "ready" && <Suspense fallback={<Spinner label="Loading game data…"/>}>{children}</Suspense>}
     </>
   );
 };
