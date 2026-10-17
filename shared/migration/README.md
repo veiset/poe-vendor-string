@@ -19,7 +19,7 @@ poe.re and poe2.re save their profiles in localStorage, and migrations bring sav
 4. **On failure.** If a migration fails (e.g. the data can't be fetched), the profile keeps its version and is migrated again on the next visit. A page that loads its data before then works with the old profile.
 5. **Only migrations raise the version.** Loading, saving, importing and exporting a profile keep the version it has. A profile whose version is raised anywhere else would never get the migrations in between.
 
-A new setting with a default needs no migration: a profile is merged with `defaultSettings` whenever it's loaded, so it gets the default. A migration is for changing what is already saved, e.g. renaming a setting or giving saved mods new ids.
+A new setting with a default needs no migration: a profile is merged with `defaultSettings` whenever it's loaded, so it gets the default. A migration is for changing what is already saved when losing it would matter to users, such as their selected mods or favorites, e.g. giving saved mods new ids. A small break to a setting is fine when it avoids a lot of complexity in the migration, e.g. a renamed setting that resets to its default; say what breaks in the PR.
 
 Favorites are saved in the profile, so a change to saved favorites is a profile migration too. Each favorite also has its own `schemaVersion` (1), which the migrations leave alone: a favorite with any other `schemaVersion` is dropped when favorites are read.
 
