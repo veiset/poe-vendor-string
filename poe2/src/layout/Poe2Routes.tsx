@@ -1,6 +1,5 @@
 import React, {lazy, Suspense} from "react";
-import {Navigate, Outlet, Route, Routes} from "react-router-dom";
-import {GeneratedDataProvider} from "@shared/components/GeneratedData/GeneratedDataProvider";
+import {Navigate, Route, Routes} from "react-router-dom";
 import {Poe2Layout} from "./Poe2Layout";
 
 const Poe2Vendor = lazy(async () => ({default: (await import("../pages/vendor/Vendor")).Vendor}));
@@ -15,16 +14,13 @@ export const Poe2Routes = () => (
   <Suspense fallback={<div className="route-loading" role="status" aria-live="polite">Loading…</div>}>
     <Routes>
     <Route element={<Poe2Layout/>}>
-      {/* The pages that read poe-item-gen's generated data */}
-      <Route element={<GeneratedDataProvider game="poe2"><Outlet/></GeneratedDataProvider>}>
-        <Route index element={<Favorites/>}/>
-        <Route path="favorites" element={<Favorites/>}/>
-        <Route path="waystone" element={<Poe2Waystone/>}/>
-        <Route path="tablet" element={<Poe2Tablet/>}/>
-        <Route path="relic" element={<Poe2Relic/>}/>
-        <Route path="item" element={<Poe2Item/>}/>
-      </Route>
+      <Route index element={<Favorites/>}/>
+      <Route path="favorites" element={<Favorites/>}/>
       <Route path="vendor" element={<Poe2Vendor/>}/>
+      <Route path="waystone" element={<Poe2Waystone/>}/>
+      <Route path="tablet" element={<Poe2Tablet/>}/>
+      <Route path="relic" element={<Poe2Relic/>}/>
+      <Route path="item" element={<Poe2Item/>}/>
       <Route path="privacy" element={<Privacy/>}/>
     </Route>
 

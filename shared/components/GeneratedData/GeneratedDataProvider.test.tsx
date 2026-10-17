@@ -9,18 +9,16 @@ const failed = (status: number, statusText: string) => ({ok: false, status, stat
 const answer = async (url: string) => url.endsWith("/history.json") ? ok(history) : failed(404, "Not Found");
 const fetchMock = vi.fn(answer);
 
-// Each test imports the modules again, so they read history.json again. /boat and /maps read
-// generated data, /vendor doesn't.
-async function renderApp(path = "/boat") {
+// Each test imports the modules again, so they read history.json again
+async function renderApp() {
   const {GeneratedDataProvider} = await import("./GeneratedDataProvider");
   render(
-    <MemoryRouter initialEntries={[path]}>
+    <MemoryRouter initialEntries={["/boat"]}>
       <Routes>
         <Route element={<GeneratedDataProvider game="poe1"><Outlet/></GeneratedDataProvider>}>
           <Route path="boat" element={<p>Boat <Link to="/maps">Maps</Link></p>}/>
           <Route path="maps" element={<p>Maps page</p>}/>
         </Route>
-        <Route path="vendor" element={<p>Vendor</p>}/>
       </Routes>
     </MemoryRouter>,
   );
@@ -79,11 +77,5 @@ describe("GeneratedDataProvider", () => {
     await act(async () => fireEvent.click(screen.getByRole("link", {name: "Maps"})));
     expect(screen.getByText("Maps page")).toBeInTheDocument();
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
-  });
-
-  it("doesn't hold up a page outside it", async () => {
-    await act(() => renderApp("/vendor"));
-    expect(screen.getByText("Vendor")).toBeInTheDocument();
-    expect(fetchMock).not.toHaveBeenCalled();
   });
 });
