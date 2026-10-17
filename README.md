@@ -128,16 +128,11 @@ deployments (`https://*.poe-production.pages.dev`, `https://*.poe2-production.pa
 `http://localhost` on any port. It's set with wrangler (`wrangler r2 bucket cors list
 poere-generated`). Set `VITE_DATA_URL` to read the files from somewhere else.
 
-## Refreshing trade stat mappings
+## Trade stat mappings
 
-Trade search buttons rely on stat-ID mappings against the official trade APIs. To refresh them, run:
-
-```bash
-pnpm run fetch-trade-stats
-```
-
-It matches the English map, waystone and tablet mods of the latest upload on R2 (see
-[Generated data](#generated-data)) with the trade API's stats, and updates:
+Trade search buttons rely on mappings from mod ids to the official trade APIs' stat ids. They are
+moving to poe-item-gen, which will publish them with the rest of the generated data, under
+`generated/<game>/<patch>/trade-ids/`. Until the apps read them from there, they use the copies in:
 - `poe/src/generated/mapmods/trade/TradeStatIdMatching.json` (PoE1)
 - `poe2/public/generated/trade/WaystoneTradeStatIds.json` (PoE2)
 - `poe2/public/generated/trade/TabletTradeStatIds.json` (PoE2)

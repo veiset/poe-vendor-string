@@ -27,7 +27,6 @@
     "preview": "vite preview",
     "preview:poe2": "vite preview --config vite.config.poe2.ts",
     "test": "vitest run",
-    "fetch-trade-stats": "pnpm exec ts-node --esm --project scripts/tsconfig.json scripts/fetch-trade-stats.ts",
     "fetch-typedefs": "pnpm exec ts-node --esm --project scripts/tsconfig.json scripts/fetch-typedefs.ts"
   },
   "devDependencies": {
