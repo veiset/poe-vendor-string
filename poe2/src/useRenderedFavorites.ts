@@ -1,12 +1,12 @@
 import {useEffect, useMemo, useState} from "react";
-import type {RepoeLanguageKey} from "@poe/utils/Languages";
+import type {GGPKLanguageKey} from "@poe/utils/Languages";
 import {isPoe2RegexFavorite} from "./favorites";
 import type {Poe2FavoriteRecord, Poe2RegexFavoriteRecord} from "./settings";
 import {renderPoe2Favorite} from "./favoriteLanguageRenderer";
 
-type RenderedState = {language: RepoeLanguageKey; regexById: Map<string, string>};
+type RenderedState = {language: GGPKLanguageKey; regexById: Map<string, string>};
 
-export function useRenderedFavorites(favorites: Poe2FavoriteRecord[], language: RepoeLanguageKey): Poe2FavoriteRecord[] {
+export function useRenderedFavorites(favorites: Poe2FavoriteRecord[], language: GGPKLanguageKey): Poe2FavoriteRecord[] {
   const [rendered, setRendered] = useState<RenderedState>();
   const dependent = favorites.filter((favorite): favorite is Poe2RegexFavoriteRecord =>
     isPoe2RegexFavorite(favorite) && favorite.languageDependent);

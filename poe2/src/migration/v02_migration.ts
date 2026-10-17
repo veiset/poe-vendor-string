@@ -1,5 +1,5 @@
-import {RepoeLanguage} from "@poe/utils/Languages";
-import type {RepoeLanguageKey} from "@poe/utils/Languages";
+import {GGPKLanguage} from "@poe/utils/Languages";
+import type {GGPKLanguageKey} from "@poe/utils/Languages";
 import type {Poe2FavoriteRecord, SelectOption, Settings} from "../settings";
 import {loadTabletAffixes, loadWaystoneAffixes} from "../utils/loadData";
 import type {ParsedAffix} from "../utils/parseAffixToken";
@@ -10,9 +10,9 @@ import type {ParsedAffix} from "../utils/parseAffixToken";
 // A saved mod is matched by id, else by name or regex, and gets the current id, name, regex and ranges.
 // Mods that are no longer in the data are dropped, and a mod saved twice is kept once.
 
-const languageKey = (language: unknown): RepoeLanguageKey =>
-  typeof language === "string" && Object.prototype.hasOwnProperty.call(RepoeLanguage, language)
-    ? language as RepoeLanguageKey
+const languageKey = (language: unknown): GGPKLanguageKey =>
+  typeof language === "string" && Object.prototype.hasOwnProperty.call(GGPKLanguage, language)
+    ? language as GGPKLanguageKey
     : "ENGLISH";
 
 const plainName = (name: string) => name.replace(/##/g, "#");
@@ -28,7 +28,7 @@ const migrateOptions = (options: SelectOption[], data: ParsedAffix[]): SelectOpt
     option === (migrated.find((e) => e.id === option.id && e.isSelected) ?? migrated.find((e) => e.id === option.id)));
 };
 
-const migrateWaystone = async (waystone: Settings["waystone"], language: RepoeLanguageKey): Promise<Settings["waystone"]> => {
+const migrateWaystone = async (waystone: Settings["waystone"], language: GGPKLanguageKey): Promise<Settings["waystone"]> => {
   const {wantedMods = [], unwantedMods = []} = waystone.modifier;
   if (wantedMods.length === 0 && unwantedMods.length === 0) return waystone;
   const data = await loadWaystoneAffixes(language);
@@ -39,7 +39,7 @@ const migrateWaystone = async (waystone: Settings["waystone"], language: RepoeLa
   }};
 };
 
-const migrateTablet = async (tablet: Settings["tablet"], language: RepoeLanguageKey): Promise<Settings["tablet"]> => {
+const migrateTablet = async (tablet: Settings["tablet"], language: GGPKLanguageKey): Promise<Settings["tablet"]> => {
   const {affixes = []} = tablet.modifier;
   if (affixes.length === 0) return tablet;
   const data = await loadTabletAffixes(language);

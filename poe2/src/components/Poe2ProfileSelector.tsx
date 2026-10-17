@@ -9,7 +9,7 @@ import ProfileExportBox from "@shared/components/profile/ProfileExportBox";
 import ProfileImportBox from "@shared/components/profile/ProfileImportBox";
 import {decodeProfile, encodeProfile} from "./ProfileTransfer";
 import {migrateProfile} from "../migration/migrations";
-import {RepoeLanguage, RepoeLanguageKey} from "@poe/utils/Languages";
+import {GGPKLanguage, GGPKLanguageKey} from "@poe/utils/Languages";
 
 interface Poe2ProfileSelectorProps {
   languageSelect?: boolean;
@@ -149,9 +149,9 @@ const Poe2ProfileSelector = ({languageSelect = false}: Poe2ProfileSelectorProps)
         className="dropdown-select dropdown-sm"
         value={languageSelect ? language : "ENGLISH"}
         disabled={!languageSelect}
-        onChange={(event) => setLanguage(event.target.value as RepoeLanguageKey)}
+        onChange={(event) => setLanguage(event.target.value as GGPKLanguageKey)}
       >
-        {Object.entries(RepoeLanguage).map(([key, data]) => (
+        {Object.entries(GGPKLanguage).map(([key, data]) => (
           <option className="option-language" key={key} value={key}>{data.flag} {data.name}</option>
         ))}
       </select>

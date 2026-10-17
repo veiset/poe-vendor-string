@@ -4,7 +4,7 @@ import {Poe2ProfileContext} from "./Poe2ProfileContext";
 import Poe2PageLinks from "./Poe2PageLinks";
 import Poe2Footer from "./Poe2Footer";
 import {ensureDefaultProfile, loadSettings, selectedProfile, updateSettings} from "../localStorage";
-import type {RepoeLanguageKey} from "@poe/utils/Languages";
+import type {GGPKLanguageKey} from "@poe/utils/Languages";
 import {useRefreshFromInitialLoad, useRefreshOnFocus} from "@shared/core/RefreshOnFocus";
 import {Poe2LeagueProvider} from "./Poe2LeagueContext";
 import {FavoritesProvider} from "../FavoritesContext";
@@ -16,8 +16,8 @@ export const Poe2Layout = () => {
     ensureDefaultProfile();
     return selectedProfile();
   });
-  const [language, setLanguageState] = useState<RepoeLanguageKey>(() => loadSettings(selectedProfile()).language);
-  const setLanguage = (next: RepoeLanguageKey) => {
+  const [language, setLanguageState] = useState<GGPKLanguageKey>(() => loadSettings(selectedProfile()).language);
+  const setLanguage = (next: GGPKLanguageKey) => {
     updateSettings(currentProfile, (settings) => ({...settings, language: next}));
     setLanguageState(next);
   };

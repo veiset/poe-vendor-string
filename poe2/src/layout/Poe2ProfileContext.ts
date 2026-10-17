@@ -1,11 +1,11 @@
 import {createContext} from "react";
-import type {RepoeLanguageKey} from "@poe/utils/Languages";
+import type {GGPKLanguageKey} from "@poe/utils/Languages";
 
 export interface Poe2ProfileContextType {
   currentProfile: string;
   setCurrentProfile: (p: string) => void;
-  language: RepoeLanguageKey;
-  setLanguage: (language: RepoeLanguageKey) => void;
+  language: GGPKLanguageKey;
+  setLanguage: (language: GGPKLanguageKey) => void;
 }
 
 export const Poe2ProfileContext = createContext<Poe2ProfileContextType>({

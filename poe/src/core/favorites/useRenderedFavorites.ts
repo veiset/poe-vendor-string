@@ -6,7 +6,7 @@ import {generateBoatModRegex} from "@poe/pages/boat/BoatOutput";
 import {storedLanguage} from "@poe/utils/Languages";
 import {generateGemsRegex, translateGemIds} from "@poe/pages/gems/GemsOutput";
 import type {BoatSettings, GemsSettings} from "@poe/utils/SavedSettings";
-import type {RepoeLanguageKey} from "@poe/utils/Languages";
+import type {GGPKLanguageKey} from "@poe/utils/Languages";
 import {merge} from "@shared/core/utils";
 import {groupAffixes} from "@shared/core/item/GroupUtils";
 import {generateMagicItemRegex, generateRareItemRegex} from "@shared/core/item/ItemOutput";
@@ -21,7 +21,7 @@ type ItemData = {
   targetRegex: Awaited<ReturnType<typeof loadItemRegex>>;
 };
 
-const mapRegex = (settings: MapSettings, language: RepoeLanguageKey, data: Awaited<ReturnType<typeof loadMapMods>>) => {
+const mapRegex = (settings: MapSettings, language: GGPKLanguageKey, data: Awaited<ReturnType<typeof loadMapMods>>) => {
   const generated = generateMapModRegex(settings, data, language);
   return settings.customText.enabled && settings.customText.value ? `${generated} ${settings.customText.value}` : generated;
 };
@@ -52,9 +52,9 @@ const normalizeItemSettings = (configuration: unknown): ItemCraftingSettings => 
  * Keeps saved favorites immutable while presenting their language-dependent
  * output in the language currently selected by the profile.
  */
-export const useRenderedFavorites = (favorites: FavoriteRecord[], language: RepoeLanguageKey): FavoriteRecord[] => {
-  const [mapData, setMapData] = useState<{language: RepoeLanguageKey; data: Awaited<ReturnType<typeof loadMapMods>>}>();
-  const [boatData, setBoatData] = useState<{language: RepoeLanguageKey; data: Awaited<ReturnType<typeof loadBoatMods>>}>();
+export const useRenderedFavorites = (favorites: FavoriteRecord[], language: GGPKLanguageKey): FavoriteRecord[] => {
+  const [mapData, setMapData] = useState<{language: GGPKLanguageKey; data: Awaited<ReturnType<typeof loadMapMods>>}>();
+  const [boatData, setBoatData] = useState<{language: GGPKLanguageKey; data: Awaited<ReturnType<typeof loadBoatMods>>}>();
   const [gemDataById, setGemDataById] = useState<Map<string, {source: Awaited<ReturnType<typeof loadGems>>; target: Awaited<ReturnType<typeof loadGems>>}>>();
   const languageDependentFavorites = favorites.filter(isRegexFavorite).filter((favorite) => favorite.languageDependent);
   const hasMapFavorites = languageDependentFavorites.some((favorite) => favorite.pageKey === "maps");

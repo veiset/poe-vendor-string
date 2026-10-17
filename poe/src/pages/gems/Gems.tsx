@@ -10,7 +10,7 @@ import {defaultSettings, GemsSettings} from "@poe/utils/SavedSettings";
 import {loadGems} from "@poe/utils/loadData";
 import type {GemsRegex} from "@shared/typedefs/poe1/Gems";
 import {useFavoritePage} from "@poe/core/favorites/useFavoritePage";
-import type {RepoeLanguageKey} from "@poe/utils/Languages";
+import type {GGPKLanguageKey} from "@poe/utils/Languages";
 import GemNameList from "../vendor/GemNameList";
 import "./Gems.css";
 import {generateGemsRegex, translateGemIds} from "./GemsOutput";
@@ -34,7 +34,7 @@ const Gems = () => {
   const [showSupports, setShowSupports] = useState(profile.gems.showSupports);
   const [supportType, setSupportType] = useState(profile.gems.supportType);
   const [selected, setSelected] = useState(profile.gems.selected);
-  const loadedLanguage = useRef<RepoeLanguageKey | undefined>(undefined);
+  const loadedLanguage = useRef<GGPKLanguageKey | undefined>(undefined);
 
   useEffect(() => {
     let active = true;

@@ -20,7 +20,7 @@ import {itemSettingsLanguage, loadItemBasetypes, loadItemRegex} from "@poe/utils
 import {findSimilarBases, groupAffixes} from "@shared/core/item/GroupUtils";
 import {rebaseItemSettings} from "@shared/core/item/RebaseItemSettings";
 import {Spinner} from "@shared/components/Spinner/Spinner";
-import {RepoeLanguage, RepoeLanguageKey} from "@poe/utils/Languages";
+import {GGPKLanguage, GGPKLanguageKey} from "@poe/utils/Languages";
 import {ItemCraftingSettings} from "@shared/types/Settings.types";
 import "./Item.css";
 
@@ -34,7 +34,7 @@ const Item = () => {
   const [itemRegex, setItemRegex] = useState<ItemRegex[]>([]);
   const [dataLanguage, setDataLanguage] = useState<string>();
   const [regexLanguage, setRegexLanguage] = useState<string>();
-  const loadedLanguage = useRef<RepoeLanguageKey | undefined>(undefined);
+  const loadedLanguage = useRef<GGPKLanguageKey | undefined>(undefined);
 
   const affixMap: Record<string, ItemAffixRegex> = useMemo(() => groupAffixes(itemRegex), [itemRegex]);
 
@@ -182,7 +182,7 @@ const Item = () => {
         enableBug={true}
       />
       <ItemInfoBanner/>
-      {loading && <Spinner className="item-loading" label={`Loading ${RepoeLanguage[lang].name} item data…`}/>}
+      {loading && <Spinner className="item-loading" label={`Loading ${GGPKLanguage[lang].name} item data…`}/>}
 
       <ItemBaseSelector itemBase={itembase} basetypes={basetypes} setItemBase={setItembase}
                         nonMagicalBase={nonMagicalBase}

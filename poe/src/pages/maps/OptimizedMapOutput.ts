@@ -2,11 +2,11 @@ import {MapSettings} from "@poe/utils/SavedSettings";
 import type {RegexResult as Regex} from "@shared/typedefs/RegexResult";
 import {idToRegex, optimizeRegexFromIds} from "@poe/utils/regex/OptimizeRegexResult";
 import {generateNumberRegex} from "@shared/core/regex/GenerateNumberRegex";
-import {MapStaticStatRegex, RepoeLanguageKey} from "@poe/utils/Languages";
+import {MapStaticStatRegex, GGPKLanguageKey} from "@poe/utils/Languages";
 import {generatePriceRangeRegex} from "@poe/utils/regex/GeneratePriceRangeRegex";
 import {MapTypeRegex, selectedMapTypes} from "./MapTypes";
 
-export function generateMapModRegex(settings: MapSettings, regex: Regex<any>, language: RepoeLanguageKey): string {
+export function generateMapModRegex(settings: MapSettings, regex: Regex<any>, language: GGPKLanguageKey): string {
   // Excluded map types share the "!" term with the excluded mods; included map types match any of them
   const mapTypeRegex = MapTypeRegex[language] ?? MapTypeRegex.ENGLISH;
   const mapTypeTerms = (include: boolean) => settings.mapTypesInRegex
@@ -32,7 +32,7 @@ export function generateMapModRegex(settings: MapSettings, regex: Regex<any>, la
   return optimize(result);
 }
 
-function yieldQualifier(settings: MapSettings, language: RepoeLanguageKey) {
+function yieldQualifier(settings: MapSettings, language: GGPKLanguageKey) {
   const statRegex = MapStaticStatRegex[language] ?? MapStaticStatRegex.ENGLISH;
   const result = [
     addQuantifier(statRegex.quantity, generateNumberRegex(settings.quantity, settings.optimizeQuant)),
@@ -47,7 +47,7 @@ function yieldQualifier(settings: MapSettings, language: RepoeLanguageKey) {
   return `"${result.map((e) => e.slice(1, -1)).join("|")}"`;
 }
 
-function unidentifiedMap(settings: MapSettings, language: RepoeLanguageKey) {
+function unidentifiedMap(settings: MapSettings, language: GGPKLanguageKey) {
   const statRegex = MapStaticStatRegex[language] ?? MapStaticStatRegex.ENGLISH;
   if (settings.unidentified.enabled) {
     return settings.unidentified.include ? statRegex.unidentified : `!${statRegex.unidentified}`
@@ -55,7 +55,7 @@ function unidentifiedMap(settings: MapSettings, language: RepoeLanguageKey) {
   return "";
 }
 
-function corruptedMapCheck(settings: MapSettings, language: RepoeLanguageKey) {
+function corruptedMapCheck(settings: MapSettings, language: GGPKLanguageKey) {
   const statRegex = MapStaticStatRegex[language] ?? MapStaticStatRegex.ENGLISH;
   if (settings.corrupted.enabled) {
     return settings.corrupted.include ? statRegex.corrupted : `!${statRegex.corrupted}`;
@@ -63,7 +63,7 @@ function corruptedMapCheck(settings: MapSettings, language: RepoeLanguageKey) {
   return "";
 }
 
-function qualityQualifier(settings: MapSettings, language: RepoeLanguageKey) {
+function qualityQualifier(settings: MapSettings, language: GGPKLanguageKey) {
   const statRegex = MapStaticStatRegex[language] ?? MapStaticStatRegex.ENGLISH;
   function qualityType(type: string) {
     if (type === "regular") return statRegex.quality_regular;
@@ -100,7 +100,7 @@ function generateBadMods(settings: MapSettings, regex: Regex<any>, mapTypes: str
   return terms.length > 0 ? `"!${terms.join("|")}"` : "";
 }
 
-function generateGoodMods(settings: MapSettings, regex: Regex<any>, language: RepoeLanguageKey): string {
+function generateGoodMods(settings: MapSettings, regex: Regex<any>, language: GGPKLanguageKey): string {
   if (settings.goodIds.length === 0) {
     return "";
   }
@@ -121,7 +121,7 @@ function onlyUnique(value: string, index: number, array: string[]) {
   return array.indexOf(value) === index;
 }
 
-function addRarityRegex(normal: boolean, magic: boolean, rare: boolean, include: boolean, language: RepoeLanguageKey): string {
+function addRarityRegex(normal: boolean, magic: boolean, rare: boolean, include: boolean, language: GGPKLanguageKey): string {
   const statRegex = MapStaticStatRegex[language] ?? MapStaticStatRegex.ENGLISH;
   if (normal && magic && rare) {
     return include ? "" : `"!${statRegex.rarity_prefix}(${statRegex.rarity_normal}|${statRegex.rarity_magic}|${statRegex.rarity_rare})"`;

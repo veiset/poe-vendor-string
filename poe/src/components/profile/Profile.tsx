@@ -10,7 +10,7 @@ import {
 } from "../../utils/LocalStorage";
 import {defaultSettings, SavedSettings} from "../../utils/SavedSettings";
 import {ProfileContext} from "./ProfileContext";
-import {RepoeLanguage, RepoeLanguageData, RepoeLanguageKey} from "../../utils/Languages";
+import {GGPKLanguage, GGPKLanguageData, GGPKLanguageKey} from "../../utils/Languages";
 import ProfileExportBox from "@shared/components/profile/ProfileExportBox";
 import ProfileImportBox from "@shared/components/profile/ProfileImportBox";
 import {decodeProfile, encodeProfile} from "./ProfileTransfer";
@@ -206,9 +206,9 @@ const Profile = (props: ProfileProps) => {
         className="dropdown-select dropdown-sm"
         value={languageSelect ? lang : "ENGLISH"}
         disabled={!languageSelect}
-        onChange={(e) => setLang(e.target.value as RepoeLanguageKey)}
+        onChange={(e) => setLang(e.target.value as GGPKLanguageKey)}
       >
-        {Object.entries(RepoeLanguage).map(([key, data]) => (
+        {Object.entries(GGPKLanguage).map(([key, data]) => (
           <option
             className="option-language"
             key={key}
