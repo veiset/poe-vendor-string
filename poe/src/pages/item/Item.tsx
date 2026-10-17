@@ -20,8 +20,9 @@ import {itemSettingsLanguage, loadItemBasetypes, loadItemRegex} from "@poe/utils
 import {findSimilarBases, groupAffixes} from "@shared/core/item/GroupUtils";
 import {rebaseItemSettings} from "@shared/core/item/RebaseItemSettings";
 import {Spinner} from "@shared/components/Spinner/Spinner";
-import {GGPKLanguage, GGPKLanguageKey} from "@poe/utils/Languages";
+import {GGPKLanguage} from "@poe/utils/Languages";
 import {ItemCraftingSettings} from "@shared/types/Settings.types";
+import type {Language} from "@shared/typedefs/Language";
 import "./Item.css";
 
 const Item = () => {
@@ -34,7 +35,7 @@ const Item = () => {
   const [itemRegex, setItemRegex] = useState<ItemRegex[]>([]);
   const [dataLanguage, setDataLanguage] = useState<string>();
   const [regexLanguage, setRegexLanguage] = useState<string>();
-  const loadedLanguage = useRef<GGPKLanguageKey | undefined>(undefined);
+  const loadedLanguage = useRef<Language | undefined>(undefined);
 
   const affixMap: Record<string, ItemAffixRegex> = useMemo(() => groupAffixes(itemRegex), [itemRegex]);
 

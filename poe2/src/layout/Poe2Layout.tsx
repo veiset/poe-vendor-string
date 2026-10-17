@@ -4,11 +4,11 @@ import {Poe2ProfileContext} from "./Poe2ProfileContext";
 import Poe2PageLinks from "./Poe2PageLinks";
 import Poe2Footer from "./Poe2Footer";
 import {ensureDefaultProfile, loadSettings, selectedProfile, updateSettings} from "../localStorage";
-import type {GGPKLanguageKey} from "@poe/utils/Languages";
 import {useRefreshFromInitialLoad, useRefreshOnFocus} from "@shared/core/RefreshOnFocus";
 import {Poe2LeagueProvider} from "./Poe2LeagueContext";
 import {FavoritesProvider} from "../FavoritesContext";
 import {GeneratedDataFileError} from "@shared/components/GeneratedData/GeneratedDataFileError";
+import type {Language} from "@shared/typedefs/Language";
 import "../poe2.css";
 
 export const Poe2Layout = () => {
@@ -16,8 +16,8 @@ export const Poe2Layout = () => {
     ensureDefaultProfile();
     return selectedProfile();
   });
-  const [language, setLanguageState] = useState<GGPKLanguageKey>(() => loadSettings(selectedProfile()).language);
-  const setLanguage = (next: GGPKLanguageKey) => {
+  const [language, setLanguageState] = useState<Language>(() => loadSettings(selectedProfile()).language);
+  const setLanguage = (next: Language) => {
     updateSettings(currentProfile, (settings) => ({...settings, language: next}));
     setLanguageState(next);
   };

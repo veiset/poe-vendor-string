@@ -5,9 +5,9 @@ import {
   MagicItemType,
   SelectedMod,
 } from "@poe/pages/magicitem/MagicItem";
-import { GGPKLanguageKey } from "./Languages";
 import type {FavoriteRecord} from "@poe/core/favorites/FavoriteTypes";
 import {itemCraftingDefault, ItemCraftingSettings} from "@shared/types/Settings.types";
+import type {Language} from "@shared/typedefs/Language";
 
 export const categories: ItemCategory[] = [
   {
@@ -110,7 +110,7 @@ export const categories: ItemCategory[] = [
 ];
 
 export interface SavedSettings {
-  language: GGPKLanguageKey;
+  language: Language;
   name: string;
   version: number;
   favorites: FavoriteRecord[];

@@ -30,16 +30,14 @@ export const GGPKLanguage = {
   },
 } as const satisfies Record<Language, GGPKLanguageData>;
 
-export type GGPKLanguageKey = keyof typeof GGPKLanguage;
-
 /** A language saved with a favorite, or English when it isn't one the site has. */
-export const storedLanguage = (language: string | undefined): GGPKLanguageKey =>
-  language && Object.prototype.hasOwnProperty.call(GGPKLanguage, language) ? language as GGPKLanguageKey : "ENGLISH";
+export const storedLanguage = (language: string | undefined): Language =>
+  language && Object.prototype.hasOwnProperty.call(GGPKLanguage, language) ? language as Language : "ENGLISH";
 
 export const TRANSLATION_NEED = "TRANSLATION_NEEDED";
 
 export const MapStaticStatRegex: Record<
-  GGPKLanguageKey,
+  Language,
   {
     quantity: string;
     packsize: string;

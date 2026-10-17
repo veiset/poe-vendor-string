@@ -2,15 +2,16 @@ import {useContext, useEffect, useMemo} from "react";
 import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import {merge} from "@shared/core/utils";
 import {ProfileContext} from "@poe/components/profile/ProfileContext";
-import {GGPKLanguageKey, storedLanguage} from "@poe/utils/Languages";
+import {storedLanguage} from "@poe/utils/Languages";
 import {useFavorites} from "./FavoritesContext";
 import {FavoriteContextData, FavoriteSnapshot, Poe1FavoritePageKey, cloneFavoriteConfiguration, isRegexFavorite} from "./FavoriteTypes";
 import {FAVORITE_PAGE_REGISTRY} from "./FavoritePageRegistry";
 import type {RegexFavoriteAction} from "@shared/components/RegexResultBox/RegexResultBox";
+import type {Language} from "@shared/typedefs/Language";
 
 export interface FavoritePageSession<T> {
   initialConfiguration: T;
-  initialLanguage: GGPKLanguageKey;
+  initialLanguage: Language;
   isEditingFavorite: boolean;
   action: (configuration: T, context?: FavoriteContextData, disabledReason?: string) => RegexFavoriteAction;
 }
