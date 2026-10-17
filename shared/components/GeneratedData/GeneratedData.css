@@ -48,9 +48,9 @@
     box-sizing: border-box;
 }
 
-/* Three lines of regex that fade out downwards into the card */
+/* Two lines of regex that fade out downwards into the card */
 .generated-data-error-regex {
-    max-height: 4.5em;
+    max-height: 3em;
     margin: 0 0 8px;
     overflow: hidden;
     font-family: ui-monospace, "SF Mono", Menlo, monospace;
