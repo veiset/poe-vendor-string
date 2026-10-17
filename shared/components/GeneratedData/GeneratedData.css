@@ -48,15 +48,18 @@
     box-sizing: border-box;
 }
 
+/* Three lines of regex that fade out downwards into the card */
 .generated-data-error-regex {
-    margin: 0 0 16px;
+    max-height: 4.5em;
+    margin: 0 0 8px;
     overflow: hidden;
-    white-space: nowrap;
     font-family: ui-monospace, "SF Mono", Menlo, monospace;
     font-size: 11px;
+    line-height: 1.5;
+    word-break: break-all;
     color: var(--color-text-error);
-    -webkit-mask-image: linear-gradient(to right, black 55%, transparent);
-    mask-image: linear-gradient(to right, black 55%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+    mask-image: linear-gradient(to bottom, black, transparent);
     user-select: none;
 }
 

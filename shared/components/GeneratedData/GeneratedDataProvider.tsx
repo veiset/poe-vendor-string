@@ -12,7 +12,7 @@ type State = "loading" | "ready" | {failed: string};
 const discordUrl = "https://discord.gg/T8BzKnatY6";
 
 // A broken regex across the top of the error, in place of a red border
-const brokenRegex = String.raw`"!ir p|au c|ss lo" "^(?=.*?ma(?!ps))[^\d]{2,}" "!nt$|ce\b|\(1[0-9]" "rr(?<=o)r|lo?ad.*d(at|a)?$" "[^x]+?|¿?|$^" "(?!data)|\[\]{,}" "!err|or!|(?=`;
+const brokenRegex = String.raw`"!ir p|au c|ss lo" "^(?=.*?ma(?!ps))[^\d]{2,}" "!nt$|ce\b|\(1[0-9]" "rr(?<=o)r|lo?ad.*d(at|a)?$" "[^x]+?|¿?|$^" "(?!data)|\[\]{,}" "!err|or!|(?=" "m(?:ap|od)s?\s{0}[^]" "^tr.*y(\d+)?ag(?:ain)?$" "!(?<=x)y|\b\B|.{-1}" "wa?ys?t(on)?e|ta?bl.t|re?l[i!]c" "(?=(?=(?=" "![\x00-\x1f]|\p{?}|$$" "lo+a+d+i+n+g+" "!ex(?!p)|ed.*n(?=$" "^^" "|||" "[a-Z]|\2|(?#)" "fai?l(ed)?.*4[0o]4"`;
 
 const messageOf = (error: unknown) => error instanceof Error ? error.message : String(error);
 
