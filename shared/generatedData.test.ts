@@ -26,7 +26,7 @@ describe("generated data from R2", () => {
     await expect(loadGeneratedData("poe2")).resolves.toEqual({
       source: "r2", game: "poe2", dataBaseUrl: "https://data.poe.re", patch: "0.5.5.4.2", commit: "72cc002",
     });
-    expect(fetchMock).toHaveBeenCalledWith("https://data.poe.re/history.json", {cache: "no-cache"});
+    expect(fetchMock).toHaveBeenCalledWith("https://data.poe.re/history.json", {cache: "no-cache", signal: expect.any(AbortSignal)});
   });
 
   it("loads a file of that upload, with its commit", async () => {
@@ -41,6 +41,12 @@ describe("generated data from R2", () => {
     const {fetchGeneratedFile} = await load();
     await expect(fetchGeneratedFile("a.json")).rejects.toThrow("before the generated data is found");
     expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("gives up on a request that doesn't answer within 20 seconds", async () => {
+    const {loadGeneratedData} = await load();
+    fetchMock.mockRejectedValueOnce(new DOMException("signal timed out", "TimeoutError"));
+    await expect(loadGeneratedData("poe1")).rejects.toThrow("https://data.poe.re/history.json didn't answer within 20 seconds");
   });
 
   it("fails when history.json fails, or has no upload for the game", async () => {
@@ -62,6 +68,7 @@ describe("generated data from R2", () => {
     expect(listener).toHaveBeenCalledWith({
       file: "mapmods/Generated.Map.ENGLISH.min.json",
       message: "Failed to load https://data.poe.re/generated/poe1/3.29.3.3/mapmods/Generated.Map.ENGLISH.min.json?v=d1bab48: 404 Not Found",
+      requestedAt: expect.any(Number),
     });
   });
 });

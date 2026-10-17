@@ -1,7 +1,10 @@
 const defaultDataUrl = "https://data.poe.re";
 
-const dataBaseUrl = (import.meta.env.VITE_DATA_URL ?? defaultDataUrl)
+const dataBaseUrl = (import.meta.env.VITE_DATA_URL || defaultDataUrl)
   .replace(/\/$/, "");
+
+// A request that hasn't answered by then fails, so a stalled connection shows an error instead of a spinner
+const timeoutSeconds = 20;
 
 /**
  * Where the generated files are read from:
@@ -24,10 +27,11 @@ export type GeneratedData =
   | {source: "local", game: Game}
   | {source: "r2", game: Game, dataBaseUrl: string, patch: string, commit: string};
 
-/** A generated file that failed to load. */
+/** A generated file that failed to load, and when it was requested (performance.now()). */
 export interface GeneratedDataError {
   file: string;
   message: string;
+  requestedAt: number;
 }
 
 const listeners = new Set<(error: GeneratedDataError) => void>();
@@ -39,7 +43,15 @@ export function onGeneratedDataError(listener: (error: GeneratedDataError) => vo
 }
 
 async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(url, init);
+  let response: Response;
+  try {
+    response = await fetch(url, {...init, signal: AbortSignal.timeout(timeoutSeconds * 1000)});
+  } catch (error) {
+    if (error instanceof DOMException && error.name === "TimeoutError") {
+      throw new Error(`${url} didn't answer within ${timeoutSeconds} seconds`);
+    }
+    throw error;
+  }
   if (!response.ok) {
     throw new Error(`Failed to load ${url}: ${response.status} ${response.statusText}`);
   }
@@ -84,10 +96,12 @@ export async function fetchGeneratedFile<T>(file: string): Promise<T> {
     throw new Error(`Can't load ${file} before the generated data is found: GeneratedDataProvider finds it first`);
   }
   const url = fileUrl(loaded, file);
+  const requestedAt = performance.now();
   try {
     return await fetchJson<T>(url);
   } catch (error) {
-    listeners.forEach((listener) => listener({file, message: error instanceof Error ? error.message : String(error)}));
+    const message = error instanceof Error ? error.message : String(error);
+    listeners.forEach((listener) => listener({file, message, requestedAt}));
     throw error;
   }
 }

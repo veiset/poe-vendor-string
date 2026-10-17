@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useLocation} from "react-router-dom";
 import {GeneratedDataError, onGeneratedDataError} from "@shared/generatedData";
 import {ErrorCard} from "./ErrorCard";
@@ -7,10 +7,17 @@ import {ErrorCard} from "./ErrorCard";
 export const GeneratedDataFileError = ({language}: {language: string}) => {
   const [fileError, setFileError] = useState<GeneratedDataError>();
   const {pathname} = useLocation();
+  const clearedAt = useRef(0);
 
-  useEffect(() => onGeneratedDataError(setFileError), []);
+  // A request from before the page or language changed may still fail later; it isn't this page's
+  useEffect(() => onGeneratedDataError((error) => {
+    if (error.requestedAt >= clearedAt.current) setFileError(error);
+  }), []);
   // A failed file belongs to the page and language that loaded it
-  useEffect(() => setFileError(undefined), [pathname, language]);
+  useEffect(() => {
+    clearedAt.current = performance.now();
+    setFileError(undefined);
+  }, [pathname, language]);
 
   if (!fileError) return null;
   return (

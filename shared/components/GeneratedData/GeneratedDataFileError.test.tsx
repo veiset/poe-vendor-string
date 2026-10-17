@@ -63,4 +63,17 @@ describe("GeneratedDataFileError", () => {
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
     expect(screen.getByText("Boat")).toBeInTheDocument();
   });
+
+  it("ignores a file requested before the language changed that fails after it", async () => {
+    let respond: (response: unknown) => void = () => {};
+    fetchMock.mockImplementationOnce((() => new Promise((resolve) => { respond = resolve; })) as never);
+    const request = fetchGeneratedFile("boatmods/Generated.BoatMods.FRENCH.min.json").catch(() => {});
+
+    await act(async () => fireEvent.click(screen.getByRole("button", {name: "English"})));
+    await act(async () => {
+      respond({ok: false, status: 404, statusText: "Not Found"});
+      await request;
+    });
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
 });

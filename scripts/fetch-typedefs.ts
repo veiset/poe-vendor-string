@@ -8,7 +8,7 @@ import {fileURLToPath} from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const DATA_URL = process.env.VITE_DATA_URL ?? 'https://data.poe.re';
+const DATA_URL = (process.env.VITE_DATA_URL || 'https://data.poe.re').replace(/\/$/, '');
 const TYPEDEFS_URL = `${DATA_URL}/typedefs`;
 const OUTPUT_DIR = path.join(__dirname, '../shared/typedefs');
 
@@ -33,16 +33,25 @@ async function main() {
     .split('\n')
     .filter(line => line.trim())
     .map(line => {
-      const [hash, file] = line.split(/\s+\*?/);
-      return {hash, file};
+      const match = line.match(/^([0-9a-f]{64}) [ *](.+)$/);
+      // Only TypeScript files, inside shared/typedefs
+      if (!match || !/^[\w-]+(\/[\w-]+)*\.ts$/.test(match[2])) {
+        throw new Error(`Unexpected line in SHA256SUMS: ${line}`);
+      }
+      return {hash: match[1], file: match[2]};
     });
 
-  for (const {hash, file} of sums) {
+  // Download and check every file before writing any, so a failure leaves shared/typedefs as it was
+  const downloads = await Promise.all(sums.map(async ({hash, file}) => {
     const bytes = await download(`${TYPEDEFS_URL}/${file}`);
     const actual = crypto.createHash('sha256').update(bytes).digest('hex');
     if (actual !== hash) {
       throw new Error(`${file} doesn't match SHA256SUMS (got ${actual}, expected ${hash})`);
     }
+    return {file, bytes};
+  }));
+
+  for (const {file, bytes} of downloads) {
     const output = path.join(OUTPUT_DIR, file);
     fs.mkdirSync(path.dirname(output), {recursive: true});
     fs.writeFileSync(output, bytes);

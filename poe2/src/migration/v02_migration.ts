@@ -1,4 +1,4 @@
-import {GGPKLanguage} from "@poe/utils/Languages";
+import {storedLanguage} from "@poe/utils/Languages";
 import type {Poe2FavoriteRecord, SelectOption, Settings} from "../settings";
 import {loadTabletAffixes, loadWaystoneAffixes} from "../utils/loadData";
 import type {ParsedAffix} from "../utils/parseAffixToken";
@@ -9,11 +9,6 @@ import type {Language} from "@shared/typedefs/Language";
 // Mods saved between those two also have # in their name where the data now has ##.
 // A saved mod is matched by id, else by name or regex, and gets the current id, name, regex and ranges.
 // Mods that are no longer in the data are dropped, and a mod saved twice is kept once.
-
-const languageKey = (language: unknown): Language =>
-  typeof language === "string" && Object.prototype.hasOwnProperty.call(GGPKLanguage, language)
-    ? language as Language
-    : "ENGLISH";
 
 const plainName = (name: string) => name.replace(/##/g, "#");
 
@@ -49,14 +44,14 @@ const migrateTablet = async (tablet: Settings["tablet"], language: Language): Pr
 // A favorite's configuration is the page's settings. Favorites saved without a language are English, as in renderPoe2Favorite.
 const migrateFavorite = async (favorite: Poe2FavoriteRecord): Promise<Poe2FavoriteRecord> => {
   if (!("pageKey" in favorite) || !(favorite.configuration as {modifier?: object} | null)?.modifier) return favorite;
-  const language = languageKey(favorite.context?.language);
+  const language = storedLanguage(favorite.context?.language);
   if (favorite.pageKey === "waystone") return {...favorite, configuration: await migrateWaystone(favorite.configuration as Settings["waystone"], language)};
   if (favorite.pageKey === "tablet") return {...favorite, configuration: await migrateTablet(favorite.configuration as Settings["tablet"], language)};
   return favorite;
 };
 
 export async function migrateV1ToV2(settings: Settings): Promise<Settings> {
-  const language = languageKey(settings.language);
+  const language = storedLanguage(settings.language);
   return {
     ...settings,
     waystone: await migrateWaystone(settings.waystone, language),

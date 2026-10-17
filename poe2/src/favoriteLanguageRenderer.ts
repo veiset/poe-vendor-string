@@ -3,7 +3,7 @@ import {rebaseItemSettings} from "@shared/core/item/RebaseItemSettings";
 import {generateMagicItemRegex, generateRareItemRegex} from "@shared/core/item/ItemOutput";
 import type {ItemCraftingSettings} from "@shared/types/Settings.types";
 import {merge} from "@shared/core/utils";
-import {GGPKLanguage} from "@poe/utils/Languages";
+import {storedLanguage} from "@poe/utils/Languages";
 import {defaultSettings} from "./settings";
 import type {Poe2RegexFavoriteRecord, SelectOption} from "./settings";
 import {loadItemBasetypes, loadItemRegex, loadRelicRegex, loadTabletAffixes, loadWaystoneAffixes} from "./utils/loadData";
@@ -62,10 +62,7 @@ export const rebaseRelicSettings = (
 
 export async function renderPoe2Favorite(favorite: Poe2RegexFavoriteRecord, language: Language): Promise<string> {
   if (!favorite.languageDependent) return favorite.regex;
-  const storedLanguage = favorite.context.language;
-  const sourceLanguage = storedLanguage && Object.prototype.hasOwnProperty.call(GGPKLanguage, storedLanguage)
-    ? storedLanguage as Language
-    : "ENGLISH";
+  const sourceLanguage = storedLanguage(favorite.context.language);
 
   // Waystone and tablet favorites are rendered from the loaded data in every language, so a saved mod never keeps an old regex
   if (favorite.pageKey === "waystone") {

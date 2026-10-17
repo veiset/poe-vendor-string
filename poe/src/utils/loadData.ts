@@ -33,9 +33,8 @@ const itemRegex = createLanguageDataLoader<Language, ItemRegex[]>((language) =>
   fetchGeneratedFile<ItemRegex[]>(`item/Generated.Item.${language}.min.json`),
 );
 
-const boatMods = createLanguageDataLoader<Language, BoatModsRegex>((language) =>
-  fetchGeneratedFile<BoatModsRegex>(`boatmods/Generated.BoatMods.${language}.min.json`),
-);
+// The boat mods are only generated in English: the boat leaves the game with the next patch
+const boatMods = lazy(() => fetchGeneratedFile<BoatModsRegex>("boatmods/Generated.BoatMods.ENGLISH.min.json"));
 const expedition = lazy(() => fetchGeneratedFile<Expedition>(`expedition/Generated.Expedition.min.json`));
 const jewel = lazy(() => fetchGeneratedFile<Jewel>(`jewel/Generated.Jewel.min.json`));
 const beastRegexes = createLanguageDataLoader<Language, BeastRegex>((language) =>
@@ -59,7 +58,7 @@ export const itemSettingsLanguage = async (language: Language, itembase: Itembas
   hasItem(await loadItemBasetypes(language), itembase) ? language : "ENGLISH";
 
 export const loadBeastRegex = (language: Language): Promise<BeastRegex> => beastRegexes(language);
-export const loadBoatMods = (language: Language): Promise<BoatModsRegex> => boatMods(language);
+export const loadBoatMods = (): Promise<BoatModsRegex> => boatMods();
 export const loadExpedition = (): Promise<Expedition> => expedition();
 export const loadJewel = (): Promise<Jewel> => jewel();
 export const loadScarabs = (language: Language): Promise<Scarabs> => scarabData(language);

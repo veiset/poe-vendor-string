@@ -24,6 +24,7 @@ describe("GeneratedDataProvider", () => {
   });
   afterEach(() => {
     cleanup();
+    vi.restoreAllMocks();
     vi.unstubAllGlobals();
     fetchMock.mockReset();
     fetchMock.mockImplementation(answer);

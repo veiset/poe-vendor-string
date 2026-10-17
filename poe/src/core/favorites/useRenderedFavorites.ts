@@ -80,7 +80,7 @@ export const useRenderedFavorites = (favorites: FavoriteRecord[], language: Lang
   useEffect(() => {
     if (!hasBoatFavorites) { setBoatData(undefined); return; }
     let cancelled = false;
-    loadBoatMods(language).then((data) => { if (!cancelled) setBoatData({language, data}); }).catch(() => { if (!cancelled) setBoatData(undefined); });
+    loadBoatMods().then((data) => { if (!cancelled) setBoatData({language, data}); }).catch(() => { if (!cancelled) setBoatData(undefined); });
     return () => { cancelled = true; };
   }, [hasBoatFavorites, language]);
 

@@ -87,7 +87,7 @@ const Boat = () => {
 
   useEffect(() => {
     let active = true;
-    loadBoatMods(profile.language).then((data) => { if (active) setRegexBoatMods(data); });
+    loadBoatMods().then((data) => { if (active) setRegexBoatMods(data); });
     return () => { active = false; };
   }, [profile.language]);
 

@@ -30,9 +30,9 @@ export const GGPKLanguage = {
   },
 } as const satisfies Record<Language, GGPKLanguageData>;
 
-/** A language saved with a favorite, or English when it isn't one the site has. */
-export const storedLanguage = (language: string | undefined): Language =>
-  language && Object.prototype.hasOwnProperty.call(GGPKLanguage, language) ? language as Language : "ENGLISH";
+/** A language read from saved data, such as a favorite or a profile, or English when it isn't one the site has. */
+export const storedLanguage = (language: unknown): Language =>
+  typeof language === "string" && Object.prototype.hasOwnProperty.call(GGPKLanguage, language) ? language as Language : "ENGLISH";
 
 export const TRANSLATION_NEED = "TRANSLATION_NEEDED";
 
