@@ -2,7 +2,6 @@ import type {ItemBase, ItemRegex} from "@shared/typedefs/Item";
 import type {BeastRegex} from "@shared/typedefs/poe1/BeastRegex";
 import type {BoatModsRegex} from "@shared/typedefs/poe1/BoatMods";
 import type {Expedition} from "@shared/typedefs/poe1/Expedition";
-import type {Jewel} from "@shared/typedefs/poe1/Jewel";
 import type {MapModsRegex} from "@shared/typedefs/poe1/MapMods";
 import type {Scarabs} from "@shared/typedefs/poe1/Scarabs";
 import type {GemsRegex} from "@shared/typedefs/poe1/Gems";
@@ -37,7 +36,6 @@ const itemRegex = createLanguageDataLoader<Language, ItemRegex[]>((language) =>
 // The boat mods are only generated in English: the boat leaves the game with the next patch
 const boatMods = lazy(() => fetchGeneratedFile<BoatModsRegex>("boatmods/Generated.BoatMods.ENGLISH.min.json"));
 const expedition = lazy(() => fetchGeneratedFile<Expedition>(`expedition/Generated.Expedition.min.json`));
-const jewel = lazy(() => fetchGeneratedFile<Jewel>(`jewel/Generated.Jewel.min.json`));
 const mapTradeIds = lazy(() => fetchGeneratedFile<TradeIds>("trade-ids/Generated.TradeIds.Map.min.json"));
 const beastRegexes = createLanguageDataLoader<Language, BeastRegex>((language) =>
   fetchGeneratedFile<BeastRegex>(`beast/Generated.BeastRegex.${language}.min.json`),
@@ -62,7 +60,6 @@ export const itemSettingsLanguage = async (language: Language, itembase: Itembas
 export const loadBeastRegex = (language: Language): Promise<BeastRegex> => beastRegexes(language);
 export const loadBoatMods = (): Promise<BoatModsRegex> => boatMods();
 export const loadExpedition = (): Promise<Expedition> => expedition();
-export const loadJewel = (): Promise<Jewel> => jewel();
 export const loadMapTradeIds = (): Promise<TradeIds> => mapTradeIds();
 export const loadScarabs = (language: Language): Promise<Scarabs> => scarabData(language);
 export const loadMapMods = (language: Language): Promise<MapModsRegex> => mapMods(language);

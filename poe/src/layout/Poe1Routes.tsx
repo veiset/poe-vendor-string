@@ -17,7 +17,6 @@ const Beast = page(() => import("../pages/beast/Beast"));
 const Scarabs = page(() => import("../pages/scarab/Scarabs"));
 const Tattoo = page(() => import("../pages/tattoo/Tattoo"));
 const Runegraft = page(() => import("../pages/runegraft/Runegraft"));
-const Jewel = page(() => import("../pages/jewel/Jewel"));
 const Favorites = page(() => import("../pages/favorites/Favorites"));
 const Gems = page(() => import("../pages/gems/Gems"));
 
@@ -46,7 +45,10 @@ export const Poe1Routes = () => {
         <Route path="scarab" element={<Scarabs/>}/>
         <Route path="tattoo" element={<Tattoo/>}/>
         <Route path="runegraft" element={<Runegraft/>}/>
-        <Route path="jewel" element={<Jewel/>}/>
+        <Route path="jewel" element={
+          <MovedContent title="[Moved] Jewels" newPath="/items" linkText="Items"
+                        extraInfo="Under the item section, select the jewel base you want to craft and then select mods."/>
+        }/>
       </Route>
 
       <Route path="*" element={<Navigate to="/vendor" replace/>}/>

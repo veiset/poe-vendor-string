@@ -20,14 +20,13 @@ A tool for generating vendor search strings. With no false positives matches and
 - Vendor
 - Map mods
 - Boat (Lake of Kalandra)
-- Items (inc. flasks)
+- Items (inc. flasks and jewels)
 - Expedition
 - Heist
 - Bestiary
 - Scarabs
 - Tattoos
 - Runegrafts
-- Jewels
 
 ## Path of Exile 2  (poe2.re)
 
