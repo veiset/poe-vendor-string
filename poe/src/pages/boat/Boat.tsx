@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useContext} from "react";
-import {HeaderWithLanguage} from "@poe/components/Header";
+import Header from "@poe/components/Header";
 import RegexResultBox from "@shared/components/RegexResultBox/RegexResultBox";
 import SelectableTokenList from "@poe/components/SelectableTokenList/SelectableTokenList";
 import type {BoatModsRegex} from "@shared/typedefs/poe1/BoatMods";
@@ -89,7 +89,7 @@ const Boat = () => {
     let active = true;
     loadBoatMods().then((data) => { if (active) setRegexBoatMods(data); });
     return () => { active = false; };
-  }, [profile.language]);
+  }, []);
 
   useEffect(() => {
     if (!favoritePage.isEditingFavorite) updateSettings(globalProfile, (latest) => ({...latest, boat: {...settings}}));
@@ -118,7 +118,8 @@ const Boat = () => {
 
   return (
     <>
-      <HeaderWithLanguage text={"Boat Modifiers"}/>
+      {/* The boat mods are only generated in English, so the page has no language selector */}
+      <Header text={"Boat Modifiers"}/>
       <RegexResultBox
         result={result}
         favorite={favoritePage.action(settings, {language: storedProfile.language})}
