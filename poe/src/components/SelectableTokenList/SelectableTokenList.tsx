@@ -1,4 +1,4 @@
-import type {Token} from "@poe/types/generated/mapmods";
+import type {Token} from "@shared/typedefs/RegexResult";
 import React, {Dispatch, ReactNode, SetStateAction} from "react";
 import SelectableSearch from "./SelectableSearch";
 import {inGameText, regexSearch} from "../../utils/regex/ReverseRegexLookup";

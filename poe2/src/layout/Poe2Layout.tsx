@@ -4,10 +4,11 @@ import {Poe2ProfileContext} from "./Poe2ProfileContext";
 import Poe2PageLinks from "./Poe2PageLinks";
 import Poe2Footer from "./Poe2Footer";
 import {ensureDefaultProfile, loadSettings, selectedProfile, updateSettings} from "../localStorage";
-import type {RepoeLanguageKey} from "@poe/utils/Languages";
 import {useRefreshFromInitialLoad, useRefreshOnFocus} from "@shared/core/RefreshOnFocus";
 import {Poe2LeagueProvider} from "./Poe2LeagueContext";
 import {FavoritesProvider} from "../FavoritesContext";
+import {GeneratedDataFileError} from "@shared/components/GeneratedData/GeneratedDataFileError";
+import type {Language} from "@shared/typedefs/Language";
 import "../poe2.css";
 
 export const Poe2Layout = () => {
@@ -15,8 +16,8 @@ export const Poe2Layout = () => {
     ensureDefaultProfile();
     return selectedProfile();
   });
-  const [language, setLanguageState] = useState<RepoeLanguageKey>(() => loadSettings(selectedProfile()).language);
-  const setLanguage = (next: RepoeLanguageKey) => {
+  const [language, setLanguageState] = useState<Language>(() => loadSettings(selectedProfile()).language);
+  const setLanguage = (next: Language) => {
     updateSettings(currentProfile, (settings) => ({...settings, language: next}));
     setLanguageState(next);
   };
@@ -38,6 +39,7 @@ export const Poe2Layout = () => {
                 <div className="content-left-gfx"/>
                 <div className="content-main-area">
                   <div className="page-content" key={`poe2-${currentProfile}`}>
+                    <GeneratedDataFileError language={language}/>
                     <Outlet/>
                   </div>
                 </div>

@@ -8,6 +8,7 @@ import {Poe1Routes} from "./layout/Poe1Routes";
 import {migrateHashRoute} from "@shared/core/migrateHashRoute";
 import {recoverFromDynamicImportFailure} from "@shared/core/recoverFromDynamicImportFailure";
 import {migrateStoredProfiles} from "./migration/migrations";
+import {GeneratedDataProvider} from "@shared/components/GeneratedData/GeneratedDataProvider";
 
 migrateHashRoute();
 recoverFromDynamicImportFailure();
@@ -15,10 +16,12 @@ recoverFromDynamicImportFailure();
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-migrateStoredProfiles().finally(() => root.render(
+root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Poe1Routes/>
-    </BrowserRouter>
+    <GeneratedDataProvider game="poe1" beforeRender={migrateStoredProfiles}>
+      <BrowserRouter>
+        <Poe1Routes/>
+      </BrowserRouter>
+    </GeneratedDataProvider>
   </React.StrictMode>
-));
+);

@@ -1,5 +1,5 @@
 import {distinct, groupBy} from "@poe/utils/ListUtils";
-import type {BaseTypeRegex, Item} from "@poe/types/generated/expedition";
+import type {BaseTypeRegex, Item} from "@shared/typedefs/poe1/Expedition";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import {PoeNinjaItem, PriceData, PricedBaseType, PricedItemWithFallback} from "./ExpeditionTypes";

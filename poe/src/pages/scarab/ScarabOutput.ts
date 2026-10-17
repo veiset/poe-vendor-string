@@ -1,5 +1,5 @@
 import {ScarabSettings} from "@poe/utils/SavedSettings";
-import type {Scarabs} from "@poe/types/generated/scarabs";
+import type {Scarabs} from "@shared/typedefs/poe1/Scarabs";
 
 export function generateScarabRegex(settings: ScarabSettings, scarabs: Scarabs): string {
   const regex = settings.selected.map((icon) => {

@@ -3,6 +3,7 @@ import {defaultSettings} from "../settings";
 import type {Poe2RegexFavoriteRecord, SelectOption, Settings} from "../settings";
 import {migrateProfile} from "./migrations";
 import {migrateV1ToV2} from "./v02_migration";
+import {loadGeneratedData} from "@shared/generatedData";
 
 const tokens: Record<string, object[]> = {
   waystone: [
@@ -14,7 +15,9 @@ const tokens: Record<string, object[]> = {
     {id: 690095601, regex: "k o", rawText: "1 extra pack of Monsters around Vaal Beacons in Map", options: {}},
   ],
 };
-const fetchMock = vi.fn(async (url: string) => ({ok: true, json: async () => ({tokens: tokens[url.split("/")[2]]})}));
+const history = {current: {poe2: {patch: "0.5.5.4.2", commit: "d1bab48"}}};
+const fetchMock = vi.fn(async (url: string) => ({ok: true, json: async () =>
+  url.endsWith("/history.json") ? history : {tokens: tokens[url.match(/\/(waystone|tablet)\//)![1]]}}));
 
 const option = (name: string, extra: Partial<SelectOption>): SelectOption =>
   ({name, value: null, isSelected: true, ranges: [], regex: "", ...extra});
@@ -115,7 +118,11 @@ const expectedV2Structure: DeepPartial<Settings> = {
 };
 
 describe("v1 -> v2 migration", () => {
-  beforeEach(() => { vi.stubGlobal("fetch", fetchMock); });
+  beforeEach(async () => {
+    vi.stubGlobal("fetch", fetchMock);
+    // The app finds the data before anything loads it, see GeneratedDataProvider
+    await loadGeneratedData("poe2");
+  });
   afterEach(() => { vi.unstubAllGlobals(); fetchMock.mockClear(); });
 
   it("migrates a stored v1 profile to the v2 structure", async () => {

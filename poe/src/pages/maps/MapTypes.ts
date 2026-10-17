@@ -1,5 +1,5 @@
-import type {RepoeLanguageKey} from "@poe/utils/Languages";
 import type {MapSettings} from "@poe/utils/SavedSettings";
+import type {Language} from "@shared/typedefs/Language";
 
 export type MapType = keyof MapSettings["mapTypes"];
 
@@ -14,7 +14,7 @@ export const MAP_TYPE_LABELS: Record<MapType, string> = {
 
 // A part of each map type's line as the game shows it, found in no map mod (see MapTypes.test.ts).
 // Case is kept as in the game text.
-export const MapTypeRegex: Record<RepoeLanguageKey, Record<MapType, string>> = {
+export const MapTypeRegex: Record<Language, Record<MapType, string>> = {
   ENGLISH: {shaper: "the shaper", elder: "the elder", conqueror: "citadel", originator: "originator", blighted: "25% value", blightRavaged: "50% value"},
   FRENCH: {shaper: "influence du", elder: "de l'Ancien", conqueror: "Citadelle", originator: "Instigateur", blighted: "à 20%", blightRavaged: "à 40%"},
   GERMAN: {shaper: "vom Schöpfer", elder: "Ältesten", conqueror: "Zitadelle", originator: "Erschafferin", blighted: "20% auch", blightRavaged: "40% auch"},

@@ -3,16 +3,16 @@ import {generateMapModRegex} from "@poe/pages/maps/OptimizedMapOutput";
 import {defaultSettings, MapSettings} from "@poe/utils/SavedSettings";
 import {itemSettingsLanguage, loadBoatMods, loadGems, loadItemBasetypes, loadItemRegex, loadMapMods} from "@poe/utils/loadData";
 import {generateBoatModRegex} from "@poe/pages/boat/BoatOutput";
-import {RepoeLanguage} from "@poe/utils/Languages";
+import {storedLanguage} from "@poe/utils/Languages";
 import {generateGemsRegex, translateGemIds} from "@poe/pages/gems/GemsOutput";
 import type {BoatSettings, GemsSettings} from "@poe/utils/SavedSettings";
-import type {RepoeLanguageKey} from "@poe/utils/Languages";
 import {merge} from "@shared/core/utils";
 import {groupAffixes} from "@shared/core/item/GroupUtils";
 import {generateMagicItemRegex, generateRareItemRegex} from "@shared/core/item/ItemOutput";
 import {rebaseItemSettings} from "@shared/core/item/RebaseItemSettings";
 import type {ItemCraftingSettings} from "@shared/types/Settings.types";
 import {FavoriteRecord, isRegexFavorite} from "./FavoriteTypes";
+import type {Language} from "@shared/typedefs/Language";
 
 type ItemData = {
   sourceBases: Awaited<ReturnType<typeof loadItemBasetypes>>;
@@ -21,7 +21,7 @@ type ItemData = {
   targetRegex: Awaited<ReturnType<typeof loadItemRegex>>;
 };
 
-const mapRegex = (settings: MapSettings, language: RepoeLanguageKey, data: Awaited<ReturnType<typeof loadMapMods>>) => {
+const mapRegex = (settings: MapSettings, language: Language, data: Awaited<ReturnType<typeof loadMapMods>>) => {
   const generated = generateMapModRegex(settings, data, language);
   return settings.customText.enabled && settings.customText.value ? `${generated} ${settings.customText.value}` : generated;
 };
@@ -47,16 +47,14 @@ const normalizeItemSettings = (configuration: unknown): ItemCraftingSettings => 
   if (configuration === null || typeof configuration !== "object" || Array.isArray(configuration)) return defaultSettings.itemCrafting;
   return merge(defaultSettings.itemCrafting, JSON.parse(JSON.stringify(configuration)) as Partial<ItemCraftingSettings>);
 };
-const storedLanguage = (language: string | undefined): RepoeLanguageKey =>
-  language && Object.prototype.hasOwnProperty.call(RepoeLanguage, language) ? language as RepoeLanguageKey : "ENGLISH";
 
 /**
  * Keeps saved favorites immutable while presenting their language-dependent
  * output in the language currently selected by the profile.
  */
-export const useRenderedFavorites = (favorites: FavoriteRecord[], language: RepoeLanguageKey): FavoriteRecord[] => {
-  const [mapData, setMapData] = useState<{language: RepoeLanguageKey; data: Awaited<ReturnType<typeof loadMapMods>>}>();
-  const [boatData, setBoatData] = useState<{language: RepoeLanguageKey; data: Awaited<ReturnType<typeof loadBoatMods>>}>();
+export const useRenderedFavorites = (favorites: FavoriteRecord[], language: Language): FavoriteRecord[] => {
+  const [mapData, setMapData] = useState<{language: Language; data: Awaited<ReturnType<typeof loadMapMods>>}>();
+  const [boatData, setBoatData] = useState<{language: Language; data: Awaited<ReturnType<typeof loadBoatMods>>}>();
   const [gemDataById, setGemDataById] = useState<Map<string, {source: Awaited<ReturnType<typeof loadGems>>; target: Awaited<ReturnType<typeof loadGems>>}>>();
   const languageDependentFavorites = favorites.filter(isRegexFavorite).filter((favorite) => favorite.languageDependent);
   const hasMapFavorites = languageDependentFavorites.some((favorite) => favorite.pageKey === "maps");
@@ -82,7 +80,7 @@ export const useRenderedFavorites = (favorites: FavoriteRecord[], language: Repo
   useEffect(() => {
     if (!hasBoatFavorites) { setBoatData(undefined); return; }
     let cancelled = false;
-    loadBoatMods(language).then((data) => { if (!cancelled) setBoatData({language, data}); }).catch(() => { if (!cancelled) setBoatData(undefined); });
+    loadBoatMods().then((data) => { if (!cancelled) setBoatData({language, data}); }).catch(() => { if (!cancelled) setBoatData(undefined); });
     return () => { cancelled = true; };
   }, [hasBoatFavorites, language]);
 
@@ -90,11 +88,7 @@ export const useRenderedFavorites = (favorites: FavoriteRecord[], language: Repo
     if (!gemFavorites.length) { setGemDataById(undefined); return; }
     let cancelled = false;
     Promise.all(gemFavorites.map(async (favorite) => {
-      const storedLanguage = favorite.context.language;
-      const sourceLanguage = storedLanguage && Object.prototype.hasOwnProperty.call(RepoeLanguage, storedLanguage)
-        ? storedLanguage as RepoeLanguageKey
-        : "ENGLISH";
-      const [source, target] = await Promise.all([loadGems(sourceLanguage), loadGems(language)]);
+      const [source, target] = await Promise.all([loadGems(storedLanguage(favorite.context.language)), loadGems(language)]);
       return [favorite.id, {source, target}] as const;
     })).then((entries) => { if (!cancelled) setGemDataById(new Map(entries)); })
       .catch(() => { if (!cancelled) setGemDataById(undefined); });

@@ -6,6 +6,7 @@ import {useFavorites} from "./FavoritesContext";
 import {FavoriteSnapshot, isPoe2RegexFavorite} from "./favorites";
 import {Poe2FavoritePageKey} from "./settings";
 import {FAVORITE_PAGE_REGISTRY} from "./FavoritePageRegistry";
+import {storedLanguage} from "@poe/utils/Languages";
 
 export const useFavoritePage = <T extends object>(pageKey: Poe2FavoritePageKey, normal: T) => {
   const [params] = useSearchParams(); const navigate = useNavigate(); const {currentProfile, language} = useContext(Poe2ProfileContext); const {favorites, requestCreate, update, lastCreationSuccess, clearCreationSuccess} = useFavorites();
@@ -14,5 +15,5 @@ export const useFavoritePage = <T extends object>(pageKey: Poe2FavoritePageKey, 
   useEffect(() => () => clearCreationSuccess(), [pageKey]);
   useEffect(() => { if (requestedId) clearCreationSuccess(); }, [requestedId]);
   const action = (configuration: T, context: {league?: string} = {}): RegexFavoriteAction => ({mode: requestedId ? "edit" : "create", favoriteName: favorite?.name, savedResult: favorite?.regex, successMessage: !requestedId && lastCreationSuccess?.pageKey === pageKey && lastCreationSuccess.configuration === JSON.stringify(configuration) ? "Successfully added as a favorite." : undefined, disabledReason: requestedId && !favorite ? "This favorite is unavailable in the active profile." : undefined, onSave: (regex) => { const snapshot: FavoriteSnapshot = {pageKey, regex, configuration, context: {...context, language}, languageDependent: FAVORITE_PAGE_REGISTRY[pageKey].languageDependent}; if (favorite) { update(favorite.id, snapshot); navigate("/favorites"); } else if (!requestedId) requestCreate(snapshot, FAVORITE_PAGE_REGISTRY[pageKey].label); }, onCancel: requestedId ? () => navigate("/favorites") : undefined});
-  return {initialConfiguration, initialLanguage: (favorite?.context.language as typeof language | undefined) ?? language, isEditingFavorite: Boolean(requestedId), action};
+  return {initialConfiguration, initialLanguage: favorite?.context.language ? storedLanguage(favorite.context.language) : language, isEditingFavorite: Boolean(requestedId), action};
 };

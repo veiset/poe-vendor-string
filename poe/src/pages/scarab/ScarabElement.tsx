@@ -1,4 +1,4 @@
-import type {ScarabRegex} from "@poe/types/generated/scarabs";
+import type {ScarabRegex} from "@shared/typedefs/poe1/Scarabs";
 import chaosOrb from "@shared/img/Chaos_Orb_inventory_icon.png";
 import {Dispatch, SetStateAction} from "react";
 

@@ -1,4 +1,4 @@
-import type {RegexResult} from "@poe/types/generated/boatmods";
+import type {RegexResult} from "@shared/typedefs/RegexResult";
 import {idToRegex} from "@poe/utils/regex/OptimizeRegexResult";
 
 export function generateBoatModRegex(

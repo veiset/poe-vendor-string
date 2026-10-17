@@ -1,11 +1,13 @@
-export type RepoeLanguageData = {
+import type {Language} from "@shared/typedefs/Language";
+
+export type GGPKLanguageData = {
   readonly urlKey: string;
   readonly short: string;
   readonly name: string;
   readonly flag: string;
 };
 
-export const RepoeLanguage = {
+export const GGPKLanguage = {
   ENGLISH: { urlKey: "", short: "en", name: "English", flag: "🇺🇸" },
   FRENCH: { urlKey: "French", short: "fr", name: "French", flag: "🇫🇷" },
   GERMAN: { urlKey: "German", short: "de", name: "German", flag: "🇩🇪" },
@@ -26,14 +28,16 @@ export const RepoeLanguage = {
     name: "Chinese",
     flag: "🇨🇳",
   },
-} as const;
+} as const satisfies Record<Language, GGPKLanguageData>;
 
-export type RepoeLanguageKey = keyof typeof RepoeLanguage;
+/** A language read from saved data, such as a favorite or a profile, or English when it isn't one the site has. */
+export const storedLanguage = (language: unknown): Language =>
+  typeof language === "string" && Object.prototype.hasOwnProperty.call(GGPKLanguage, language) ? language as Language : "ENGLISH";
 
 export const TRANSLATION_NEED = "TRANSLATION_NEEDED";
 
 export const MapStaticStatRegex: Record<
-  RepoeLanguageKey,
+  Language,
   {
     quantity: string;
     packsize: string;

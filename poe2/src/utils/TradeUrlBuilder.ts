@@ -1,6 +1,6 @@
 import { Settings } from "../settings";
 import {loadWebSettings} from "../localStorage";
-import { TradeStatIdMap } from "./loadData";
+import type {TradeIds} from "@shared/typedefs/TradeIds";
 import { buildTradeUrl, challengeLeague, getLeagues } from "@shared/core/TradeUrlBuilder";
 import {normalizePriceRange} from "@shared/core/PriceRange";
 
@@ -65,7 +65,7 @@ function parseMin(
 
 function idsToFilters(
   options: { id?: number; isSelected: boolean; value?: number | null }[],
-  lookup: TradeStatIdMap,
+  lookup: TradeIds,
 ): StatFilter[] {
   return options
     .filter((o) => o.isSelected && o.id !== undefined)
@@ -85,7 +85,7 @@ function idsToFilters(
 
 export function buildWaystoneQuery(
   waystone: Settings["waystone"],
-  lookup: TradeStatIdMap,
+  lookup: TradeIds,
 ): TradeQuery {
   const stats: StatGroup[] = [];
 
@@ -187,7 +187,7 @@ const TABLET_TYPE_BY_KEY: Record<string, string> = {
 
 export function buildTabletQuery(
   tablet: Settings["tablet"],
-  lookup: TradeStatIdMap,
+  lookup: TradeIds,
 ): TradeQuery {
   const selectedTypes = Object.entries(tablet.type)
     .filter(([, v]) => v)
@@ -266,7 +266,7 @@ const currentLeague = async () =>
 
 export async function openWaystoneTradeSearch(
   settings: Settings,
-  statIds: TradeStatIdMap,
+  statIds: TradeIds,
 ): Promise<void> {
   const league = await currentLeague();
   const url = buildUrl(buildWaystoneQuery(settings.waystone, statIds), league);
@@ -275,7 +275,7 @@ export async function openWaystoneTradeSearch(
 
 export async function openTabletTradeSearch(
   settings: Settings,
-  statIds: TradeStatIdMap,
+  statIds: TradeIds,
 ): Promise<void> {
   const league = await currentLeague();
   const url = buildUrl(buildTabletQuery(settings.tablet, statIds), league);

@@ -4,7 +4,7 @@ import {loadProfiles, loadSettings, updateSettings, valueFromKeyMap} from "@poe/
 import {HeaderWithLanguage} from "@poe/components/Header";
 import RegexResultBox from "@shared/components/RegexResultBox/RegexResultBox";
 import "./Scarab.css";
-import type {ScarabRegex, Scarabs as ScarabsData} from "@poe/types/generated/scarabs";
+import type {ScarabRegex, Scarabs as ScarabsData} from "@shared/typedefs/poe1/Scarabs";
 import {loadScarabs} from "@poe/utils/loadData";
 import ScarabElement from "./ScarabElement";
 import {dateTextFromString} from "../expedition/ExpeditionUtils";

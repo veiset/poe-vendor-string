@@ -1,6 +1,6 @@
 import {hasItem, rebaseItemSettings} from "./RebaseItemSettings";
 import {itemCraftingDefault} from "@shared/types/Settings.types";
-import type {BaseType, ItemAffixRegex, ItemRegex} from "@shared/generated/item";
+import type {ItemBase, ItemAffixRegex, ItemRegex} from "@shared/typedefs/Item";
 import type {ItemCraftingSettings} from "@shared/types/Settings.types";
 
 const modifier = (desc: string, affix: string): ItemAffixRegex => ({
@@ -8,11 +8,11 @@ const modifier = (desc: string, affix: string): ItemAffixRegex => ({
   affixtype: "PREFIX", stats: [], affixes: [{name: affix, desc}],
 });
 
-const englishBases: BaseType[] = [
+const englishBases: ItemBase[] = [
   {name: "Body Armours", items: ["Plate Vest", "Vaal Regalia"]},
   {name: "Rings", items: ["Iron Ring", "Gold Ring"]},
 ];
-const germanBases: BaseType[] = [
+const germanBases: ItemBase[] = [
   {name: "Body Armours", items: ["Plattenweste", "Vaal-Regalia"]},
   {name: "Rings", items: ["Eisenring", "Goldring"]},
 ];

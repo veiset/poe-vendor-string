@@ -8,6 +8,7 @@ import {defaultSettings} from "@poe/utils/SavedSettings";
 import catalog from "../../../generated/mapmods/Generated.Map.ENGLISH.json";
 import frenchCatalog from "../../../generated/mapmods/Generated.Map.FRENCH.json";
 import {readExclusions} from "./PobCodesImport";
+import {loadGeneratedData} from "@shared/generatedData";
 
 const ids = [246480838, -2064669900];
 const query = (payload: unknown) => `?${new URLSearchParams({data: JSON.stringify(payload)})}`;
@@ -20,7 +21,7 @@ const mount = (path = `/import-pob-codes${valid}`) => {
 const confirm = () => screen.findByRole("button", {name: "Import"});
 
 describe("PoB Codes import", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     localStorage.clear();
     localStorage.setItem("profiles", JSON.stringify({
       default: {...defaultSettings, language: "FRENCH", map: {...defaultSettings.map, quantity: "50"}},
@@ -28,9 +29,12 @@ describe("PoB Codes import", () => {
     localStorage.setItem("selectedProfile", "default");
     localStorage.setItem("webSettings", JSON.stringify({poe1League: "Standard"}));
     vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL) => {
-      if (String(input).includes("/generated/mapmods/")) return {ok: true, json: async () => String(input).includes("FRENCH") ? frenchCatalog : catalog};
+      if (String(input).endsWith("/history.json")) return {ok: true, json: async () => ({current: {poe1: {patch: "3.29.3.3", commit: "d1bab48"}}})};
+      if (String(input).includes("/mapmods/")) return {ok: true, json: async () => String(input).includes("FRENCH") ? frenchCatalog : catalog};
       return {ok: true, text: async () => "Standard\nHardcore"};
     }));
+    // The app finds the data before anything loads it, see GeneratedDataProvider
+    await loadGeneratedData("poe1");
     vi.spyOn(console, "log").mockImplementation(() => {});
     // jsdom cannot navigate documents; the browser check covers the actual redirect.
     const reportError = console.error;

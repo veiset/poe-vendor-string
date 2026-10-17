@@ -5,7 +5,7 @@ import {loadSettings, updateSettings} from "../../localStorage";
 import RegexResultBox from "@shared/components/RegexResultBox/RegexResultBox";
 import Poe2Header from "@poe2/components/Poe2Header";
 import {useFavoritePage} from "@poe2/useFavoritePage";
-import type {BaseType, ItemAffixRegex, ItemRegex} from "@shared/generated/item";
+import type {ItemBase, ItemAffixRegex, ItemRegex} from "@shared/typedefs/Item";
 import {loadItemBasetypes, loadItemRegex} from "../../utils/loadData";
 import {findSimilarBases, groupAffixes} from "@shared/core/item/GroupUtils";
 import RareItemSelect, {RareModSelection} from "@shared/core/item/RareItemSelect";
@@ -26,10 +26,10 @@ export function Item() {
   const storedProfile = loadSettings(currentProfile);
   const favoritePage = useFavoritePage("item", storedProfile.itemCrafting);
   const [result, setResult] = useState("");
-  const [basetypes, setBasetypes] = useState<BaseType[]>([]);
+  const [basetypes, setBasetypes] = useState<ItemBase[]>([]);
   const [itemRegex, setItemRegex] = useState<ItemRegex[]>([]);
   const [dataLanguage, setDataLanguage] = useState<typeof language>();
-  const itemDataRef = useRef<{language: typeof language; basetypes: BaseType[]; regex: ItemRegex[]} | undefined>(undefined);
+  const itemDataRef = useRef<{language: typeof language; basetypes: ItemBase[]; regex: ItemRegex[]} | undefined>(undefined);
   const profile = {...storedProfile, itemCrafting: favoritePage.initialConfiguration};
 
   const affixMap: Record<string, ItemAffixRegex> = useMemo(() => groupAffixes(itemRegex), [itemRegex]);

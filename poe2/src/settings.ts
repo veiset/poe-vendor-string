@@ -1,7 +1,7 @@
-import type {ItemAffixRegex as ItemModifier} from "@poe2/types/generated/item";
-import type {RepoeLanguageKey} from "@poe/utils/Languages";
+import type {ItemAffixRegex as ItemModifier} from "@shared/typedefs/Item";
 import {AsyncTradePriceRangeValue} from "@shared/components/AsyncTradePriceRange/AsyncTradePriceRange";
 import {itemCraftingDefault, ItemCraftingSettings} from "@shared/types/Settings.types";
+import type {Language} from "@shared/typedefs/Language";
 
 export type Poe2FavoritePageKey = "vendor" | "waystone" | "tablet" | "relic" | "item";
 
@@ -249,7 +249,7 @@ type VendorSettings = {
 
 export interface Settings {
   name: string
-  language: RepoeLanguageKey
+  language: Language
   version: number
   favorites: Poe2FavoriteRecord[]
   vendor: VendorSettings

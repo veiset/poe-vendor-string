@@ -1,8 +1,8 @@
 import {MapType, MapTypeRegex} from "./MapTypes";
 import {generateMapModRegex} from "./OptimizedMapOutput";
 import {defaultSettings, MapSettings} from "@poe/utils/SavedSettings";
-import type {RepoeLanguageKey} from "@poe/utils/Languages";
-import type {RegexResult} from "@poe/types/generated/mapmods";
+import type {RegexResult} from "@shared/typedefs/RegexResult";
+import type {Language} from "@shared/typedefs/Language";
 
 const off = {enabled: false, include: false};
 const noMapTypes: MapSettings["mapTypes"] = {shaper: off, elder: off, conqueror: off, originator: off, blighted: off, blightRavaged: off};
@@ -10,12 +10,12 @@ const mapMods = import.meta.glob<{tokens: {rawText: string}[]}>("../../../genera
 
 const termRegex = (term: string) => new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i");
 // Map mod lines with the [Keyword|Text] markup resolved both ways
-const modLines = (language: RepoeLanguageKey) => mapMods[`../../../generated/mapmods/Generated.Map.${language}.json`].tokens
+const modLines = (language: Language) => mapMods[`../../../generated/mapmods/Generated.Map.${language}.json`].tokens
   .flatMap((token) => token.rawText.split("|"))
   .flatMap((line) => [line.replace(/\[[^\]|]*\|([^\]]*)\]/g, "$1"), line.replace(/\[([^\]|]*)(\|[^\]]*)?\]/g, "$1")]);
 
 describe("MapTypeRegex", () => {
-  describe.each(Object.keys(MapTypeRegex) as RepoeLanguageKey[])("%s", (language) => {
+  describe.each(Object.keys(MapTypeRegex) as Language[])("%s", (language) => {
     const terms = Object.entries(MapTypeRegex[language]) as [MapType, string][];
     const mods = modLines(language);
 

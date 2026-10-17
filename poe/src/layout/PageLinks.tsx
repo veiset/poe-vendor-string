@@ -6,7 +6,6 @@ import boatIcon from "@shared/img/chart.png";
 import alterationIcon from "@shared/img/linkicons/alteration.png";
 import heistIcon from "@shared/img/linkicons/blueprint.png";
 import expeditionIcon from "@shared/img/linkicons/expeidition_reroll.png";
-import jewelIcon from "@shared/img/linkicons/cobalt.png";
 import gemIcon from "@shared/img/gem.png";
 import beastIcon from "@shared/img/BestiaryOrbFull.png";
 import scarabIcon from "@shared/img/scarab.png";
@@ -27,7 +26,6 @@ const items: NavigationItem[] = [
   {text: "Tattoo", icon: tattooIcon, route: "/tattoo"},
   {text: "Runegraft", icon: runegraftIcon, route: "/runegraft"},
   {text: "Scarab", icon: scarabIcon, route: "/scarab"},
-  {text: "Jewel", icon: jewelIcon, route: "/jewel"},
 ];
 
 const PageLinks = () => (

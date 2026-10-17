@@ -1,0 +1,128 @@
+/* Styled like the filter cards and the result box buttons */
+
+/* Before the app renders: the spinner while the data is found, or the error when it can't be */
+.generated-data-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px 16px;
+    box-sizing: border-box;
+}
+
+/* A file failed: the error sits above the page */
+.generated-data-file-error {
+    display: flex;
+    flex: 1 1 100%;
+    justify-content: center;
+    padding: 28px 16px 32px;
+    box-sizing: border-box;
+}
+
+.generated-data-card {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px 32px 28px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--color-text);
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-border-strong);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Three lines of regex that fade out downwards into the card */
+.generated-data-regex {
+    max-height: 4.5em;
+    margin: 0 0 16px;
+    overflow: hidden;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 9px;
+    line-height: 1.5;
+    word-break: break-all;
+    color: var(--color-text-error);
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+    mask-image: linear-gradient(to bottom, black, transparent);
+    user-select: none;
+}
+
+.generated-data-card.partial .generated-data-regex {
+    color: var(--color-text-warn);
+}
+
+.generated-data-card h2 {
+    margin: 0 0 14px;
+    padding-left: 0;
+    font-size: 22px;
+}
+
+.generated-data-card p {
+    margin: 0 0 20px;
+}
+
+.generated-data-detail {
+    color: var(--color-text-dim);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.generated-data-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.generated-data-actions button,
+.generated-data-actions a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 78px;
+    justify-content: center;
+    padding: 9px 18px;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: normal;
+    letter-spacing: 0.02em;
+    color: var(--color-text);
+    text-decoration: none;
+    background-color: var(--color-area-2);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.05s ease;
+}
+
+.generated-data-actions button:hover,
+.generated-data-actions a:hover {
+    background-color: var(--color-area-hover);
+    text-decoration: none;
+}
+
+.generated-data-actions button:active,
+.generated-data-actions a:active {
+    transform: translateY(1px);
+}
+
+.generated-data-actions .generated-data-retry {
+    color: white;
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.generated-data-actions .generated-data-retry:hover {
+    background-color: var(--color-accent-hover);
+}
+
+.generated-data-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.generated-data-icon-discord {
+    filter: brightness(0) invert(1);
+}

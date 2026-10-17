@@ -1,24 +1,16 @@
-import type {ItemBase, ItemRegex} from "@poe/types/generated/item";
-import type {BeastRegex} from "@poe/types/generated/beast";
-import type {BoatModsRegex} from "@poe/types/generated/boatmods";
-import type {Expedition} from "@poe/types/generated/expedition";
-import type {Jewel} from "@poe/types/generated/jewel";
-import type {MapModsRegex} from "@poe/types/generated/mapmods";
-import type {Scarabs} from "@poe/types/generated/scarabs";
-import type {GemsRegex} from "@poe/types/generated/gems";
+import type {ItemBase, ItemRegex} from "@shared/typedefs/Item";
+import type {BeastRegex} from "@shared/typedefs/poe1/BeastRegex";
+import type {BoatModsRegex} from "@shared/typedefs/poe1/BoatMods";
+import type {Expedition} from "@shared/typedefs/poe1/Expedition";
+import type {MapModsRegex} from "@shared/typedefs/poe1/MapMods";
+import type {Scarabs} from "@shared/typedefs/poe1/Scarabs";
+import type {GemsRegex} from "@shared/typedefs/poe1/Gems";
+import type {Language} from "@shared/typedefs/Language";
+import type {TradeIds} from "@shared/typedefs/TradeIds";
 import {createLanguageDataLoader} from "@shared/core/LanguageDataLoader";
+import {fetchGeneratedFile} from "@shared/generatedData";
 import {hasItem} from "@shared/core/item/RebaseItemSettings";
 import type {Itembase} from "@shared/core/item/ItemBaseSelector";
-
-const basePath = "/generated";
-
-async function fetchJson<T>(path: string): Promise<T> {
-  const response = await fetch(path);
-  if (!response.ok) {
-    throw new Error(`Failed to load ${path}: ${response.status} ${response.statusText}`);
-  }
-  return response.json() as T;
-}
 
 function lazy<T>(load: () => Promise<T>): () => Promise<T> {
   let value: Promise<T> | null = null;
@@ -33,45 +25,44 @@ function lazy<T>(load: () => Promise<T>): () => Promise<T> {
   };
 }
 
-const itemBasetypes = createLanguageDataLoader<string, ItemBase[]>((language) =>
-  fetchJson<ItemBase[]>(`${basePath}/item/Generated.Basetypes.Item.${language}.min.json`),
+const itemBasetypes = createLanguageDataLoader<Language, ItemBase[]>((language) =>
+  fetchGeneratedFile<ItemBase[]>(`item/Generated.Basetypes.Item.${language}.min.json`),
 );
 
-const itemRegex = createLanguageDataLoader<string, ItemRegex[]>((language) =>
-  fetchJson<ItemRegex[]>(`${basePath}/item/Generated.Item.${language}.min.json`),
+const itemRegex = createLanguageDataLoader<Language, ItemRegex[]>((language) =>
+  fetchGeneratedFile<ItemRegex[]>(`item/Generated.Item.${language}.min.json`),
 );
 
-const boatMods = createLanguageDataLoader<string, BoatModsRegex>((language) =>
-  fetchJson<BoatModsRegex>(`${basePath}/boatmods/Generated.BoatMods.${language}.min.json`),
+// The boat mods are only generated in English: the boat leaves the game with the next patch
+const boatMods = lazy(() => fetchGeneratedFile<BoatModsRegex>("boatmods/Generated.BoatMods.ENGLISH.min.json"));
+const expedition = lazy(() => fetchGeneratedFile<Expedition>(`expedition/Generated.Expedition.min.json`));
+const mapTradeIds = lazy(() => fetchGeneratedFile<TradeIds>("trade-ids/Generated.TradeIds.Map.min.json"));
+const beastRegexes = createLanguageDataLoader<Language, BeastRegex>((language) =>
+  fetchGeneratedFile<BeastRegex>(`beast/Generated.BeastRegex.${language}.min.json`),
 );
-const expedition = lazy(() => fetchJson<Expedition>(`${basePath}/expedition/Generated.Expedition.min.json`));
-const jewel = lazy(() => fetchJson<Jewel>(`${basePath}/jewel/Generated.Jewel.min.json`));
-const beastRegexes = createLanguageDataLoader<string, BeastRegex>((language) =>
-  fetchJson<BeastRegex>(`${basePath}/beast/Generated.BeastRegex.${language}.min.json`),
+const scarabData = createLanguageDataLoader<Language, Scarabs>((language) =>
+  fetchGeneratedFile<Scarabs>(`scarabs/Generated.Scarabs.${language}.min.json`),
 );
-const scarabData = createLanguageDataLoader<string, Scarabs>((language) =>
-  fetchJson<Scarabs>(`${basePath}/scarabs/Generated.Scarabs.${language}.min.json`),
+const mapMods = createLanguageDataLoader<Language, MapModsRegex>((language) =>
+  fetchGeneratedFile<MapModsRegex>(`mapmods/Generated.Map.${language}.min.json`),
 );
-const mapMods = createLanguageDataLoader<string, MapModsRegex>((language) =>
-  fetchJson<MapModsRegex>(`${basePath}/mapmods/Generated.Map.${language}.min.json`),
-);
-const gems = createLanguageDataLoader<string, GemsRegex>((language) =>
-  fetchJson<GemsRegex>(`${basePath}/gems/Generated.Gems.${language}.min.json`),
+const gems = createLanguageDataLoader<Language, GemsRegex>((language) =>
+  fetchGeneratedFile<GemsRegex>(`gems/Generated.Gems.${language}.min.json`),
 );
 
-export const loadItemBasetypes = (language: string): Promise<ItemBase[]> => itemBasetypes(language);
-export const loadItemRegex = (language: string): Promise<ItemRegex[]> => itemRegex(language);
+export const loadItemBasetypes = (language: Language): Promise<ItemBase[]> => itemBasetypes(language);
+export const loadItemRegex = (language: Language): Promise<ItemRegex[]> => itemRegex(language);
 
 // Item settings saved before items were localized hold English names
-export const itemSettingsLanguage = async (language: string, itembase: Itembase | undefined): Promise<string> =>
+export const itemSettingsLanguage = async (language: Language, itembase: Itembase | undefined): Promise<Language> =>
   hasItem(await loadItemBasetypes(language), itembase) ? language : "ENGLISH";
 
-export const loadBeastRegex = (language: string): Promise<BeastRegex> => beastRegexes(language);
-export const loadBoatMods = (language: string): Promise<BoatModsRegex> => boatMods(language);
+export const loadBeastRegex = (language: Language): Promise<BeastRegex> => beastRegexes(language);
+export const loadBoatMods = (): Promise<BoatModsRegex> => boatMods();
 export const loadExpedition = (): Promise<Expedition> => expedition();
-export const loadJewel = (): Promise<Jewel> => jewel();
-export const loadScarabs = (language: string): Promise<Scarabs> => scarabData(language);
-export const loadMapMods = (language: string): Promise<MapModsRegex> => mapMods(language);
-export function loadGems(language = "ENGLISH"): Promise<GemsRegex> {
+export const loadMapTradeIds = (): Promise<TradeIds> => mapTradeIds();
+export const loadScarabs = (language: Language): Promise<Scarabs> => scarabData(language);
+export const loadMapMods = (language: Language): Promise<MapModsRegex> => mapMods(language);
+export function loadGems(language: Language = "ENGLISH"): Promise<GemsRegex> {
   return gems(language);
 }

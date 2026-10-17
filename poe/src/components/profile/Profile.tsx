@@ -10,13 +10,14 @@ import {
 } from "../../utils/LocalStorage";
 import {defaultSettings, SavedSettings} from "../../utils/SavedSettings";
 import {ProfileContext} from "./ProfileContext";
-import {RepoeLanguage, RepoeLanguageData, RepoeLanguageKey} from "../../utils/Languages";
+import {GGPKLanguage, GGPKLanguageData} from "../../utils/Languages";
 import ProfileExportBox from "@shared/components/profile/ProfileExportBox";
 import ProfileImportBox from "@shared/components/profile/ProfileImportBox";
 import {decodeProfile, encodeProfile} from "./ProfileTransfer";
 import {migrateProfile} from "../../migration/migrations";
 import LeagueSelect from "@shared/components/LeagueSelect";
 import {useLocation, useNavigate} from "react-router-dom";
+import type {Language} from "@shared/typedefs/Language";
 
 interface ProfileProps {
   languageSelect?: boolean
@@ -206,9 +207,9 @@ const Profile = (props: ProfileProps) => {
         className="dropdown-select dropdown-sm"
         value={languageSelect ? lang : "ENGLISH"}
         disabled={!languageSelect}
-        onChange={(e) => setLang(e.target.value as RepoeLanguageKey)}
+        onChange={(e) => setLang(e.target.value as Language)}
       >
-        {Object.entries(RepoeLanguage).map(([key, data]) => (
+        {Object.entries(GGPKLanguage).map(([key, data]) => (
           <option
             className="option-language"
             key={key}
