@@ -43,10 +43,10 @@ describe("generated data from R2", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it("gives up on a request that doesn't answer within 20 seconds", async () => {
+  it("gives up on a request that doesn't load within 30 seconds", async () => {
     const {loadGeneratedData} = await load();
     fetchMock.mockRejectedValueOnce(new DOMException("signal timed out", "TimeoutError"));
-    await expect(loadGeneratedData("poe1")).rejects.toThrow("https://data.poe.re/history.json didn't answer within 20 seconds");
+    await expect(loadGeneratedData("poe1")).rejects.toThrow("https://data.poe.re/history.json didn't load within 30 seconds");
   });
 
   it("fails when history.json fails, or has no upload for the game", async () => {

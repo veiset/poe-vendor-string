@@ -4,7 +4,7 @@ const dataBaseUrl = (import.meta.env.VITE_DATA_URL || defaultDataUrl)
   .replace(/\/$/, "");
 
 // A request that hasn't answered by then fails, so a stalled connection shows an error instead of a spinner
-const timeoutSeconds = 20;
+const timeoutSeconds = 30;
 
 /**
  * Where the generated files are read from:
@@ -43,19 +43,19 @@ export function onGeneratedDataError(listener: (error: GeneratedDataError) => vo
 }
 
 async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> {
-  let response: Response;
   try {
-    response = await fetch(url, {...init, signal: AbortSignal.timeout(timeoutSeconds * 1000)});
+    const response = await fetch(url, {...init, signal: AbortSignal.timeout(timeoutSeconds * 1000)});
+    if (!response.ok) {
+      throw new Error(`Failed to load ${url}: ${response.status} ${response.statusText}`);
+    }
+    return await response.json() as T;
   } catch (error) {
+    // The timeout covers the download too
     if (error instanceof DOMException && error.name === "TimeoutError") {
-      throw new Error(`${url} didn't answer within ${timeoutSeconds} seconds`);
+      throw new Error(`${url} didn't load within ${timeoutSeconds} seconds`);
     }
     throw error;
   }
-  if (!response.ok) {
-    throw new Error(`Failed to load ${url}: ${response.status} ${response.statusText}`);
-  }
-  return response.json() as Promise<T>;
 }
 
 interface History {
