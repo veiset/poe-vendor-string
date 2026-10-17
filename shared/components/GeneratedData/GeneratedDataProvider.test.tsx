@@ -1,3 +1,4 @@
+import {useState} from "react";
 import {afterEach, beforeEach, describe, expect, it, vi} from "vitest";
 import {act, cleanup, fireEvent, render, screen} from "@testing-library/react";
 import {Link, MemoryRouter, Outlet, Route, Routes} from "react-router-dom";
@@ -12,17 +13,29 @@ const fetchMock = vi.fn(answer);
 // Each test imports the modules again, so they read history.json again
 async function renderApp() {
   const {GeneratedDataProvider} = await import("./GeneratedDataProvider");
-  render(
-    <MemoryRouter initialEntries={["/boat"]}>
-      <Routes>
-        <Route element={<GeneratedDataProvider game="poe1"><Outlet/></GeneratedDataProvider>}>
-          <Route path="boat" element={<p>Boat <Link to="/maps">Maps</Link></p>}/>
-          <Route path="maps" element={<p>Maps page</p>}/>
-        </Route>
-      </Routes>
-    </MemoryRouter>,
-  );
+  const App = () => {
+    const [language, setLanguage] = useState("FRENCH");
+    return (
+      <MemoryRouter initialEntries={["/boat"]}>
+        <button type="button" onClick={() => setLanguage("ENGLISH")}>English</button>
+        <Routes>
+          <Route element={<GeneratedDataProvider game="poe1" language={language}><Outlet/></GeneratedDataProvider>}>
+            <Route path="boat" element={<p>Boat <Link to="/maps">Maps</Link></p>}/>
+            <Route path="maps" element={<p>Maps page</p>}/>
+          </Route>
+        </Routes>
+      </MemoryRouter>
+    );
+  };
+  render(<App/>);
   return import("@shared/generatedData");
+}
+
+// Fails a request for the French boat mods, as R2 only has English ones
+async function failBoatMods(data: typeof import("@shared/generatedData")) {
+  await act(async () => {
+    await expect(data.fetchGeneratedFile("poe1", "boatmods/Generated.BoatMods.FRENCH.min.json")).rejects.toThrow("404");
+  });
 }
 
 describe("GeneratedDataProvider", () => {
@@ -69,9 +82,7 @@ describe("GeneratedDataProvider", () => {
   it("says when a file failed to load, keeps the page, and forgets it on the next page", async () => {
     let data!: typeof import("@shared/generatedData");
     await act(async () => { data = await renderApp(); });
-    await act(async () => {
-      await expect(data.fetchGeneratedFile("poe1", "boatmods/Generated.BoatMods.FRENCH.min.json")).rejects.toThrow("404");
-    });
+    await failBoatMods(data);
     const alert = screen.getByRole("alert");
     expect(alert).toHaveTextContent("Some data couldn't be loaded");
     expect(alert).toHaveTextContent("404 Not Found");
@@ -80,5 +91,16 @@ describe("GeneratedDataProvider", () => {
     await act(async () => fireEvent.click(screen.getByRole("link", {name: "Maps"})));
     expect(screen.getByText("Maps page")).toBeInTheDocument();
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
+
+  it("forgets a file that failed to load when the language changes", async () => {
+    let data!: typeof import("@shared/generatedData");
+    await act(async () => { data = await renderApp(); });
+    await failBoatMods(data);
+    expect(screen.getByRole("alert")).toBeInTheDocument();
+
+    await act(async () => fireEvent.click(screen.getByRole("button", {name: "English"})));
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+    expect(screen.getByText("Boat")).toBeInTheDocument();
   });
 });

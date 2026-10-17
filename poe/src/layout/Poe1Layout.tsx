@@ -40,7 +40,7 @@ export const Poe1Layout = () => {
                 <div className="content-left-gfx"/>
                 <div className="content-main-area">
                   <div className="page-content" key={`poe1-${profile.name}`}>
-                    <GeneratedDataProvider game="poe1">
+                    <GeneratedDataProvider game="poe1" language={lang}>
                       <Outlet/>
                     </GeneratedDataProvider>
                   </div>

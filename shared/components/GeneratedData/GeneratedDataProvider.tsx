@@ -48,7 +48,7 @@ const ErrorCard = ({title, text, detail, onRetry, problem, partial}: ErrorCardPr
 );
 
 /** Finds the game's generated data before it renders the page, and says what failed to load. */
-export const GeneratedDataProvider = ({game, children}: {game: Game, children: ReactNode}) => {
+export const GeneratedDataProvider = ({game, language, children}: {game: Game, language: string, children: ReactNode}) => {
   const [state, setState] = useState<State>(dataSource === "local" ? "ready" : "loading");
   const [attempt, setAttempt] = useState(0);
   const [fileError, setFileError] = useState<GeneratedDataError>();
@@ -64,8 +64,8 @@ export const GeneratedDataProvider = ({game, children}: {game: Game, children: R
   }, [game, attempt]);
 
   useEffect(() => onGeneratedDataError(setFileError), []);
-  // A failed file belongs to the page that loaded it
-  useEffect(() => setFileError(undefined), [pathname]);
+  // A failed file belongs to the page and language that loaded it
+  useEffect(() => setFileError(undefined), [pathname, language]);
 
   const retry = () => {
     setState("loading");
