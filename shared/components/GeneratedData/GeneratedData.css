@@ -1,3 +1,5 @@
+/* Styled like the filter cards and the result box buttons */
+
 .generated-data-message {
     width: 100%;
     margin: 12px 0;
@@ -5,8 +7,9 @@
     font-size: 14px;
     color: var(--color-text);
     background-color: var(--color-card-bg);
+    border: 1px solid var(--color-border-strong);
     border-left: 3px solid var(--color-text-error);
-    border-radius: 3px;
+    border-radius: 4px;
 }
 
 .generated-data-message p {
@@ -14,12 +17,14 @@
 }
 
 .generated-data-detail {
-    color: var(--color-text-muted);
-    font-size: 13px;
+    margin: 0 0 14px;
+    color: var(--color-text-dim);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12px;
     overflow-wrap: anywhere;
 }
 
-/* history.json failed, so there is no page to show: the message takes its place */
+/* history.json failed, so there is no page to show: the error takes its place */
 .generated-data-error {
     display: flex;
     flex: 1 1 100%;
@@ -31,40 +36,44 @@
 }
 
 .generated-data-error-card {
-    max-width: 640px;
-    padding: 36px 40px;
-    font-size: 17px;
+    width: 100%;
+    max-width: 560px;
+    padding: 12px 22px 20px;
+    font-size: 15px;
     line-height: 1.5;
-    text-align: center;
     color: var(--color-text);
     background-color: var(--color-card-bg);
     border: 1px solid var(--color-border-strong);
-    border-top: 4px solid var(--color-text-error);
-    border-radius: 6px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.generated-data-error-regex {
+    margin: 0 0 16px;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 11px;
+    color: var(--color-text-error);
+    -webkit-mask-image: linear-gradient(to right, black 55%, transparent);
+    mask-image: linear-gradient(to right, black 55%, transparent);
+    user-select: none;
 }
 
 .generated-data-error-card h2 {
-    margin: 0 0 16px;
-    font-size: 28px;
+    margin: 0 0 8px;
+    padding-left: 0;
+    font-size: 22px;
 }
 
 .generated-data-error-card p {
-    margin: 0 0 12px;
-}
-
-.generated-data-error-card .generated-data-actions {
-    justify-content: center;
-    margin: 24px 0 20px;
-}
-
-.generated-data-error-card .generated-data-detail {
-    margin: 0;
+    margin: 0 0 14px;
 }
 
 .generated-data-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
 }
 
 .generated-data-actions button,
@@ -72,19 +81,19 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 12px;
-    font-size: inherit;
+    min-width: 78px;
+    justify-content: center;
+    padding: 9px 18px;
+    font-family: inherit;
+    font-size: 13px;
+    letter-spacing: 0.02em;
     color: var(--color-text);
     text-decoration: none;
     background-color: var(--color-area-2);
-    border: 1px solid var(--color-border-strong);
+    border: 1px solid var(--color-border);
     border-radius: 3px;
     cursor: pointer;
-}
-
-.generated-data-error-card .generated-data-actions button,
-.generated-data-error-card .generated-data-actions a {
-    padding: 10px 18px;
+    transition: background-color 0.15s ease, transform 0.05s ease;
 }
 
 .generated-data-actions button:hover,
@@ -93,18 +102,24 @@
     text-decoration: none;
 }
 
-.generated-data-actions .generated-data-primary {
+.generated-data-actions button:active,
+.generated-data-actions a:active {
+    transform: translateY(1px);
+}
+
+.generated-data-actions .generated-data-retry {
+    color: white;
     background-color: var(--color-accent);
     border-color: var(--color-accent);
 }
 
-.generated-data-actions .generated-data-primary:hover {
+.generated-data-actions .generated-data-retry:hover {
     background-color: var(--color-accent-hover);
 }
 
 .generated-data-icon {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     object-fit: contain;
 }
 

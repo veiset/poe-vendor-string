@@ -11,19 +11,23 @@ type State = "loading" | "ready" | {failed: string};
 
 const discordUrl = "https://discord.gg/T8BzKnatY6";
 
+// A broken regex across the top of the error, in place of a red border
+const brokenRegex = String.raw`"!ir p|au c|ss lo" "^(?=.*?ma(?!ps))[^\d]{2,}" "!nt$|ce\b|\(1[0-9]" "rr(?<=o)r|lo?ad.*d(at|a)?$" "[^x]+?|¿?|$^" "(?!data)|\[\]{,}" "!err|or!|(?=`;
+
 const messageOf = (error: unknown) => error instanceof Error ? error.message : String(error);
 
-const ReportLinks = ({problem}: {problem: string}) => (
-  <>
+const Actions = ({onRetry, problem}: {onRetry: () => void, problem: string}) => (
+  <div className="generated-data-actions">
+    <button type="button" className="generated-data-retry" onClick={onRetry}>Try again</button>
     <a href={discordUrl} target="_blank" rel="noopener noreferrer">
       <img src={discordIcon} alt="" className="generated-data-icon generated-data-icon-discord"/>
-      Report on Discord
+      Discord
     </a>
     <a href={getBugReportUrl(problem)} target="_blank" rel="noopener noreferrer">
       <img src={githubIcon} alt="" className="generated-data-icon"/>
-      Report on GitHub
+      GitHub
     </a>
-  </>
+  </div>
 );
 
 /** Finds the game's generated data before it renders the page, and says what failed to load. */
@@ -55,27 +59,21 @@ export const GeneratedDataProvider = ({game, children}: {game: Game, children: R
     <>
       {fileError && (
         <div className="generated-data-message" role="alert">
-          <p>Some of the game data failed to load ({fileError.file}), so this page may be incomplete.</p>
+          <p>Some data for this page couldn't be loaded, so it may be incomplete.</p>
           <p className="generated-data-detail">{fileError.message}</p>
-          <div className="generated-data-actions">
-            <button type="button" onClick={() => window.location.reload()}>Try again</button>
-            <ReportLinks problem={`Game data failed to load: ${fileError.file}`}/>
-          </div>
+          <Actions onRetry={() => window.location.reload()} problem={`Error loading data: ${fileError.file}`}/>
         </div>
       )}
       {state === "loading" && <Spinner label="Loading game data…"/>}
       {typeof state === "object" && (
         <div className="generated-data-error" role="alert">
-          <div className="generated-data-error-card">
+          <section className="generated-data-error-card">
+            <div className="generated-data-error-regex" aria-hidden="true">{brokenRegex}</div>
             <h2>Error loading data</h2>
-            <p>This page has data that couldn't be loaded right now.</p>
-            <p>Please try again in a few moments, if that fails report the issue on github or discord.</p>
-            <div className="generated-data-actions">
-              <button type="button" className="generated-data-primary" onClick={retry}>Try again</button>
-              <ReportLinks problem={`Error loading data (${state.failed})`}/>
-            </div>
+            <p>This page's data couldn't be loaded. Try again in a few minutes, and if it still fails, let us know on Discord or GitHub.</p>
             <p className="generated-data-detail">{state.failed}</p>
-          </div>
+            <Actions onRetry={retry} problem={`Error loading data (${state.failed})`}/>
+          </section>
         </div>
       )}
       {/* The page's own code loads here too, so the layout stays while it does */}

@@ -56,8 +56,8 @@ describe("GeneratedDataProvider", () => {
     const alert = screen.getByRole("alert");
     expect(alert).toHaveTextContent("Error loading data");
     expect(alert).toHaveTextContent("503 Service Unavailable");
-    expect(screen.getByRole("link", {name: "Report on Discord"})).toHaveAttribute("href", "https://discord.gg/T8BzKnatY6");
-    expect(screen.getByRole("link", {name: "Report on GitHub"}).getAttribute("href"))
+    expect(screen.getByRole("link", {name: "Discord"})).toHaveAttribute("href", "https://discord.gg/T8BzKnatY6");
+    expect(screen.getByRole("link", {name: "GitHub"}).getAttribute("href"))
       .toMatch(/^https:\/\/github\.com\/veiset\/poe\.re\/issues\/new\?.*title=.*503/);
     expect(screen.queryByText("Boat")).not.toBeInTheDocument();
 
@@ -66,14 +66,14 @@ describe("GeneratedDataProvider", () => {
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
   });
 
-  it("says which file failed to load, keeps the page, and forgets it on the next page", async () => {
+  it("says when a file failed to load, keeps the page, and forgets it on the next page", async () => {
     let data!: typeof import("@shared/generatedData");
     await act(async () => { data = await renderApp(); });
     await act(async () => {
       await expect(data.fetchGeneratedFile("poe1", "boatmods/Generated.BoatMods.FRENCH.min.json")).rejects.toThrow("404");
     });
     const alert = screen.getByRole("alert");
-    expect(alert).toHaveTextContent("Some of the game data failed to load (boatmods/Generated.BoatMods.FRENCH.min.json)");
+    expect(alert).toHaveTextContent("Some data for this page couldn't be loaded");
     expect(alert).toHaveTextContent("404 Not Found");
     expect(screen.getByText("Boat")).toBeInTheDocument();
 
