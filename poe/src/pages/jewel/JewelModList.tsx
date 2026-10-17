@@ -1,6 +1,6 @@
 import ModSearchBox from "@shared/components/ModSearchBox";
 import {useState} from "react";
-import type {JewelRegex} from "@poe/types/generated/jewel";
+import type {JewelRegex} from "@shared/typedefs/poe1/Jewel";
 
 export interface JewelModListProps {
   id: string

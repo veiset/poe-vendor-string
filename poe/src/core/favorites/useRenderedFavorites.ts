@@ -3,7 +3,7 @@ import {generateMapModRegex} from "@poe/pages/maps/OptimizedMapOutput";
 import {defaultSettings, MapSettings} from "@poe/utils/SavedSettings";
 import {itemSettingsLanguage, loadBoatMods, loadGems, loadItemBasetypes, loadItemRegex, loadMapMods} from "@poe/utils/loadData";
 import {generateBoatModRegex} from "@poe/pages/boat/BoatOutput";
-import {RepoeLanguage} from "@poe/utils/Languages";
+import {storedLanguage} from "@poe/utils/Languages";
 import {generateGemsRegex, translateGemIds} from "@poe/pages/gems/GemsOutput";
 import type {BoatSettings, GemsSettings} from "@poe/utils/SavedSettings";
 import type {RepoeLanguageKey} from "@poe/utils/Languages";
@@ -47,8 +47,6 @@ const normalizeItemSettings = (configuration: unknown): ItemCraftingSettings => 
   if (configuration === null || typeof configuration !== "object" || Array.isArray(configuration)) return defaultSettings.itemCrafting;
   return merge(defaultSettings.itemCrafting, JSON.parse(JSON.stringify(configuration)) as Partial<ItemCraftingSettings>);
 };
-const storedLanguage = (language: string | undefined): RepoeLanguageKey =>
-  language && Object.prototype.hasOwnProperty.call(RepoeLanguage, language) ? language as RepoeLanguageKey : "ENGLISH";
 
 /**
  * Keeps saved favorites immutable while presenting their language-dependent
@@ -90,11 +88,7 @@ export const useRenderedFavorites = (favorites: FavoriteRecord[], language: Repo
     if (!gemFavorites.length) { setGemDataById(undefined); return; }
     let cancelled = false;
     Promise.all(gemFavorites.map(async (favorite) => {
-      const storedLanguage = favorite.context.language;
-      const sourceLanguage = storedLanguage && Object.prototype.hasOwnProperty.call(RepoeLanguage, storedLanguage)
-        ? storedLanguage as RepoeLanguageKey
-        : "ENGLISH";
-      const [source, target] = await Promise.all([loadGems(sourceLanguage), loadGems(language)]);
+      const [source, target] = await Promise.all([loadGems(storedLanguage(favorite.context.language)), loadGems(language)]);
       return [favorite.id, {source, target}] as const;
     })).then((entries) => { if (!cancelled) setGemDataById(new Map(entries)); })
       .catch(() => { if (!cancelled) setGemDataById(undefined); });

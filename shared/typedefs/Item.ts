@@ -1,3 +1,6 @@
+// typedefs for data.poe.re/generated/<game>/<patch>/item/Generated.Item.<LANGUAGE>.json
+// typedefs for data.poe.re/generated/<game>/<patch>/item/Generated.Basetypes.Item.<LANGUAGE>.json
+
 export interface ItemRegex {
   basetype: string;
   categoryRegex: Array<CategoryRegex>;
@@ -37,3 +40,10 @@ export interface ItemStat {
 }
 
 export type ItemGenerated = Array<ItemRegex>;
+
+export interface ItemBase {
+  items: Array<string>;
+  name: string;
+}
+
+export type ItemBasetypes = Array<ItemBase>;

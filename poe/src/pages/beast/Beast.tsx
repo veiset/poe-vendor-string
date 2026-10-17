@@ -2,7 +2,7 @@ import {HeaderWithLanguage} from "@poe/components/Header";
 import RegexResultBox from "@shared/components/RegexResultBox/RegexResultBox";
 import React, {useContext, useEffect, useState} from "react";
 import {loadBeastRegex} from "@poe/utils/loadData";
-import type {BeastRegex} from "@poe/types/generated/beast";
+import type {BeastRegex} from "@shared/typedefs/poe1/BeastRegex";
 import "./Beast.css";
 import "@shared/components/dropdown/Dropdown.css";
 import Collapsable from "@poe/components/collapsable/Collapsable";

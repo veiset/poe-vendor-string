@@ -1,6 +1,6 @@
 import Collapsable from "@poe/components/collapsable/Collapsable";
 import {PoeNinjaItem, PriceData, PricedItemWithFallback} from "./ExpeditionTypes";
-import type {Expedition} from "@poe/types/generated/expedition";
+import type {Expedition} from "@shared/typedefs/poe1/Expedition";
 import {ItemDisplay} from "./ExpeditionRow";
 
 export interface ExpeditionHelpProps {

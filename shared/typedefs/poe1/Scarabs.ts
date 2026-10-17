@@ -1,3 +1,5 @@
+// typedefs for data.poe.re/generated/poe1/<patch>/scarabs/Generated.Scarabs.<LANGUAGE>.json
+
 export interface ScarabRegex {
   description: string;
   flavourText: string;

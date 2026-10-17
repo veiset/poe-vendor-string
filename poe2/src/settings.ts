@@ -1,4 +1,4 @@
-import type {ItemAffixRegex as ItemModifier} from "@poe2/types/generated/item";
+import type {ItemAffixRegex as ItemModifier} from "@shared/typedefs/Item";
 import type {RepoeLanguageKey} from "@poe/utils/Languages";
 import {AsyncTradePriceRangeValue} from "@shared/components/AsyncTradePriceRange/AsyncTradePriceRange";
 import {itemCraftingDefault, ItemCraftingSettings} from "@shared/types/Settings.types";

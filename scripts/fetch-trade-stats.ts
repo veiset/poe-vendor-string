@@ -1,9 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import {fileURLToPath} from 'node:url';
-import type {MapOption, RegexResult, Token} from '../poe/src/types/generated/mapmods/index';
-import type {TabletOption} from '../poe2/src/types/generated/tablet/index';
-import type {WaystoneOption} from '../poe2/src/types/generated/waystone/index';
+import type {MapOption} from '../shared/typedefs/poe1/MapMods';
+import type {RegexResult, Token} from '../shared/typedefs/RegexResult';
+import type {TabletOption} from '../shared/typedefs/poe2/Tablet';
+import type {WaystoneOption} from '../shared/typedefs/poe2/Waystone';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

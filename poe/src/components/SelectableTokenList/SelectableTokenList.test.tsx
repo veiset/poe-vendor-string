@@ -2,7 +2,7 @@ import {vi} from "vitest";
 import React from "react";
 import {render, screen, fireEvent} from "@testing-library/react";
 import SelectableTokenList from "./SelectableTokenList";
-import type {Token} from "@poe/types/generated/mapmods";
+import type {Token} from "@shared/typedefs/RegexResult";
 
 type T = Token<{ kind: "prefix" | "suffix" }>;
 

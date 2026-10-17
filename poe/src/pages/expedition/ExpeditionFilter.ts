@@ -1,5 +1,5 @@
 import {PoeNinjaItem, PricedBaseType, PricedItemWithFallback} from "./ExpeditionTypes";
-import type {BaseTypeRegex} from "@poe/types/generated/expedition";
+import type {BaseTypeRegex} from "@shared/typedefs/poe1/Expedition";
 
 export const cleanUpPoeNinjaItems = (data: PoeNinjaItem[], baseTypeRegex: Record<string, BaseTypeRegex>): PoeNinjaItem[] => {
     return data

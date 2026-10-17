@@ -1,14 +1,14 @@
-import type {BaseType, ItemRegex} from "@shared/generated/item";
+import type {ItemBase, ItemRegex} from "@shared/typedefs/Item";
 import type {Itembase} from "@shared/core/item/ItemBaseSelector";
 import type {ItemCraftingSettings} from "@shared/types/Settings.types";
 
 // Every language lists the bases, items, categories and modifiers in the same
 // order, so a selection moves to another language by its position in the data.
 
-export const hasItem = (bases: BaseType[], itembase: Itembase | undefined): boolean =>
+export const hasItem = (bases: ItemBase[], itembase: Itembase | undefined): boolean =>
   !itembase || bases.some((base) => base.name === itembase.baseType && base.items.includes(itembase.item));
 
-const rebaseItembase = (itembase: Itembase, sourceBases: BaseType[], targetBases: BaseType[]): Itembase | undefined => {
+const rebaseItembase = (itembase: Itembase, sourceBases: ItemBase[], targetBases: ItemBase[]): Itembase | undefined => {
   const baseIndex = sourceBases.findIndex((base) => base.name === itembase.baseType);
   const itemIndex = sourceBases[baseIndex]?.items.indexOf(itembase.item) ?? -1;
   const targetBase = targetBases[baseIndex];
@@ -20,11 +20,11 @@ const rebaseItembase = (itembase: Itembase, sourceBases: BaseType[], targetBases
 
 export const rebaseItemSettings = (
   settings: ItemCraftingSettings,
-  sourceBases: BaseType[],
-  targetBases: BaseType[],
+  sourceBases: ItemBase[],
+  targetBases: ItemBase[],
   sourceRegex: ItemRegex[],
   targetRegex: ItemRegex[],
-): {settings: ItemCraftingSettings; basetypes: BaseType[]} => {
+): {settings: ItemCraftingSettings; basetypes: ItemBase[]} => {
   const roots = (baseType: string | undefined) => {
     const index = sourceRegex.findIndex((entry) => entry.basetype === baseType);
     return {source: sourceRegex[index], target: targetRegex[index]};

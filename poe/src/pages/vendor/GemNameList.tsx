@@ -1,7 +1,8 @@
 import React, {Dispatch, SetStateAction} from "react";
 import ModSearchBox from "@shared/components/ModSearchBox";
 import "./GemNameList.css";
-import type {GemOption, Token} from "@poe/types/generated/gems";
+import type {GemOption} from "@shared/typedefs/poe1/Gems";
+import type {Token} from "@shared/typedefs/RegexResult";
 
 export interface GemNameListProps {
   id: string

@@ -1,3 +1,5 @@
+// typedefs for data.poe.re/generated/poe1/<patch>/expedition/Generated.Expedition.json
+
 export interface ExpeditionOutput {
   baseTypeRegex: Record<string, BaseTypeRegex>;
   numberOfUniques: number;

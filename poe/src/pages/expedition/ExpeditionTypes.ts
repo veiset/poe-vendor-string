@@ -1,4 +1,4 @@
-import type {Item} from "@poe/types/generated/expedition";
+import type {Item} from "@shared/typedefs/poe1/Expedition";
 
 export interface PoeNinjaItem {
   name: string

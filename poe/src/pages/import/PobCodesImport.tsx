@@ -6,7 +6,7 @@ import {ProfileContext} from "@poe/components/profile/ProfileContext";
 import {loadMapMods} from "@poe/utils/loadData";
 import {loadProfileNames, setSelectedProfile, updateSettings} from "@poe/utils/LocalStorage";
 import {defaultSettings} from "@poe/utils/SavedSettings";
-import type {MapModsRegex} from "@poe/types/generated/mapmods";
+import type {MapModsRegex} from "@shared/typedefs/poe1/MapMods";
 
 export function readExclusions(search: string): number[] | null {
   const params = new URLSearchParams(search);

@@ -1,5 +1,8 @@
+// typedefs for data.poe.re/generated/poe2/<patch>/relic/Generated.Relic.<LANGUAGE>.json
+
 export interface RelicRegex {
   affix: string;
+  id: number;
   name: string;
   ranges: Array<Array<number>>;
   regex: string;

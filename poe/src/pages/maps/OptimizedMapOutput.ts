@@ -1,5 +1,5 @@
 import {MapSettings} from "@poe/utils/SavedSettings";
-import type {RegexResult as Regex} from "@poe/types/generated/mapmods";
+import type {RegexResult as Regex} from "@shared/typedefs/RegexResult";
 import {idToRegex, optimizeRegexFromIds} from "@poe/utils/regex/OptimizeRegexResult";
 import {generateNumberRegex} from "@shared/core/regex/GenerateNumberRegex";
 import {MapStaticStatRegex, RepoeLanguageKey} from "@poe/utils/Languages";

@@ -15,12 +15,12 @@ import ItemInfoBanner from "@shared/components/item/ItemInfoBanner";
 import SimilarItemsInfo from "@shared/components/item/SimilarItemsInfo";
 import RareItemMatchSettings from "@shared/components/item/RareItemMatchSettings";
 import MagicItemMatchSettings from "@shared/components/item/MagicItemMatchSettings";
-import type {BaseType, ItemAffixRegex, ItemRegex} from "@shared/generated/item";
+import type {ItemBase, ItemAffixRegex, ItemRegex} from "@shared/typedefs/Item";
 import {itemSettingsLanguage, loadItemBasetypes, loadItemRegex} from "@poe/utils/loadData";
 import {findSimilarBases, groupAffixes} from "@shared/core/item/GroupUtils";
 import {rebaseItemSettings} from "@shared/core/item/RebaseItemSettings";
 import {Spinner} from "@shared/components/Spinner/Spinner";
-import {RepoeLanguage} from "@poe/utils/Languages";
+import {RepoeLanguage, RepoeLanguageKey} from "@poe/utils/Languages";
 import {ItemCraftingSettings} from "@shared/types/Settings.types";
 import "./Item.css";
 
@@ -30,11 +30,11 @@ const Item = () => {
   const favoritePage = useFavoritePage("items", storedProfile.itemCrafting);
   const profile = {...storedProfile, itemCrafting: favoritePage.initialConfiguration};
   const [result, setResult] = useState<string>("");
-  const [basetypes, setBasetypes] = useState<BaseType[]>([]);
+  const [basetypes, setBasetypes] = useState<ItemBase[]>([]);
   const [itemRegex, setItemRegex] = useState<ItemRegex[]>([]);
   const [dataLanguage, setDataLanguage] = useState<string>();
   const [regexLanguage, setRegexLanguage] = useState<string>();
-  const loadedLanguage = useRef<string | undefined>(undefined);
+  const loadedLanguage = useRef<RepoeLanguageKey | undefined>(undefined);
 
   const affixMap: Record<string, ItemAffixRegex> = useMemo(() => groupAffixes(itemRegex), [itemRegex]);
 

@@ -1,7 +1,7 @@
 import React, {useEffect, useMemo, useState} from "react";
 import Dropdown from "@shared/components/dropdown/Dropdown";
 import "./ItemBaseSelector.css";
-import type {BaseType} from "@shared/generated/item";
+import type {ItemBase} from "@shared/typedefs/Item";
 
 type Rarity = "Magic" | "Rare";
 
@@ -16,7 +16,7 @@ interface ItemBaseSelectorProps {
   itemBase: Itembase | undefined
   nonMagicalBase: boolean
   onlyMagicBase: boolean
-  basetypes: BaseType[]
+  basetypes: ItemBase[]
 }
 
 const ItemBaseSelector = (props: ItemBaseSelectorProps) => {

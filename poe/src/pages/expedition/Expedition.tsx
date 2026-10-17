@@ -1,5 +1,5 @@
 import {useContext, useEffect, useState} from "react";
-import type {BaseTypeRegex, Expedition as ExpeditionData, Item} from "@poe/types/generated/expedition";
+import type {BaseTypeRegex, Expedition as ExpeditionData, Item} from "@shared/typedefs/poe1/Expedition";
 import {loadExpedition} from "@poe/utils/loadData";
 import Header from "@poe/components/Header";
 import RegexResultBox from "@shared/components/RegexResultBox/RegexResultBox";

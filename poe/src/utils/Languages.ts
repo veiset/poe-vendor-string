@@ -1,3 +1,5 @@
+import type {Language} from "@shared/typedefs/Language";
+
 export type RepoeLanguageData = {
   readonly urlKey: string;
   readonly short: string;
@@ -26,9 +28,13 @@ export const RepoeLanguage = {
     name: "Chinese",
     flag: "🇨🇳",
   },
-} as const;
+} as const satisfies Record<Language, RepoeLanguageData>;
 
 export type RepoeLanguageKey = keyof typeof RepoeLanguage;
+
+/** A language saved with a favorite, or English when it isn't one the site has. */
+export const storedLanguage = (language: string | undefined): RepoeLanguageKey =>
+  language && Object.prototype.hasOwnProperty.call(RepoeLanguage, language) ? language as RepoeLanguageKey : "ENGLISH";
 
 export const TRANSLATION_NEED = "TRANSLATION_NEEDED";
 

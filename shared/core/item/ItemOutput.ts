@@ -4,7 +4,7 @@ import {countWords} from "@shared/core/utils";
 import {SelectedMagicMod} from "@shared/core/item/MagicItemSelect";
 import {Itembase} from "@shared/core/item/ItemBaseSelector";
 import {wordRegex} from "@shared/core/regex/NumberOfWordsRegex";
-import type {BaseType, ItemAffixRegex} from "@shared/generated/item";
+import type {ItemBase, ItemAffixRegex} from "@shared/typedefs/Item";
 import {ItemCraftingSettings} from "@shared/types/Settings.types";
 
 type RareModSelectionEntry = {
@@ -34,7 +34,7 @@ function boundedValueRegex(value: string, numberIndex: number, affix: ItemAffixR
 
 export function generateMagicItemRegex(
   settings: ItemCraftingSettings,
-  basetypes: BaseType[],
+  basetypes: ItemBase[],
 ) {
   const itembase = settings.itembase;
   if (!itembase) return "";
@@ -47,7 +47,7 @@ export function generateMagicItemRegex(
   return regex;
 }
 
-function itemGenericMatch(itembase: Itembase, basetypes: BaseType[]) {
+function itemGenericMatch(itembase: Itembase, basetypes: ItemBase[]) {
   const words = itembase.item.trim().split(/\s+/);
   const lastWord = words[words.length - 1];
   const firstWordsCount = words.length - 1;

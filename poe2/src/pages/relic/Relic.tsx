@@ -4,7 +4,7 @@ import {Poe2ProfileContext} from "../../layout/Poe2ProfileContext";
 import {defaultSettings, SelectOption, Settings} from "../../settings";
 import {SelectList} from "@poe2/components/SelectList";
 import {loadRelicRegex} from "../../utils/loadData";
-import type {RelicRegex} from "@poe2/types/generated/relic";
+import type {RelicRegex} from "@shared/typedefs/poe2/Relic";
 import {generateRelicResult} from "./RelicResult";
 import RegexResultBox from "@shared/components/RegexResultBox/RegexResultBox";
 import Poe2Header from "@poe2/components/Poe2Header";

@@ -1,7 +1,7 @@
 import {describe, expect, test} from "vitest";
 import {generateBoundedValueRegex} from "@shared/core/regex/GenerateNumberRegex";
 import {generateRareItemRegex} from "./ItemOutput";
-import type {ItemAffixRegex} from "@shared/generated/item";
+import type {ItemAffixRegex} from "@shared/typedefs/Item";
 import {ItemCraftingSettings} from "@shared/types/Settings.types";
 
 const itemBase = {

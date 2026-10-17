@@ -2,7 +2,7 @@ import {MapType, MapTypeRegex} from "./MapTypes";
 import {generateMapModRegex} from "./OptimizedMapOutput";
 import {defaultSettings, MapSettings} from "@poe/utils/SavedSettings";
 import type {RepoeLanguageKey} from "@poe/utils/Languages";
-import type {RegexResult} from "@poe/types/generated/mapmods";
+import type {RegexResult} from "@shared/typedefs/RegexResult";
 
 const off = {enabled: false, include: false};
 const noMapTypes: MapSettings["mapTypes"] = {shaper: off, elder: off, conqueror: off, originator: off, blighted: off, blightRavaged: off};

@@ -1,5 +1,5 @@
 import type {GemsSettings} from "@poe/utils/SavedSettings";
-import type {GemsRegex} from "@poe/types/generated/gems";
+import type {GemsRegex} from "@shared/typedefs/poe1/Gems";
 import {generateNumberRangeRegex} from "@shared/core/regex/GenerateNumberRegex";
 
 const boundedValue = (value: string, low: number, high: number) => {

@@ -5,7 +5,7 @@ import Header from "@poe/components/Header";
 import RegexResultBox from "@shared/components/RegexResultBox/RegexResultBox";
 import {defaultSettings, JewelSettings} from "@poe/utils/SavedSettings";
 import {Checkbox} from "@shared/components/Checkbox/Checkbox";
-import type {Jewel} from "@poe/types/generated/jewel";
+import type {Jewel} from "@shared/typedefs/poe1/Jewel";
 import {loadJewel} from "@poe/utils/loadData";
 import JewelMods from "./JewelMods";
 import {generateJewelRegex} from "./JewelOutput";

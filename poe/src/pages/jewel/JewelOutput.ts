@@ -1,5 +1,5 @@
 import {JewelSettings} from "@poe/utils/SavedSettings";
-import type {Jewel, JewelRegex} from "@poe/types/generated/jewel";
+import type {Jewel, JewelRegex} from "@shared/typedefs/poe1/Jewel";
 
 // Only mods with a fractional value range need the number match to allow a decimal part
 const decimalRange = /\d\.\d/;
