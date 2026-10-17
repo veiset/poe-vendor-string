@@ -12,7 +12,7 @@ import {TradeAsterisk} from "@shared/components/TradeAsterisk";
 import {openTradeSearch, TradeSettings} from "@poe/core/TradeUrlBuilder";
 import type {MapModsRegex, MapOption as MapModsTokenOption} from "@shared/typedefs/poe1/MapMods";
 import type {Token} from "@shared/typedefs/RegexResult";
-import {loadMapMods} from "@poe/utils/loadData";
+import {loadMapMods, loadMapTradeIds} from "@poe/utils/loadData";
 import FilterCard from "@shared/components/FilterCard/FilterCard";
 import IncludeExcludeToggle from "@poe/components/IncludeExcludeToggle/IncludeExcludeToggle";
 import NumberField from "@shared/components/NumberField/NumberField";
@@ -65,6 +65,9 @@ const OptimizedMapMods = () => {
   useEffect(() => {
     loadMapMods(profile.language).then(setRegex);
   }, [profile.language]);
+  // Loaded now, so the trade search doesn't wait for it: a browser can block the trade site's tab
+  // when it opens too long after the click
+  useEffect(() => { loadMapTradeIds().catch(() => {}); }, []);
 
   const [customTextStr, setCustomTextStr] = useState(profile.map.customText.value);
   const [enableCustomText, setEnableCustomText] = useState(profile.map.customText.enabled);

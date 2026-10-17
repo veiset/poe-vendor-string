@@ -67,8 +67,6 @@ describe("generated data from R2", () => {
     await expect(fetchGeneratedFile("mapmods/Generated.Map.ENGLISH.min.json")).rejects.toThrow("404");
     expect(listener).toHaveBeenCalledWith({
       file: "mapmods/Generated.Map.ENGLISH.min.json",
-      message: "Failed to load https://data.poe.re/generated/poe1/3.29.3.3/mapmods/Generated.Map.ENGLISH.min.json?v=d1bab48: 404 Not Found",
-      requestedAt: expect.any(Number),
-    });
+      message: "Failed to load https://data.poe.re/generated/poe1/3.29.3.3/mapmods/Generated.Map.ENGLISH.min.json?v=d1bab48: 404 Not Found",    });
   });
 });

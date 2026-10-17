@@ -27,12 +27,14 @@ export type GeneratedData =
   | {source: "local", game: Game}
   | {source: "r2", game: Game, dataBaseUrl: string, patch: string, commit: string};
 
-/** A generated file that failed to load, and when it was requested (performance.now()). */
+/** A generated file that failed to load. */
 export interface GeneratedDataError {
   file: string;
   message: string;
-  requestedAt: number;
 }
+
+/** The message of an error, for showing it. */
+export const errorMessage = (error: unknown) => error instanceof Error ? error.message : String(error);
 
 const listeners = new Set<(error: GeneratedDataError) => void>();
 
@@ -96,12 +98,10 @@ export async function fetchGeneratedFile<T>(file: string): Promise<T> {
     throw new Error(`Can't load ${file} before the generated data is found: GeneratedDataProvider finds it first`);
   }
   const url = fileUrl(loaded, file);
-  const requestedAt = performance.now();
   try {
     return await fetchJson<T>(url);
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    listeners.forEach((listener) => listener({file, message, requestedAt}));
+    listeners.forEach((listener) => listener({file, message: errorMessage(error)}));
     throw error;
   }
 }

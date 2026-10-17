@@ -1,7 +1,7 @@
 import {createContext, ReactNode, useContext, useEffect, useRef, useState} from "react";
 import {Spinner} from "@shared/components/Spinner/Spinner";
-import {Game, GeneratedData, loadGeneratedData} from "@shared/generatedData";
-import {ErrorCard, errorMessage} from "./ErrorCard";
+import {errorMessage, Game, GeneratedData, loadGeneratedData} from "@shared/generatedData";
+import {ErrorCard} from "./ErrorCard";
 
 type State = "loading" | {data: GeneratedData} | {failed: string};
 

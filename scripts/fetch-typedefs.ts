@@ -30,7 +30,7 @@ function filesIn(dir: string): string[] {
 async function main() {
   console.log(`Reading ${TYPEDEFS_URL}/SHA256SUMS...`);
   const sums = (await download(`${TYPEDEFS_URL}/SHA256SUMS`)).toString('utf-8')
-    .split('\n')
+    .split(/\r?\n/)
     .filter(line => line.trim())
     .map(line => {
       const match = line.match(/^([0-9a-f]{64}) [ *](.+)$/);
@@ -40,6 +40,10 @@ async function main() {
       }
       return {hash: match[1], file: match[2]};
     });
+  // An empty list would remove every typedef
+  if (sums.length === 0) {
+    throw new Error(`${TYPEDEFS_URL}/SHA256SUMS lists no files`);
+  }
 
   // Download and check every file before writing any, so a failure leaves shared/typedefs as it was
   const downloads = await Promise.all(sums.map(async ({hash, file}) => {
