@@ -1,12 +1,12 @@
 import "./Privacy.css";
 
 const SITES = {
-  "poe.re": {game: "Path of Exile", lastUpdated: "22 October 2026"},
-  "poe2.re": {game: "Path of Exile 2", lastUpdated: "16 September 2026"},
+  "poe.re": {game: "Path of Exile", lastUpdated: "22 October 2026", poecdnImages: true},
+  "poe2.re": {game: "Path of Exile 2", lastUpdated: "16 September 2026", poecdnImages: false},
 };
 
 export function Privacy({site}: {site: keyof typeof SITES}) {
-  const {game, lastUpdated} = SITES[site];
+  const {game, lastUpdated, poecdnImages} = SITES[site];
   return (
     <div className="privacy-page">
       <h1>Privacy policy</h1>
@@ -78,6 +78,12 @@ export function Privacy({site}: {site: keyof typeof SITES}) {
         Coffee, and embeds the Buy Me a Coffee widget. Those services have their own privacy
         policies and this one does not cover them.
       </p>
+      {poecdnImages && (
+        <p>
+          Some pages show item images loaded from web.poecdn.com, the official Path of Exile image
+          server, which receives your IP address and browser details when they load.
+        </p>
+      )}
 
       <h2>Children</h2>
       <p>
