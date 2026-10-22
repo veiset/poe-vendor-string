@@ -1,20 +1,6 @@
 import {PageHeader} from "@shared/components/PageHeader";
-import AdBanner from "@shared/components/ads/AdBanner";
-import type {NitroAdOptions} from "@shared/core/nitroAds";
 import Profile from "./profile/Profile";
-
-const BANNER_ID = "ad-std-banner-poere-nitro-001";
-
-const BANNER_OPTIONS: NitroAdOptions = {
-  height: 250,
-  delayLoading: true,
-  report: {
-    enabled: true,
-    icon: true,
-    wording: "Report Ad",
-    position: "top-right",
-  },
-};
+import Poe1AdBanner from "./ads/Poe1AdBanner";
 
 export interface HeaderProps {
   text: string
@@ -24,14 +10,14 @@ const Header = ({text}: HeaderProps) => <>
   <PageHeader text={text}>
     <Profile/>
   </PageHeader>
-  <AdBanner id={BANNER_ID} options={BANNER_OPTIONS}/>
+  <Poe1AdBanner/>
 </>;
 
 export const HeaderWithLanguage = ({text}: HeaderProps) => <>
   <PageHeader text={text}>
     <Profile languageSelect/>
   </PageHeader>
-  <AdBanner id={BANNER_ID} options={BANNER_OPTIONS}/>
+  <Poe1AdBanner/>
 </>;
 
 export default Header;
