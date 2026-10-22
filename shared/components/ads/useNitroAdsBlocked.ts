@@ -8,7 +8,7 @@ import {forgetBlocked, rememberBlocked, wasBlockedRecently} from "./nitroAdsBloc
 //   an image on s.nitropay.com failed to load three times. NitroPay's guidance
 //   for that event is to "perform whatever task is necessary such as
 //   re-adjusting your layout", which is what callers use this for.
-// - `nitroAds.failed`, from the loader tag's onerror in poe2/index.html: the
+// - `nitroAds.failed`, from the loader tag's onerror in each app's index.html: the
 //   ad script itself failed to load. Catches lists that block the script but
 //   let the probe image through.
 // - A deadline. Some blockers do not fail the requests but answer them with

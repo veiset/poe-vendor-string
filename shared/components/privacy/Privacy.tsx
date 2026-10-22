@@ -1,15 +1,19 @@
 import "./Privacy.css";
 
-const LAST_UPDATED = "16 September 2026";
+const SITES = {
+  "poe.re": {game: "Path of Exile", lastUpdated: "22 October 2026"},
+  "poe2.re": {game: "Path of Exile 2", lastUpdated: "16 September 2026"},
+};
 
-export function Privacy() {
+export function Privacy({site}: {site: keyof typeof SITES}) {
+  const {game, lastUpdated} = SITES[site];
   return (
     <div className="privacy-page">
       <h1>Privacy policy</h1>
-      <p className="privacy-updated">Last updated: {LAST_UPDATED}</p>
+      <p className="privacy-updated">Last updated: {lastUpdated}</p>
 
       <p>
-        poe2.re is a free tool that generates search strings for Path of Exile 2. It has no
+        {site} is a free tool that generates search strings for {game}. It has no
         accounts and no login. This policy explains what is collected when you use the site and
         the choices you have.
       </p>
