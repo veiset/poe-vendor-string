@@ -1,4 +1,5 @@
-import AdBanner from "@shared/components/ads/AdBanner";
+import {useLocation} from "react-router-dom";
+import NitroAd from "@shared/components/ads/NitroAd";
 import type {NitroAdOptions} from "@shared/core/nitroAds";
 
 const BANNER_ID = "ad-std-banner-poere-nitro-001";
@@ -16,7 +17,12 @@ const BANNER_OPTIONS: NitroAdOptions = {
   },
 };
 
-// Rendered by poe's Header, so it sits under the page title.
-export const Poe1AdBanner = () => <AdBanner id={BANNER_ID} options={BANNER_OPTIONS}/>;
+// Rendered by poe's Header, so it sits under the page title. Keyed by pathname so
+// every navigation tears the placement down and creates a new one, which is
+// what NitroPay asks single-page apps to do (removed, not hidden or reused).
+export const Poe1AdBanner = () => {
+  const {pathname} = useLocation();
+  return <NitroAd key={pathname} id={BANNER_ID} options={BANNER_OPTIONS}/>;
+};
 
 export default Poe1AdBanner;
