@@ -1,6 +1,6 @@
 import {PageHeader} from "@shared/components/PageHeader";
 import Profile from "./profile/Profile";
-import Poe1AdBanner from "./ads/Poe1AdBanner";
+import Poe1AdBanner from "@shared/components/ads/banners/Poe1AdBanner";
 
 export interface HeaderProps {
   text: string

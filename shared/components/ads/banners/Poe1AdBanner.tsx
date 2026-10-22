@@ -16,7 +16,7 @@ const BANNER_OPTIONS: NitroAdOptions = {
   },
 };
 
-// Rendered by Header, so it sits under the page title.
+// Rendered by poe's Header, so it sits under the page title.
 export const Poe1AdBanner = () => <AdBanner id={BANNER_ID} options={BANNER_OPTIONS}/>;
 
 export default Poe1AdBanner;
