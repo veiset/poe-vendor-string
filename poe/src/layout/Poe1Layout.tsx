@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Outlet} from "react-router-dom";
-import CoffeeBanner from "@shared/components/banner/CoffeeBanner";
 import PageLinks from "./PageLinks";
+import SiteFooter from "@shared/components/SiteFooter";
 import {ensureDefaultProfile, loadSettings, selectedProfile} from "@poe/utils/LocalStorage";
 import {ProfileContext} from "@poe/components/profile/ProfileContext";
 import {useRefreshFromInitialLoad, useRefreshOnFocus} from "@shared/core/RefreshOnFocus";
@@ -30,7 +30,6 @@ export const Poe1Layout = () => {
     <ProfileContext.Provider value={{globalProfile, setGlobalProfile, lang, setLang}}>
       <LeagueProvider>
         <FavoritesProvider>
-          <CoffeeBanner/>
           <div className="content-height-wrapper">
             <div className="content-container">
               <div className="content-links">
@@ -47,6 +46,7 @@ export const Poe1Layout = () => {
                 <div className="content-right-gfx"/>
               </div>
             </div>
+            <SiteFooter/>
           </div>
         </FavoritesProvider>
       </LeagueProvider>

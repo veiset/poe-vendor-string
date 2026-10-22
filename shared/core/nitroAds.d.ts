@@ -1,5 +1,5 @@
 /**
- * Types for the NitroPay ad script loaded in poe2/index.html.
+ * Types for the NitroPay ad script loaded in each app's index.html.
  *
  * The loader stub in that file defines `window.nitroAds` synchronously and
  * queues calls until the real script arrives, so `createAd` can be called
@@ -40,7 +40,7 @@ declare global {
     __cmp?: (command: string) => void;
     /** Set by NitroPay's ad-block detection, see @shared/core/nitroAdsDetect. */
     npDetect?: {blocking: boolean};
-    /** Set by the loader tag's onerror in poe2/index.html when the ad script fails to load. */
+    /** Set by the loader tag's onerror in each app's index.html when the ad script fails to load. */
     nitroAdsFailed?: boolean;
   }
 
@@ -57,7 +57,7 @@ declare global {
     "nitroAds.rendered": CustomEvent<{type?: string}>;
     /** Fired by the detection in @shared/core/nitroAdsDetect when the ad script is being blocked. */
     "np.blocking": CustomEvent<{blocking: boolean}>;
-    /** Fired by the loader tag's onerror in poe2/index.html when the ad script fails to load. */
+    /** Fired by the loader tag's onerror in each app's index.html when the ad script fails to load. */
     "nitroAds.failed": Event;
   }
 }

@@ -1,5 +1,4 @@
 import {useEffect, useRef} from "react";
-import classNames from "classnames";
 import type {NitroAdInstance, NitroAdOptions} from "@shared/core/nitroAds";
 import {useNitroAdsBlocked} from "./useNitroAdsBlocked";
 import {useNitroAdUnfilled} from "./useNitroAdUnfilled";
@@ -11,7 +10,6 @@ type CreatedAd = NitroAdInstance | NitroAdInstance[] | null | undefined;
 interface NitroAdProps {
   id: string;
   options: NitroAdOptions;
-  className?: string;
 }
 
 /**
@@ -33,7 +31,7 @@ interface NitroAdProps {
  * blocker that stops the bidders rather than the script, or a plain no-fill),
  * the reserved height is dropped while the container itself stays put.
  */
-export const NitroAd = ({id, options, className = ""}: NitroAdProps) => {
+export const NitroAd = ({id, options}: NitroAdProps) => {
   const blocked = useNitroAdsBlocked();
   const container = useRef<HTMLDivElement | null>(null);
   const unfilled = useNitroAdUnfilled(container);
@@ -58,7 +56,7 @@ export const NitroAd = ({id, options, className = ""}: NitroAdProps) => {
 
   if (blocked) {
     return (
-      <p className={classNames("nitro-ad-blocked", className)}>
+      <p className="nitro-ad-blocked">
         Adblocker detected, minimizing ad space to make the user experience better.
       </p>
     );
@@ -68,7 +66,7 @@ export const NitroAd = ({id, options, className = ""}: NitroAdProps) => {
     <div
       id={id}
       ref={container}
-      className={classNames("nitro-ad", className)}
+      className="nitro-ad"
       style={{minHeight: unfilled ? 0 : options.height}}
     />
   );

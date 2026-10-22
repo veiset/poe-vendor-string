@@ -11,7 +11,7 @@ const Poe2Tablet = page(async () => ({default: (await import("../pages/tablet/Ta
 const Poe2Relic = page(async () => ({default: (await import("../pages/relic/Relic")).Relic}));
 const Poe2Item = page(async () => ({default: (await import("../pages/item/Item")).Item}));
 const Favorites = page(() => import("../pages/favorites/Favorites"));
-const Privacy = page(async () => ({default: (await import("../pages/privacy/Privacy")).Privacy}));
+const Privacy = page(async () => ({default: (await import("@shared/components/privacy/Privacy")).Privacy}));
 
 export const Poe2Routes = () => {
   // Once the site has rendered, so a click on a page doesn't wait for its code
@@ -27,7 +27,7 @@ export const Poe2Routes = () => {
         <Route path="tablet" element={<Poe2Tablet/>}/>
         <Route path="relic" element={<Poe2Relic/>}/>
         <Route path="item" element={<Poe2Item/>}/>
-        <Route path="privacy" element={<Privacy/>}/>
+        <Route path="privacy" element={<Privacy site="poe2.re"/>}/>
       </Route>
 
       <Route path="*" element={<Navigate to="/favorites" replace/>}/>

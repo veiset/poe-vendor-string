@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Outlet} from "react-router-dom";
 import {Poe2ProfileContext} from "./Poe2ProfileContext";
 import Poe2PageLinks from "./Poe2PageLinks";
-import Poe2Footer from "./Poe2Footer";
+import SiteFooter from "@shared/components/SiteFooter";
 import {ensureDefaultProfile, loadSettings, selectedProfile, updateSettings} from "../localStorage";
 import {useRefreshFromInitialLoad, useRefreshOnFocus} from "@shared/core/RefreshOnFocus";
 import {Poe2LeagueProvider} from "./Poe2LeagueContext";
@@ -46,7 +46,7 @@ export const Poe2Layout = () => {
                 <div className="content-right-gfx"/>
               </div>
             </div>
-            <Poe2Footer/>
+            <SiteFooter/>
           </div>
         </Poe2LeagueProvider>
       </FavoritesProvider>

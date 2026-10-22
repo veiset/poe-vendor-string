@@ -1,16 +1,18 @@
 /* The slot reserves its configured height up front so filling the ad in does
-   not shove the tool down the page. */
+   not shove the tool down the page. It sits directly under the page header,
+   which brings its own bottom padding. */
 .nitro-ad {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     overflow: hidden;
+    margin: 0 0 8px;
 }
 
 /* Takes the slot's place when the ad script is blocked. */
 .nitro-ad-blocked {
-    margin: 0;
+    margin: 0 0 8px;
     padding: 6px 0;
     font-size: 12px;
     text-align: center;

@@ -1,15 +1,19 @@
 import "./Privacy.css";
 
-const LAST_UPDATED = "16 September 2026";
+const SITES = {
+  "poe.re": {game: "Path of Exile", lastUpdated: "22 October 2026", poecdnImages: true},
+  "poe2.re": {game: "Path of Exile 2", lastUpdated: "16 September 2026", poecdnImages: false},
+};
 
-export function Privacy() {
+export function Privacy({site}: {site: keyof typeof SITES}) {
+  const {game, lastUpdated, poecdnImages} = SITES[site];
   return (
     <div className="privacy-page">
       <h1>Privacy policy</h1>
-      <p className="privacy-updated">Last updated: {LAST_UPDATED}</p>
+      <p className="privacy-updated">Last updated: {lastUpdated}</p>
 
       <p>
-        poe2.re is a free tool that generates search strings for Path of Exile 2. It has no
+        {site} is a free tool that generates search strings for {game}. It has no
         accounts and no login. This policy explains what is collected when you use the site and
         the choices you have.
       </p>
@@ -74,6 +78,12 @@ export function Privacy() {
         Coffee, and embeds the Buy Me a Coffee widget. Those services have their own privacy
         policies and this one does not cover them.
       </p>
+      {poecdnImages && (
+        <p>
+          Some pages show item images loaded from web.poecdn.com, the official Path of Exile image
+          server, which receives your IP address and browser details when they load.
+        </p>
+      )}
 
       <h2>Children</h2>
       <p>

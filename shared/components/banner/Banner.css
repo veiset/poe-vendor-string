@@ -1,21 +1,9 @@
-.coffee-banner {
-    text-align: center;
-    font-size: 16px;
-    color: #232323;
-    padding: 16px;
-    background-color: #eda866;
-}
-
 .info-banner {
     text-align: center;
     font-size: 16px;
     color: #000000;
     padding: 16px;
     background-color: #6fa6c3;
-}
-
-.banner-text-big {
-    font-size: 20px;
 }
 
 .banner-text-medium {
@@ -39,10 +27,4 @@
 
 .close-banner:hover {
     color: #ffffff;
-}
-
-.banner-link {
-    color: #000000;
-    font-weight: bold;
-    text-decoration: underline;
 }

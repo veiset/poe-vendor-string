@@ -19,6 +19,7 @@ const Tattoo = page(() => import("../pages/tattoo/Tattoo"));
 const Runegraft = page(() => import("../pages/runegraft/Runegraft"));
 const Favorites = page(() => import("../pages/favorites/Favorites"));
 const Gems = page(() => import("../pages/gems/Gems"));
+const Privacy = page(async () => ({default: (await import("@shared/components/privacy/Privacy")).Privacy}));
 
 export const Poe1Routes = () => {
   // Once the site has rendered, so a click on a page doesn't wait for its code
@@ -45,6 +46,7 @@ export const Poe1Routes = () => {
         <Route path="scarab" element={<Scarabs/>}/>
         <Route path="tattoo" element={<Tattoo/>}/>
         <Route path="runegraft" element={<Runegraft/>}/>
+        <Route path="privacy" element={<Privacy site="poe.re"/>}/>
         <Route path="jewel" element={
           <MovedContent title="[Moved] Jewels" newPath="/items" linkText="Items"
                         extraInfo="Under the item section, select the jewel base you want to craft and then select mods."/>
